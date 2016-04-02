@@ -11,7 +11,7 @@ private Inventory(){
 	inventory = new ArrayList<Item>();
 	allowedSize = 5;
 }
-private static synchronized Inventory getInstance(){
+public static synchronized Inventory getInstance(){
 	if(self==null){
 		self = new Inventory();
 	}
@@ -20,7 +20,7 @@ private static synchronized Inventory getInstance(){
 public String toString(){
 	String list="";
 	for(int i=0;i<inventory.size();i++){
-		list= list + " " + inventory.get(i);
+		list= list + " " + inventory.get(i).getName();
 	}
 	return list;
 }

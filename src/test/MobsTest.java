@@ -1,15 +1,13 @@
 package test;
 
 import static org.junit.Assert.*;
-
+import model.items.*;
 import org.junit.Test;
-
 import model.mobs.Snape;
 import model.mobs.mobs;
 import model.mobs.ordinaryWizards;
 
 public class MobsTest {
-
 	@Test
 	public void AddOrdinaryWiztest() {
 		mobs malfoy = new ordinaryWizards("Malfoy", 100, "Slytherin");
