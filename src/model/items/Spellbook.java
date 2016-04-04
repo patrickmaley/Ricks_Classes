@@ -1,7 +1,6 @@
 package model.items;
 import java.util.Random;
 public class Spellbook extends Item{
-	//create spell when creating spellbooks 
 	private Spell mySpell;
 	public Spellbook(Spell s){
 		super("Spellbook", "Tool");

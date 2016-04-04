@@ -20,7 +20,7 @@ public static synchronized Inventory getInstance(){
 public String toString(){
 	String list="";
 	for(int i=0;i<inventory.size();i++){
-		list= list + " " + inventory.get(i).getName();
+		list= list + inventory.get(i).getName()+" ";
 	}
 	return list;
 }
