@@ -5,6 +5,7 @@ public abstract class GenericRoom {
 	private GenericRoom eastRoom;
 	private GenericRoom southRoom;
 	private GenericRoom westRoom;
+	private RoomType roomType;
 	private String roomTitle;
 	private String roomDescription;
 	private boolean mobPresent;
@@ -12,18 +13,18 @@ public abstract class GenericRoom {
 	private int gridX;
 	private int gridY;
 	
-	public GenericRoom(){
-		
+	public GenericRoom(RoomType roomType){
+		this.roomType = roomType;
 	}
 
 	//private ArrayList<Items> itemsList = new ArrayList<Items>();
-	public GenericRoom(GenericRoom north, GenericRoom south, GenericRoom east, GenericRoom west){
-		this.northRoom = north;
-		this.southRoom = south;
-		this.eastRoom = east;
-		this.westRoom = west;
-	}
-	
+//	public GenericRoom(GenericRoom north, GenericRoom south, GenericRoom east, GenericRoom west){
+//		this.northRoom = north;
+//		this.southRoom = south;
+//		this.eastRoom = east;
+//		this.westRoom = west;
+//	}
+//	
 	public GenericRoom getNextRoom(String direction){
 		switch(direction){
 		case "n": case "north":
@@ -46,6 +47,9 @@ public abstract class GenericRoom {
 	public void setRoomDescription(String details){
 		this.roomDescription = details;
 	}
+	public String getRoomDescription(){
+		return this.roomDescription;
+	}
 	
 //	public boolean checkMobs(){
 //		return this.mobPresent;
@@ -55,6 +59,9 @@ public abstract class GenericRoom {
 		this.roomTitle = title;
 	}
 	
+	public String getTitle(){
+		return this.roomTitle;
+	}
 	public void setNorthRoom(GenericRoom room){
 		this.northRoom = room;
 	}
