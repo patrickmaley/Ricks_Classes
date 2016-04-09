@@ -66,9 +66,6 @@ public class Player {
 			HP = HP + amount;
 		}
 	}
-	public void performAction(String s){
-		this.interaction.performAction(s);
-	}
 	
 	public void performAction(String s){
 		this.interaction.performAction(s);
