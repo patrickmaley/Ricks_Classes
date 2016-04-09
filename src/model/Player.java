@@ -2,13 +2,17 @@ package model;
 
 import java.util.ArrayList;
 
+import model.items.Inventory;
+import model.items.Spell;
+
 public class Player {
 
 	private String username;
 	private char[] password;
-	private String gamename;
+	private String gameName;
  	private ArrayList<Spell> knownSpells;
 	private Inventory inventory;
+	private Interactions interaction;
 	private int HP;
 	
 	public Player(String username, char[] password, String gamename){
@@ -16,8 +20,9 @@ public class Player {
 		this.password = password;
 		this.gamename = gamename;
 		this.knownSpells = new ArrayList<Spell>();
-		this.inventory = new Inventory();
+		this.inventory = Inventory.getInstance();
 		this.HP = 100;
+		this.interaction= new Interactions(this);
 	}
 	
 	//Returns the username of the player
@@ -31,8 +36,8 @@ public class Player {
 	}
 	
 	//Returns the in game name of the player
-	public String getGamename(){
-		return this.gamename;
+	public String getGameName(){
+		return this.gameName;
 	}
 	
 	//Returns the current HP of the player
@@ -58,6 +63,10 @@ public class Player {
 		else{
 			HP = HP + amount;
 		}
+	}
+	
+	public void performAction(String s){
+		this.interaction.performAction(s);
 	}
 	
 }
