@@ -1,6 +1,6 @@
 package model.items;
 import model.*;
-import model.mobs.mobs;
+import model.mobs.Mobs;
 
 import java.io.Serializable;
 
@@ -25,5 +25,5 @@ public abstract class Spell{
 	public boolean getStatus(){
 		return this.alreadyInBook;
 	}
-	abstract public boolean canAttack(mobs m);
+	abstract public boolean canAttack(Mobs m);
 }

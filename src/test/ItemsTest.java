@@ -1,11 +1,15 @@
 package test;
-import model.Player;
+import model.player.Player;
 import model.items.*;
+import model.mobs.Dementor;
+import model.mobs.OrdinaryWizards;
 import model.mobs.Snape;
-import model.mobs.mobs;
-import model.mobs.ordinaryWizards;
 
 import static org.junit.Assert.*;
+
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+
 import org.junit.Test;
 public class ItemsTest {
 private String get = "get";
@@ -57,8 +61,8 @@ private ButterBeer butterBeer = new ButterBeer();
 private HealingPotion healingPotion = new HealingPotion();
 private DependencyInjectionSword dependencyInjectionSword = new DependencyInjectionSword();
 private Snape snape = new Snape("Snape", 0);
-private ordinaryWizards dementor = new ordinaryWizards("Dementor", 0, "syltherin"); 
-private ordinaryWizards ordinaryWizard = new ordinaryWizards("ordinary", 0, "syltherin"); 
+private Dementor dementor = new Dementor("Dementor", 0); 
+private OrdinaryWizards ordinaryWizard = new OrdinaryWizards("ordinary", 0, "syltherin"); 
 @Test
 public void testSpells(){
 	avadaKedvra.putInBook();
@@ -196,7 +200,7 @@ public void testItems(){
 	//
 }
 @Test 
-public void testInventory(){
+public void testInventory() throws NoSuchAlgorithmException, NoSuchProviderException{
 	char [] password = new char ['p'];
 	Player p = new Player("Player", password,"hi","gryffindor");
 	Inventory inventory = p.getInventory();

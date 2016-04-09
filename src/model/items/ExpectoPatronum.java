@@ -1,6 +1,6 @@
 package model.items;
 
-import model.mobs.mobs;
+import model.mobs.Mobs;
 
 public class ExpectoPatronum extends Spell {
 	private static String name = "Expecto Patronum";
@@ -11,7 +11,7 @@ public class ExpectoPatronum extends Spell {
 	}
 
 	@Override
-	public boolean canAttack(mobs m) {
+	public boolean canAttack(Mobs m) {
 		if(m.getName().equals("Dementor")){
 			return true;
 		}

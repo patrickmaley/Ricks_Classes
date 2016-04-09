@@ -1,6 +1,6 @@
 package model.items;
 
-import model.Player;
+import model.player.Player;
 
 public class NeverEndingBook extends Item{
 	private String bookText;

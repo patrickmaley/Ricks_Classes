@@ -31,7 +31,7 @@ public class Player {
 		this.username = username;
 		this.gameName = gameName;
 		this.knownSpells = new ArrayList<Spell>();
-		this.inventory = Inventory.getInstance();
+		this.inventory = new Inventory();
 		this.HP = 100;
 		this.house = house;
 		this.currentRoom = Map.setMap().getEntrance();
@@ -124,5 +124,10 @@ public class Player {
         }
         return generatedPassword;
     }
+
+	public Inventory getInventory() {
+		// TODO Auto-generated method stub
+		return this.inventory;
+	}
      
 }

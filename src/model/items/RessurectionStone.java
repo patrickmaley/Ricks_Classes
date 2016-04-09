@@ -1,6 +1,6 @@
 package model.items;
 
-import model.Player;
+import model.player.Player;
 
 public class RessurectionStone  extends Item {
 	private double hpIncreaser = 100.00;

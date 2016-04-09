@@ -1,6 +1,6 @@
 package model.items;
 
-import model.Player;
+import model.player.Player;
 
 public class SwordOfGryffindor  extends Item {
 	private String description;
