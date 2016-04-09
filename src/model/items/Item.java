@@ -1,18 +1,15 @@
 package model.items;
 
+import model.Player;
+
 public abstract class Item {
-	private static String name;
-	private static String type;
-	
-public Item(String s, String t){
-	this.name=s;
-	this.type=t;
+	private String name;
+public Item(String s){
+	name=s;
 }
 public String getName(){
-	return this.name;
+	return name;
 }
-public String getType(){
-	return this.type;
-}
-abstract public void use();
+abstract public String use(Player p);
+abstract public String getDescription();
 }

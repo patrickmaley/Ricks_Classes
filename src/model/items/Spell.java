@@ -1,12 +1,13 @@
 package model.items;
+import model.*;
+import model.mobs.mobs;
 
 import java.io.Serializable;
 
-public class Spell{
-	private static String name;
-	private static double attackPower;
-	private static boolean alreadyInBook;
-	private static Spell self;
+public abstract class Spell{
+	private  String name;
+	private  double attackPower;
+	private  boolean alreadyInBook;
 	public Spell(String n, double aP){
 		this.name=n;
 		this.attackPower=aP;
@@ -24,4 +25,5 @@ public class Spell{
 	public boolean getStatus(){
 		return this.alreadyInBook;
 	}
+	abstract public boolean canAttack(mobs m);
 }
