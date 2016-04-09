@@ -1,19 +1,29 @@
 package model.items;
 import java.util.Random;
+import model.Player;
 public class Spellbook extends Item{
 	private Spell mySpell;
+	private String spell;
+	private String description;
 	public Spellbook(Spell s){
-		super("Spellbook", "Tool");
+		super("Spellbook");
 		this.mySpell=s;
+		description = "With this you will gain knowledge. You learn how to perform a spell";
 	}
 	public Spell getSpell(){
 	return this.mySpell;
 }
 	@Override
-	public void use() {
+	public String use(Player p) {
+		String returner = "";
 		String name = this.mySpell.getName();
 		double power = this.mySpell.getAttackPower();
-		System.out.println("You now know how to use "+ name);
-		System.out.println("It does this much damage: " + power + " hp");
+		p.addKnownSpells(mySpell);
+		returner="You now know how to use "+ name + "\n"+ "It does this much damage: " + power + " AP";
+		return returner;
+	}
+	@Override
+	public String getDescription() {
+		return null;
 	}
 }
