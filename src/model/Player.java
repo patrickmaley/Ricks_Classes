@@ -7,16 +7,16 @@ public class Player {
 	private String username;
 	private char[] password;
 	private String gamename;
- 	//private ArrayList<Spell> knownSpells;
-	//private Inventory inventory;
+ 	private ArrayList<Spell> knownSpells;
+	private Inventory inventory;
 	private int HP;
 	
 	public Player(String username, char[] password, String gamename){
 		this.username = username;
 		this.password = password;
 		this.gamename = gamename;
-		//this.knownSpells = new ArrayList<Spell>();
-		//this.inventory = new Inventory();
+		this.knownSpells = new ArrayList<Spell>();
+		this.inventory = new Inventory();
 		this.HP = 100;
 	}
 	
