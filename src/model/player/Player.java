@@ -26,6 +26,7 @@ public class Player {
 	private double HP;
 	private String house;
 	
+	
 	public Player(String username, char[] password, String gameName, String house) throws NoSuchAlgorithmException, NoSuchProviderException{
 		this.password = getSecurePassword(password.toString());
 		this.username = username;
