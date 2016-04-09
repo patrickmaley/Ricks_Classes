@@ -5,23 +5,18 @@ import java.util.ArrayList;
 
 public class Inventory implements Serializable  {
 private ArrayList<Item> inventory;
-private static Inventory self;
 private	int allowedSize;
-private Inventory(){
+public Inventory(){
 	inventory = new ArrayList<Item>();
 	allowedSize = 5;
-}
-public static synchronized Inventory getInstance(){
-	if(self==null){
-		self = new Inventory();
-	}
-	return self;
 }
 public String toString(){
 	String list="";
 	for(int i=0;i<inventory.size();i++){
+		System.out.println(inventory.get(i).getName());
 		list= list + inventory.get(i).getName()+" ";
 	}
+	System.out.println(list);
 	return list;
 }
 public boolean add(Item i){

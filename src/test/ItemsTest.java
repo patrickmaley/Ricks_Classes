@@ -1,38 +1,224 @@
 package test;
+import model.Player;
 import model.items.*;
+import model.mobs.Snape;
+import model.mobs.mobs;
+import model.mobs.ordinaryWizards;
+
 import static org.junit.Assert.*;
 import org.junit.Test;
 public class ItemsTest {
+private String get = "get";
+private String look = "look";
+private String commands = "commands";
+private String who = "who";
+private String say = "say";
+private String tell = "tell";
+private String info = "score";
+private String give = "give";
+private String take = "take";
+private String inventory = "inventory";
+private String drop = "drop";
+private String use = "use";
+private String quit = "quit";
+// all the things in the models.item package
+private Spell avadaKedvra = new AvadaKedvra();
+private Spell expelliarumus = new Expelliarumus();
+private Spell expectoPatronum = new ExpectoPatronum();
+private Spell imperio = new Imperio();
+private Spell crucio = new Crucio();
+private Spell expluso= new Expulso();
+private Spell incendio = new Incendio();
+private Spell petrificusTotalus = new PetrificusTotalus();
+private Spell sectumSempra = new SectumSempra();
+private Spell stupefy = new Stupefy();
+private Spellbook sbOne = new Spellbook(avadaKedvra);
+private Spellbook sbTwo = new Spellbook(expelliarumus);
+private Spellbook sbThree = new Spellbook(expectoPatronum);
+private Spellbook sbFour = new Spellbook(imperio);
+private Spellbook sbFive = new Spellbook(crucio);
+private Spellbook sbSix = new Spellbook(expluso);
+private Spellbook sbSeven = new Spellbook(incendio);
+private Spellbook sbEight = new Spellbook(petrificusTotalus);
+private Spellbook sbNine = new Spellbook(sectumSempra);
+private Spellbook sbTen = new Spellbook(stupefy);
+private BassilskFang bassilskFang = new BassilskFang();
+private Broomstick broomstick = new Broomstick();
+private Deluminator deluminator = new Deluminator();
+private ElderWand elderWand = new ElderWand();
+private InvisibilityCloak invisibilityCloak = new InvisibilityCloak();
+private MaurdersMap maurdersMap = new MaurdersMap();
+private NeverEndingBook neverEndingBook = new NeverEndingBook(); 
+private RegularWand regularWand = new RegularWand();
+private SwordOfGryffindor swordOfGryffindor = new SwordOfGryffindor();
+private HermoinesHandbag hermoinesHandbag = new HermoinesHandbag();
+private RessurectionStone ressurectionStone = new RessurectionStone();
+private ButterBeer butterBeer = new ButterBeer();
+private HealingPotion healingPotion = new HealingPotion();
+private DependencyInjectionSword dependencyInjectionSword = new DependencyInjectionSword();
+private Snape snape = new Snape("Snape", 0);
+private ordinaryWizards dementor = new ordinaryWizards("Dementor", 0, "syltherin"); 
+private ordinaryWizards ordinaryWizard = new ordinaryWizards("ordinary", 0, "syltherin"); 
 @Test
-public void testItemandInventory(){
-	Spell aK = new Spell("Avada Kedvra", 100);
-	Spellbook one = new Spellbook(aK);
-	assertEquals(one.getName(), "Spellbook");
-	assertEquals(one.getType(), "Tool");
-	Spell getting = one.getSpell();
-	assertEquals(getting, aK);
-	one.use();
-	Spell e = new Spell("Expelliarumus", 50);
-	Spell eP = new Spell("Expecto Patronum", 100);
-	Spell i = new Spell("Imperio", 75);
-	Spell c = new Spell("Crucio", 75);
-	Spell r= new Spell("Expulso", 40);
-	Spellbook two = new Spellbook(e);
-	Spellbook three = new Spellbook(eP);
-	Spellbook four = new Spellbook(i);
-	Spellbook five = new Spellbook(c);
-	Spellbook six = new Spellbook(r);
-	Inventory inven = Inventory.getInstance();
-	assertTrue(inven.add(one));
-	assertTrue(inven.add(two));
-	assertTrue(inven.add(three));
-	assertTrue(inven.add(four));
-	assertTrue(inven.add(five));
-	String s =inven.toString();
-	System.out.println(s);
-	assertFalse(inven.add(six));
-	inven.drop(five);
-	assertTrue(inven.add(six));
+public void testSpells(){
+	avadaKedvra.putInBook();
+	assertEquals(avadaKedvra.getAttackPower(), 100,.01);
+	assertTrue(avadaKedvra.getStatus());
+	assertEquals(avadaKedvra.getName(), "Avada Kedvra");
+	assertTrue(avadaKedvra.canAttack(snape));
+	assertFalse(avadaKedvra.canAttack(dementor));
+	//
+	expelliarumus.putInBook();
+	assertEquals(expelliarumus.getAttackPower(), 15,.01);
+	assertTrue(expelliarumus.getStatus());
+	assertEquals(expelliarumus.getName(), "Expelliarumus");
+	assertTrue(expelliarumus.canAttack(snape));
+	assertFalse(expelliarumus.canAttack(dementor));
+	//
+	expectoPatronum.putInBook();
+	assertEquals(expectoPatronum.getAttackPower(), 100,.01);
+	assertTrue(expectoPatronum.getStatus());
+	assertEquals(expectoPatronum.getName(), "Expecto Patronum");
+	assertFalse(expectoPatronum.canAttack(snape));
+	assertTrue(expectoPatronum.canAttack(dementor));
+	//
+	imperio.putInBook();
+	assertEquals(imperio.getAttackPower(), 40,.01);
+	assertTrue(imperio.getStatus());
+	assertEquals(imperio.getName(), "Imperio");
+	assertTrue(imperio.canAttack(snape));
+	assertFalse(imperio.canAttack(dementor));
+	//
+	crucio.putInBook();
+	assertEquals(crucio.getAttackPower(), 50,.01);
+	assertTrue(crucio.getStatus());
+	assertEquals(crucio.getName(), "Crucio");
+	assertTrue(crucio.canAttack(snape));
+	assertFalse(crucio.canAttack(dementor));
+	//
+	expluso.putInBook();
+	assertEquals(expluso.getAttackPower(), 20,.01);
+	assertTrue(expluso.getStatus());
+	assertEquals(expluso.getName(), "Expulso");
+	assertTrue(expluso.canAttack(snape));
+	assertFalse(expluso.canAttack(dementor));
+	//
+	incendio.putInBook();
+	assertEquals(incendio.getAttackPower(), 10,.01);
+	assertTrue(incendio.getStatus());
+	assertEquals(incendio.getName(), "Incendio");
+	assertTrue(incendio.canAttack(snape));
+	assertFalse(incendio.canAttack(dementor));
+	//
+	petrificusTotalus.putInBook();
+	assertEquals(petrificusTotalus.getAttackPower(), 15,.01);
+	assertTrue(petrificusTotalus.getStatus());
+	assertEquals(petrificusTotalus.getName(), "Petrificus Totalus");
+	assertTrue(petrificusTotalus.canAttack(snape));
+	assertFalse(petrificusTotalus.canAttack(dementor));
+	//
+	sectumSempra.putInBook();
+	assertEquals(sectumSempra.getAttackPower(), 80,.01);
+	assertTrue(sectumSempra.getStatus());
+	assertEquals(sectumSempra.getName(), "Sectum Sempra");
+	assertFalse(sectumSempra.canAttack(snape));
+	assertFalse(sectumSempra.canAttack(dementor));
+	assertTrue(sectumSempra.canAttack(ordinaryWizard));
+	//
+	stupefy.putInBook();
+	assertEquals(stupefy.getAttackPower(), 30,.01);
+	assertTrue(stupefy.getStatus());
+	assertEquals(stupefy.getName(), "Stupefy");
+	assertTrue(stupefy.canAttack(snape));
+	assertFalse(stupefy.canAttack(dementor));
+}	
+@Test
+public void testItems(){
+	assertEquals(broomstick.getName(), "Broomstick");
+	String d1 = broomstick.getDescription();
+	System.out.println(d1);
+	//
+	assertEquals(bassilskFang.getName(), "Bassilsk Fang");
+	String d2 = bassilskFang.getDescription();
+	System.out.println(d2);
+	//
+	assertEquals(butterBeer.getName(), "Butter Beer");
+	String d3 = butterBeer.getDescription();
+	System.out.println(d3);
+	//
+	assertEquals(deluminator.getName(), "Deluminator");
+	String d4 = deluminator.getDescription();
+	System.out.println(d4);
+	//
+	assertEquals(elderWand.getName(), "Elder Wand");
+	String d5 = elderWand.getDescription();
+	System.out.println(d5);
+	//
+	assertEquals(healingPotion.getName(), "Healing Potion");
+	String d6 = healingPotion.getDescription();
+	System.out.println(d6);
+	//
+	assertEquals(hermoinesHandbag.getName(), "Hermoines Handbag");
+	String d7 = hermoinesHandbag.getDescription();
+    System.out.println(d7);
+	//
+	assertEquals(invisibilityCloak.getName(), "Invisibility Cloak");
+	String d8 = invisibilityCloak.getDescription();
+	System.out.println(d8);
+	//
+	assertEquals(maurdersMap.getName(), "Maurders Map");
+	String d9 = maurdersMap.getDescription();
+	System.out.println(d9);
+	//
+	assertEquals(neverEndingBook.getName(), "Neverending Book");
+	String d10 = neverEndingBook.getDescription();
+	System.out.println(d10);
+	//
+	assertEquals(regularWand.getName(), "Regular Wand");
+	String d11 = regularWand.getDescription();
+	System.out.println(d11);
+	//
+	assertEquals(ressurectionStone.getName(), "Ressurection Stone");
+	String d12 = ressurectionStone.getDescription();
+	System.out.println(d12);
+	//
+	assertEquals(sbOne.getName(), "Spellbook");
+	String d13 = sbOne.getDescription();
+	System.out.println(d13);
+	//
+	assertEquals(dependencyInjectionSword.getName(), "DependencyInjection Sword");
+	String d14 = dependencyInjectionSword.getDescription();
+	System.out.println(d14);
+	//
+	assertEquals(swordOfGryffindor.getName(), "Sword of Gryffindor");
+	String d15 = swordOfGryffindor.getDescription();
+	System.out.println(d15);
+	//
 }
-	
+@Test 
+public void testInventory(){
+	char [] password = new char ['p'];
+	Player p = new Player("Player", password,"hi","gryffindor");
+	Inventory inventory = p.getInventory();
+	inventory.add(invisibilityCloak);
+	inventory.add(sbOne);
+	inventory.add(hermoinesHandbag);
+	inventory.add(healingPotion);
+	inventory.add(elderWand);
+	String usingSpellBook=sbOne.use(p);
+	System.out.println(usingSpellBook);
+	assertFalse(inventory.add(broomstick));
+	hermoinesHandbag.use(p);
+	assertTrue(inventory.add(broomstick));
+	assertTrue(inventory.add(butterBeer));
+	System.out.println(inventory.toString());
+	String usinghP = healingPotion.use(p);
+	System.out.println(usinghP);
+	String usingbBeer = butterBeer.use(p);
+	System.out.println(usingbBeer);
+	inventory.add(dependencyInjectionSword);
+	System.out.println(dependencyInjectionSword.use(p));
+	assertTrue(inventory.add(ressurectionStone));
+	System.out.println(ressurectionStone.use(p));
+}
 }

@@ -11,16 +11,24 @@ public class Interactions {
 		String command = "";
 		boolean foundSpace = false;
 		int a=0;
-		while(!foundSpace || a == totalCommand.length()){
+		while(!foundSpace){
+			if(a== totalCommand.length()){
+				break;
+			}
 			if(totalCommand.charAt(a)==' '){
 				foundSpace = true;
 			}
 			else{
 			command+=totalCommand.charAt(a);
-			a++;
 			}
+			a++;
+			//System.out.println(a);
+			//System.out.println(totalCommand.length());
 		}
-		String commandParameters = totalCommand.substring(a);
+		command.toLowerCase();
+		System.out.println(command);
+		String commandParameters = totalCommand.substring(a).trim();
+		System.out.println("This is the command paramters: " + commandParameters);
 		if(command.equals("north")){
 			move(Move.NORTH);
 		}
@@ -95,8 +103,8 @@ public class Interactions {
 	}
 
 	private void inventory() {
-		// TODO Auto-generated method stub
-		
+		//System.out.println("I was called");
+		System.out.println(player.getInventory().toString());
 	}
 
 	private void take(String commandParameters) {
