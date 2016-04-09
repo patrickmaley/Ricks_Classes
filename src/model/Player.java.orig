@@ -63,9 +63,11 @@ public class Player {
 			HP = HP + amount;
 		}
 	}
-
+<<<<<<< HEAD
 	public void performAction(String s){
 		this.interaction.performAction(s);
 	}
 	
+=======
+>>>>>>> rooms
 }
