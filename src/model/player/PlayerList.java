@@ -31,7 +31,9 @@ public class PlayerList implements Serializable {
 	}
 	
 	public void newPlayer(Player p){
-		validPlayers.add(p);
+		if (!validPlayers.contains(p)){
+			validPlayers.add(p);
+		}
 	}
 	
 	private void setDefaultPlayers() throws NoSuchAlgorithmException, NoSuchProviderException{
