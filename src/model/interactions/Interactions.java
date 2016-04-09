@@ -1,7 +1,6 @@
 package model.interactions;
-import model.Player;
 import model.interactions.*;
-import model.*;
+import model.player.*;
 public class Interactions {
 	private Player player;
 	public Interactions(Player p){
