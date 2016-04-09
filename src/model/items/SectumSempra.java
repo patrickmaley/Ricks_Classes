@@ -1,6 +1,6 @@
 package model.items;
 
-import model.mobs.mobs;
+import model.mobs.Mobs;
 
 public class SectumSempra extends Spell {
 	private static String name = "Sectum Sempra";
@@ -10,11 +10,11 @@ public class SectumSempra extends Spell {
 		// TODO Auto-generated constructor stub
 	}
 	@Override
-	public boolean canAttack(mobs m) {
+	public boolean canAttack(Mobs m) {
 		if(m.getName().equals("Dementor")){
 			return false;
 		}
-		else if (m.getName().equals("Snape")){
+		else if (m.getName().equals("Professor Snape")){
 			return false;
 		}
 		else{

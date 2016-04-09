@@ -1,6 +1,6 @@
 package model.items;
 
-import model.Player;
+import model.player.Player;
 
 public class ElderWand extends Item {
 	private static double attackPower = 30.00;

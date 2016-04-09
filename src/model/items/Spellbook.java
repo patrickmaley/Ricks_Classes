@@ -1,6 +1,6 @@
 package model.items;
 import java.util.Random;
-import model.Player;
+import model.player.Player;
 public class Spellbook extends Item{
 	private Spell mySpell;
 	private String spell;

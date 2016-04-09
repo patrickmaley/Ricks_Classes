@@ -1,8 +1,8 @@
 package model.items;
 
-import model.mobs.mobs;
+import model.mobs.Mobs;
 
-public class AvadaKedvra extends Spell {
+public class AvadaKedvra extends Spell{
 	public AvadaKedvra() {
 		super(name, attackPower);
 		// TODO Auto-generated constructor stub
@@ -10,7 +10,7 @@ public class AvadaKedvra extends Spell {
 	private static String name = "Avada Kedvra";
 	private static double attackPower= 100;
 	@Override
-	public boolean canAttack(mobs m) {
+	public boolean canAttack(Mobs m) {
 		if(m.getName().equals("Dementor")){
 			return false;
 		}
