@@ -1,5 +1,9 @@
 package model;
-
+import model.items.*;
+import model.room.*;
+import model.interactions.*;
+import model.mobs.*;
+import model.map.*;
 import java.util.ArrayList;
 
 import model.items.Inventory;
@@ -14,7 +18,6 @@ public class Player {
 	private Inventory inventory;
 	private Interactions interaction;
 	private int HP;
-	
 	public Player(String username, char[] password, String gamename){
 		this.username = username;
 		this.password = password;
@@ -24,7 +27,6 @@ public class Player {
 		this.HP = 100;
 		this.interaction= new Interactions(this);
 	}
-	
 	//Returns the username of the player
 	public String getUsername(){
 		return this.username;
@@ -63,6 +65,9 @@ public class Player {
 		else{
 			HP = HP + amount;
 		}
+	}
+	public void performAction(String s){
+		this.interaction.performAction(s);
 	}
 	
 	public void performAction(String s){
