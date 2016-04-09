@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import model.items.Spell;
 import model.player.Player;
+import model.player.PlayerList;
 
 public class playerTest {
 
@@ -18,6 +19,8 @@ public class playerTest {
 	
 	@Test
 	public void testPlayerGetters() throws NoSuchAlgorithmException, NoSuchProviderException {
+		PlayerList current = PlayerList.setList();
+		
 		Player player1 = new Player("Lee", password1, "Doris", "Gryffindor");
 		Player player2 = new Player("Luna", password2, "Debbie", "Ravenclaw");
 		Player player3 = new Player("Neville", password3, "Kevin", "Gryffindor");
@@ -25,6 +28,14 @@ public class playerTest {
 		Spell spell1 = new Spell("STFU", 20);
 		Spell spell2 = new Spell("FO", 30);
 		Spell spell3 = new Spell("FU", 40);
+		
+		assertEquals(2, current.getCurrentList().size());
+		current.newPlayer(player1);
+		assertEquals(3, current.getCurrentList().size());
+		current.newPlayer(player2);
+		assertEquals(4, current.getCurrentList().size());
+		current.newPlayer(player3);
+		assertEquals(5, current.getCurrentList().size());
 		
 		assertEquals("Lee", player1.getUsername());
 		assertEquals(true, player1.checkPassword(password1));
