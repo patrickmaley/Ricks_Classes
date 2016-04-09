@@ -1,14 +1,18 @@
 package model.mobs;
 
-public class ordinaryWizards extends mobs{
+import model.interactions.Interactions;
+
+public class OrdinaryWizards extends Mobs{
 
 	private String name;
 	private int hp;
 	private String house;
+	private String description;
 	
-	public ordinaryWizards(String name, int hp, String house) {
+	public OrdinaryWizards(String name, int hp, String house) {
 		super(name, hp);
 		this.house = house;
+		this.description = "This is " + name + " just an ordinary wizard minding their own business.";
 	}
 
 	public String getHouse(){
@@ -17,27 +21,21 @@ public class ordinaryWizards extends mobs{
 		}
 		return this.house;
 	}
-	
-	@Override
-	public String action() {
-		if(house == "Gryffindor"){
-			return "Hey what can I help with?";
-		}
-		if(house == "Hufflepuff"){
-				return "Our ghost is the Fat Friar";
-		}
-		if(house == "Ravenclaw"){
-			return "I'm smarter than you!";
-		}
-		if(house == "Slytherin"){
-			return "Piss off!";
-		}
-		return "I once belonged to a house, but then I took a spell to the knee :(";	
-	}
 
 	@Override
 	public boolean canBeAttacked() {
 		return false;
+	}
+
+	@Override
+	public String getDescription() {
+		return this.description;
+	}
+
+	@Override
+	public String action(String a) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
