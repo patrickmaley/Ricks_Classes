@@ -39,10 +39,7 @@ public class playerTest {
 		assertEquals(4, current.getCurrentList().size());
 		current.newPlayer(player3);
 		assertEquals(5, current.getCurrentList().size());
-<<<<<<< HEAD
-		
-=======
->>>>>>> 02b466120ccb673e9d969ee742a8a7242591cdb0
+
 		assertEquals("Lee", player1.getUsername());
 		assertEquals(true, player1.checkPassword(password1));
 		assertNotEquals(player1.getUsername(), player2.getUsername());
@@ -72,10 +69,7 @@ public class playerTest {
 		assertEquals(0, player3.getHP(), .0001);
 		player3.increaseHP(100);
 		assertEquals(100, player3.getHP(), .0001);
-<<<<<<< HEAD
-=======
 
->>>>>>> 02b466120ccb673e9d969ee742a8a7242591cdb0
 	}
 
 }
