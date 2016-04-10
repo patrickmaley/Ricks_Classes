@@ -7,6 +7,9 @@ import java.security.NoSuchProviderException;
 
 import org.junit.Test;
 
+import model.items.AvadaKedvra;
+import model.items.Expelliarumus;
+import model.items.SectumSempra;
 import model.items.Spell;
 import model.player.Player;
 import model.player.PlayerList;
@@ -25,9 +28,9 @@ public class playerTest {
 		Player player2 = new Player("Luna", password2, "Debbie", "Ravenclaw");
 		Player player3 = new Player("Neville", password3, "Kevin", "Gryffindor");
 		
-		Spell spell1 = new Spell("STFU", 20);
-		Spell spell2 = new Spell("FO", 30);
-		Spell spell3 = new Spell("FU", 40);
+		Spell spell1 = new AvadaKedvra();
+		Spell spell2 = new Expelliarumus();
+		Spell spell3 = new SectumSempra();
 		
 		assertEquals(2, current.getCurrentList().size());
 		current.newPlayer(player1);
@@ -36,7 +39,10 @@ public class playerTest {
 		assertEquals(4, current.getCurrentList().size());
 		current.newPlayer(player3);
 		assertEquals(5, current.getCurrentList().size());
+<<<<<<< HEAD
 		
+=======
+>>>>>>> 02b466120ccb673e9d969ee742a8a7242591cdb0
 		assertEquals("Lee", player1.getUsername());
 		assertEquals(true, player1.checkPassword(password1));
 		assertNotEquals(player1.getUsername(), player2.getUsername());
@@ -66,6 +72,10 @@ public class playerTest {
 		assertEquals(0, player3.getHP(), .0001);
 		player3.increaseHP(100);
 		assertEquals(100, player3.getHP(), .0001);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 02b466120ccb673e9d969ee742a8a7242591cdb0
 	}
 
 }

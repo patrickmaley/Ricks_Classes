@@ -3,8 +3,8 @@ import model.interactions.*;
 import model.player.*;
 public class Interactions {
 	private Player player;
-	public Interactions(Player p){
-		this.player=p;
+	public Interactions(Player player){
+		this.player=player;
 	}
 	public void performAction(String totalCommand){
 		String command = "";

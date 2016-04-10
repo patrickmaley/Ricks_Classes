@@ -1,6 +1,6 @@
 package model.items;
 
-import model.mobs.mobs;
+import model.mobs.Mobs;
 
 public class Crucio extends Spell {
 	public Crucio() {
@@ -10,7 +10,7 @@ public class Crucio extends Spell {
 	private static String name = "Crucio";
 	private static double attackPower= 50;
 	@Override
-	public boolean canAttack(mobs m) {
+	public boolean canAttack(Mobs m) {
 		if(m.getName().equals("Dementor")){
 			return false;
 		}
