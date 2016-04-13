@@ -82,6 +82,10 @@ public class Map implements Serializable{
 				+ " The branches appear fragile, but you know how fierce they can be. Turning away, "
 				+ " you remember that you left something behind in the common room of Hogswart."
 				+ " There are two ways to go east or south.");
+		outdoorRoomOne.setLookDownDescription("The grassy knoll leads down into a clearing."
+				+ " The grass near the Whomping Willow is still smuldering.");
+		outdoorRoomOne.setLookUpDescription(" Bright colors flash along the horizon."
+				+ " The sky begins to turn bright red. This shit is getting real");
 		
 		// Room 1,0
 		outdoorRoomTwo.setTitle("The Scenic Route");
@@ -89,6 +93,10 @@ public class Map implements Serializable{
 				+ " The small dots are whirling back and forth gliding through the air."
 				+ " Other students are milling about on the field practicing their spells."
 				+ " There are only two ways to go north or south.");
+		outdoorRoomTwo.setLookDownDescription(" The path to the quidditch arena has been worn down. "
+				+ " Mudding footsteps line the path heading in both directions.");
+		outdoorRoomTwo.setLookUpDescription(" A sole figure is floating in the sky. It's cloack is whirling behind it. "
+				+ "Legless as it flies around the castle.");
 		
 		// Room 2,0
 		outdoorRoomThree.setTitle("The Quidditch Field");
@@ -97,6 +105,8 @@ public class Map implements Serializable{
 				+ " On the ends of the field, the three rings for each time team dwarf your height."
 				+ " In the distance to the east, the Forbidden Forest looms."
 				+ " To the south, you see smoke coming from Hagrids.");
+		outdoorRoomThree.setLookDownDescription(" The bottom of the quidditch pitch is everything you'd expect.");
+		outdoorRoomThree.setLookUpDescription(" The sky is full of players zipping across the sky.");
 		
 		// Room 3,0
 		npcRoomOneHagridsHat.setTitle("Hagrids Hut");
@@ -106,7 +116,9 @@ public class Map implements Serializable{
 				+ " Hagrid doesn't seem to be here..."
 				+ " To the east of Hagrid's Hut, you hear a loud scream come from the Forbidden Forest."
 				+ " South of the Hut is the outdoor grounds to Hogwarts.");
-		
+		npcRoomOneHagridsHat.setLookDownDescription("");
+		npcRoomOneHagridsHat.setLookUpDescription("Test");
+
 		// Room 4,0
 		outdoorRoomFour.setTitle("The Open Field");
 		outdoorRoomFour.setRoomDescription(" You see an open field."

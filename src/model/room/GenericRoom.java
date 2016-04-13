@@ -1,5 +1,7 @@
 package model.room;
 
+import java.util.ArrayList;
+
 public abstract class GenericRoom {
 	private GenericRoom northRoom;
 	private GenericRoom eastRoom;
@@ -8,6 +10,9 @@ public abstract class GenericRoom {
 	private RoomType roomType;
 	private String roomTitle;
 	private String roomDescription;
+	private String lookUpDescription;
+	private String lookDownDescription;
+	private ArrayList<Items> itemsInRoom = new ArrayList<Items>();
 	private boolean mobPresent;
 	private boolean playerPresent;
 	private int gridX;
@@ -90,4 +95,22 @@ public abstract class GenericRoom {
 	public GenericRoom getWestRoom(){
 		return this.westRoom;
 	}
+
+	public void setLookDownDescription(String string) {
+		this.lookDownDescription = string;
+		
+	}
+
+	public void setLookUpDescription(String string) {
+		this.lookUpDescription = string;
+		
+	}
+	public String getLookUpDescription(){
+		return this.lookUpDescription;
+	}
+	
+	public String getLookDownDescription(){
+		return this.lookUpDescription;
+	}
+	
 }
