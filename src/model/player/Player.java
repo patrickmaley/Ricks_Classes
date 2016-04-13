@@ -1,15 +1,11 @@
 package model.player;
 
-import model.items.*;
 import model.room.*;
 import model.interactions.*;
-import model.mobs.*;
 import model.map.*;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import model.items.Inventory;
 import model.items.Spell;
@@ -25,6 +21,7 @@ public class Player {
 	private GenericRoom currentRoom;
 	private double HP;
 	private String house;
+	
 	
 	public Player(String username, char[] password, String gameName, String house) throws NoSuchAlgorithmException, NoSuchProviderException{
 		this.password = getSecurePassword(password.toString());
@@ -76,25 +73,39 @@ public class Player {
 		HP = HP + amount;
 	}
 	
+	//Adds a new spell to the spellbook
 	public void addKnownSpells(Spell s){
 		knownSpells.add(s);
 	}
 	
+	//Removes a known spell from the spellbook if it exists already
 	public void removeKnownSpells(Spell s){
 		if(knownSpells.contains(s)){
 			knownSpells.remove(s);
 		}
 	}
 	
+	//Returns the current spellbook
 	public ArrayList<Spell> getKnownSpells(){
-		return knownSpells;
+		return this.knownSpells;
 	}
 	
 	//Returns the user's house
 	public String getHouse(){
-		return house;
+		return this.house;
 	}
 	
+	//Returns the current room the player is in
+	public GenericRoom getRoom(){
+		return this.currentRoom;
+	}
+	
+	//Changes the player's current location after they move
+	public void setCurrentRoom(GenericRoom location){
+		this.currentRoom = location;
+	}
+	
+	//Allows the player to perform an action in the game
 	public void performAction(String s){
 		this.interaction.performAction(s);
 	}
@@ -125,8 +136,8 @@ public class Player {
         return generatedPassword;
     }
 
+	//Returns the current inventory of the player
 	public Inventory getInventory() {
-		// TODO Auto-generated method stub
 		return this.inventory;
 	}
      
