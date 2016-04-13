@@ -11,8 +11,12 @@ import model.items.AvadaKedvra;
 import model.items.Expelliarumus;
 import model.items.SectumSempra;
 import model.items.Spell;
+import model.map.Map;
 import model.player.Player;
 import model.player.PlayerList;
+import model.room.GenericRoom;
+import model.room.RoomFactory;
+import model.room.RoomType;
 
 public class playerTest {
 
@@ -23,6 +27,8 @@ public class playerTest {
 	@Test
 	public void testPlayerGetters() throws NoSuchAlgorithmException, NoSuchProviderException {
 		PlayerList current = PlayerList.setList();
+		Map currMap = Map.setMap();
+		GenericRoom nextRoom = RoomFactory.designRoom(RoomType.NPC);
 		
 		Player player1 = new Player("Lee", password1, "Doris", "Gryffindor");
 		Player player2 = new Player("Luna", password2, "Debbie", "Ravenclaw");
@@ -37,6 +43,8 @@ public class playerTest {
 		assertEquals(3, current.getCurrentList().size());
 		current.newPlayer(player2);
 		assertEquals(4, current.getCurrentList().size());
+		current.newPlayer(player3);
+		assertEquals(5, current.getCurrentList().size());
 		current.newPlayer(player3);
 		assertEquals(5, current.getCurrentList().size());
 
@@ -69,6 +77,11 @@ public class playerTest {
 		assertEquals(0, player3.getHP(), .0001);
 		player3.increaseHP(100);
 		assertEquals(100, player3.getHP(), .0001);
+		
+		assertEquals(currMap.getEntrance(), player1.getRoom());
+		player1.setCurrentRoom(nextRoom);
+		assertNotEquals(currMap.getEntrance(), player1.getRoom());
+		assertEquals(nextRoom, player1.getRoom());
 
 	}
 
