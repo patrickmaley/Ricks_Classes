@@ -15,6 +15,8 @@ public abstract class GenericRoom {
 	private String lookUpDescription;
 	private String lookDownDescription;
 	private ArrayList<Item> itemsInRoom = new ArrayList<Item>();
+	private Object[] mobsInRoom = new Object[2];
+	private Object[] npcInRoom = new Object[2];
 	private boolean mobPresent;
 	private boolean playerPresent;
 	private int gridX;
