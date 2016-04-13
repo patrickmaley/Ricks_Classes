@@ -61,10 +61,6 @@ public abstract class GenericRoom {
 		return this.roomDescription;
 	}
 	
-	public boolean checkMobs(){
-		return this.mobPresent;
-	}
-	
 	public ArrayList<Mobs> getMobsInRoom(){
 		return this.mobsInRoom;
 	}
@@ -73,8 +69,11 @@ public abstract class GenericRoom {
 		return this.npcInRoom;
 	}
 	
-	public void setMobs(boolean inRoom){
+	public void setMobsPresent(boolean inRoom){
 		this.mobPresent = inRoom;
+	}
+	public boolean getMobsPresent(){
+		return this.mobPresent;
 	}
 	
 	public void setTitle(String title){
