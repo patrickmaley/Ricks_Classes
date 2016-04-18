@@ -106,8 +106,8 @@ public class Player {
 	}
 	
 	//Allows the player to perform an action in the game
-	public void performAction(String s){
-		this.interaction.performAction(s);
+	public String performAction(String s){
+		return this.interaction.performAction(s);
 	}
 	
 	//Makes the user's password secure

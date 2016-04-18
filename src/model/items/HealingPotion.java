@@ -3,15 +3,13 @@ package model.items;
 import model.player.Player;
 
 public class HealingPotion extends Item {
-	private static String description;
 	private static double healingPoints = 10;
 	public HealingPotion() {
-		super("Healing Potion");
-		description = "Let me heal you. Its pretty self explanatory what I am";
+		super("Healing Potion","Let me heal you. Its pretty self explanatory what I am");
 		// TODO Auto-generated constructor stub
 	}
 	@Override
-	public String use(Player p) {
+	public String use(Player p, String notNeeded) {
 		String returner="";
 		double playerHP = p.getHP();
 		if(playerHP >= 100){
@@ -24,10 +22,4 @@ public class HealingPotion extends Item {
 		}
 		return returner;
 	}
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return description;
-	}
-
 }

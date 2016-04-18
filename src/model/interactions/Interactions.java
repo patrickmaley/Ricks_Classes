@@ -27,8 +27,6 @@ public class Interactions {
 			command+=totalCommand.charAt(a);
 			}
 			a++;
-			//System.out.println(a);
-			//System.out.println(totalCommand.length());
 		}
 		command.toLowerCase();
 		System.out.println(command);
