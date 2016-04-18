@@ -9,10 +9,9 @@ public class Snape extends Mobs {
 	private String house;
 	private String description;
 	
-	public Snape(String name, int hp) {
-		super("Professor Snape", hp);
+	public Snape(String name, int hp, int x, int y) {
+		super("Professor Snape", hp, "Oh its Professor Snape. It would probably be wise to not piss him off...", x, y);
 		this.house = "Slytherin";
-		this.description = "Oh its Professor Snape. It would probably be wise to not piss him off...";
 	}
 
 	public String getHouse(){
@@ -30,8 +29,16 @@ public class Snape extends Mobs {
 	}
 
 	@Override
-	public String action(String a) {
-		// TODO Auto-generated method stub
+	public String action(String command) {
+		if(command.compareTo("talk")==0){
+			return "Make it quick before I take away more points...";
+		}
+		if(command.compareTo("attack")==0){
+			return "So you want a short life I see";
+		}
+		if(command.compareTo("look") == 0){
+			return this.getDescription();
+		}
 		return null;
 	}
 

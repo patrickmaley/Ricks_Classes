@@ -9,10 +9,9 @@ public class OrdinaryWizards extends Mobs{
 	private String house;
 	private String description;
 	
-	public OrdinaryWizards(String name, int hp, String house) {
-		super(name, hp);
+	public OrdinaryWizards(String name, int hp, String house, int x, int y) {
+		super(name, hp, "This is " + name + " just an ordinary wizard minding their own business.", x , y);
 		this.house = house;
-		this.description = "This is " + name + " just an ordinary wizard minding their own business.";
 	}
 
 	public String getHouse(){
@@ -33,8 +32,13 @@ public class OrdinaryWizards extends Mobs{
 	}
 
 	@Override
-	public String action(String a) {
-		// TODO Auto-generated method stub
+	public String action(String command) {
+		if(command.compareTo("talk")==0){
+			//figure out house and compare to players house
+		}
+		if(command.compareTo("look") == 0){
+			return this.getDescription();
+		}
 		return null;
 	}
 
