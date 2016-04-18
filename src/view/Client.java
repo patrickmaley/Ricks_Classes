@@ -20,10 +20,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import model.map.Map;
+
 //TODO: 1: Add scrollpane to the gameTextArea
 //		2: Set font for player text area
 
 public class Client extends JFrame{
+	private static final String ADDRESS = "localhost";
+	
 	private JPanel textPanel = new JPanel();
 	private JPanel playerInputPanel = new JPanel();
 	private JTextArea gameTextArea = new JTextArea();
@@ -31,6 +35,7 @@ public class Client extends JFrame{
 	private Socket socket;
 	private ObjectOutputStream oos;
 	private ObjectInputStream ois;
+	private Map playerMap = null;
 	
 	private String dragonTitle = "11111111111111111111111111111111111111001111111111111111111111111\n"+
             "11111111111111111111111111111111111100011111111111111111111111111\n"+
@@ -87,11 +92,11 @@ public class Client extends JFrame{
 	
 	public Client(){
 		frameProperties();
-//		this.openConnection();
+		this.openConnection();
 		
-		//new ServerListener().start();
+		new ServerListener().start();
 //		try {
-//			//oos.writeObject(nPO);
+//			oos.writeObject(nPO);
 //		} catch (IOException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
@@ -135,7 +140,7 @@ public class Client extends JFrame{
 		/* Our server is on our computer, but make sure to use the same port. */
 		try {
 			// TODO 6: Connect to the Server
-			//socket = new Socket(ADDRESS, Server.SERVER_PORT);
+			socket = new Socket(ADDRESS, Server.SERVER_PORT);
 			oos = new ObjectOutputStream(socket.getOutputStream());
 			ois = new ObjectInputStream(socket.getInputStream());
 			
@@ -147,33 +152,34 @@ public class Client extends JFrame{
 
 	private class ServerListener extends Thread {
 
-//		@Override
-//		public void run() {
-//			// TODO 9: Repeatedly accept String objects from the server and add
-//			// them to our model.
-//			try {
-//				/* The server sent us a String? Stick it in the JList! */
-//				while (true){
-//					
-//				}
-//			} catch (IOException e) {
-//				//NetpaintGUI.this.cleanUpAndQuit("The server hung up on us. Exiting...");
-//			} catch (ClassNotFoundException e) {
-//				//NetpaintGUI.this.cleanUpAndQuit("Got something from the server that wasn't a NetPaintObject...");
-//			}
-//		}
+		@Override
+		public void run() {
+			// TODO 9: Repeatedly accept String objects from the server and add
+			// them to our model.
+			try {
+				/* The server sent us a String? Stick it in the JList! */
+				while (true){
+					Client.this.playerMap =  (Map) ois.readObject();
+					//NetpaintGUI.this.drawingPanel.repaint();
+				}
+			} catch (IOException e) {
+				Client.this.cleanUpAndQuit("The server hung up on us. Exiting...");
+			} catch (ClassNotFoundException e) {
+				Client.this.cleanUpAndQuit("Got something from the server that wasn't a MUD...");
+			}
+		}
 
 	}
 	private void cleanUpAndQuit(String message) {
 		JOptionPane.showMessageDialog(this, message);
-//		try {
-//			if (socket != null)
-//				socket.close();
-//		} catch (IOException e) {
-//			// Couldn't close the socket, we are in deep trouble. Abandon ship.
-//			e.printStackTrace();
-//		}
-//		//NetpaintGUI.this.dispatchEvent(new WindowEvent(NetpaintGUI.this,WindowEvent.WINDOW_CLOSING));
+		try {
+			if (socket != null)
+				socket.close();
+		} catch (IOException e) {
+			// Couldn't close the socket, we are in deep trouble. Abandon ship.
+			e.printStackTrace();
+		}
+		Client.this.dispatchEvent(new WindowEvent(Client.this,WindowEvent.WINDOW_CLOSING));
 	}
 
 }
