@@ -4,12 +4,16 @@ import model.player.Player;;
 
 public abstract class Item {
 	private String name;
-public Item(String s){
+	private String description;
+public Item(String s,String d){
 	name=s;
+	description = d;
 }
 public String getName(){
 	return name;
 }
-abstract public String use(Player p);
-abstract public String getDescription();
+public String getDescription(){
+	return description;
+}
+abstract public String use(Player p, String ifNeeded);
 }

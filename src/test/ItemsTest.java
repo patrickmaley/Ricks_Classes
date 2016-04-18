@@ -209,20 +209,20 @@ public void testInventory() throws NoSuchAlgorithmException, NoSuchProviderExcep
 	inventory.add(hermoinesHandbag);
 	inventory.add(healingPotion);
 	inventory.add(elderWand);
-	String usingSpellBook=sbOne.use(p);
+	String usingSpellBook=sbOne.use(p, null);
 	System.out.println(usingSpellBook);
 	assertFalse(inventory.add(broomstick));
-	hermoinesHandbag.use(p);
+	hermoinesHandbag.use(p,null);
 	assertTrue(inventory.add(broomstick));
 	assertTrue(inventory.add(butterBeer));
 	System.out.println(inventory.toString());
-	String usinghP = healingPotion.use(p);
+	String usinghP = healingPotion.use(p,null);
 	System.out.println(usinghP);
-	String usingbBeer = butterBeer.use(p);
+	String usingbBeer = butterBeer.use(p,null);
 	System.out.println(usingbBeer);
 	inventory.add(dependencyInjectionSword);
-	System.out.println(dependencyInjectionSword.use(p));
+	System.out.println(dependencyInjectionSword.use(p,null));
 	assertTrue(inventory.add(ressurectionStone));
-	System.out.println(ressurectionStone.use(p));
+	System.out.println(ressurectionStone.use(p,null));
 }
 }
