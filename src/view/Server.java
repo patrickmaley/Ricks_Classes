@@ -23,7 +23,7 @@ import model.map.Map;
  */
 public class Server {
 
-	public static final int SERVER_PORT = 4006;
+	public static final int SERVER_PORT = 4007;
 
 	private static ServerSocket sock;
 	private static List<ObjectOutputStream> clients = Collections.synchronizedList(new ArrayList<>());

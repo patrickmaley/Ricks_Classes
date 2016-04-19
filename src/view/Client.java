@@ -79,7 +79,7 @@ public class Client extends JFrame{
 	private void addComponents() {
 		this.textPanel.setPreferredSize(new Dimension(400,500));
 		this.textPanel.setBackground(new Color(192, 142, 45));
-		this.gameTextArea.setPreferredSize(new Dimension(475,780));
+		this.gameTextArea.setPreferredSize(new Dimension(350,400));
 		this.gameTextArea.setEditable(false);
 		this.gameTextArea.setText(this.dragonTitle);
 		JScrollPane gameTextPane = new JScrollPane(this.gameTextArea);
