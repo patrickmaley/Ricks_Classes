@@ -246,8 +246,13 @@ public class Client extends JFrame{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			int password = Integer.parseInt(passwordText.getText());
-			
+			String userName = signInText.getText();
+			try {
+				oos.writeObject(userName);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		
 		}
 		

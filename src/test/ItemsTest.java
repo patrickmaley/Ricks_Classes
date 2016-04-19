@@ -227,4 +227,35 @@ public void testInventory() throws NoSuchAlgorithmException, NoSuchProviderExcep
 	assertTrue(inventory.add(ressurectionStone));
 	System.out.println(ressurectionStone.use(p,null));
 }
+@Test 
+public void testItemsWithCommands() throws NoSuchAlgorithmException, NoSuchProviderException{
+	char [] password = new char ['p'];
+	Player p = new Player("Player", password,"hi","gryffindor");
+	 p.getInventory().add(this.regularWand);
+	 System.out.println(p.performAction("use regular wand"));
+	 System.out.println(p.performAction("drop regular wand"));
+	 p.getInventory().add(this.swordOfGryffindor);
+	 p.getInventory().add(this.bassilskFang);
+	 p.getInventory().add(this.butterBeer);
+	 p.getInventory().add(this.phoenixTears);
+	 p.getInventory().add(this.horcrux);
+	 System.out.println(p.performAction("use horcrux"));
+	 System.out.println(p.performAction("use sword of griffyndor"));
+	 System.out.println(p.performAction("use bassilsk fang"));
+	 System.out.println(p.performAction("use butter beer"));
+	 System.out.println(p.performAction("use phoenix tears"));
+	 System.out.println(p.performAction("drop butter beer"));
+	 p.getInventory().add(elderWand);
+	 System.out.println(p.performAction("use elder wand"));
+	 System.out.println(p.performAction(info));
+	 System.out.println(p.performAction(commands));
+	 p.getInventory().add(healingPotion);
+	 p.getInventory().add(neverEndingBook);
+	 System.out.println(p.performAction("use healing potion"));
+	 System.out.println(p.performAction("use never ending book"));
+	 System.out.println(p.performAction(info));
+
+	 
+	 
+}
 }

@@ -28,34 +28,34 @@ public class Broomstick extends Item {
 					direction = "north";
 					roomToMoveIn = p.getRoom().getNextRoom(direction);
 					if(roomToMoveIn!=null){
-						p.getRoom().setPlayerPresent(false);
+						p.getRoom().setPlayerPresent(false, p);
 						p.setCurrentRoom(roomToMoveIn);
-						p.getRoom().setPlayerPresent(true);
+						p.getRoom().setPlayerPresent(true, p);
 					}
 					haveBeenMoved = true;
 				case 1:
 					direction = "south";
 					roomToMoveIn = p.getRoom().getNextRoom(direction);
 					if(roomToMoveIn!=null){
-						p.getRoom().setPlayerPresent(false);
+						p.getRoom().setPlayerPresent(false, p);
 						p.setCurrentRoom(roomToMoveIn);
-						p.getRoom().setPlayerPresent(true);					}
+						p.getRoom().setPlayerPresent(true, p);			}
 					haveBeenMoved = true;
 				case 2:
 					direction = "east";
 					roomToMoveIn = p.getRoom().getNextRoom(direction);
 					if(roomToMoveIn!=null){
-						p.getRoom().setPlayerPresent(false);
+						p.getRoom().setPlayerPresent(false, p);
 						p.setCurrentRoom(roomToMoveIn);
-						p.getRoom().setPlayerPresent(true);					}
+						p.getRoom().setPlayerPresent(true, p);				}
 					haveBeenMoved = true;
 				case 3: 
 					direction = "south";
 					roomToMoveIn = p.getRoom().getNextRoom(direction);
 					if(roomToMoveIn!=null){
-						p.getRoom().setPlayerPresent(false);
+						p.getRoom().setPlayerPresent(false, p);
 						p.setCurrentRoom(roomToMoveIn);
-						p.getRoom().setPlayerPresent(true);					}
+						p.getRoom().setPlayerPresent(true, p);				}
 					haveBeenMoved = true;
 				}
 			}
