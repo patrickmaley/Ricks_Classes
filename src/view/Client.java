@@ -13,6 +13,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,6 +24,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.RootPaneContainer;
+import javax.swing.border.TitledBorder;
+import javax.swing.text.DefaultCaret;
 
 import model.map.Map;
 import model.player.Player;
@@ -32,11 +35,12 @@ import model.player.Player;
 
 public class Client extends JFrame{
 	private static final String ADDRESS = "localhost";
-	private final Dimension STATUS_PANEL_DIMENSION = new Dimension(200, 150);
+	private final Dimension STATUS_PANEL_DIMENSION = new Dimension(200, 550);
 	
 	private JPanel textPanel = new JPanel();
 	private JPanel playerInputPanel = new JPanel();
 	private JTextArea gameTextArea = new JTextArea();
+	private JTextArea playerStatsTextArea = new JTextArea();
 	private JTextField playerTextArea = new JTextField();
 	private Socket socket;
 	private ObjectOutputStream oos;
@@ -44,10 +48,11 @@ public class Client extends JFrame{
 	private Map playerMap = null;
 	
 	private JTextField signInText = new JTextField();
+	private JTextArea signInInstructions = new JTextArea();
 	private JPasswordField passwordText = new JPasswordField();
 	private JButton signInButton = new JButton("Sign In");
 	private JButton signOutButton = new JButton("Sign Out");
-	
+	private JTextField titleText = new JTextField("Game Title");
 	private JPanel signInPanel = new JPanel(new FlowLayout());
 	
 	private String dragonTitle = "\t\tDragon\n";
@@ -58,9 +63,9 @@ public class Client extends JFrame{
 	}
 	
 	public Client(){
-		frameProperties();
-		this.openConnection();
 		
+		this.openConnection();
+		frameProperties();
 		new ServerListener().start();
 //		try {
 //			oos.writeObject(nPO);
@@ -110,9 +115,24 @@ public class Client extends JFrame{
         signInPanel.add(this.signInButton);
         signInPanel.add(this.signOutButton);
         signInPanel.setBackground(new Color(179, 194, 191));
+        signInInstructions.setText("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+        signInInstructions.setPreferredSize(new Dimension(150, 400));
+        signInInstructions.setWrapStyleWord(true);
+        this.signInInstructions.setEditable(false);
+		this.signInInstructions.setLineWrap(true);
+        signInPanel.add(signInInstructions);
         add(signInPanel);
 		        
-		this.textPanel.setPreferredSize(new Dimension(550,500));
+        
+        //Set title of the Player
+  		Font titleFont = new Font("Bodoni MT Black", 1, 30);
+  		titleText.setSize(100, 100);
+  		titleText.setFont(titleFont);
+  		titleText.setBackground(new Color(192, 223, 217));
+  		titleText.setEditable(false);
+  		textPanel.add(titleText);
+      		
+		this.textPanel.setPreferredSize(new Dimension(550,550));
 		this.textPanel.setBackground(new Color(192, 142, 45));
 		this.textPanel.setLayout(new FlowLayout());
 		//this.gameTextArea.setPreferredSize(new Dimension(450,450));
@@ -120,19 +140,31 @@ public class Client extends JFrame{
 		this.gameTextArea.setLineWrap(true);
 		this.gameTextArea.setWrapStyleWord(true);
 		this.gameTextArea.setText(this.dragonTitle);
+		
 		JScrollPane gameTextPane = new JScrollPane(this.gameTextArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		gameTextPane.setPreferredSize(new Dimension(450, 400));
+		
 		this.textPanel.add(gameTextPane);
 		
+		TitledBorder title;
+		title = BorderFactory.createTitledBorder("Player Commands");
+		playerTextArea.setBorder(title);
+		
+		//this.playerInputPanel.setPreferredSize(new Dimension(600, 50));
+		//this.playerInputPanel.setBackground(new Color(0, 0, 0));
+		this.playerTextArea.setPreferredSize(new Dimension(450,50));
+		
+		//this.playerInputPanel.add(playerTextArea);
+		this.textPanel.add(playerTextArea);
+		
+		this.playerStatsTextArea.setEditable(false);
+		this.playerStatsTextArea.setLineWrap(true);
+		this.playerStatsTextArea.setWrapStyleWord(true);
+		playerStatsTextArea.setPreferredSize(new Dimension(450, 35));
+		
+		this.textPanel.add(playerStatsTextArea);
+		
 		this.add(textPanel);
-		
-		this.playerInputPanel.setPreferredSize(new Dimension(600, 50));
-		this.playerInputPanel.setBackground(new Color(0, 0, 0));
-		this.playerTextArea.setPreferredSize(new Dimension(600,50));
-		
-		this.playerInputPanel.add(playerTextArea);
-		this.add(playerInputPanel);
-		
 		this.playerTextArea.addActionListener(new textBoxListener());
 		this.setVisible(true);
 	}
@@ -185,12 +217,18 @@ public class Client extends JFrame{
 	private class textBoxListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			
 			String descriptions = Client.this.newPlayer.performAction(playerTextArea.getText());
 			if(descriptions != null){
 				Client.this.gameTextArea.append(descriptions + "\n");
 			}else{
-				Client.this.gameTextArea.append("Nothing much happens");
+				Client.this.gameTextArea.append("Nothing much happens\n");
 			}
+			
+			//Auto updates the scrollpane to the last description
+			gameTextArea.setCaretPosition(gameTextArea.getDocument().getLength());
+			
+			//Resets descriptions value
 			descriptions = null;
 			
 			playerTextArea.setText("");
