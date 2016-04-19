@@ -60,9 +60,9 @@ private RessurectionStone ressurectionStone = new RessurectionStone();
 private ButterBeer butterBeer = new ButterBeer();
 private HealingPotion healingPotion = new HealingPotion();
 private DependencyInjectionSword dependencyInjectionSword = new DependencyInjectionSword();
-private Snape snape = new Snape("Snape", 0);
-private Dementor dementor = new Dementor("Dementor", 0); 
-private OrdinaryWizards ordinaryWizard = new OrdinaryWizards("ordinary", 0, "syltherin"); 
+private Snape snape = new Snape("Snape", 0, 0, 0);
+private Dementor dementor = new Dementor("Dementor", 0, 0, 0); 
+private OrdinaryWizards ordinaryWizard = new OrdinaryWizards("ordinary", 0, "syltherin", 0, 0); 
 @Test
 public void testSpells(){
 	avadaKedvra.putInBook();
