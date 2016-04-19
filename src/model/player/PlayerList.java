@@ -14,13 +14,7 @@ public class PlayerList implements Serializable {
 		createList();
 	}
 	
-<<<<<<< HEAD
-	//If uniqueInstance is null it creates a new PlayerList. Otherwise it returns
-	//the PlayerList stored in uniqueInstance
-	public static PlayerList setList() throws NoSuchAlgorithmException, NoSuchProviderException{
-=======
 	public static PlayerList setList() {
->>>>>>> bdac22f1b581562e5584a56525ac904a377a0b2a
 		if (uniqueInstance == null){
 			try {
 				uniqueInstance = new PlayerList();
