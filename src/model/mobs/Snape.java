@@ -1,6 +1,7 @@
 package model.mobs;
 
 import model.interactions.Interactions;
+import model.items.HealingPotion;
 
 public class Snape extends Mobs {
 
@@ -31,6 +32,7 @@ public class Snape extends Mobs {
 	@Override
 	public String action(String command) {
 		if(command.compareTo("talk")==0){
+			this.getRoom().getitemsInRoom(new HealingPotion());
 			return "Here take this potion a student made. Hopefully it works right.";
 		}
 		if(command.compareTo("attack")==0){

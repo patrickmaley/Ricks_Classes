@@ -1,6 +1,7 @@
 package model.mobs;
 
 import model.interactions.Interactions;
+import model.items.DependencyInjectionSword;
 
 public class McGonagall extends Mobs{
 
@@ -35,15 +36,16 @@ public class McGonagall extends Mobs{
 			return this.getDescription();
 		}
 		if(command.compareTo("talk") == 0){
-			return "Why is it, when something happens, it is always you?";//what should she say?
+			this.getRoom().getitemsInRoom(new DependencyInjectionSword());
+			return "You wouldn't have to come to me as often"
+					+ " if you would just use dependency injection. Take this"
+					+ "to help yourself out.";//what should she say?
 		}
 		return null;
 	}
 
 	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-		
+	public void move() {		
 	}
 
 }

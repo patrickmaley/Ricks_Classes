@@ -29,6 +29,16 @@ public class Lupin extends Mobs{
 	}
 
 	@Override
+	public void decreaseHP(double x){
+		if(this.canBeAttacked()){
+			this.hp -= x;
+		}
+		if(this.hp < 0){
+			this.getRoom().removeMobsInRoom(this);
+			this.getRoom().setMobsInRoom(new Werewolves("Lupin", 100, this.getXpos(), this.getYpos()));
+		}
+	}
+	@Override
 	public String action(String command) {
 		if(command.compareTo("look") == 0){
 			return this.getDescription();

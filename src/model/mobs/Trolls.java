@@ -44,6 +44,9 @@ public class Trolls extends Mobs{
 
 	@Override
 	public void move() {
+		if(this.getRoom().getPlayerPresent()){
+			return;
+		}
 		int x = 0;
 		if(x == 8){
 			x = 0;

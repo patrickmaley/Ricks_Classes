@@ -38,6 +38,10 @@ public abstract class Mobs {
 		if(this.canBeAttacked()){
 			this.hp -= x;
 		}
+		if(this.hp < 0){
+			this.getRoom().removeMobsInRoom(this);
+			this.getRoom().setMobsPresent(false);
+		}
 	}
 	//Returns the current room the player is in
 	public GenericRoom getRoom(){
