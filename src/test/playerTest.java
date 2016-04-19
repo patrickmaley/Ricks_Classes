@@ -33,14 +33,21 @@ public class PlayerTest {
 		GenericRoom nextRoom = RoomFactory.designRoom(RoomType.NPC);
 		
 		//Usable players
-		Player player1 = new Player("Lee", password1, "Doris", "Gryffindor");
-		Player player2 = new Player("Luna", password2, "Debbie", "Ravenclaw");
-		Player player3 = new Player("Neville", password3, "Kevin", "Gryffindor");
+		Player player1 = new Player("Lee", password1);
+		Player player2 = new Player("Luna", password2);
+		Player player3 = new Player("Neville", password3);
 		
 		//Usable spells
 		Spell spell1 = new AvadaKedvra();
 		Spell spell2 = new Expelliarumus();
 		Spell spell3 = new SectumSempra();
+		
+		//Tests map getters and setters
+		assertEquals(player1.getPlayerMap(), currMap);
+		currMap.getEntrance().getNorthRoom().setIsVisible(true);
+		assertEquals(player1.getPlayerMap(), currMap);
+		player1.setPlayerMap(currMap);
+		assertEquals(player1.getPlayerMap(), currMap);
 		
 		//Tests playerList
 		assertEquals(0, current.getCurrentList().size());

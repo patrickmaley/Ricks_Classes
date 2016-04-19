@@ -7,6 +7,7 @@ import java.util.TreeMap;
 
 public class PlayerList implements Serializable {
 	
+	
 	private static PlayerList uniqueInstance = null;
 	private TreeMap<String, Player> validPlayers;
 

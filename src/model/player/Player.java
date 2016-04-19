@@ -25,14 +25,12 @@ public class Player {
 	private boolean isDead;
 	
 	
-	public Player(String username, char[] password, String gameName, String house) throws NoSuchAlgorithmException, NoSuchProviderException{
+	public Player(String username, char[] password) throws NoSuchAlgorithmException, NoSuchProviderException{
 		this.password = getSecurePassword(password.toString());
 		this.username = username;
-		this.gameName = gameName;
 		this.knownSpells = new ArrayList<Spell>();
 		this.inventory = new Inventory();
 		this.HP = 100;
-		this.house = house;
 		this.currentRoom = Map.setMap().getEntrance();
 		this.currentRoom.setPlayerPresent(true, this);
 		this.interaction= new Interactions(this);
@@ -43,6 +41,14 @@ public class Player {
 	//Returns the username of the player
 	public String getUsername(){
 		return this.username;
+	}
+	
+	public void setGameName(String gameName){
+		this.gameName = gameName;
+	}
+	
+	public void setHouse(String houseName){
+		this.house = houseName;
 	}
 	
 	//Returns true if the password is correct. False otherwise.
@@ -128,6 +134,16 @@ public class Player {
 		this.playerMap = Map.setMap();
 		setCurrentRoom(playerMap.getEntrance());
 		this.isDead = false;
+	}
+	
+	//Returns the current player map
+	public Map getPlayerMap(){
+		return this.playerMap;
+	}
+	
+	//Sets the player map to the map given
+	public void setPlayerMap(Map m){
+		this.playerMap = m;
 	}
 	
 	//Allows the player to perform an action in the game
