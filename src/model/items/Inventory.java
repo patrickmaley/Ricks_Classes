@@ -10,6 +10,14 @@ public Inventory(){
 	inventory = new ArrayList<Item>();
 	allowedSize = 5;
 }
+public Item getItem(String getThis){
+	for(int j=0;j<inventory.size();j++){
+		if(inventory.get(j).getName().toLowerCase().contains(getThis)){
+			return inventory.get(j);		
+		}
+	}
+	return null;
+}
 public String toString(){
 	String list="";
 	for(int i=0;i<inventory.size();i++){
@@ -29,18 +37,21 @@ public boolean add(Item i){
 	}
 	
 }
-public void drop(Item i){
-	String dropThis = i.getName();
+public boolean drop(String dropThis){
 	for(int j=0;j<inventory.size();j++){
-		if(inventory.get(j).getName().equals(dropThis)){
+		if(inventory.get(j).getName().toLowerCase().equals(dropThis)){
 			inventory.remove(j);
-			break;
+			return true;
 		}
 	}
+	return false;
 }
 public void changeInventorySize(Item n){
 	if(n.getName().equals("Hermoines Handbag")){
 		allowedSize = 10;
 	}
+}
+public int getInventorySize(){
+	return this.inventory.size();
 }
 }

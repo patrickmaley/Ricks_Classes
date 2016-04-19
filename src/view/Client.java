@@ -87,7 +87,7 @@ public class Client extends JFrame{
 	}
 	
 	private void frameProperties() {
-		setTitle("24 Jump Street: Hogwarts");
+		setTitle("9 3/4 Jump Street: Hogwarts");
 		setLayout(new FlowLayout());
 		//setPreferredSize(new Dimension(450, 110));
 		setSize(800, 600);
