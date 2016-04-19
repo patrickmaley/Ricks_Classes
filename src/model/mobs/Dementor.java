@@ -44,4 +44,10 @@ public class Dementor extends Mobs{
 		}		return null;
 	}
 
+	@Override
+	public void move() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

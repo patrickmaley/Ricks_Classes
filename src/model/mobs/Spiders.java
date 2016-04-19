@@ -1,5 +1,7 @@
 package model.mobs;
 
+import java.util.Random;
+
 import model.interactions.Interactions;
 
 public class Spiders extends Mobs{
@@ -42,4 +44,41 @@ public class Spiders extends Mobs{
 		}		return null;
 	}
 
+	@Override
+	public void move() {
+		Random rand = new Random();
+		int x = rand.nextInt(4);
+		if(x == 0){
+			if(this.getRoom().getNextRoom("north") != null && this.getRoom().getNextRoom("north").getMobsPresent()){
+				this.setYpos(this.getYpos() - 1);
+				this.getRoom().setMobsPresent(false);
+				this.setCurrentRoom(this.getRoom().getNextRoom("north"));
+				this.getRoom().setMobsPresent(true);
+			}
+		}
+		else if(x == 1){
+			if(this.getRoom().getNextRoom("south") != null){
+				this.setYpos(this.getYpos() + 1);
+				this.getRoom().setMobsPresent(false);
+				this.setCurrentRoom(this.getRoom().getNextRoom("south"));
+				this.getRoom().setMobsPresent(true);
+			}
+		}
+		else if(x == 2){
+			if(this.getRoom().getNextRoom("east") != null){
+				this.setXpos(this.getXpos() + 1);
+				this.getRoom().setMobsPresent(false);
+				this.setCurrentRoom(this.getRoom().getNextRoom("east"));
+				this.getRoom().setMobsPresent(true);
+			}
+		}
+		else if(x == 3){
+			if(this.getRoom().getNextRoom("west") != null){
+				this.setXpos(this.getXpos() - 1);
+				this.getRoom().setMobsPresent(false);
+				this.setCurrentRoom(this.getRoom().getNextRoom("west"));
+				this.getRoom().setMobsPresent(true);
+			}
+		}
+	}	
 }
