@@ -33,9 +33,9 @@ public class PlayerTest {
 		GenericRoom nextRoom = RoomFactory.designRoom(RoomType.NPC);
 		
 		//Usable players
-		Player player1 = new Player("Lee", password1, "Doris", "Gryffindor");
-		Player player2 = new Player("Luna", password2, "Debbie", "Ravenclaw");
-		Player player3 = new Player("Neville", password3, "Kevin", "Gryffindor");
+		Player player1 = new Player("Lee", password1);
+		Player player2 = new Player("Luna", password2);
+		Player player3 = new Player("Neville", password3);
 		
 		//Usable spells
 		Spell spell1 = new AvadaKedvra();
