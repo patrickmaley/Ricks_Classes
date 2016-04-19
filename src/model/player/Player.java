@@ -19,7 +19,6 @@ public class Player {
 	private Inventory inventory;
 	private Interactions interaction;
 	private GenericRoom currentRoom;
-	private int extraLives;
 	private double HP;
 	private String house;
 	private Map playerMap;
@@ -34,7 +33,6 @@ public class Player {
 		this.inventory = new Inventory();
 		this.HP = 100;
 		this.house = house;
-		this.extraLives = 0;
 		this.currentRoom = Map.setMap().getEntrance();
 		this.currentRoom.setPlayerPresent(true);
 		this.interaction= new Interactions(this);
@@ -79,24 +77,6 @@ public class Player {
 	//Increases the HP of the player by a given amount
 	public void increaseHP(double amount){
 		HP = HP + amount;
-	}
-	
-	//Adds a number of extra lives to the player so when they die they do
-	//not lose anything and start again from the position they died.
-	public void addExtraLives(int numLives){
-		this.extraLives += numLives;
-	}
-	
-	//Resets the players HP if they want to use an extra life.
-	public void useExtraLife(){
-		this.HP = 100;
-		this.isDead = false;
-		this.extraLives -= 1;
-	}
-	
-	//Returns the players current number of extra lives.
-	public int getExtraLives(){
-		return this.extraLives;
 	}
 	
 	//Adds a new spell to the spellbook

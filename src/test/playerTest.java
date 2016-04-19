@@ -62,15 +62,6 @@ public class PlayerTest {
 		assertEquals("Doris", player1.getGameName());
 		assertNotEquals("Debbie", player1.getGameName());
 		
-		//Tests extraLives
-		assertEquals(0, player1.getExtraLives());
-		player1.addExtraLives(2);
-		assertEquals(2, player1.getExtraLives());
-		player1.decreaseHP(100);
-		player1.useExtraLife();
-		assertEquals(100, player1.getHP(), .0001);
-		assertEquals(1, player1.getExtraLives());
-		
 		//Tests spellbook
 		player1.addKnownSpells(spell1);
 		assertEquals(1, player1.getKnownSpells().size());
