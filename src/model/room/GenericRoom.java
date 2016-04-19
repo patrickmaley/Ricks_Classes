@@ -3,6 +3,7 @@ package model.room;
 import java.util.ArrayList;
 
 import model.items.Item;
+import model.mobs.Mobs;
 
 public abstract class GenericRoom {
 	private GenericRoom northRoom;
@@ -15,23 +16,18 @@ public abstract class GenericRoom {
 	private String lookUpDescription;
 	private String lookDownDescription;
 	private ArrayList<Item> itemsInRoom = new ArrayList<Item>();
+	private ArrayList<Mobs> mobsInRoom = new ArrayList<Mobs>();
+	private ArrayList<Mobs> npcInRoom = new ArrayList<Mobs>();
 	private boolean mobPresent;
 	private boolean playerPresent;
 	private int gridX;
 	private int gridY;
 	
 	public GenericRoom(RoomType roomType){
+		playerPresent = false;
 		this.roomType = roomType;
 	}
 
-	//private ArrayList<Items> itemsList = new ArrayList<Items>();
-//	public GenericRoom(GenericRoom north, GenericRoom south, GenericRoom east, GenericRoom west){
-//		this.northRoom = north;
-//		this.southRoom = south;
-//		this.eastRoom = east;
-//		this.westRoom = west;
-//	}
-//	
 	public GenericRoom getNextRoom(String direction){
 		switch(direction){
 		case "n": case "north":
@@ -51,6 +47,13 @@ public abstract class GenericRoom {
 		}
 	}
 	
+	public void setPlayerPresent(boolean player){
+		this.playerPresent = player;
+	}
+	
+	public boolean getPlayerPresent(){
+		return this.playerPresent;
+	}
 	public void setRoomDescription(String details){
 		this.roomDescription = details;
 	}
@@ -58,9 +61,20 @@ public abstract class GenericRoom {
 		return this.roomDescription;
 	}
 	
-//	public boolean checkMobs(){
-//		return this.mobPresent;
-//	}
+	public ArrayList<Mobs> getMobsInRoom(){
+		return this.mobsInRoom;
+	}
+	
+	public ArrayList<Mobs> getNpcInRoom(){
+		return this.npcInRoom;
+	}
+	
+	public void setMobsPresent(boolean inRoom){
+		this.mobPresent = inRoom;
+	}
+	public boolean getMobsPresent(){
+		return this.mobPresent;
+	}
 	
 	public void setTitle(String title){
 		this.roomTitle = title;
@@ -113,6 +127,9 @@ public abstract class GenericRoom {
 	
 	public String getLookDownDescription(){
 		return this.lookUpDescription;
+	}
+	public ArrayList<Item> getitemsInRoom(){
+		return this.itemsInRoom;
 	}
 	
 }

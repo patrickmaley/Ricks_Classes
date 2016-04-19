@@ -164,6 +164,8 @@ public class GenericRoomTests {
 		assertTrue(nextRoom7 == null);
 		GenericRoom nextRoom8 = testRoom1.getNextRoom("west");
 		assertTrue(nextRoom8 == null);
+		GenericRoom nextRoom9 = testRoom1.getNextRoom("h");
+		assertTrue(nextRoom9 == null);
 	}
 	
 	
@@ -179,6 +181,25 @@ public class GenericRoomTests {
 		
 		assertTrue(testRoom1.getTitle().compareTo(testTitle) == 0);
 		assertTrue(testRoom1.getRoomDescription().compareTo(testString) == 0);
+	}
+	
+	@Test
+	public void testGettersAndSetters(){
+		GenericRoom testRoom1 = RoomFactory.designRoom(RoomType.NPC);
+	
+		String testString = "Harry peered into the darkness";
+		String testTitle = "You're a wizard";
+		
+		testRoom1.setMobsPresent(true);
+		assertTrue(testRoom1.getMobsPresent());
+		
+		testRoom1.setPlayerPresent(true);
+		assertTrue(testRoom1.getPlayerPresent());
+		
+		testRoom1.setLookDownDescription(testString);
+		testRoom1.setLookUpDescription(testTitle);
+		assertTrue(testRoom1.getLookDownDescription() != null);
+		assertTrue(testRoom1.getLookUpDescription() != null);
 	}
 	
 }

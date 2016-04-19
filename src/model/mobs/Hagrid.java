@@ -6,14 +6,11 @@ public class Hagrid extends Mobs{
 
 	private int hp;
 	private String name;
-	private String house;
 	private String description;
 	
-	public Hagrid(String name, int hp) {
-		super("Hagrid", hp);
-		this.house = "none";
-		this.description = "It's Hagrid, the nice half-giant. If you need some help he is probably a good"
-				+ " person to ask";
+	public Hagrid(String name, int hp, int x, int y) {
+		super("Hagrid", hp, "It's Hagrid, the nice half-giant. If you need some help he is probably a good"
+				+ " person to ask", x , y);
 	}
 
 	@Override
@@ -27,13 +24,16 @@ public class Hagrid extends Mobs{
 	}
 
 	@Override
-	public String getHouse() {
-		return this.house;
-	}
-
-	@Override
-	public String action(String a) {
-		// TODO Auto-generated method stub
+	public String action(String command) {
+		if(command.compareTo("look") == 0){
+			return this.getDescription();
+		}
+		if(command.compareTo("talk") == 0){
+			return "";//get what hagrid should be saying;
+		}
+		if(command.compareTo("attack")==0){
+			return "Finna get an ass whooping!"; //what is he gonna say?
+		}
 		return null;
 	}
 
