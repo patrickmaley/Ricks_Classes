@@ -121,13 +121,13 @@ class ClientHandler extends Thread {
 				if(input.readObject().getClass() == Player.class){
 					player = (Player) input.readObject();
 					Player returningPlayer;
-//					if(Server.getPlayerList().getCurrentList().containsKey(player.getUsername())){
-//						Player foundPlayer = Server.getPlayerList().getCurrentList().get(player.))
-//					}else{
-//						
-//					}
-//					
-//					writeStringToClients(returningPlayer);
+					if(Server.getPlayerList().getCurrentList().containsKey(player.getUsername())){
+						Player foundPlayer = Server.getPlayerList().getCurrentList().get(player.getUsername());
+					}else{
+						
+					}
+					
+					//writeStringToClients(returningPlayer);
 				}else{
 //					Server.setServerMap((Map) input.readObject());
 //					Server.setPlayerList((PlayerList) input.readObject());
