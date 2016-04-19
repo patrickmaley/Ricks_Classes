@@ -132,7 +132,7 @@ public class Player {
 		this.HP = 100;
 		this.interaction= new Interactions(this);
 		this.playerMap = Map.setMap();
-		setCurrentRoom(playerMap.getEntrance(), this);
+		setCurrentRoom(playerMap.getEntrance());
 		this.isDead = false;
 	}
 	
