@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -23,9 +22,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.RootPaneContainer;
 import javax.swing.border.TitledBorder;
-import javax.swing.text.DefaultCaret;
 
 import model.map.Map;
 import model.player.Player;
@@ -167,11 +164,13 @@ public class Client extends JFrame{
 		playerStatsTextArea.setLineWrap(true);
 		playerStatsTextArea.setWrapStyleWord(true);
 		playerStatsTextArea.setPreferredSize(new Dimension(450, 35));
-		this.textPanel.add(playerStatsTextArea);
+		textPanel.add(playerStatsTextArea);
 		
 		//Add all components tothe frame and set actionlistener
-		this.add(textPanel);
-		this.playerTextArea.addActionListener(new textBoxListener());
+		add(textPanel);
+		playerTextArea.addActionListener(new textBoxListener());
+		signInButton.addActionListener(new SignInListener());
+		signOutButton.addActionListener(new SignOutListener());
 	}
 	
 	private void openConnection() {
@@ -197,7 +196,7 @@ public class Client extends JFrame{
 			try {
 				/* The server sent us a String? Stick it in the JList! */
 				while (true){
-					Client.this.playerMap =  (Map) ois.readObject();
+					Client.this.playerMap =  (Map)(ois.readObject());
 					Client.this.newPlayer = (Player) ois.readObject();
 				}
 			} catch (IOException e) {
@@ -238,5 +237,30 @@ public class Client extends JFrame{
 			
 			playerTextArea.setText("");
 		}
+	}
+	
+	//This takes the information inputted into the sign in boxes
+	//and authenticates them with the records of the users in 
+	//the accountCollection
+	private class SignInListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int password = Integer.parseInt(passwordText.getText());
+			
+		
+		}
+		
+	}
+	
+	//This sets the currentAccount to null and deactivates buttons in the GUI
+	//to prevent any further songs from being added to the playlist
+	private class SignOutListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		
+		}
+		
 	}
 }

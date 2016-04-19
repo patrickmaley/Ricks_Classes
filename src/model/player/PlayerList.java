@@ -14,9 +14,14 @@ public class PlayerList implements Serializable {
 		createList();
 	}
 	
-	public static PlayerList setList() throws NoSuchAlgorithmException, NoSuchProviderException{
+	public static PlayerList setList() {
 		if (uniqueInstance == null){
-			uniqueInstance = new PlayerList();
+			try {
+				uniqueInstance = new PlayerList();
+			} catch (NoSuchAlgorithmException | NoSuchProviderException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return uniqueInstance;
 	}
