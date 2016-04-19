@@ -137,8 +137,18 @@ public abstract class GenericRoom {
 	public String getLookDownDescription(){
 		return this.lookUpDescription;
 	}
+	
 	public ArrayList<Item> getitemsInRoom(){
 		return this.itemsInRoom;
 	}
 	
+	public void getitemsInRoom(Item item){
+		 this.itemsInRoom.add(item);
+	}
+	
+	public void removeItemInRoom(Item item){
+		 if(this.itemsInRoom.contains(item)){
+			this.itemsInRoom.remove(item);
+		 }
+	}	
 }
