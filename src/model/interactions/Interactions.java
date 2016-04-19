@@ -58,13 +58,13 @@ public class Interactions {
 			return down();
 		}
 		else if(command.equals("who")){
-			return who();
+			return "should have been taken care of in server";
 		}
 		else if(command.equals("say")){
 			return say(commandParameters);
 		}
 		else if(command.equals("tell")){
-			return tell(a);
+			return tell(commandParameters);
 		}
 		else if(command.equals("score")){
 			return information();
@@ -100,14 +100,10 @@ public class Interactions {
 	}
 	private String shutdown() {
 		return null;
-		// TODO Auto-generated method stub
-		
 	}
 
 	private String quit() {
 		return null;
-		// TODO Auto-generated method stub
-		
 	}
 
 	private String use(String commandParameters) {
@@ -307,32 +303,25 @@ public class Interactions {
 	}
 
 	private String give(String commandParameters) {
-		return "You are not allowed to give another play any items!!";
+		return "You are not allowed to give another play any items for now";
 	}
 
 	private String information() {
-		return "There is no score in this game. God not everything is about winning and losing, but here is some of you information" + "/n" +
-				"Your HP : "+this.player.getHP() + "/n" + "Your known spells " + this.player.getKnownSpells().toString() + "\n" + "Your Inventory " +
+		return "There is no score in this game. God not everything is about winning and losing, but here is some of you information" + "\n" +
+				"Your HP : "+this.player.getHP() + "\n" + "Your known spells: " + this.player.getKnownSpells().toString() + "\n" + "Your Inventory: " +
 				this.player.getInventory().toString();
 		
 	}
 
-	private String tell(int a) {
-		return null;
-		// TODO Auto-generated method stub
-		
-	}
-
 	private String say(String commandParameters) {
-		return commandParameters;
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
-	private String who() {
+	private String tell(String commandParameters) {
 		return null;
 	}
-
 	private String commands() {
 		String listOfCommands = listOfCommands();
 		return listOfCommands;
@@ -340,8 +329,8 @@ public class Interactions {
 
 	private String listOfCommands() {
 		String returning = "";
-		returning = "north" + "\n" + "south" + "\n" + "east" + "\n" + "west" + "\n" + "up" + "\n" + "down" + "\n" + "take" + "\n" + "give" + "\n" + "look"
-		+ "\n" + "commands" + "\n" + "who" + "\n" + "say" + "\n" + "tell" + "\n"+ "score" + "\n" + "drop" + "\n" + "use" + "\n" + "quit" + "\n" + "shutdown"; 
+		returning = "north" + "\n" + "south" + "\n" + "east" + "\n" + "west" + "\n" + "up" + "\n" + "down" + "\n" + "take <item> " +"\n" +"take <item> <target> "+"\n" + "give <item> <target>" + "\n" + "look"
+		+ "\n" + "commands" + "\n" + "who" + "\n" + "say" + "\n" + "tell <player/mob> <message>" + "\n"+ "score" + "\n" + "drop" + "\n" + "use" + "\n" + "quit" + "\n" + "shutdown"; 
 		return returning;
 	}
 	private String look(String commandParameters) {
@@ -387,9 +376,9 @@ public class Interactions {
 			String directionString = "north";
 			roomToMoveIn = player.getRoom().getNextRoom(directionString);
 			if(roomToMoveIn!=null){
-				player.getRoom().setPlayerPresent(false);
+				player.getRoom().setPlayerPresent(false, this.player);
 				player.setCurrentRoom(roomToMoveIn);
-				player.getRoom().setPlayerPresent(true);
+				player.getRoom().setPlayerPresent(true, this.player);
 				return player.getRoom().getRoomDescription();
 			}
 		else{
@@ -400,9 +389,9 @@ public class Interactions {
 			String directionString = "south";
 			roomToMoveIn = player.getRoom().getNextRoom(directionString);
 			if(roomToMoveIn!=null){
-				player.getRoom().setPlayerPresent(false);
+				player.getRoom().setPlayerPresent(false, this.player);
 				player.setCurrentRoom(roomToMoveIn);
-				player.getRoom().setPlayerPresent(true);
+				player.getRoom().setPlayerPresent(true, this.player);
 				return player.getRoom().getRoomDescription();
 			}
 			else{
@@ -413,9 +402,9 @@ public class Interactions {
 			String directionString = "east";
 			roomToMoveIn = player.getRoom().getNextRoom(directionString);
 			if(roomToMoveIn!=null){
-				player.getRoom().setPlayerPresent(false);
+				player.getRoom().setPlayerPresent(false, this.player);
 				player.setCurrentRoom(roomToMoveIn);
-				player.getRoom().setPlayerPresent(true);
+				player.getRoom().setPlayerPresent(true, this.player);
 				return player.getRoom().getRoomDescription();
 			}
 				else{
@@ -426,9 +415,9 @@ public class Interactions {
 			String directionString = "west";
 			roomToMoveIn = player.getRoom().getNextRoom(directionString);
 			if(roomToMoveIn!=null){
-				player.getRoom().setPlayerPresent(false);
+				player.getRoom().setPlayerPresent(false, this.player);
 				player.setCurrentRoom(roomToMoveIn);
-				player.getRoom().setPlayerPresent(true);
+				player.getRoom().setPlayerPresent(true, this.player);
 				return player.getRoom().getRoomDescription();
 			}
 			else{

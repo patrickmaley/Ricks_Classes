@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import model.items.Item;
 import model.mobs.Mobs;
+import model.player.Player;
 
 public abstract class GenericRoom {
 	private GenericRoom northRoom;
@@ -18,6 +19,7 @@ public abstract class GenericRoom {
 	private ArrayList<Item> itemsInRoom = new ArrayList<Item>();
 	private ArrayList<Mobs> mobsInRoom = new ArrayList<Mobs>();
 	private ArrayList<Mobs> npcInRoom = new ArrayList<Mobs>();
+	private ArrayList<Player> playersInRoom = new ArrayList<Player>();
 	private boolean mobPresent;
 	private boolean playerPresent;
 	private boolean isVisible;
@@ -56,10 +58,25 @@ public abstract class GenericRoom {
 		}
 	}
 	
-	public void setPlayerPresent(boolean player){
-		this.playerPresent = player;
+	public void setPlayerPresent(boolean player, Player p){
+		if(player == false){
+			for(int i =0;i<playersInRoom.size();i++){
+				if(playersInRoom.get(i).getGameName().equals(p.getGameName())){
+					playersInRoom.remove(i);
+					break;
+				}
+			}
+		}
+		if(player == true){
+			playersInRoom.add(p);
+		}
+		if(playersInRoom.size()>0){
+			this.playerPresent=true;
+		}		
 	}
-	
+	public ArrayList<Player> getPlayersInRoom(){
+		return this.playersInRoom;
+	}
 	public boolean getPlayerPresent(){
 		return this.playerPresent;
 	}

@@ -34,7 +34,7 @@ public class Player {
 		this.HP = 100;
 		this.house = house;
 		this.currentRoom = Map.setMap().getEntrance();
-		this.currentRoom.setPlayerPresent(true);
+		this.currentRoom.setPlayerPresent(true, this);
 		this.interaction= new Interactions(this);
 		this.playerMap = Map.setMap();
 		this.isDead = false;
@@ -108,9 +108,9 @@ public class Player {
 	
 	//Changes the player's current location after they move
 	public void setCurrentRoom(GenericRoom location){
-		this.currentRoom.setPlayerPresent(false);
+		this.currentRoom.setPlayerPresent(false, this);
 		this.currentRoom = location;
-		this.currentRoom.setPlayerPresent(true);
+		this.currentRoom.setPlayerPresent(true, this);
 	}
 	
 	//Returns true if the player died. Returns false otherwise.
