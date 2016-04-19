@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 import model.map.Map;
+import model.player.Player;
 import model.player.PlayerList;
 
 
@@ -28,9 +29,10 @@ public class Server {
 
 	private static ServerSocket sock;
 	private static List<ObjectOutputStream> clients = Collections.synchronizedList(new ArrayList<>());
-	//private static Vector<Map> serverObjects = new Vector<NetPaintObjects>();
+	
 	private static Map serverMap = Map.setMap();
 	private static PlayerList playerList = PlayerList.setList();
+	private ArrayList<Player> loggedOnPlayers = new ArrayList<Player>();
 	/**
 	 * This is the main method which runs everything
 	 * @param args
@@ -69,6 +71,18 @@ public class Server {
 	}
 	public static void setPlayerList(PlayerList players) {
 		playerList = players;
+	}
+	
+	public void addPlayer(Player player) {
+		this.loggedOnPlayers.add(player);
+	}
+	public void removePlayer(Player player) {
+		if(this.loggedOnPlayers.contains(player))	
+			this.loggedOnPlayers.remove(player);
+	}
+	
+	public  ArrayList<Player> getLoggedOnPlayers() {
+		return this.loggedOnPlayers;
 	}
 }
 
