@@ -2,6 +2,7 @@ package model.interactions;
 import java.util.ArrayList;
 
 import model.interactions.*;
+import model.items.ElderWand;
 import model.items.Inventory;
 import model.items.Item;
 import model.mobs.Mobs;
@@ -14,6 +15,7 @@ public class Interactions {
 	}
 	public String performAction(String totalCommand){
 		String command = "";
+		totalCommand=totalCommand.toLowerCase();
 		boolean foundSpace = false;
 		int a=0;
 		while(!foundSpace){
@@ -28,7 +30,6 @@ public class Interactions {
 			}
 			a++;
 		}
-		command.toLowerCase();
 		System.out.println(command);
 		String commandParameters = totalCommand.substring(a).trim();
 		System.out.println("This is the command paramters: " + commandParameters);
@@ -110,15 +111,166 @@ public class Interactions {
 	}
 
 	private String use(String commandParameters) {
-		return commandParameters;
-		// TODO Auto-generated method stub
-		
+		String item = "";
+		boolean foundSpace = false;
+		int a=0;
+		while(!foundSpace){
+			if(a== commandParameters.length()){
+				break;
+			}
+			if(commandParameters.charAt(a)==' '){
+				foundSpace = true;
+			}
+			else{
+			item+=commandParameters.charAt(a);
+			}
+			a++;
+		}
+		String spellName = commandParameters.substring(a).trim();
+		if(item.equals("elder")){
+			Item toUse = player.getInventory().getItem(item);
+			if(toUse==null){
+				return "This item was not found in your inventory therefore you cannot use it";
+			}
+			else{
+				return toUse.use(this.player, spellName);
+			}		
+		}
+		else if (item.equals("regular")){
+			Item toUse = player.getInventory().getItem(item);
+			if(toUse==null){
+				return "This item was not found in your inventory therefore you cannot use it";
+			}
+			else{
+				return toUse.use(this.player, spellName);
+			}
+		}
+		else if (item.equals("sword")){
+			Item toUse = player.getInventory().getItem(item);
+			if(toUse==null){
+				return "This item was not found in your inventory therefore you cannot use it";
+			}
+			else{
+				return toUse.use(this.player, spellName);
+			}
+		}
+		else if (item.equals("dependency")){
+			Item toUse = player.getInventory().getItem(item);
+			if(toUse==null){
+				return "This item was not found in your inventory therefore you cannot use it";
+			}
+			else{
+				return toUse.use(this.player, spellName);
+			}
+		}
+		else if (item.equals("bassilsk")){
+			Item toUse = player.getInventory().getItem(item);
+			if(toUse==null){
+				return "This item was not found in your inventory therefore you cannot use it";
+			}
+			else{
+				return toUse.use(this.player, spellName);
+			}
+		}
+		else if (item.equals("butter")){
+			Item toUse = player.getInventory().getItem(item);
+			if(toUse==null){
+				return "This item was not found in your inventory therefore you cannot use it";
+			}
+			else{
+				return toUse.use(this.player, spellName);
+			}
+		}
+		else if (item.equals("healing")){
+			Item toUse = player.getInventory().getItem(item);
+			if(toUse==null){
+				return "This item was not found in your inventory therefore you cannot use it";
+			}
+			else{
+				return toUse.use(this.player, spellName);
+			}
+		}
+		else if (item.equals("hermoines")){
+			Item toUse = player.getInventory().getItem(item);
+			if(toUse==null){
+				return "This item was not found in your inventory therefore you cannot use it";
+			}
+			else{
+				return toUse.use(this.player, spellName);
+			}
+		}
+		else if (item.equals("horcrux")){
+			Item toUse = player.getInventory().getItem(item);
+			if(toUse==null){
+				return "This item was not found in your inventory therefore you cannot use it";
+			}
+			else{
+				return toUse.use(this.player, spellName);
+			}
+		}
+		else if (item.equals("phoenix")){
+			Item toUse = player.getInventory().getItem(item);
+			if(toUse==null){
+				return "This item was not found in your inventory therefore you cannot use it";
+			}
+			else{
+				return toUse.use(this.player, spellName);
+			}
+		}
+		else if (item.equals("maurders")){
+			Item toUse = player.getInventory().getItem(item);
+			if(toUse==null){
+				return "This item was not found in your inventory therefore you cannot use it";
+			}
+			else{
+				return toUse.use(this.player, spellName);
+			}
+		}
+		else if (item.equals("never")){
+			Item toUse = player.getInventory().getItem(item);
+			if(toUse==null){
+				return "This item was not found in your inventory therefore you cannot use it";
+			}
+			else{
+				return toUse.use(this.player, spellName);
+			}
+		}
+		else if (item.equals("ressurection")){
+			Item toUse = player.getInventory().getItem(item);
+			if(toUse==null){
+				return "This item was not found in your inventory therefore you cannot use it";
+			}
+			else{
+				return toUse.use(this.player, spellName);
+			}
+		}
+		else if (item.equals("broomstick")){
+			Item toUse = player.getInventory().getItem(item);
+			if(toUse==null){
+				return "This item was not found in your inventory therefore you cannot use it";
+			}
+			else{
+				return toUse.use(this.player, spellName);
+			}
+		}
+		else{
+			Item toUse = player.getInventory().getItem(item);
+			if(toUse==null){
+				return "This item was not found in your inventory therefore you cannot use it";
+			}
+			else{
+				return toUse.use(this.player, spellName);
+			}
+		}		
 	}
-
 	private String drop(String commandParameters) {
-		return commandParameters;
-		// TODO Auto-generated method stub
-		
+		boolean beenDropped = this.player.getInventory().drop(commandParameters);
+		if(beenDropped){
+			return commandParameters + " has been dropped from you inventory";
+		}
+		else{
+			return commandParameters + " cannot be dropped as it is not in your inventory";
+		}
 	}
 
 	private String inventory() {
@@ -155,14 +307,13 @@ public class Interactions {
 	}
 
 	private String give(String commandParameters) {
-		return commandParameters;
-		// TODO Auto-generated method stub
-		
+		return "You are not allowed to give another play any items!!";
 	}
 
 	private String information() {
-		return null;
-		// TODO Auto-generated method stub
+		return "There is no score in this game. God not everything is about winning and losing, but here is some of you information" + "/n" +
+				"Your HP : "+this.player.getHP() + "/n" + "Your known spells " + this.player.getKnownSpells().toString() + "\n" + "Your Inventory " +
+				this.player.getInventory().toString();
 		
 	}
 
@@ -180,8 +331,6 @@ public class Interactions {
 
 	private String who() {
 		return null;
-		// TODO Auto-generated method stub
-		
 	}
 
 	private String commands() {
@@ -238,7 +387,9 @@ public class Interactions {
 			String directionString = "north";
 			roomToMoveIn = player.getRoom().getNextRoom(directionString);
 			if(roomToMoveIn!=null){
+				player.getRoom().setPlayerPresent(false);
 				player.setCurrentRoom(roomToMoveIn);
+				player.getRoom().setPlayerPresent(true);
 				return player.getRoom().getRoomDescription();
 			}
 		else{
@@ -249,7 +400,9 @@ public class Interactions {
 			String directionString = "south";
 			roomToMoveIn = player.getRoom().getNextRoom(directionString);
 			if(roomToMoveIn!=null){
+				player.getRoom().setPlayerPresent(false);
 				player.setCurrentRoom(roomToMoveIn);
+				player.getRoom().setPlayerPresent(true);
 				return player.getRoom().getRoomDescription();
 			}
 			else{
@@ -260,10 +413,12 @@ public class Interactions {
 			String directionString = "east";
 			roomToMoveIn = player.getRoom().getNextRoom(directionString);
 			if(roomToMoveIn!=null){
+				player.getRoom().setPlayerPresent(false);
 				player.setCurrentRoom(roomToMoveIn);
+				player.getRoom().setPlayerPresent(true);
 				return player.getRoom().getRoomDescription();
 			}
-			else{
+				else{
 				return "There is no door in the north direction. Please enter a new direction";
 			}
 		}
@@ -271,7 +426,9 @@ public class Interactions {
 			String directionString = "west";
 			roomToMoveIn = player.getRoom().getNextRoom(directionString);
 			if(roomToMoveIn!=null){
+				player.getRoom().setPlayerPresent(false);
 				player.setCurrentRoom(roomToMoveIn);
+				player.getRoom().setPlayerPresent(true);
 				return player.getRoom().getRoomDescription();
 			}
 			else{

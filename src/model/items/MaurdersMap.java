@@ -11,8 +11,6 @@ public class MaurdersMap extends Item {
 
 	@Override
 	public String use(Player p, String notNeeded) {
-		return null;
-		// TODO Auto-generated method stub
-		
+		return "Not functional yet part of the wow factor";
 	}
 }

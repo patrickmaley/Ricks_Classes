@@ -10,9 +10,16 @@ public class NeverEndingBook extends Item{
 
 	@Override
 	public String use(Player p, String notNeeded) {
-		return null;
-		// TODO Auto-generated method stub
-		
+		String jeremy = "Jeremy Mowry";
+		String professorMercer = "Rick Mercer";
+		String cindy  = "Cindiesel!!!!!";
+		String hasanain = "Hasanain Jamal";
+		String daniel = "Daniel Vaughn";
+		String theBook = "";
+		for(int i=0;i<335;i++){
+			theBook += professorMercer +" "+ jeremy +" " + cindy +" "+ hasanain+" "+ daniel+ "\n";
+		}
+		return theBook;
 	}
 
 }
