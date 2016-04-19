@@ -62,9 +62,11 @@ public class Map implements Serializable{
 		mobRoomOneHallway.setSouthRoom(mobRoomTwoDiningHall);
 		mobRoomTwoDiningHall.setSouthRoom(stairsRoomOne);
 		stairsRoomOne.setSouthRoom(mobRoomThreeCastleEntrance);
+		mobRoomThreeCastleEntrance.setSouthRoom(outdoorRoomOne);
 		
 		//North connection
-		outdoorRoomTwo.setNorthRoom(outdoorRoomTwo);
+		outdoorRoomOne.setNorthRoom(mobRoomThreeCastleEntrance);
+		outdoorRoomTwo.setNorthRoom(outdoorRoomOne);
 		outdoorRoomThree.setNorthRoom(outdoorRoomTwo);
 		npcRoomOneHagridsHat.setNorthRoom(outdoorRoomThree);
 		outdoorRoomFour.setNorthRoom(npcRoomOneHagridsHat);
@@ -236,8 +238,10 @@ public class Map implements Serializable{
 		twoStairsOne.setSouthRoom(twoStairsTwo);
 		twoStairsTwo.setSouthRoom(twoStairsThree);
 		twoStairsThree.setSouthRoom(twoMobRoomSixHallway);
+		twoMobRoomSixHallway.setSouthRoom(twoMobRoomOneHallway);
 		
 		//Second Column North Connections
+		twoMobRoomOneHallway.setNorthRoom(twoMobRoomSixHallway);
 		twoMobRoomTwoRoomOfRequirement.setNorthRoom(twoMobRoomOneHallway);
 		twoMobRoomFourForbiddenForest.setNorthRoom(twoMobRoomThreeForbiddenForest);
 		twoMobRoomFiveBoysRoom.setNorthRoom(twoNPCRoomOneHarryRonShrine);
