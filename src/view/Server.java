@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 import model.map.Map;
+import model.player.PlayerList;
 
 
 /**
@@ -23,12 +24,13 @@ import model.map.Map;
  */
 public class Server {
 
-	public static final int SERVER_PORT = 4006;
+	public static final int SERVER_PORT = 4007;
 
 	private static ServerSocket sock;
 	private static List<ObjectOutputStream> clients = Collections.synchronizedList(new ArrayList<>());
 	//private static Vector<Map> serverObjects = new Vector<NetPaintObjects>();
 	private static Map serverMap = Map.setMap();
+	private PlayerList playerList = PlayerList.setList();
 	/**
 	 * This is the main method which runs everything
 	 * @param args

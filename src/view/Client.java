@@ -4,96 +4,79 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Image;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
-import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.Vector;
 
-import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.RootPaneContainer;
+import javax.swing.border.TitledBorder;
+import javax.swing.text.DefaultCaret;
 
 import model.map.Map;
+import model.player.Player;
 
 //TODO: 1: Add scrollpane to the gameTextArea
 //		2: Set font for player text area
 
 public class Client extends JFrame{
 	private static final String ADDRESS = "localhost";
+	private final Dimension STATUS_PANEL_DIMENSION = new Dimension(200, 550);
+	private final String GAME_COMMANDS = "Game Commands"
+			+ "Look: Check Room Description\n"
+			+ "Take:\n"
+			+ "Up:\n"
+			+ "Down:\n"
+			+ "North:\n"
+			+ "South:\n"
+			+ "East:\n"
+			+ "West:\n";
 	
 	private JPanel textPanel = new JPanel();
 	private JPanel playerInputPanel = new JPanel();
+	private JPanel signInPanel = new JPanel(new FlowLayout());
+	
+	private JTextArea signInInstructions = new JTextArea();
 	private JTextArea gameTextArea = new JTextArea();
-	private JTextArea playerTextArea = new JTextArea();
+	private JTextArea playerStatsTextArea = new JTextArea();
+	private JTextField playerTextArea = new JTextField();
+	private JTextField signInText = new JTextField();
+	private JTextField titleText = new JTextField("Game Title");
+	
 	private Socket socket;
 	private ObjectOutputStream oos;
 	private ObjectInputStream ois;
+	
 	private Map playerMap = null;
 	
-	private String dragonTitle = "11111111111111111111111111111111111111001111111111111111111111111\n"+
-            "11111111111111111111111111111111111100011111111111111111111111111\n"+
-            "11111111111111111111111111111111100001111111111111111111111111111\n"+
-            "11111111111111111111111111111110000111111111111111111111111111111\n"+
-            "11111111111111111111111111111000000111111111111111111111111111111\n"+
-            "11111111111111111111111111100000011110001100000000000000011111111\n"+
-            "11111111111111111100000000000000000000000000000000011111111111111\n"+
-            "11111111111111110111000000000000000000000000000011111111111111111\n"+
-            "11111111111111111111111000000000000000000000000000000000111111111\n"+
-            "11111111111111111110000000000000000000000000000000111111111111111\n"+
-            "11111111111111111100011100000000000000000000000000000111111111111\n"+
-            "11111111111111100000110000000000011000000000000000000011111111111\n"+
-            "11111111111111000000000000000100111100000000000001100000111111111\n"+
-            "11111111110000000000000000001110111110000000000000111000011111111\n"+
-            "11111111000000000000000000011111111100000000000000011110001111111\n"+
-            "11111110000000011111111111111111111100000000000000001111100111111\n"+
-            "11111111000001111111111111111111110000000000000000001111111111111\n"+
-            "11111111110111111111111111111100000000000000000000000111111111111\n"+
-            "11111111111111110000000000000000000000000000000000000111111111111\n"+
-            "11111111111111111100000000000000000000000000001100000111111111111\n"+
-            "11111111111111000000000000000000000000000000111100000111111111111\n"+
-            "11111111111000000000000000000000000000000001111110000111111111111\n"+
-            "11111111100000000000000000000000000000001111111110000111111111111\n"+
-            "11111110000000000000000000000000000000111111111110000111111111111\n"+
-            "11111100000000000000000001110000001111111111111110001111111111111\n"+
-            "11111000000000000000011111111111111111111111111110011111111111111\n"+
-            "11110000000000000001111111111111111100111111111111111111111111111\n"+
-            "11100000000000000011111111111111111111100001111111111111111111111\n"+
-            "11100000000001000111111111111111111111111000001111111111111111111\n"+
-            "11000000000001100111111111111111111111111110000000111111111111111\n"+
-            "11000000000000111011111111111100011111000011100000001111111111111\n"+
-            "11000000000000011111111111111111000111110000000000000011111111111\n"+
-            "11000000000000000011111111111111000000000000000000000000111111111\n"+
-            "11001000000000000000001111111110000000000000000000000000001111111\n"+
-            "11100110000000000001111111110000000000000000111000000000000111111\n"+
-            "11110110000000000000000000000000000000000111111111110000000011111\n"+
-            "11111110000000000000000000000000000000001111111111111100000001111\n"+
-            "11111110000010000000000000000001100000000111011111111110000001111\n"+
-            "11111111000111110000000000000111110000000000111111111110110000111\n"+
-            "11111110001111111100010000000001111100000111111111111111110000111\n"+
-            "11111110001111111111111110000000111111100000000111111111111000111\n"+
-            "11111111001111111111111111111000000111111111111111111111111100011\n"+
-            "11111111101111111111111111111110000111111111111111111111111001111\n"+
-            "11111111111111111111111111111110001111111111111111111111100111111\n"+
-            "11111111111111111111111111111111001111111111111111111111001111111\n"+
-            "11111111111111111111111111111111100111111111111111111111111111111\n"+
-            "11111111111111111111111111111111110111111111111111111111111111111\n";
+	private JPasswordField passwordText = new JPasswordField();
+	private JButton signInButton = new JButton("Sign In");
+	private JButton signOutButton = new JButton("Sign Out");
+	
+	private String dragonTitle = "\t\tDragon\n";
+	private Player newPlayer = null;
 	
 	public static void main(String[] args) {
 		new Client().setVisible(true);
-		
 	}
 	
 	public Client(){
+		openConnection();
 		frameProperties();
-		this.openConnection();
-		
 		new ServerListener().start();
 //		try {
 //			oos.writeObject(nPO);
@@ -106,34 +89,89 @@ public class Client extends JFrame{
 	private void frameProperties() {
 		setTitle("24 Jump Street: Hogwarts");
 		setLayout(new FlowLayout());
-		setSize(1000, 900);
+		//setPreferredSize(new Dimension(450, 110));
+		setSize(800, 600);
 		setLocation(0,0);
-		
 		
 		//setResizable(false);
 		getContentPane().setBackground(new Color(8, 2, 50));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//Adds all the components to the JFrame -PM
+		//Adds all the components to the JFrame
 		addComponents();
-		
 	}
 	
-	private void addComponents() {
-		this.textPanel.setPreferredSize(new Dimension(500,800));
-		this.textPanel.setBackground(new Color(192, 142, 45));
-		this.gameTextArea.setPreferredSize(new Dimension(475,780));
-		this.gameTextArea.setEditable(false);
-		this.gameTextArea.setText(this.dragonTitle);
-		JScrollPane gameTextPane = new JScrollPane();
-		textPanel.add(gameTextArea);
-		this.add(textPanel);
-		
-		this.playerInputPanel.setPreferredSize(new Dimension(600, 50));
-		this.playerInputPanel.setBackground(new Color(0, 0, 0));
-		this.playerTextArea.setPreferredSize(new Dimension(600,50));
-		this.playerInputPanel.add(playerTextArea);
-		this.add(playerInputPanel);
+
 	
+	private void addComponents() {
+		Font displayFont = new Font("AngsanaUPC", 1, 14);
+		
+		//Sets up the sign In Panel where the user inputs information
+		JLabel userNameLabel = new JLabel("User Name");
+		JLabel passwordLabel = new JLabel("Password  ");
+		userNameLabel.setForeground(new Color(59, 58, 54));
+		userNameLabel.setLabelFor(signInText);
+		userNameLabel.setFont(displayFont);
+		passwordLabel.setForeground(new Color(59, 58, 54));
+		passwordLabel.setLabelFor(passwordText);
+		passwordLabel.setFont(displayFont);		
+
+		signInPanel.setPreferredSize(STATUS_PANEL_DIMENSION);
+		signInPanel.add(userNameLabel);
+		signInText.setPreferredSize(new Dimension(100, 25));
+		signInPanel.add(signInText);
+		signInPanel.add(passwordLabel);
+		passwordText.setPreferredSize(new Dimension(100, 25));
+        signInPanel.add(passwordText);
+        signInPanel.add(this.signInButton);
+        signInPanel.add(this.signOutButton);
+        signInPanel.setBackground(new Color(179, 194, 191));
+        signInInstructions.setText("Game Commands");
+        signInInstructions.setPreferredSize(new Dimension(150, 400));
+        signInInstructions.setWrapStyleWord(true);
+        signInInstructions.setEditable(false);
+		signInInstructions.setLineWrap(true);
+        signInPanel.add(signInInstructions);
+        add(signInPanel);
+		
+        //Set panel for second column
+        textPanel.setPreferredSize(new Dimension(550,550));
+		textPanel.setBackground(new Color(192, 142, 45));
+		textPanel.setLayout(new FlowLayout());
+		
+        //Set title of the game
+  		Font titleFont = new Font("Bodoni MT Black", 1, 30);
+  		titleText.setSize(100, 100);
+  		titleText.setFont(titleFont);
+  		titleText.setBackground(new Color(192, 223, 217));
+  		titleText.setEditable(false);
+  		textPanel.add(titleText);
+      		
+  		//Jtextarea for the game
+		gameTextArea.setEditable(false);
+		gameTextArea.setLineWrap(true);
+		gameTextArea.setWrapStyleWord(true);
+		gameTextArea.setText(this.dragonTitle);
+		JScrollPane gameTextPane = new JScrollPane(this.gameTextArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		gameTextPane.setPreferredSize(new Dimension(450, 400));
+		textPanel.add(gameTextPane);
+		
+		//Text area for player commands
+		TitledBorder title;
+		title = BorderFactory.createTitledBorder("Player Commands");
+		playerTextArea.setBorder(title);
+		playerTextArea.setPreferredSize(new Dimension(450,50));
+		textPanel.add(playerTextArea);
+		
+		//Player information
+		playerStatsTextArea.setEditable(false);
+		playerStatsTextArea.setLineWrap(true);
+		playerStatsTextArea.setWrapStyleWord(true);
+		playerStatsTextArea.setPreferredSize(new Dimension(450, 35));
+		this.textPanel.add(playerStatsTextArea);
+		
+		//Add all components tothe frame and set actionlistener
+		this.add(textPanel);
+		this.playerTextArea.addActionListener(new textBoxListener());
 	}
 	
 	private void openConnection() {
@@ -160,7 +198,7 @@ public class Client extends JFrame{
 				/* The server sent us a String? Stick it in the JList! */
 				while (true){
 					Client.this.playerMap =  (Map) ois.readObject();
-					//NetpaintGUI.this.drawingPanel.repaint();
+					Client.this.newPlayer = (Player) ois.readObject();
 				}
 			} catch (IOException e) {
 				Client.this.cleanUpAndQuit("The server hung up on us. Exiting...");
@@ -181,5 +219,24 @@ public class Client extends JFrame{
 		}
 		Client.this.dispatchEvent(new WindowEvent(Client.this,WindowEvent.WINDOW_CLOSING));
 	}
-
+	private class textBoxListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			String descriptions = Client.this.newPlayer.performAction(playerTextArea.getText().toLowerCase());
+			if(descriptions != null){
+				Client.this.gameTextArea.append(descriptions + "\n");
+			}else{
+				Client.this.gameTextArea.append("Nothing much happens\n");
+			}
+			
+			//Auto updates the scrollpane to the last description
+			gameTextArea.setCaretPosition(gameTextArea.getDocument().getLength());
+			
+			//Resets descriptions value
+			descriptions = null;
+			
+			playerTextArea.setText("");
+		}
+	}
 }
