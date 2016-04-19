@@ -43,10 +43,12 @@ public class Player {
 		return this.username;
 	}
 	
+	//Sets the gameName of the player
 	public void setGameName(String gameName){
 		this.gameName = gameName;
 	}
 	
+	//Sets the house of the player
 	public void setHouse(String houseName){
 		this.house = houseName;
 	}
