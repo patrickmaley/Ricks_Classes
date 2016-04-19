@@ -21,6 +21,8 @@ public class Player {
 	private GenericRoom currentRoom;
 	private double HP;
 	private String house;
+	private Map playerMap;
+	private boolean isDead;
 	
 	
 	public Player(String username, char[] password, String gameName, String house) throws NoSuchAlgorithmException, NoSuchProviderException{
@@ -32,7 +34,10 @@ public class Player {
 		this.HP = 100;
 		this.house = house;
 		this.currentRoom = Map.setMap().getEntrance();
+		this.currentRoom.setPlayerPresent(true);
 		this.interaction= new Interactions(this);
+		this.playerMap = Map.setMap();
+		this.isDead = false;
 	}
 	
 	//Returns the username of the player
@@ -62,6 +67,7 @@ public class Player {
 	public void decreaseHP(double amount){
 		if (HP - amount <= 0){
 			HP = 0;
+			isDead = true;
 		}
 		else{
 			HP = HP - amount;
@@ -102,7 +108,26 @@ public class Player {
 	
 	//Changes the player's current location after they move
 	public void setCurrentRoom(GenericRoom location){
+		this.currentRoom.setPlayerPresent(false);
 		this.currentRoom = location;
+		this.currentRoom.setPlayerPresent(true);
+	}
+	
+	//Returns true if the player died. Returns false otherwise.
+	public boolean getIsDead(){
+		return this.isDead;
+	}
+	
+	//Call this method if the player is dead to reset all of the game data.
+	//Keeps the username, password, house, and gameName
+	public void resetPlayerData(){
+		this.knownSpells = new ArrayList<Spell>();
+		this.inventory = new Inventory();
+		this.HP = 100;
+		this.interaction= new Interactions(this);
+		this.playerMap = Map.setMap();
+		setCurrentRoom(playerMap.getEntrance());
+		this.isDead = false;
 	}
 	
 	//Allows the player to perform an action in the game
