@@ -196,7 +196,7 @@ public class Client extends JFrame{
 			try {
 				/* The server sent us a String? Stick it in the JList! */
 				while (true){
-					Client.this.playerMap =  (Map)(ois.readObject());
+					//Client.this.playerMap =  (Map)(ois.readObject());
 					Client.this.newPlayer = (Player) ois.readObject();
 				}
 			} catch (IOException e) {
@@ -247,12 +247,15 @@ public class Client extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String userName = signInText.getText();
-			try {
-				oos.writeObject(userName);
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			char[] password = passwordText.getPassword();
+			//Player player = new Player(userName, password);
+//			try {
+//				
+//				//oos.writeObject(player);
+//			} catch (IOException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
 		
 		}
 		
