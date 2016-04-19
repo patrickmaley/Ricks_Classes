@@ -2,10 +2,12 @@ package test;
 
 import static org.junit.Assert.*;
 
-
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 
 import org.junit.Test;
 
+import model.player.Player;
 import model.room.GenericRoom;
 import model.room.MobRoom;
 import model.room.NPCRoom;
@@ -184,7 +186,9 @@ public class GenericRoomTests {
 	}
 	
 	@Test
-	public void testGettersAndSetters(){
+	public void testGettersAndSetters() throws NoSuchAlgorithmException, NoSuchProviderException{
+		char [] password = new char ['p'];
+		Player p = new Player("Player", password,"hi","gryffindor");
 		GenericRoom testRoom1 = RoomFactory.designRoom(RoomType.NPC);
 	
 		String testString = "Harry peered into the darkness";
@@ -193,7 +197,7 @@ public class GenericRoomTests {
 		testRoom1.setMobsPresent(true);
 		assertTrue(testRoom1.getMobsPresent());
 		
-		testRoom1.setPlayerPresent(true);
+		testRoom1.setPlayerPresent(true, p);
 		assertTrue(testRoom1.getPlayerPresent());
 		
 		testRoom1.setLookDownDescription(testString);
