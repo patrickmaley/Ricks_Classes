@@ -21,6 +21,7 @@ public class Player {
 	private GenericRoom currentRoom;
 	private double HP;
 	private String house;
+	private Map playerMap;
 	
 	
 	public Player(String username, char[] password, String gameName, String house) throws NoSuchAlgorithmException, NoSuchProviderException{
@@ -33,6 +34,7 @@ public class Player {
 		this.house = house;
 		this.currentRoom = Map.setMap().getEntrance();
 		this.interaction= new Interactions(this);
+		this.playerMap = Map.setMap();
 	}
 	
 	//Returns the username of the player
