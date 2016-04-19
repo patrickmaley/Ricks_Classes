@@ -2,6 +2,8 @@ package model.room;
 
 import java.util.ArrayList;
 
+import model.items.Item;
+
 public abstract class GenericRoom {
 	private GenericRoom northRoom;
 	private GenericRoom eastRoom;
@@ -12,7 +14,7 @@ public abstract class GenericRoom {
 	private String roomDescription;
 	private String lookUpDescription;
 	private String lookDownDescription;
-	private ArrayList<Items> itemsInRoom = new ArrayList<Items>();
+	private ArrayList<Item> itemsInRoom = new ArrayList<Item>();
 	private boolean mobPresent;
 	private boolean playerPresent;
 	private int gridX;
