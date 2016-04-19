@@ -42,6 +42,13 @@ public class PlayerTest {
 		Spell spell2 = new Expelliarumus();
 		Spell spell3 = new SectumSempra();
 		
+		//Tests map getters and setters
+		assertEquals(player1.getPlayerMap(), currMap);
+		currMap.getEntrance().getNorthRoom().setIsVisible(true);
+		assertEquals(player1.getPlayerMap(), currMap);
+		player1.setPlayerMap(currMap);
+		assertEquals(player1.getPlayerMap(), currMap);
+		
 		//Tests playerList
 		assertEquals(0, current.getCurrentList().size());
 		current.newPlayer(player1);
