@@ -115,6 +115,18 @@ public class Player {
 		return this.isDead;
 	}
 	
+	//Call this method if the player is dead to reset all of the game data.
+	//Keeps the username, password, house, and gameName
+	public void resetPlayerData(){
+		this.knownSpells = new ArrayList<Spell>();
+		this.inventory = new Inventory();
+		this.HP = 100;
+		this.currentRoom = Map.setMap().getEntrance();
+		this.interaction= new Interactions(this);
+		this.playerMap = Map.setMap();
+		this.isDead = false;
+	}
+	
 	//Allows the player to perform an action in the game
 	public String performAction(String s){
 		return this.interaction.performAction(s);
