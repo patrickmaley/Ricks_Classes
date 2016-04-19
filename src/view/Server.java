@@ -26,7 +26,7 @@ public class Server {
 	public static final int SERVER_PORT = 4006;
 
 	private static ServerSocket sock;
-	private static List<ObjectOutputStream> clients = Collections.synchronizedList(new ArrayList<>());
+	private static List<ObjectOutputStream> clients = Collections.synchronizedList(new ArrayList<ObjectOutputStream>());
 	//private static Vector<Map> serverObjects = new Vector<NetPaintObjects>();
 	private static Map serverMap = Map.setMap();
 	/**
