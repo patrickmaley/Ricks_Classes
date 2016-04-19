@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 import model.map.Map;
+import model.player.PlayerList;
 
 
 /**
@@ -29,6 +30,7 @@ public class Server {
 	private static List<ObjectOutputStream> clients = Collections.synchronizedList(new ArrayList<>());
 	//private static Vector<Map> serverObjects = new Vector<NetPaintObjects>();
 	private static Map serverMap = Map.setMap();
+	private PlayerList playerList = PlayerList.setList();
 	/**
 	 * This is the main method which runs everything
 	 * @param args

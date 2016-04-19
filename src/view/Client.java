@@ -36,35 +36,46 @@ import model.player.Player;
 public class Client extends JFrame{
 	private static final String ADDRESS = "localhost";
 	private final Dimension STATUS_PANEL_DIMENSION = new Dimension(200, 550);
+	private final String GAME_COMMANDS = "Game Commands"
+			+ "Look: Check Room Description\n"
+			+ "Take:\n"
+			+ "Up:\n"
+			+ "Down:\n"
+			+ "North:\n"
+			+ "South:\n"
+			+ "East:\n"
+			+ "West:\n";
 	
 	private JPanel textPanel = new JPanel();
 	private JPanel playerInputPanel = new JPanel();
+	private JPanel signInPanel = new JPanel(new FlowLayout());
+	
+	private JTextArea signInInstructions = new JTextArea();
 	private JTextArea gameTextArea = new JTextArea();
 	private JTextArea playerStatsTextArea = new JTextArea();
 	private JTextField playerTextArea = new JTextField();
+	private JTextField signInText = new JTextField();
+	private JTextField titleText = new JTextField("Game Title");
+	
 	private Socket socket;
 	private ObjectOutputStream oos;
 	private ObjectInputStream ois;
+	
 	private Map playerMap = null;
 	
-	private JTextField signInText = new JTextField();
-	private JTextArea signInInstructions = new JTextArea();
 	private JPasswordField passwordText = new JPasswordField();
 	private JButton signInButton = new JButton("Sign In");
 	private JButton signOutButton = new JButton("Sign Out");
-	private JTextField titleText = new JTextField("Game Title");
-	private JPanel signInPanel = new JPanel(new FlowLayout());
 	
 	private String dragonTitle = "\t\tDragon\n";
-	private Player newPlayer = new Player(dragonTitle, null, dragonTitle, dragonTitle);
+	private Player newPlayer = null;
+	
 	public static void main(String[] args) {
 		new Client().setVisible(true);
-		
 	}
 	
 	public Client(){
-		
-		this.openConnection();
+		openConnection();
 		frameProperties();
 		new ServerListener().start();
 //		try {
@@ -82,19 +93,18 @@ public class Client extends JFrame{
 		setSize(800, 600);
 		setLocation(0,0);
 		
-		
 		//setResizable(false);
 		getContentPane().setBackground(new Color(8, 2, 50));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//Adds all the components to the JFrame -PM
+		//Adds all the components to the JFrame
 		addComponents();
-		
 	}
 	
 
 	
 	private void addComponents() {
 		Font displayFont = new Font("AngsanaUPC", 1, 14);
+		
 		//Sets up the sign In Panel where the user inputs information
 		JLabel userNameLabel = new JLabel("User Name");
 		JLabel passwordLabel = new JLabel("Password  ");
@@ -115,16 +125,20 @@ public class Client extends JFrame{
         signInPanel.add(this.signInButton);
         signInPanel.add(this.signOutButton);
         signInPanel.setBackground(new Color(179, 194, 191));
-        signInInstructions.setText("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+        signInInstructions.setText("Game Commands");
         signInInstructions.setPreferredSize(new Dimension(150, 400));
         signInInstructions.setWrapStyleWord(true);
-        this.signInInstructions.setEditable(false);
-		this.signInInstructions.setLineWrap(true);
+        signInInstructions.setEditable(false);
+		signInInstructions.setLineWrap(true);
         signInPanel.add(signInInstructions);
         add(signInPanel);
-		        
-        
-        //Set title of the Player
+		
+        //Set panel for second column
+        textPanel.setPreferredSize(new Dimension(550,550));
+		textPanel.setBackground(new Color(192, 142, 45));
+		textPanel.setLayout(new FlowLayout());
+		
+        //Set title of the game
   		Font titleFont = new Font("Bodoni MT Black", 1, 30);
   		titleText.setSize(100, 100);
   		titleText.setFont(titleFont);
@@ -132,41 +146,32 @@ public class Client extends JFrame{
   		titleText.setEditable(false);
   		textPanel.add(titleText);
       		
-		this.textPanel.setPreferredSize(new Dimension(550,550));
-		this.textPanel.setBackground(new Color(192, 142, 45));
-		this.textPanel.setLayout(new FlowLayout());
-		//this.gameTextArea.setPreferredSize(new Dimension(450,450));
-		this.gameTextArea.setEditable(false);
-		this.gameTextArea.setLineWrap(true);
-		this.gameTextArea.setWrapStyleWord(true);
-		this.gameTextArea.setText(this.dragonTitle);
-		
+  		//Jtextarea for the game
+		gameTextArea.setEditable(false);
+		gameTextArea.setLineWrap(true);
+		gameTextArea.setWrapStyleWord(true);
+		gameTextArea.setText(this.dragonTitle);
 		JScrollPane gameTextPane = new JScrollPane(this.gameTextArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		gameTextPane.setPreferredSize(new Dimension(450, 400));
+		textPanel.add(gameTextPane);
 		
-		this.textPanel.add(gameTextPane);
-		
+		//Text area for player commands
 		TitledBorder title;
 		title = BorderFactory.createTitledBorder("Player Commands");
 		playerTextArea.setBorder(title);
+		playerTextArea.setPreferredSize(new Dimension(450,50));
+		textPanel.add(playerTextArea);
 		
-		//this.playerInputPanel.setPreferredSize(new Dimension(600, 50));
-		//this.playerInputPanel.setBackground(new Color(0, 0, 0));
-		this.playerTextArea.setPreferredSize(new Dimension(450,50));
-		
-		//this.playerInputPanel.add(playerTextArea);
-		this.textPanel.add(playerTextArea);
-		
-		this.playerStatsTextArea.setEditable(false);
-		this.playerStatsTextArea.setLineWrap(true);
-		this.playerStatsTextArea.setWrapStyleWord(true);
+		//Player information
+		playerStatsTextArea.setEditable(false);
+		playerStatsTextArea.setLineWrap(true);
+		playerStatsTextArea.setWrapStyleWord(true);
 		playerStatsTextArea.setPreferredSize(new Dimension(450, 35));
-		
 		this.textPanel.add(playerStatsTextArea);
 		
+		//Add all components tothe frame and set actionlistener
 		this.add(textPanel);
 		this.playerTextArea.addActionListener(new textBoxListener());
-		this.setVisible(true);
 	}
 	
 	private void openConnection() {
@@ -193,7 +198,7 @@ public class Client extends JFrame{
 				/* The server sent us a String? Stick it in the JList! */
 				while (true){
 					Client.this.playerMap =  (Map) ois.readObject();
-					//NetpaintGUI.this.drawingPanel.repaint();
+					Client.this.newPlayer = (Player) ois.readObject();
 				}
 			} catch (IOException e) {
 				Client.this.cleanUpAndQuit("The server hung up on us. Exiting...");
@@ -218,7 +223,7 @@ public class Client extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
-			String descriptions = Client.this.newPlayer.performAction(playerTextArea.getText());
+			String descriptions = Client.this.newPlayer.performAction(playerTextArea.getText().toLowerCase());
 			if(descriptions != null){
 				Client.this.gameTextArea.append(descriptions + "\n");
 			}else{
