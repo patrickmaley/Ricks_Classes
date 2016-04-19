@@ -38,15 +38,15 @@ public class playerTest {
 		Spell spell2 = new Expelliarumus();
 		Spell spell3 = new SectumSempra();
 		
-		assertEquals(2, current.getCurrentList().size());
+		assertEquals(0, current.getCurrentList().size());
 		current.newPlayer(player1);
-		assertEquals(3, current.getCurrentList().size());
+		assertEquals(1, current.getCurrentList().size());
 		current.newPlayer(player2);
-		assertEquals(4, current.getCurrentList().size());
+		assertEquals(2, current.getCurrentList().size());
 		current.newPlayer(player3);
-		assertEquals(5, current.getCurrentList().size());
+		assertEquals(3, current.getCurrentList().size());
 		current.newPlayer(player3);
-		assertEquals(5, current.getCurrentList().size());
+		assertEquals(3, current.getCurrentList().size());
 
 		assertEquals("Lee", player1.getUsername());
 		assertEquals(true, player1.checkPassword(password1));
@@ -75,13 +75,19 @@ public class playerTest {
 		assertEquals(75, player3.getHP(), .0001);
 		player3.decreaseHP(100);
 		assertEquals(0, player3.getHP(), .0001);
-		player3.increaseHP(100);
+		assertTrue(player3.getIsDead());
+		player3.resetPlayerData();
+		assertFalse(player3.getIsDead());
 		assertEquals(100, player3.getHP(), .0001);
+		player3.increaseHP(100);
+		assertEquals(200, player3.getHP(), .0001);
 		
 		assertEquals(currMap.getEntrance(), player1.getRoom());
 		player1.setCurrentRoom(nextRoom);
 		assertNotEquals(currMap.getEntrance(), player1.getRoom());
 		assertEquals(nextRoom, player1.getRoom());
+		
+		assertNotEquals(player1.getInventory(), player2.getInventory());
 
 	}
 

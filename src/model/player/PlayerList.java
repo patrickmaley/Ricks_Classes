@@ -26,7 +26,6 @@ public class PlayerList implements Serializable {
 	//Creates a new PlayerList and sets the default Player accounts
 	private void createList() throws NoSuchAlgorithmException, NoSuchProviderException{
 		validPlayers = new TreeMap<String, Player>();
-		setDefaultPlayers();
 	}
 	
 	//Returns the current TreeMap of valid players
@@ -40,12 +39,6 @@ public class PlayerList implements Serializable {
 		if (!validPlayers.containsKey(p.getUsername())){
 			validPlayers.put(p.getUsername(), p);
 		}
-	}
-	
-	//Adds two default accounts to the TreeMap
-	private void setDefaultPlayers() throws NoSuchAlgorithmException, NoSuchProviderException{
-		validPlayers.put("Johnny", new Player("Johnny", new char[] {'1'}, "ComeAtMeBro", "Gryffindor"));
-		validPlayers.put("Timmy", new Player("Timmy", new char[] {'2', '2'}, "TTurner", "Hufflepuff"));
 	}
 	
 }
