@@ -28,8 +28,13 @@ public class Server {
 	public static final int SERVER_PORT = 4008;
 
 	private static ServerSocket sock;
+<<<<<<< HEAD
+	private static List<ObjectOutputStream> clients = Collections.synchronizedList(new ArrayList<ObjectOutputStream>());
+	//private static Vector<Map> serverObjects = new Vector<NetPaintObjects>();
+=======
 	private static List<ObjectOutputStream> clients = Collections.synchronizedList(new ArrayList<>());
 	
+>>>>>>> bdac22f1b581562e5584a56525ac904a377a0b2a
 	private static Map serverMap = Map.setMap();
 	private static PlayerList playerList = PlayerList.setList();
 	private ArrayList<Player> loggedOnPlayers = new ArrayList<Player>();
