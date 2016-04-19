@@ -8,6 +8,7 @@ public class Sirius extends Mobs{
 	private String name;
 	private String house;
 	private String description;
+	private boolean isPadfoot = false;
 	
 	public Sirius(String name, int hp, int x, int y) {
 		super("Sirius Black", hp, "It's that convict Sirius Black! I wonder how he escaped from Azkaban? "
@@ -29,19 +30,37 @@ public class Sirius extends Mobs{
 		return this.house;
 	}
 
+	public boolean isPadfoot(){
+		return this.isPadfoot;
+	}
 	@Override
 	public String action(String command) {
 		//TODO: talk over him having multiple forms
 		if(command.compareTo("talk")==0){
 			//maybe add in dog form to change things.
-		}
-		if(command.compareTo("attack")==0){
-			return "";
+			if(this.isPadfoot()){
+				isPadfoot = false;
+				return "woof woof";
+			}
+			else{
+				isPadfoot = true;
+				return "We've all got both light and dark inside us. What matters is the part"
+						+ " we choose to act on. That's who we really are.";
+			}
 		}
 		if(command.compareTo("look") == 0){
+			if(this.isPadfoot()){
+				isPadfoot = false;
+				return "Oh look! A dog!";
+			}
 			return this.getDescription();
 		}
-		return null;
+		return "";
+	}
+
+	@Override
+	public void move() {
+		
 	}
 
 }

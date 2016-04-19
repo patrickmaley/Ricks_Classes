@@ -31,7 +31,7 @@ public class Snape extends Mobs {
 	@Override
 	public String action(String command) {
 		if(command.compareTo("talk")==0){
-			return "Make it quick before I take away more points...";
+			return "Here take this potion a student made. Hopefully it works right.";
 		}
 		if(command.compareTo("attack")==0){
 			return "So you want a short life I see";
@@ -40,6 +40,12 @@ public class Snape extends Mobs {
 			return this.getDescription();
 		}
 		return null;
+	}
+
+	@Override
+	public void move() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
