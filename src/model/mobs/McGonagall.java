@@ -34,13 +34,16 @@ public class McGonagall extends Mobs{
 		if(command.compareTo("look") == 0){
 			return this.getDescription();
 		}
-		if(command.compareTo("attack") == 0){
-			return "Woah there lets not be doing anything stupid.";
-		}
 		if(command.compareTo("talk") == 0){
-			return "";//what should she say?
+			return "Why is it, when something happens, it is always you?";//what should she say?
 		}
 		return null;
+	}
+
+	@Override
+	public void move() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
