@@ -114,17 +114,23 @@ class ClientHandler extends Thread {
 	 */
 	public void run() {
 		while (true) {
-
-			Map s = null;
+			Player player = null;
+			
 			try {
-				if(input.readObject() == null){
-					s = Server.getServerMap();
-					this.writeStringToClients(s);
-					PlayerList s2 = Server.getPlayerList();
-					this.writeStringToClients(s2);
+			
+				if(input.readObject().getClass() == Player.class){
+					player = (Player) input.readObject();
+					Player returningPlayer;
+					if(Server.getPlayerList().getCurrentList().containsKey(player.getUsername())){
+						Player foundPlayer = Server.getPlayerList().getCurrentList().get(player.getUsername());
+					}else{
+						
+					}
+					
+					//writeStringToClients(returningPlayer);
 				}else{
-					Server.setServerMap((Map) input.readObject());
-					Server.setPlayerList((PlayerList) input.readObject());
+//					Server.setServerMap((Map) input.readObject());
+//					Server.setPlayerList((PlayerList) input.readObject());
 					
 				}
 				
@@ -138,9 +144,9 @@ class ClientHandler extends Thread {
 				this.cleanUp();
 				return;
 			}
-			System.out.println("Received the String " + s + " from a client");
+			System.out.println("Received the String " + player.getUsername()+ " from a client");
 
-			this.writeStringToClients(s);
+			
 		}
 	}
 	
