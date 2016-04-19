@@ -20,14 +20,23 @@ public abstract class GenericRoom {
 	private ArrayList<Mobs> npcInRoom = new ArrayList<Mobs>();
 	private boolean mobPresent;
 	private boolean playerPresent;
+	private boolean isVisible;
 	private int gridX;
 	private int gridY;
 	
 	public GenericRoom(RoomType roomType){
 		playerPresent = false;
 		this.roomType = roomType;
+		isVisible = false;
+	}
+	
+	public void setIsVisible(boolean bool){
+		this.isVisible = bool;
 	}
 
+	public boolean getIsVisible(){
+		return this.isVisible;
+	}
 	public GenericRoom getNextRoom(String direction){
 		switch(direction){
 		case "n": case "north":
