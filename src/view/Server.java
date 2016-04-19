@@ -24,13 +24,13 @@ import model.player.PlayerList;
  */
 public class Server {
 
-	public static final int SERVER_PORT = 4007;
+	public static final int SERVER_PORT = 4008;
 
 	private static ServerSocket sock;
 	private static List<ObjectOutputStream> clients = Collections.synchronizedList(new ArrayList<>());
 	//private static Vector<Map> serverObjects = new Vector<NetPaintObjects>();
 	private static Map serverMap = Map.setMap();
-	private PlayerList playerList = PlayerList.setList();
+	private static PlayerList playerList = PlayerList.setList();
 	/**
 	 * This is the main method which runs everything
 	 * @param args
@@ -60,8 +60,15 @@ public class Server {
 	public static Map getServerMap() {
 		return serverMap;
 	}
-	public void setServerMap(Map serverMap) {
-		this.serverMap = serverMap;
+	public static void setServerMap(Map serverMap) {
+		serverMap = serverMap;
+	}
+	
+	public static PlayerList getPlayerList() {
+		return playerList;
+	}
+	public static void setPlayerList(PlayerList players) {
+		playerList = players;
 	}
 }
 
@@ -96,8 +103,13 @@ class ClientHandler extends Thread {
 			try {
 				if(input.readObject() == null){
 					s = Server.getServerMap();
+					this.writeStringToClients(s);
+					PlayerList s2 = Server.getPlayerList();
+					this.writeStringToClients(s2);
 				}else{
-					s =  (Map) input.readObject();
+					Server.setServerMap((Map) input.readObject());
+					Server.setPlayerList((PlayerList) input.readObject());
+					
 				}
 				
 			} catch (IOException e) {
@@ -116,7 +128,7 @@ class ClientHandler extends Thread {
 		}
 	}
 	
-	private void writeStringToClients(Map s) {
+	private void writeStringToClients(Object s) {
 		synchronized (clients) {
 			Set<ObjectOutputStream> closed = new HashSet<>();
 			for (ObjectOutputStream client : clients) {
