@@ -18,7 +18,7 @@ public class RegularWand  extends Item {
 	public String use(Player p, String spellName) {
 		ArrayList<Spell> playerKnownSpells = p.getKnownSpells();
 		boolean areThereMobsInTheRoom = p.getRoom().getMobsPresent();
-	//	boolean areTherePlayersInTheRoom = p.getRoom().getPlayerPresent();
+		boolean areTherePlayersInTheRoom = p.getRoom().getPlayerPresent();
 		if(!areThereMobsInTheRoom /*&& !areTherePlayersInTheRoom*/){
 			return "There is no one in the room for you to try and attack";
 		}
@@ -47,10 +47,8 @@ public class RegularWand  extends Item {
 				}
 			}
 		}
+		return "The attack was not possible";
 
 	}
-}
 
 	}
-
-}

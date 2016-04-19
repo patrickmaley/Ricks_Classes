@@ -48,9 +48,9 @@ private Spellbook sbNine = new Spellbook(sectumSempra);
 private Spellbook sbTen = new Spellbook(stupefy);
 private BassilskFang bassilskFang = new BassilskFang();
 private Broomstick broomstick = new Broomstick();
-private Deluminator deluminator = new Deluminator();
+private PhoenixTears phoenixTears = new PhoenixTears();
 private ElderWand elderWand = new ElderWand();
-private InvisibilityCloak invisibilityCloak = new InvisibilityCloak();
+private Horcrux horcrux = new Horcrux();
 private MaurdersMap maurdersMap = new MaurdersMap();
 private NeverEndingBook neverEndingBook = new NeverEndingBook(); 
 private RegularWand regularWand = new RegularWand();
@@ -60,9 +60,9 @@ private RessurectionStone ressurectionStone = new RessurectionStone();
 private ButterBeer butterBeer = new ButterBeer();
 private HealingPotion healingPotion = new HealingPotion();
 private DependencyInjectionSword dependencyInjectionSword = new DependencyInjectionSword();
-private Snape snape = new Snape("Snape", 0);
-private Dementor dementor = new Dementor("Dementor", 0); 
-private OrdinaryWizards ordinaryWizard = new OrdinaryWizards("ordinary", 0, "syltherin"); 
+private Snape snape = new Snape("Snape", 0, 0, 0);
+private Dementor dementor = new Dementor("Dementor", 0, 0, 0); 
+private OrdinaryWizards ordinaryWizard = new OrdinaryWizards("ordinary", 0, "syltherin", 0, 0); 
 @Test
 public void testSpells(){
 	avadaKedvra.putInBook();
@@ -150,8 +150,8 @@ public void testItems(){
 	String d3 = butterBeer.getDescription();
 	System.out.println(d3);
 	//
-	assertEquals(deluminator.getName(), "Deluminator");
-	String d4 = deluminator.getDescription();
+	assertEquals(phoenixTears.getName(), "Phoenix Tears");
+	String d4 = phoenixTears.getDescription();
 	System.out.println(d4);
 	//
 	assertEquals(elderWand.getName(), "Elder Wand");
@@ -166,8 +166,8 @@ public void testItems(){
 	String d7 = hermoinesHandbag.getDescription();
     System.out.println(d7);
 	//
-	assertEquals(invisibilityCloak.getName(), "Invisibility Cloak");
-	String d8 = invisibilityCloak.getDescription();
+	assertEquals(horcrux.getName(), "Horcrux");
+	String d8 = horcrux.getDescription();
 	System.out.println(d8);
 	//
 	assertEquals(maurdersMap.getName(), "Maurders Map");
@@ -204,7 +204,7 @@ public void testInventory() throws NoSuchAlgorithmException, NoSuchProviderExcep
 	char [] password = new char ['p'];
 	Player p = new Player("Player", password,"hi","gryffindor");
 	Inventory inventory = p.getInventory();
-	inventory.add(invisibilityCloak);
+	inventory.add(horcrux);
 	inventory.add(sbOne);
 	inventory.add(hermoinesHandbag);
 	inventory.add(healingPotion);
@@ -212,6 +212,8 @@ public void testInventory() throws NoSuchAlgorithmException, NoSuchProviderExcep
 	String usingSpellBook=sbOne.use(p, null);
 	System.out.println(usingSpellBook);
 	assertFalse(inventory.add(broomstick));
+	inventory.drop("horcrux");
+	assertEquals(null, inventory.getItem("horcrux"));
 	hermoinesHandbag.use(p,null);
 	assertTrue(inventory.add(broomstick));
 	assertTrue(inventory.add(butterBeer));

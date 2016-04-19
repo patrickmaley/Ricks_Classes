@@ -13,7 +13,7 @@ public class RessurectionStone  extends Item {
 		String returner = "Your HP has now been increased by 100 giving you another life";
 		p.increaseHP(hpIncreaser);
 		Inventory temp = p.getInventory();
-		temp.drop(this);
+		temp.drop(this.getName().toLowerCase());
 		return returner;
 	}
 

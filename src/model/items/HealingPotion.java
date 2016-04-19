@@ -18,7 +18,7 @@ public class HealingPotion extends Item {
 		else{
 			p.increaseHP(healingPoints);
 			returner= "Added 10 health points to you";
-			p.getInventory().drop(this);
+			p.getInventory().drop(this.getName().toLowerCase());
 		}
 		return returner;
 	}

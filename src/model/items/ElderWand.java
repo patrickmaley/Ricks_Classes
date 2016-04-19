@@ -40,11 +40,11 @@ public class ElderWand extends Item {
 						return "You have just attacked "+ mobToAttack.getName() + " and his hp is now "+ mobToAttack.getHp(); 
 					}
 				}
-				else{
+			}
 					return "You cannot attack this mob";
 				}
-			}
+
 		}
 
-	}
+
 }
