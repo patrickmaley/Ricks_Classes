@@ -1,9 +1,12 @@
 package test;
 import model.player.Player;
+import model.room.GenericRoom;
 import model.items.*;
+import model.map.Map;
 import model.mobs.Dementor;
 import model.mobs.OrdinaryWizards;
 import model.mobs.Snape;
+import model.mobs.Spiders;
 
 import static org.junit.Assert.*;
 
@@ -12,6 +15,24 @@ import java.security.NoSuchProviderException;
 
 import org.junit.Test;
 public class ItemsTest {
+	
+	public Map map;
+	public Player p;
+	GenericRoom[][] arrayMap;
+	public void setup(){
+		map =  Map.setMap();
+		char[] a = {'a','b','c'};
+		try {
+			p = new Player("Joe", a);
+		} catch (NoSuchAlgorithmException e) {
+		} catch (NoSuchProviderException e) {
+		}
+		arrayMap = map.getMapArray();
+		p.setGameName("player");
+		arrayMap[5][1].setPlayerPresent(true, p);
+		p.setCurrentRoom(arrayMap[5][1]);
+		p.addKnownSpells(avadaKedvra);
+	}
 private String get = "get";
 private String look = "look";
 private String commands = "commands";
@@ -138,12 +159,20 @@ public void testSpells(){
 }	
 @Test
 public void testItems(){
+	setup();	
+	Spiders spid = new Spiders("Spid", 100,0,0);
+	arrayMap[5][1].setMobsInRoom(spid);
+	
+	
+	spid.setCurrentRoom(arrayMap[5][1]);
 	assertEquals(broomstick.getName(), "Broomstick");
 	String d1 = broomstick.getDescription();
 	System.out.println(d1);
 	//
 	assertEquals(bassilskFang.getName(), "Bassilsk Fang");
 	String d2 = bassilskFang.getDescription();
+	bassilskFang.use(this.p, "");
+	assertTrue(arrayMap[5][1].getMobsPresent());
 	System.out.println(d2);
 	//
 	assertEquals(butterBeer.getName(), "Butter Beer");
@@ -156,6 +185,7 @@ public void testItems(){
 	//
 	assertEquals(elderWand.getName(), "Elder Wand");
 	String d5 = elderWand.getDescription();
+	elderWand.use(p, "avada kedvra");
 	System.out.println(d5);
 	//
 	assertEquals(healingPotion.getName(), "Healing Potion");
@@ -178,8 +208,14 @@ public void testItems(){
 	String d10 = neverEndingBook.getDescription();
 	System.out.println(d10);
 	//
+	Spiders spid1 = new Spiders("Spid", 100,0,0);
+	arrayMap[5][1].setMobsInRoom(spid1);
+	
+	
+	spid1.setCurrentRoom(arrayMap[5][1]);
 	assertEquals(regularWand.getName(), "Regular Wand");
 	String d11 = regularWand.getDescription();
+	regularWand.use(p, "avada kedvra");
 	System.out.println(d11);
 	//
 	assertEquals(ressurectionStone.getName(), "Ressurection Stone");
@@ -198,11 +234,16 @@ public void testItems(){
 	String d15 = swordOfGryffindor.getDescription();
 	System.out.println(d15);
 	//
+	for(int i=0; i<100; i++){
+		broomstick.use(p, "");
+	}
+
 }
 @Test 
 public void testInventory() throws NoSuchAlgorithmException, NoSuchProviderException{
 	char [] password = new char ['p'];
 	Player p = new Player("Player", password);
+	p.setGameName("fucktard");
 	Inventory inventory = p.getInventory();
 	inventory.add(horcrux);
 	inventory.add(sbOne);
@@ -263,6 +304,22 @@ public void testItemsWithCommands() throws NoSuchAlgorithmException, NoSuchProvi
 	 System.out.println(p.getInventory().getInventorySize());
 	 System.out.println(p.getInventory().add(this.broomstick));
 	 System.out.println(p.performAction("use broomstick"));
+	 p.performAction("look");
+	 p.performAction("up");
+	 p.performAction("down");
+	 p.performAction("north");
+	 p.performAction("south");
+	 p.performAction("east");
+	 p.performAction("west");
+	 p.performAction("take potion");
+	 p.performAction("inventory");
+	 p.performAction("use dependency");
+	 p.performAction("who");
+	 p.performAction("say");
+	 p.performAction("tell");
+	 p.performAction("give");
+
+
 	 
 }
 }
