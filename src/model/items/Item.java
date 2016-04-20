@@ -1,8 +1,10 @@
 package model.items;
 
+import java.io.Serializable;
+
 import model.player.Player;;
 
-public abstract class Item {
+public abstract class Item implements Serializable {
 	private String name;
 	private String description;
 public Item(String s,String d){

@@ -19,7 +19,15 @@ import model.player.Player;
 import model.player.PlayerList;
 
 
+/**
+ * 
+ * @author Sahil Dalal and Patrick Maley
+ *
+ *This is the server class that allows clients to connect to it and then now when they draw both clients will see the changes made to the drawing panel
+ */
+public class Server {
 
+	public static final int SERVER_PORT = 4004;
 public class Server {
 	public static final int SERVER_PORT = 4010;
 	private static ServerSocket sock;

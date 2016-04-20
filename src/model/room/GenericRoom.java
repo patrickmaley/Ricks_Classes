@@ -171,7 +171,7 @@ public abstract class GenericRoom implements Serializable{
 		return this.itemsInRoom;
 	}
 	
-	public void getitemsInRoom(Item item){
+	public void additemsInRoom(Item item){
 		 this.itemsInRoom.add(item);
 	}
 	

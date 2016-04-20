@@ -36,7 +36,7 @@ public class Hagrid extends Mobs{
 			if(p.getKnownSpells().size() < 5){
 				return "Come back when you've grown up a little and know more.";//get what hagrid should be saying;
 			}	
-			this.getRoom().getitemsInRoom(new Broomstick());
+			this.getRoom().additemsInRoom(new Broomstick());
 			return "Here, this should help you get around a little bit quicker!\nHagrid drops a Broomstick!";
 		}
 		return "";
