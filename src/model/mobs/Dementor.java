@@ -36,7 +36,7 @@ public class Dementor extends Mobs{
 	public String action(String command, Player p) {
 		//Should dementors be silent
 		if(command.compareTo("talk")==0){
-			return "...";
+			return "";
 		}
 		if(command.compareTo("look") == 0){
 			return this.getDescription();
