@@ -133,7 +133,7 @@ public class Client extends JFrame{
 		passwordText.setPreferredSize(new Dimension(100, 25));
         signInPanel.add(passwordText);
         signInPanel.add(this.signInButton);
-        signInPanel.add(this.signOutButton);
+       // signInPanel.add(this.signOutButton);
         signInPanel.setBackground(new Color(179, 194, 191));
         signInInstructions.setText(GAME_COMMANDS);
         signInInstructions.setPreferredSize(new Dimension(150, 400));
@@ -192,7 +192,7 @@ public class Client extends JFrame{
 		add(textPanel);
 		playerTextArea.addActionListener(new textBoxListener());
 		signInButton.addActionListener(new SignInListener());
-		signOutButton.addActionListener(new SignOutListener());
+		//signOutButton.addActionListener(new SignOutListener());
 		gameNameText.addActionListener(new gameNameTextListener());
 		gameHouseText.addActionListener(new gameHouseTextListener());
 	}
@@ -220,8 +220,13 @@ public class Client extends JFrame{
 			try {
 				/* The server sent us a String? Stick it in the JList! */
 				while (true){
-					//Client.this.playerMap =  (Map)(ois.readObject());
-					Client.this.newPlayer = (Player) ois.readObject();
+					Player player = (Player) ois.readObject();
+					if(Client.this.newPlayer == null)
+						Client.this.newPlayer =  player;
+					if(player.getGameName().compareTo(Client.this.newPlayer.getGameName())== 0)
+						Client.this.newPlayer =  player;
+					Client.this.playerMap =  (Map)ois.readObject();
+					
 				}
 			} catch (IOException e) {
 				Client.this.cleanUpAndQuit("The server hung up on us. Exiting...");
@@ -260,6 +265,14 @@ public class Client extends JFrame{
 			descriptions = null;
 			
 			playerTextArea.setText("");
+			
+				try {
+				oos.writeObject(Client.this.newPlayer);
+				oos.writeObject(playerMap);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 	
@@ -302,6 +315,7 @@ public class Client extends JFrame{
 			try {
 				
 				oos.writeObject(player);
+				oos.writeObject(playerMap);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -314,12 +328,12 @@ public class Client extends JFrame{
 	
 	//This sets the currentAccount to null and deactivates buttons in the GUI
 	//to prevent any further songs from being added to the playlist
-	private class SignOutListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-		
-		}
-		
-	}
+//	private class SignOutListener implements ActionListener {
+//
+//		@Override
+//		public void actionPerformed(ActionEvent e) {
+//		
+//		}
+//		
+//	}
 }

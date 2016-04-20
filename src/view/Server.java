@@ -25,7 +25,7 @@ import model.player.PlayerList;
  */
 public class Server {
 
-	public static final int SERVER_PORT = 4011;
+	public static final int SERVER_PORT = 4003;
 
 	private static ServerSocket sock;
 
@@ -115,24 +115,31 @@ class ClientHandler extends Thread {
 	public void run() {
 		while (true) {
 			Player player = null;
-			
+			Map map =  null;
 			try {
 			
 				
 				player = (Player) input.readObject();
-				System.out.print(player.getUsername() + "\n");
+				map = (Map) input.readObject();
+				Server.setServerMap(map);
 				Player returningPlayer = null;
-				if(!Server.getPlayerList().getCurrentList().containsKey(player.getUsername())){
+				//Only for new players
+				if(player.getGameName() == null && !Server.getPlayerList().getCurrentList().containsKey(player.getUsername())){
 					Server.getPlayerList().newPlayer(player);
+					returningPlayer = Server.getPlayerList().getCurrentList().get(player.getUsername());
+				}else{
+					Server.getPlayerList().getCurrentList().replace(player.getUsername(), player);
+					returningPlayer = Server.getPlayerList().getCurrentList().get(player.getUsername());
+					
 				}
 					 
-			    returningPlayer = Server.getPlayerList().getCurrentList().get(player.getUsername());
+			    
 				
 				
 				writeStringToClients(returningPlayer);
-		
-//					Server.setServerMap((Map) input.readObject());
-//					Server.setPlayerList((PlayerList) input.readObject());
+				writeStringToClients(map);
+				
+
 					
 				
 				
