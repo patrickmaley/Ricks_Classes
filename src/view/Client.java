@@ -210,11 +210,12 @@ public class Client extends JFrame{
 			try {
 				while (true){
 					Player player = (Player) ois.readObject();
-					if(Client.this.newPlayer == null)
+					if(Client.this.newPlayer == null){
 						Client.this.newPlayer =  player;
 						Client.this.gameTextArea.append("You wake up after taking a nap outside of Hogwarts." + "\n");
 						Client.this.gameTextArea.append(TEXT_BREAK);
-					if(player.getGameName().compareTo(Client.this.newPlayer.getGameName())== 0)
+					}
+					if(player.getGameName() != null && Client.this.newPlayer.getGameName() != null && player.getGameName().compareTo(Client.this.newPlayer.getGameName())== 0)
 						Client.this.newPlayer =  player;
 					Client.this.playerMap =  (Map)ois.readObject();
 				}
