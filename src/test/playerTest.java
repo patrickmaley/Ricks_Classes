@@ -96,9 +96,9 @@ public class PlayerTest {
 		player3.increaseHP(25);
 		assertEquals(75, player3.getHP(), .0001);
 		player3.decreaseHP(100);
-		assertEquals(0, player3.getHP(), .0001);
-		assertTrue(player3.getIsDead());
-		player3.resetPlayerData();
+		assertEquals(100, player3.getHP(), .0001);
+		assertFalse(player3.getIsDead());
+		//player3.resetPlayerData();
 		assertFalse(player3.getIsDead());
 		assertEquals(100, player3.getHP(), .0001);
 		player3.increaseHP(100);

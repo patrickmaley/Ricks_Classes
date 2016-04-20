@@ -78,6 +78,7 @@ public class Player implements Serializable{
 		if (HP - amount <= 0){
 			HP = 0;
 			isDead = true;
+			resetPlayerData();
 		}
 		else{
 			HP = HP - amount;
