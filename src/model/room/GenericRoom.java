@@ -57,7 +57,22 @@ public abstract class GenericRoom {
 			return null;
 		}
 	}
-	
+	public String getItemsToString(){
+		String list="";
+		for(int i=0;i<itemsInRoom.size();i++){
+			System.out.println(itemsInRoom.get(i).getName());
+			list= list + itemsInRoom.get(i).getName()+" ";
+		}
+		return list;
+	}
+	public String getMobsToString(){
+		String list="";
+		for(int i=0;i<mobsInRoom.size();i++){
+			System.out.println(mobsInRoom.get(i).getName());
+			list= list + mobsInRoom.get(i).getName()+" ";
+		}
+		return list;
+	}
 	public void setPlayerPresent(boolean player, Player p){
 		if(player == false){
 			for(int i =0;i<playersInRoom.size();i++){
