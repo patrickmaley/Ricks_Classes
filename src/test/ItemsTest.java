@@ -317,9 +317,6 @@ public void testItemsWithCommands() throws NoSuchAlgorithmException, NoSuchProvi
 	 p.performAction("who");
 	 p.performAction("say");
 	 p.performAction("tell");
-	 p.performAction("give");
-
-
-	 
+	 p.performAction("give");	 
 }
 }
