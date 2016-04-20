@@ -42,7 +42,7 @@ public class McGonagall extends Mobs{
 					+ " if you would just use dependency injection. Take this"
 					+ "to help yourself out.\nProfessor McGonagall drops a DependencyInjectionSword";//what should she say?
 		}
-		return null;
+		return "";
 	}
 
 	@Override

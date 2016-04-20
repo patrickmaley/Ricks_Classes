@@ -41,7 +41,7 @@ public class Dementor extends Mobs{
 		if(command.compareTo("look") == 0){
 			return this.getDescription();
 		}
-		return "...";
+		return "";
 	}
 
 	@Override

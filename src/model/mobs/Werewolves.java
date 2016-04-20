@@ -41,7 +41,7 @@ public class Werewolves extends Mobs{
 			return this.getDescription();
 		}
 		
-		return null;
+		return "";
 	}
 	private int x = 0;
 

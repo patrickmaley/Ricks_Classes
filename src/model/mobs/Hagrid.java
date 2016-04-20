@@ -39,7 +39,7 @@ public class Hagrid extends Mobs{
 			this.getRoom().getitemsInRoom(new Broomstick());
 			return "Here, this should help you get around a little bit quicker!\nHagrid drops a Broomstick!";
 		}
-		return null;
+		return "";
 	}
 
 	@Override

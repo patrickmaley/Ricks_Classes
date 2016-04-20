@@ -50,7 +50,7 @@ public class Lupin extends Mobs{
 		if(command.compareTo("talk")==0){
 			return ""; // what does lupin say?
 		}
-		return null;
+		return "";
 	}
 
 	@Override

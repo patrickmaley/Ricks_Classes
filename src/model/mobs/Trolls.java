@@ -40,7 +40,7 @@ public class Trolls extends Mobs{
 			return this.getDescription();
 		}
 		
-		return null;
+		return "";
 	}
 	private int x = 0;
 
