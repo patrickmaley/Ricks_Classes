@@ -336,7 +336,14 @@ public class Interactions implements Serializable {
 	}
 	private String look(String commandParameters) {
 		if(commandParameters.compareTo("") == 0){
-			return player.getRoom().getRoomDescription();
+			String withItemsAndMobs ="";
+			if(player.getRoom().getitemsInRoom().size()!=0){
+				withItemsAndMobs+= player.getRoom().getItemsToString()+ "\n";
+			}
+			if(player.getRoom().getMobsPresent()){
+				withItemsAndMobs+= player.getRoom().getMobsToString() + "\n";
+			}
+			return player.getRoom().getRoomDescription() + "\n" + withItemsAndMobs;
 		}
 		ArrayList<Item> itemsInPlayersCurrentRoom = player.getRoom().getitemsInRoom();
 		boolean itemIsInRoom = false;

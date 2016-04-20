@@ -231,6 +231,10 @@ public void testInventory() throws NoSuchAlgorithmException, NoSuchProviderExcep
 public void testItemsWithCommands() throws NoSuchAlgorithmException, NoSuchProviderException{
 	char [] password = new char ['p'];
 	Player p = new Player("Player", password);
+<<<<<<< HEAD
+=======
+	 p.setGameName("booby");
+>>>>>>> 0f6d8be5d3b537a59e24f2bb7b59c3f5c81fc909
 	 p.getInventory().add(this.regularWand);
 	 System.out.println(p.performAction("use regular wand"));
 	 System.out.println(p.performAction("drop regular wand"));
@@ -239,6 +243,7 @@ public void testItemsWithCommands() throws NoSuchAlgorithmException, NoSuchProvi
 	 p.getInventory().add(this.butterBeer);
 	 p.getInventory().add(this.phoenixTears);
 	 p.getInventory().add(this.horcrux);
+	 System.out.println(p.performAction(info));
 	 System.out.println(p.performAction("use horcrux"));
 	 System.out.println(p.performAction("use sword of griffyndor"));
 	 System.out.println(p.performAction("use bassilsk fang"));
@@ -254,8 +259,11 @@ public void testItemsWithCommands() throws NoSuchAlgorithmException, NoSuchProvi
 	 System.out.println(p.performAction("use healing potion"));
 	 System.out.println(p.performAction("use never ending book"));
 	 System.out.println(p.performAction(info));
-
-	 
+	 System.out.println(p.getRoom().getRoomDescription());
+	 System.out.println(p.performAction("drop bassilsk fang"));
+	 System.out.println(p.getInventory().getInventorySize());
+	 System.out.println(p.getInventory().add(this.broomstick));
+	 System.out.println(p.performAction("use broomstick"));
 	 
 }
 }
