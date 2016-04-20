@@ -7,6 +7,9 @@ import java.security.NoSuchProviderException;
 
 import org.junit.Test;
 
+import model.items.HealingPotion;
+import model.items.Item;
+import model.mobs.Spiders;
 import model.player.Player;
 import model.room.GenericRoom;
 import model.room.MobRoom;
@@ -189,6 +192,7 @@ public class GenericRoomTests {
 	public void testGettersAndSetters() throws NoSuchAlgorithmException, NoSuchProviderException{
 		char [] password = new char ['p'];
 		Player p = new Player("Player", password);
+		p.setGameName("player");
 		GenericRoom testRoom1 = RoomFactory.designRoom(RoomType.NPC);
 	
 		String testString = "Harry peered into the darkness";
@@ -199,6 +203,23 @@ public class GenericRoomTests {
 		
 		testRoom1.setPlayerPresent(true, p);
 		assertTrue(testRoom1.getPlayerPresent());
+		testRoom1.setIsVisible(false);
+		assertFalse(testRoom1.getIsVisible());
+		Item pot = new HealingPotion();
+		testRoom1.additemsInRoom(pot);
+		System.out.println(testRoom1.getItemsToString());
+		Spiders spid = new Spiders("spid", 50, 0, 0);
+		testRoom1.setMobsInRoom(spid);
+		System.out.println(testRoom1.getMobsToString());
+		System.out.print(testRoom1.getitemsInRoom().toString());
+		System.out.print(testRoom1.getMobsInRoom().toString());
+		testRoom1.removeItemInRoom(pot);
+		testRoom1.removeMobsInRoom(spid);
+		
+		testRoom1.setPlayerPresent(true, p);
+		testRoom1.setPlayerPresent(false,p);
+		System.out.print(testRoom1.getPlayersInRoom().toString())
+		;
 		
 		testRoom1.setLookDownDescription(testString);
 		testRoom1.setLookUpDescription(testTitle);

@@ -30,6 +30,7 @@ public class MobsTest {
 			e.printStackTrace();
 		}
 		arrayMap = map.getMapArray();
+		p.setGameName("joe");
 	}
 	@Test
 	public void AddOrdinaryWiztest() {
@@ -114,8 +115,8 @@ public class MobsTest {
 		assertEquals(250, bellatrix.getHp());
 		assertEquals("Slytherin" , bellatrix.getHouse());
 		assertEquals(35,bellatrix.getAttackPower(), 0);
-		arrayMap[9][1].setMobsInRoom(bellatrix);
-		bellatrix.setCurrentRoom(arrayMap[9][1]);
+		arrayMap[7][0].setMobsInRoom(bellatrix);
+		bellatrix.setCurrentRoom(arrayMap[7][0]);
 		bellatrix.decreaseHP(51);
 		bellatrix.decreaseHP(.1);
 		bellatrix.decreaseHP(.1);
@@ -136,10 +137,10 @@ public class MobsTest {
 	public void testDementor(){
 		setup();
 		Dementor demon = new Dementor("Demon", 100, 2,0);
-		demon.setCurrentRoom(arrayMap[0][0]);
+		demon.setCurrentRoom(arrayMap[9][1]);
 		demon.move();
 		arrayMap[2][0].setMobsInRoom(demon);
-		demon.setCurrentRoom(arrayMap[9][0]);
+		demon.setCurrentRoom(arrayMap[9][1]);
 		assertEquals("Demon", demon.getName());
 		assertEquals(100, demon.getHp());
 		assertEquals(100, demon.getAttackPower(), 0);
@@ -148,7 +149,7 @@ public class MobsTest {
 		}
 		assertTrue(demon.canBeAttacked());
 		assertEquals(demon.action("look", p), demon.getDescription());
-		assertEquals(demon.action("", p),demon.action("talk", p));
+		assertEquals(demon.action("...", p),demon.action("talk", p));
 	}
 	
 	@Test
@@ -258,8 +259,8 @@ public class MobsTest {
 	public void testSpiders(){
 		setup();
 		Spiders spid = new Spiders("Spid", 100,0,0);
-		arrayMap[8][1].setMobsInRoom(spid);
-		spid.setCurrentRoom(arrayMap[8][1]);
+		arrayMap[5][2].setMobsInRoom(spid);
+		spid.setCurrentRoom(arrayMap[5][2]);
 		for(int i=0; i<100; i++){
 			spid.move();
 		}

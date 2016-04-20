@@ -282,7 +282,7 @@ public class Interactions implements Serializable {
 		Item toAdd = null;
 		for(int i=0; i< itemsInPlayersCurrentRoom.size();i++){
 			String itemName = itemsInPlayersCurrentRoom.get(i).getName();
-			if(itemName.compareTo(commandParameters)==0){
+			if(itemName.toLowerCase().compareTo(commandParameters)==0){
 				itemIsInRoom = true;
 				toAdd = itemsInPlayersCurrentRoom.get(i);
 				break;	
@@ -292,6 +292,7 @@ public class Interactions implements Serializable {
 			Inventory playersInventory = player.getInventory();
 			boolean abilityToAdd = playersInventory.add(toAdd);
 			if(abilityToAdd){
+				player.getRoom().removeItemInRoom(toAdd);
 				return "The following item: " + commandParameters + " was added to your inventory";
 			}
 			else{
@@ -338,9 +339,11 @@ public class Interactions implements Serializable {
 		if(commandParameters.compareTo("") == 0){
 			String withItemsAndMobs ="";
 			if(player.getRoom().getitemsInRoom().size()!=0){
+				withItemsAndMobs+= "The following items are in the room with you: ";
 				withItemsAndMobs+= player.getRoom().getItemsToString()+ "\n";
 			}
 			if(player.getRoom().getMobsPresent()){
+				withItemsAndMobs+= "The following mobs are in the room with you: ";
 				withItemsAndMobs+= player.getRoom().getMobsToString() + "\n";
 			}
 			return player.getRoom().getRoomDescription() + "\n" + withItemsAndMobs;
@@ -403,7 +406,7 @@ public class Interactions implements Serializable {
 				return player.getRoom().getRoomDescription();
 			}
 			else{
-				return "There is no door in the north direction. Please enter a new direction";
+				return "There is no door in the south direction. Please enter a new direction";
 			}
 		}
 		if(direction == Move.EAST){
@@ -416,7 +419,7 @@ public class Interactions implements Serializable {
 				return player.getRoom().getRoomDescription();
 			}
 				else{
-				return "There is no door in the north direction. Please enter a new direction";
+				return "There is no door in the east direction. Please enter a new direction";
 			}
 		}
 		if(direction == Move.WEST){
@@ -429,7 +432,7 @@ public class Interactions implements Serializable {
 				return player.getRoom().getRoomDescription();
 			}
 			else{
-				return "There is no door in the north direction. Please enter a new direction";
+				return "There is no door in the west direction. Please enter a new direction";
 			}
 		}
 		return "That is not a valid command for movement";	

@@ -27,19 +27,15 @@ import model.player.PlayerList;
  */
 public class Server {
 
-	public static final int SERVER_PORT = 4004;
-
+	public static final int SERVER_PORT = 4001;
 	private static ServerSocket sock;
-
 	private static List<ObjectOutputStream> clients = Collections.synchronizedList(new ArrayList<ObjectOutputStream>());
-	//private static Vector<Map> serverObjects = new Vector<NetPaintObjects>();
-
 	private static Map serverMap = Map.setMap();
 	private static PlayerList playerList = PlayerList.setList();
-	private ArrayList<Player> loggedOnPlayers = new ArrayList<Player>();
+	private static final String SAVED_MAP_LOCATION = "savedMap";
+	private static final String SAVED_PLAYERLIST_LOCATION = "savedPlayer";
 	
-	private static final String SAVED_MAP_LOCATION = "savedState";
-	private static final String SAVED_PLAYERLIST_LOCATION = "savedState";
+	private ArrayList<Player> loggedOnPlayers = new ArrayList<Player>();
 	
 	/**
 	 * This is the main method which runs everything
@@ -49,8 +45,25 @@ public class Server {
 	public static void main(String[] args) throws IOException {
 		sock = new ServerSocket(SERVER_PORT);
 		System.out.println("Server started on port " + SERVER_PORT);
-
-		while (true) {
+		try {
+			// FileInputStream lets us read in data from a file.
+			FileInputStream fis = new FileInputStream(SAVED_MAP_LOCATION);
+			FileInputStream fis2 = new FileInputStream(SAVED_PLAYERLIST_LOCATION);
+			// ObjectInputStream decorates a FileInputStream and adds functionality to read Objects.
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			ObjectInputStream ois2 = new ObjectInputStream(fis2);
+			setServerMap((Map) ois.readObject());
+			setPlayerList((PlayerList) ois2.readObject());
+			
+			ois.close();
+			ois2.close();
+			fis.close();
+			fis2.close();
+		} catch (Exception exception) {
+			//exception.printStackTrace();
+		}
+		
+		while(true) {
 			Socket s = sock.accept();
 
 			ObjectInputStream is = new ObjectInputStream(s.getInputStream());
@@ -74,9 +87,7 @@ public class Server {
 				exception.printStackTrace();
 			}
 
-			/* Save the output stream so we can broadcast to them */
 			clients.add(os);
-			/* Start a thread to listen for input from this client. */
 			ClientHandler c = new ClientHandler(is, clients);
 			c.start();
 
@@ -113,8 +124,8 @@ public class Server {
 	}
 	
 	public static void saveState(){
-		// Save the data by creating a FileOuputStream to the file name above, then decorate it with an ObjectOuputStream
-		// then write out the StudentCollection instance to the file.
+	// Save the data by creating a FileOuputStream to the file name above, then decorate it with an ObjectOuputStream
+	// then write out the StudentCollection instance to the file.
 		try {
 			// FileOutputStream lets us write data to a file.
 			FileOutputStream fos = new FileOutputStream(SAVED_MAP_LOCATION);
@@ -124,7 +135,8 @@ public class Server {
 			ObjectOutputStream oos2 = new ObjectOutputStream(fos2);
 			// Write out the collection as binary
 			// Also note that we are writing out only model classes, never write out view elements!
-			oos.writeObject(Server.getServerMap());
+
+		    oos.writeObject(Server.getServerMap());
 			oos2.writeObject(Server.getPlayerList());
 			oos.close();
 			oos2.close();
@@ -134,14 +146,10 @@ public class Server {
 			exception.printStackTrace();
 		}
 	}
+
 }
 
-/**
- * 
- * @author Sahil Dalal and Patrick Maley
- * This is the Client class. We put it in the NetPaintGui class for ease of use. The client class allows for clients to connect to the server and draw on the panel
- *
- */
+
 class ClientHandler extends Thread {
 
 	private ObjectInputStream input;
@@ -165,12 +173,11 @@ class ClientHandler extends Thread {
 			Player player = null;
 			Map map =  null;
 			try {
-			
-				
 				player = (Player) input.readObject();
 				map = (Map) input.readObject();
 				Server.setServerMap(map);
 				Player returningPlayer = null;
+				
 				//Only for new players
 				if(player.getGameName() == null && !Server.getPlayerList().getCurrentList().containsKey(player.getUsername())){
 					Server.getPlayerList().newPlayer(player);
@@ -180,17 +187,8 @@ class ClientHandler extends Thread {
 					returningPlayer = Server.getPlayerList().getCurrentList().get(player.getUsername());
 					
 				}
-					 
-			    
-				
-				
-				writeStringToClients(returningPlayer);
-				writeStringToClients(map);
-				
-
-					
-				
-				
+				writeObjectToClients(returningPlayer);
+				writeObjectToClients(map);
 			} catch (IOException e) {
 				/* Client left -- clean up and let the thread die */
 				this.cleanUp();
@@ -201,17 +199,15 @@ class ClientHandler extends Thread {
 				this.cleanUp();
 				return;
 			}
-			System.out.println("Received the String " + player.getUsername()+ " from a client");
-
-			
+			//System.out.println("Received the object " + player.getUsername()+ " from a client");
 		}
 	}
 	
-	private void writeStringToClients(Object s) {
+	private void writeObjectToClients(Object s) {
 		synchronized (clients) {
 			Set<ObjectOutputStream> closed = new HashSet<>();
 			for (ObjectOutputStream client : clients) {
-				System.out.println("Writing the NetPaintObject " + s + " to a client.");
+				System.out.println("Writing the Player" + s + " to a client.");
 				try {
 					client.writeObject(s);
 					client.reset();
@@ -227,7 +223,9 @@ class ClientHandler extends Thread {
 			clients.removeAll(closed);
 		}
 	}
-
+	
+		 
+		 
 	private void cleanUp() {
 		/*
 		 * Don't forget to close those sockets. Not an issue here, but you WILL
@@ -240,5 +238,4 @@ class ClientHandler extends Thread {
 			e.printStackTrace();
 		}
 	}
-
 }

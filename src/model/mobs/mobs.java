@@ -1,10 +1,12 @@
 package model.mobs;
 
+import java.io.Serializable;
+
 import model.interactions.Interactions;
 import model.player.Player;
 import model.room.GenericRoom;
 
-public abstract class Mobs {
+public abstract class Mobs implements Serializable{
 	
 	private String name;
 	private int hp;

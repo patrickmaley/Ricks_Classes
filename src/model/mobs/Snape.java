@@ -33,7 +33,7 @@ public class Snape extends Mobs {
 	@Override
 	public String action(String command, Player p) {
 		if(command.compareTo("talk")==0){
-			this.getRoom().getitemsInRoom(new HealingPotion());
+			this.getRoom().additemsInRoom(new HealingPotion());
 			return "Here take this potion a student made. Hopefully it works right.\nProfessor Snape drops a "
 					+ "healing potion";
 		}

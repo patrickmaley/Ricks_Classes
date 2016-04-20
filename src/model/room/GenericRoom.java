@@ -61,7 +61,7 @@ public abstract class GenericRoom implements Serializable{
 	public String getItemsToString(){
 		String list="";
 		for(int i=0;i<itemsInRoom.size();i++){
-			System.out.println(itemsInRoom.get(i).getName());
+			//System.out.println(itemsInRoom.get(i).getName());
 			list= list + itemsInRoom.get(i).getName()+" ";
 		}
 		return list;
@@ -69,7 +69,7 @@ public abstract class GenericRoom implements Serializable{
 	public String getMobsToString(){
 		String list="";
 		for(int i=0;i<mobsInRoom.size();i++){
-			System.out.println(mobsInRoom.get(i).getName());
+			//System.out.println(mobsInRoom.get(i).getName());
 			list= list + mobsInRoom.get(i).getName()+" ";
 		}
 		return list;
@@ -106,11 +106,7 @@ public abstract class GenericRoom implements Serializable{
 	public ArrayList<Mobs> getMobsInRoom(){
 		return this.mobsInRoom;
 	}
-	
-	public ArrayList<Mobs> getNpcInRoom(){
-		return this.npcInRoom;
-	}
-	
+		
 	public void setMobsPresent(boolean inRoom){
 		this.mobPresent = inRoom;
 	}
@@ -175,12 +171,13 @@ public abstract class GenericRoom implements Serializable{
 		return this.itemsInRoom;
 	}
 	
-	public void getitemsInRoom(Item item){
+	public void additemsInRoom(Item item){
 		 this.itemsInRoom.add(item);
 	}
 	
 	public void setMobsInRoom(Mobs mob){
 		this.mobsInRoom.add(mob);
+		this.setMobsPresent(true);
 	}
 	public void removeMobsInRoom(Mobs mob){
 		if(this.mobsInRoom.contains(mob)){
