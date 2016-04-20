@@ -27,7 +27,7 @@ import model.player.PlayerList;
  */
 public class Server {
 
-	public static final int SERVER_PORT = 4003;
+	public static final int SERVER_PORT = 4004;
 
 	private static ServerSocket sock;
 
@@ -77,23 +77,6 @@ public class Server {
 
 			System.out.println("Accepted a new connection from " + s.getInetAddress());
 			
-			// Save the data by creating a FileOuputStream to the file name above, then decorate it with an ObjectOuputStream
-			// then write out the StudentCollection instance to the file.
-			try {
-				// FileOutputStream lets us write data to a file.
-				FileOutputStream fos = new FileOutputStream(SAVED_COLLECTION_LOCATION);
-				// ObjectOutputStream decorates a FileOutputStream and adds functionality to write Objects.
-				ObjectOutputStream oos = new ObjectOutputStream(fos);
-				// Write out the collection as binary, note that the StudentCollection and all of it's instance variables
-				// must implement Serializable.
-				// Also note that we are writing out only model classes, never write out view elements!
-				oos.writeObject(Server.getServerMap());
-				oos.writeObject(Server.getPlayerList());
-				oos.close();
-				fos.close();
-			} catch (Exception exception) {
-				exception.printStackTrace();
-			}
 		}
 	}
 	
@@ -122,6 +105,25 @@ public class Server {
 	
 	public  ArrayList<Player> getLoggedOnPlayers() {
 		return this.loggedOnPlayers;
+	}
+	
+	public static void saveState(){
+		// Save the data by creating a FileOuputStream to the file name above, then decorate it with an ObjectOuputStream
+		// then write out the StudentCollection instance to the file.
+		try {
+			// FileOutputStream lets us write data to a file.
+			FileOutputStream fos = new FileOutputStream(SAVED_COLLECTION_LOCATION);
+			// ObjectOutputStream decorates a FileOutputStream and adds functionality to write Objects.
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			// Write out the collection as binary
+			// Also note that we are writing out only model classes, never write out view elements!
+			oos.writeObject(Server.getServerMap());
+			oos.writeObject(Server.getPlayerList());
+			oos.close();
+			fos.close();
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
 	}
 }
 
@@ -223,6 +225,7 @@ class ClientHandler extends Thread {
 		 * run out eventually if you neglect this.
 		 */
 		try {
+			Server.saveState();
 			this.input.close();
 		} catch (IOException e) {
 			e.printStackTrace();
