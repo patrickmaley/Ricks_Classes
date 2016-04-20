@@ -61,6 +61,9 @@ public class PlayerTest {
 		assertEquals(3, current.getCurrentList().size());
 
 		//Tests username, password, and gameName
+		player1.setGameName("Doris");
+		player2.setGameName("Debbie");
+		player3.setGameName("THEBOMB.COM");
 		assertEquals("Lee", player1.getUsername());
 		assertEquals(true, player1.checkPassword(password1));
 		assertNotEquals(player1.getUsername(), player2.getUsername());
@@ -80,6 +83,9 @@ public class PlayerTest {
 		assertEquals(1, player1.getKnownSpells().size());
 		
 		//Tests house getter
+		player1.setHouse("Gryffindor");
+		player2.setHouse("Ravenclaw");
+		player3.setHouse("Gryffindor");
 		assertEquals("Gryffindor", player1.getHouse());
 		assertNotEquals("Gryffindor", player2.getHouse());
 		
