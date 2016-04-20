@@ -42,7 +42,8 @@ public class Client extends JFrame{
 			+ "South\n"
 			+ "East\n"
 			+ "West\n"
-			+ "Use\n";
+			+ "Use\n"
+			+ "Quit\n";
 	private final String TEXT_BREAK ="------------------------------------------------------------------------------------------------------------\n";
 	
 	private JPanel textPanel = new JPanel();
@@ -239,16 +240,20 @@ public class Client extends JFrame{
 	private class textBoxListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
-			String descriptions = Client.this.newPlayer.performAction(playerTextArea.getText().toLowerCase());
-			if(descriptions != null){
-				Client.this.gameTextArea.append(descriptions + "\n");
-				Client.this.gameTextArea.append(TEXT_BREAK);
+			String command = playerTextArea.getText().toLowerCase();
+			String descriptions = null;
+			if(command.compareTo("quit")== 0){
+				cleanUpAndQuit("Do you really want to quit?");
 			}else{
-				Client.this.gameTextArea.append("Nothing much happens\n");
-				Client.this.gameTextArea.append(TEXT_BREAK);
+			    descriptions = Client.this.newPlayer.performAction(command);
+				if(descriptions != null){
+					Client.this.gameTextArea.append(descriptions + "\n");
+					Client.this.gameTextArea.append(TEXT_BREAK);
+				}else{
+					Client.this.gameTextArea.append("Nothing much happens\n");
+					Client.this.gameTextArea.append(TEXT_BREAK);
+				}
 			}
-			
 			//Auto updates the scrollpane to the last description
 			gameTextArea.setCaretPosition(gameTextArea.getDocument().getLength());
 			
