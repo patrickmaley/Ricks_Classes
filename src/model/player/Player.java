@@ -119,9 +119,11 @@ public class Player implements Serializable{
 	
 	//Changes the player's current location after they move
 	public void setCurrentRoom(GenericRoom location){
+		//GenericRoom prev = currentRoom;
 		this.currentRoom.setPlayerPresent(false, this);
 		this.currentRoom = location;
 		this.currentRoom.setPlayerPresent(true, this);
+		//prev.setPlayerPresent(false, this);
 	}
 	
 	//Returns true if the player died. Returns false otherwise.
@@ -137,7 +139,7 @@ public class Player implements Serializable{
 		this.HP = 100;
 		this.interaction= new Interactions(this);
 		this.playerMap = Map.setMap();
-		setCurrentRoom(playerMap.getEntrance());
+		this.setCurrentRoom(Map.setMap().getEntrance());
 		this.isDead = false;
 	}
 	

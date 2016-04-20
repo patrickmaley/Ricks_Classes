@@ -1,5 +1,7 @@
 package view;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -35,6 +37,9 @@ public class Server {
 	private static Map serverMap = Map.setMap();
 	private static PlayerList playerList = PlayerList.setList();
 	private ArrayList<Player> loggedOnPlayers = new ArrayList<Player>();
+	
+	private static final String SAVED_COLLECTION_LOCATION = "savedState";
+	
 	/**
 	 * This is the main method which runs everything
 	 * @param args
@@ -49,6 +54,20 @@ public class Server {
 
 			ObjectInputStream is = new ObjectInputStream(s.getInputStream());
 			ObjectOutputStream os = new ObjectOutputStream(s.getOutputStream());
+			
+			try {
+				// FileInputStream lets us read in data from a file.
+				FileInputStream fis = new FileInputStream(SAVED_COLLECTION_LOCATION);
+				// ObjectInputStream decorates a FileInputStream and adds functionality to read Objects.
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				setServerMap((Map) ois.readObject());
+				setPlayerList((PlayerList) ois.readObject());
+				
+				ois.close();
+				fis.close();
+			} catch (Exception exception) {
+				exception.printStackTrace();
+			}
 
 			/* Save the output stream so we can broadcast to them */
 			clients.add(os);
@@ -57,6 +76,24 @@ public class Server {
 			c.start();
 
 			System.out.println("Accepted a new connection from " + s.getInetAddress());
+			
+			// Save the data by creating a FileOuputStream to the file name above, then decorate it with an ObjectOuputStream
+			// then write out the StudentCollection instance to the file.
+			try {
+				// FileOutputStream lets us write data to a file.
+				FileOutputStream fos = new FileOutputStream(SAVED_COLLECTION_LOCATION);
+				// ObjectOutputStream decorates a FileOutputStream and adds functionality to write Objects.
+				ObjectOutputStream oos = new ObjectOutputStream(fos);
+				// Write out the collection as binary, note that the StudentCollection and all of it's instance variables
+				// must implement Serializable.
+				// Also note that we are writing out only model classes, never write out view elements!
+				oos.writeObject(Server.getServerMap());
+				oos.writeObject(Server.getPlayerList());
+				oos.close();
+				fos.close();
+			} catch (Exception exception) {
+				exception.printStackTrace();
+			}
 		}
 	}
 	
