@@ -168,7 +168,7 @@ public abstract class GenericRoom implements Serializable{
 	}
 	
 	public String getLookDownDescription(){
-		return this.lookUpDescription;
+		return this.lookDownDescription;
 	}
 	
 	public ArrayList<Item> getitemsInRoom(){
