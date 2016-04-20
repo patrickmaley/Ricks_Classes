@@ -21,7 +21,7 @@ public class MobsTest {
 		map =  Map.setMap();
 		char[] a = {'a','b','c'};
 		try {
-			p = new Player("Joe", a, "Joe", "");
+			p = new Player("Joe", a);
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
