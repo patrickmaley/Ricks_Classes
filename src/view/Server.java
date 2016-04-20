@@ -38,7 +38,8 @@ public class Server {
 	private static PlayerList playerList = PlayerList.setList();
 	private ArrayList<Player> loggedOnPlayers = new ArrayList<Player>();
 	
-	private static final String SAVED_COLLECTION_LOCATION = "savedState";
+	private static final String SAVED_MAP_LOCATION = "savedState";
+	private static final String SAVED_PLAYERLIST_LOCATION = "savedState";
 	
 	/**
 	 * This is the main method which runs everything
@@ -57,14 +58,18 @@ public class Server {
 			
 			try {
 				// FileInputStream lets us read in data from a file.
-				FileInputStream fis = new FileInputStream(SAVED_COLLECTION_LOCATION);
+				FileInputStream fis = new FileInputStream(SAVED_MAP_LOCATION);
+				FileInputStream fis2 = new FileInputStream(SAVED_PLAYERLIST_LOCATION);
 				// ObjectInputStream decorates a FileInputStream and adds functionality to read Objects.
 				ObjectInputStream ois = new ObjectInputStream(fis);
+				ObjectInputStream ois2 = new ObjectInputStream(fis2);
 				setServerMap((Map) ois.readObject());
-				setPlayerList((PlayerList) ois.readObject());
+				setPlayerList((PlayerList) ois2.readObject());
 				
 				ois.close();
+				ois2.close();
 				fis.close();
+				fis2.close();
 			} catch (Exception exception) {
 				exception.printStackTrace();
 			}
@@ -112,15 +117,19 @@ public class Server {
 		// then write out the StudentCollection instance to the file.
 		try {
 			// FileOutputStream lets us write data to a file.
-			FileOutputStream fos = new FileOutputStream(SAVED_COLLECTION_LOCATION);
+			FileOutputStream fos = new FileOutputStream(SAVED_MAP_LOCATION);
+			FileOutputStream fos2 = new FileOutputStream(SAVED_PLAYERLIST_LOCATION);
 			// ObjectOutputStream decorates a FileOutputStream and adds functionality to write Objects.
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			ObjectOutputStream oos2 = new ObjectOutputStream(fos2);
 			// Write out the collection as binary
 			// Also note that we are writing out only model classes, never write out view elements!
 			oos.writeObject(Server.getServerMap());
-			oos.writeObject(Server.getPlayerList());
+			oos2.writeObject(Server.getPlayerList());
 			oos.close();
+			oos2.close();
 			fos.close();
+			fos2.close();
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
