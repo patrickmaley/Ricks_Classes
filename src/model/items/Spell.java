@@ -4,7 +4,7 @@ import model.mobs.Mobs;
 
 import java.io.Serializable;
 
-public abstract class Spell{
+public abstract class Spell implements Serializable{
 	private  String name;
 	private  double attackPower;
 	private  boolean alreadyInBook;

@@ -37,7 +37,7 @@ public class McGonagall extends Mobs{
 			return this.getDescription();
 		}
 		if(command.compareTo("talk") == 0){
-			this.getRoom().getitemsInRoom(new DependencyInjectionSword());
+			this.getRoom().additemsInRoom(new DependencyInjectionSword());
 			return "You wouldn't have to come to me as often"
 					+ " if you would just use dependency injection. Take this"
 					+ "to help yourself out.\nProfessor McGonagall drops a DependencyInjectionSword";//what should she say?

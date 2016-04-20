@@ -1,4 +1,5 @@
 package model.items;
+import java.io.Serializable;
 import java.util.Random;
 import model.player.Player;
 public class Spellbook extends Item{

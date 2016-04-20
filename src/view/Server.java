@@ -25,7 +25,7 @@ import model.player.PlayerList;
  */
 public class Server {
 
-	public static final int SERVER_PORT = 4003;
+	public static final int SERVER_PORT = 4004;
 
 	private static ServerSocket sock;
 

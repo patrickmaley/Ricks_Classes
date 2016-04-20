@@ -223,8 +223,8 @@ public class Client extends JFrame{
 					Player player = (Player) ois.readObject();
 					if(Client.this.newPlayer == null)
 						Client.this.newPlayer =  player;
-					if(player.getGameName().compareTo(Client.this.newPlayer.getGameName())== 0)
-						Client.this.newPlayer =  player;
+			//		if(player.getGameName().compareTo(Client.this.newPlayer.getGameName())== 0)
+			//			Client.this.newPlayer =  player;
 					Client.this.playerMap =  (Map)ois.readObject();
 					
 				}
