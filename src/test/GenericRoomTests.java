@@ -188,7 +188,7 @@ public class GenericRoomTests {
 	@Test
 	public void testGettersAndSetters() throws NoSuchAlgorithmException, NoSuchProviderException{
 		char [] password = new char ['p'];
-		Player p = new Player("Player", password,"hi","gryffindor");
+		Player p = new Player("Player", password);
 		GenericRoom testRoom1 = RoomFactory.designRoom(RoomType.NPC);
 	
 		String testString = "Harry peered into the darkness";
