@@ -231,10 +231,9 @@ public void testInventory() throws NoSuchAlgorithmException, NoSuchProviderExcep
 public void testItemsWithCommands() throws NoSuchAlgorithmException, NoSuchProviderException{
 	char [] password = new char ['p'];
 	Player p = new Player("Player", password);
-<<<<<<< HEAD
-=======
+
 	 p.setGameName("booby");
->>>>>>> 0f6d8be5d3b537a59e24f2bb7b59c3f5c81fc909
+
 	 p.getInventory().add(this.regularWand);
 	 System.out.println(p.performAction("use regular wand"));
 	 System.out.println(p.performAction("drop regular wand"));

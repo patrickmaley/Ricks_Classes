@@ -25,7 +25,7 @@ import model.player.PlayerList;
  */
 public class Server {
 
-	public static final int SERVER_PORT = 4012;
+	public static final int SERVER_PORT = 4011;
 
 	private static ServerSocket sock;
 
@@ -65,7 +65,7 @@ public class Server {
 		return serverMap;
 	}
 	public static void setServerMap(Map serverMap) {
-		serverMap = serverMap;
+		Server.serverMap = serverMap;
 	}
 	
 	public static PlayerList getPlayerList() {
