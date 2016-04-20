@@ -202,7 +202,7 @@ public void testItems(){
 @Test 
 public void testInventory() throws NoSuchAlgorithmException, NoSuchProviderException{
 	char [] password = new char ['p'];
-	Player p = new Player("Player", password,"hi","gryffindor");
+	Player p = new Player("Player", password);
 	Inventory inventory = p.getInventory();
 	inventory.add(horcrux);
 	inventory.add(sbOne);
@@ -230,7 +230,7 @@ public void testInventory() throws NoSuchAlgorithmException, NoSuchProviderExcep
 @Test 
 public void testItemsWithCommands() throws NoSuchAlgorithmException, NoSuchProviderException{
 	char [] password = new char ['p'];
-	Player p = new Player("Player", password,"hi","gryffindor");
+	Player p = new Player("Player", password);
 	 p.getInventory().add(this.regularWand);
 	 System.out.println(p.performAction("use regular wand"));
 	 System.out.println(p.performAction("drop regular wand"));

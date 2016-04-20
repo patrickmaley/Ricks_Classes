@@ -3,6 +3,8 @@ package model.player;
 import model.room.*;
 import model.interactions.*;
 import model.map.*;
+
+import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 import model.items.Inventory;
 import model.items.Spell;
 
-public class Player {
+public class Player implements Serializable{
 
 	private String username;
 	private String password;

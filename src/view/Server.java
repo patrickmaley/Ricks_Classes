@@ -25,7 +25,7 @@ import model.player.PlayerList;
  */
 public class Server {
 
-	public static final int SERVER_PORT = 4008;
+	public static final int SERVER_PORT = 4012;
 
 	private static ServerSocket sock;
 
@@ -118,21 +118,23 @@ class ClientHandler extends Thread {
 			
 			try {
 			
-				if(input.readObject().getClass() == Player.class){
-					player = (Player) input.readObject();
-					Player returningPlayer;
-					if(Server.getPlayerList().getCurrentList().containsKey(player.getUsername())){
-						Player foundPlayer = Server.getPlayerList().getCurrentList().get(player.getUsername());
-					}else{
-						
-					}
-					
-					//writeStringToClients(returningPlayer);
-				}else{
+				
+				player = (Player) input.readObject();
+				System.out.print(player.getUsername() + "\n");
+				Player returningPlayer = null;
+				if(!Server.getPlayerList().getCurrentList().containsKey(player.getUsername())){
+					Server.getPlayerList().newPlayer(player);
+				}
+					 
+			    returningPlayer = Server.getPlayerList().getCurrentList().get(player.getUsername());
+				
+				
+				writeStringToClients(returningPlayer);
+		
 //					Server.setServerMap((Map) input.readObject());
 //					Server.setPlayerList((PlayerList) input.readObject());
 					
-				}
+				
 				
 			} catch (IOException e) {
 				/* Client left -- clean up and let the thread die */

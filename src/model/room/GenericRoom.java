@@ -1,12 +1,13 @@
 package model.room;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import model.items.Item;
 import model.mobs.Mobs;
 import model.player.Player;
 
-public abstract class GenericRoom {
+public abstract class GenericRoom implements Serializable{
 	private GenericRoom northRoom;
 	private GenericRoom eastRoom;
 	private GenericRoom southRoom;

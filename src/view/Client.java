@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -32,8 +34,8 @@ import model.player.Player;
 
 public class Client extends JFrame{
 	private static final String ADDRESS = "localhost";
-	private final Dimension STATUS_PANEL_DIMENSION = new Dimension(200, 550);
-	private final String GAME_COMMANDS = "Game Commands"
+	private final Dimension STATUS_PANEL_DIMENSION = new Dimension(200, 575);
+	private final String GAME_COMMANDS = "After logging in please enter your name and house for new characters. \nGame Commands"
 			+ "Look: Check Room Description\n"
 			+ "Take:\n"
 			+ "Up:\n"
@@ -50,8 +52,11 @@ public class Client extends JFrame{
 	private JTextArea signInInstructions = new JTextArea();
 	private JTextArea gameTextArea = new JTextArea();
 	private JTextArea playerStatsTextArea = new JTextArea();
+
 	private JTextField playerTextArea = new JTextField();
 	private JTextField signInText = new JTextField();
+	private JTextField gameNameText = new JTextField();
+	private JTextField gameHouseText = new JTextField();
 	private JTextField titleText = new JTextField("Game Title");
 	
 	private Socket socket;
@@ -87,7 +92,7 @@ public class Client extends JFrame{
 		setTitle("9 3/4 Jump Street: Hogwarts");
 		setLayout(new FlowLayout());
 		//setPreferredSize(new Dimension(450, 110));
-		setSize(800, 600);
+		setSize(800, 650);
 		setLocation(0,0);
 		
 		//setResizable(false);
@@ -105,13 +110,21 @@ public class Client extends JFrame{
 		//Sets up the sign In Panel where the user inputs information
 		JLabel userNameLabel = new JLabel("User Name");
 		JLabel passwordLabel = new JLabel("Password  ");
+		JLabel gameNameLabel = new JLabel("Game Name");
+		JLabel gameHouseLabel = new JLabel("House Name");
 		userNameLabel.setForeground(new Color(59, 58, 54));
 		userNameLabel.setLabelFor(signInText);
 		userNameLabel.setFont(displayFont);
 		passwordLabel.setForeground(new Color(59, 58, 54));
 		passwordLabel.setLabelFor(passwordText);
-		passwordLabel.setFont(displayFont);		
-
+		passwordLabel.setFont(displayFont);	
+		gameNameLabel.setForeground(new Color(59, 58, 54));
+		gameNameLabel.setLabelFor(gameNameText);
+		gameNameLabel.setFont(displayFont);	
+		gameHouseLabel.setForeground(new Color(59, 58, 54));
+		gameHouseLabel.setLabelFor(gameHouseText);
+		gameHouseLabel.setFont(displayFont);	
+		
 		signInPanel.setPreferredSize(STATUS_PANEL_DIMENSION);
 		signInPanel.add(userNameLabel);
 		signInText.setPreferredSize(new Dimension(100, 25));
@@ -122,16 +135,24 @@ public class Client extends JFrame{
         signInPanel.add(this.signInButton);
         signInPanel.add(this.signOutButton);
         signInPanel.setBackground(new Color(179, 194, 191));
-        signInInstructions.setText("Game Commands");
+        signInInstructions.setText(GAME_COMMANDS);
         signInInstructions.setPreferredSize(new Dimension(150, 400));
         signInInstructions.setWrapStyleWord(true);
         signInInstructions.setEditable(false);
 		signInInstructions.setLineWrap(true);
         signInPanel.add(signInInstructions);
+        gameNameText.setPreferredSize(new Dimension(100, 25));
+        gameNameText.setEditable(false);
+        signInPanel.add(gameNameLabel);
+        signInPanel.add(gameNameText);
+        gameHouseText.setPreferredSize(new Dimension(100, 25));
+        gameHouseText.setEditable(false);
+        signInPanel.add(gameHouseLabel);
+        signInPanel.add(gameHouseText);
         add(signInPanel);
 		
         //Set panel for second column
-        textPanel.setPreferredSize(new Dimension(550,550));
+        textPanel.setPreferredSize(new Dimension(550,575));
 		textPanel.setBackground(new Color(192, 142, 45));
 		textPanel.setLayout(new FlowLayout());
 		
@@ -156,6 +177,7 @@ public class Client extends JFrame{
 		TitledBorder title;
 		title = BorderFactory.createTitledBorder("Player Commands");
 		playerTextArea.setBorder(title);
+		playerTextArea.setEditable(false);
 		playerTextArea.setPreferredSize(new Dimension(450,50));
 		textPanel.add(playerTextArea);
 		
@@ -171,6 +193,8 @@ public class Client extends JFrame{
 		playerTextArea.addActionListener(new textBoxListener());
 		signInButton.addActionListener(new SignInListener());
 		signOutButton.addActionListener(new SignOutListener());
+		gameNameText.addActionListener(new gameNameTextListener());
+		gameHouseText.addActionListener(new gameHouseTextListener());
 	}
 	
 	private void openConnection() {
@@ -239,6 +263,25 @@ public class Client extends JFrame{
 		}
 	}
 	
+	
+	private class gameNameTextListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String gameName = gameNameText.getText();
+			Client.this.newPlayer.setGameName(gameName);
+			gameNameText.setEditable(false);
+			playerTextArea.setEditable(true);
+		}
+	}
+	
+	private class gameHouseTextListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String gameHouse = gameHouseText.getText();
+			Client.this.newPlayer.setHouse(gameHouse);
+			gameHouseText.setEditable(false);
+		}
+	}
 	//This takes the information inputted into the sign in boxes
 	//and authenticates them with the records of the users in 
 	//the accountCollection
@@ -248,15 +291,23 @@ public class Client extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			String userName = signInText.getText();
 			char[] password = passwordText.getPassword();
-			//Player player = new Player(userName, password);
-//			try {
-//				
-//				//oos.writeObject(player);
-//			} catch (IOException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
-		
+			Player player = null;
+			
+			try {
+				 player = new Player(userName, password);
+			} catch (NoSuchAlgorithmException | NoSuchProviderException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			try {
+				
+				oos.writeObject(player);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			gameNameText.setEditable(true);
+			gameHouseText.setEditable(true);
 		}
 		
 	}
