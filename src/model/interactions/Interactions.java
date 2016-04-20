@@ -1,4 +1,5 @@
 package model.interactions;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import model.interactions.*;
@@ -8,7 +9,7 @@ import model.items.Item;
 import model.mobs.Mobs;
 import model.player.*;
 import model.room.GenericRoom;
-public class Interactions {
+public class Interactions implements Serializable {
 	private Player player;
 	public Interactions(Player player){
 		this.player=player;
