@@ -2,6 +2,7 @@
 package model.mobs;
 
 import model.interactions.Interactions;
+import model.player.Player;
 
 public class Trolls extends Mobs{
 
@@ -31,7 +32,7 @@ public class Trolls extends Mobs{
 	
 
 	@Override
-	public String action(String command) {
+	public String action(String command, Player p) {
 		if(command.compareTo("talk")==0){
 			return "";
 		}
@@ -39,12 +40,15 @@ public class Trolls extends Mobs{
 			return this.getDescription();
 		}
 		
-		return null;
+		return "";
 	}
+	private int x = 0;
 
 	@Override
 	public void move() {
-		int x = 0;
+		if(this.getRoom().getPlayerPresent()){
+			return;
+		}
 		if(x == 8){
 			x = 0;
 		}
@@ -90,6 +94,7 @@ public class Trolls extends Mobs{
 				this.getRoom().setMobsPresent(false);
 				this.setCurrentRoom(this.getRoom().getNextRoom("south"));
 				this.getRoom().setMobsPresent(true);
+				x++;
 			}
 		}
 		else if(x == 5){
@@ -98,6 +103,7 @@ public class Trolls extends Mobs{
 				this.getRoom().setMobsPresent(false);
 				this.setCurrentRoom(this.getRoom().getNextRoom("north"));
 				this.getRoom().setMobsPresent(true);
+				x++;
 			}
 		}
 		else if(x == 6){
@@ -106,6 +112,7 @@ public class Trolls extends Mobs{
 				this.getRoom().setMobsPresent(false);
 				this.setCurrentRoom(this.getRoom().getNextRoom("west"));
 				this.getRoom().setMobsPresent(true);
+				x++;
 			}
 		}
 		else if(x == 7){
@@ -114,6 +121,7 @@ public class Trolls extends Mobs{
 				this.getRoom().setMobsPresent(false);
 				this.setCurrentRoom(this.getRoom().getNextRoom("east"));
 				this.getRoom().setMobsPresent(true);
+				x++;
 			}
 		}
 	}

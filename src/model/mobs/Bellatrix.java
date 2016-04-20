@@ -1,6 +1,7 @@
 package model.mobs;
 
 import model.interactions.Interactions;
+import model.player.Player;
 
 public class Bellatrix extends Mobs{
 
@@ -34,23 +35,47 @@ public class Bellatrix extends Mobs{
 	}
 
 	@Override
-	public String action(String command) {
+	public void decreaseHP(double x){
+		if(this.canBeAttacked()){
+			this.hp -= x;
+		}
+		if(this.hp < 50){
+			if(this.getRoom().getNextRoom("south") != null && !this.getRoom().getNextRoom("south").getMobsPresent()){
+				this.setYpos(this.getYpos() + 1);
+				this.getRoom().setMobsPresent(false);
+				this.getRoom().removeMobsInRoom(this);
+				this.setCurrentRoom(this.getRoom().getNextRoom("south"));
+				this.getRoom().setMobsInRoom(this);
+				this.getRoom().setMobsPresent(true);
+			}
+			else if(this.getRoom().getNextRoom("north") != null && !this.getRoom().getNextRoom("north").getMobsPresent()){
+				this.setYpos(this.getYpos() - 1);
+				this.getRoom().setMobsPresent(false);
+				this.getRoom().removeMobsInRoom(this);
+				this.setCurrentRoom(this.getRoom().getNextRoom("north"));
+				this.getRoom().setMobsInRoom(this);
+				this.getRoom().setMobsPresent(true);
+			}
+		}
+		if(this.hp < 0){
+			this.getRoom().removeMobsInRoom(this);
+			this.getRoom().setMobsPresent(false);
+		}
+	}
+	@Override
+	public String action(String command, Player p) {
 		if(command.compareTo("talk")==0){
 			return "Have you come here to die?";
 		}
-		if(command.compareTo("attack")==0){
-			//figure out attacks
-			return "Oh finally something to do!";
-		}
 		if(command.compareTo("look") == 0){
 			return this.getDescription();
-		}		return null;
+		}		
+		return "...";
 	}
 
 	@Override
 	public void move() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
 }

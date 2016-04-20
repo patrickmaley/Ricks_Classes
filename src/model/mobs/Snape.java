@@ -1,6 +1,8 @@
 package model.mobs;
 
 import model.interactions.Interactions;
+import model.items.HealingPotion;
+import model.player.Player;
 
 public class Snape extends Mobs {
 
@@ -29,17 +31,16 @@ public class Snape extends Mobs {
 	}
 
 	@Override
-	public String action(String command) {
+	public String action(String command, Player p) {
 		if(command.compareTo("talk")==0){
-			return "Here take this potion a student made. Hopefully it works right.";
-		}
-		if(command.compareTo("attack")==0){
-			return "So you want a short life I see";
+			this.getRoom().getitemsInRoom(new HealingPotion());
+			return "Here take this potion a student made. Hopefully it works right.\nProfessor Snape drops a "
+					+ "healing potion";
 		}
 		if(command.compareTo("look") == 0){
 			return this.getDescription();
 		}
-		return null;
+		return "Get out!";
 	}
 
 	@Override

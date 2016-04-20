@@ -1,6 +1,9 @@
 package model.mobs;
 
+import java.util.Random;
+
 import model.interactions.Interactions;
+import model.player.Player;
 
 public class Sirius extends Mobs{
 
@@ -34,7 +37,7 @@ public class Sirius extends Mobs{
 		return this.isPadfoot;
 	}
 	@Override
-	public String action(String command) {
+	public String action(String command, Player p) {
 		//TODO: talk over him having multiple forms
 		if(command.compareTo("talk")==0){
 			//maybe add in dog form to change things.
@@ -60,7 +63,51 @@ public class Sirius extends Mobs{
 
 	@Override
 	public void move() {
-		
+		if(this.getRoom().getPlayerPresent()){
+			return;
+		}
+		Random rand = new Random();
+		int x = rand.nextInt(4);
+		if(x == 0){
+			if(this.getRoom().getNextRoom("north") != null && this.getRoom().getNextRoom("north").getMobsPresent()){
+				this.setYpos(this.getYpos() - 1);
+				this.getRoom().setMobsPresent(false);
+				this.getRoom().removeMobsInRoom(this);
+				this.setCurrentRoom(this.getRoom().getNextRoom("north"));
+				this.getRoom().setMobsInRoom(this);
+				this.getRoom().setMobsPresent(true);
+			}
+		}
+		else if(x == 1){
+			if(this.getRoom().getNextRoom("south") != null){
+				this.setYpos(this.getYpos() + 1);
+				this.getRoom().setMobsPresent(false);
+				this.getRoom().removeMobsInRoom(this);
+				this.setCurrentRoom(this.getRoom().getNextRoom("south"));
+				this.getRoom().setMobsInRoom(this);
+				this.getRoom().setMobsPresent(true);
+			}
+		}
+		else if(x == 2){
+			if(this.getRoom().getNextRoom("east") != null){
+				this.setXpos(this.getXpos() + 1);
+				this.getRoom().setMobsPresent(false);
+				this.getRoom().removeMobsInRoom(this);
+				this.setCurrentRoom(this.getRoom().getNextRoom("east"));
+				this.getRoom().setMobsInRoom(this);
+				this.getRoom().setMobsPresent(true);
+			}
+		}
+		else if(x == 3){
+			if(this.getRoom().getNextRoom("west") != null){
+				this.setXpos(this.getXpos() - 1);
+				this.getRoom().setMobsPresent(false);
+				this.getRoom().removeMobsInRoom(this);
+				this.setCurrentRoom(this.getRoom().getNextRoom("west"));
+				this.getRoom().setMobsInRoom(this);
+				this.getRoom().setMobsPresent(true);
+			}
+		}
 	}
 
 }

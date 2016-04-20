@@ -1,6 +1,7 @@
 package model.mobs;
 
 import model.interactions.Interactions;
+import model.player.Player;
 
 public class Dragons extends Mobs{
 
@@ -30,24 +31,16 @@ public class Dragons extends Mobs{
 
 
 	@Override
-	public String action(String command) {
-		if(command.compareTo("look")  == 0){
+	public String action(String command, Player p) {
+		if(command.compareTo("look") == 0){
 			return this.getDescription();
 		}
-		if(command.compareTo("talk") == 0){
-			return "The dragon roars and launches at you!";
-		}
-		if(command.compareTo("attack") == 0){
-			//figure out how much hp to remove?
-			return "The dragon doesn't take kindly to intruders";
-		}
-		return null;
+		p.decreaseHP(this.attackPower);
+		return "The dragon attacks you! Better run away before it kills you!";
 	}
 
 	@Override
 	public void move() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

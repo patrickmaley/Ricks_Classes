@@ -1,6 +1,7 @@
 package model.mobs;
 
 import model.interactions.Interactions;
+import model.player.Player;
 
 public class Werewolves extends Mobs{
 
@@ -29,7 +30,7 @@ public class Werewolves extends Mobs{
 	}
 
 	@Override
-	public String action(String command) {
+	public String action(String command, Player p) {
 		if(command.compareTo("talk") == 0){
 			return "Wuf Wuf grrrrrr";
 		}
@@ -40,13 +41,29 @@ public class Werewolves extends Mobs{
 			return this.getDescription();
 		}
 		
-		return null;
+		return "";
 	}
+	private int x = 0;
 
 	@Override
 	public void move() {
-		// TODO Auto-generated method stub
-		
+		if (x == 0) {
+			if (this.getRoom().getNextRoom("north") != null && !this.getRoom().getNextRoom("north").getMobsPresent()) {
+				this.setYpos(this.getYpos() - 1);
+				this.getRoom().setMobsPresent(false);
+				this.setCurrentRoom(this.getRoom().getNextRoom("north"));
+				this.getRoom().setMobsPresent(true);
+				x++;
+			}
+		} else if (x == 1) {
+			if (this.getRoom().getNextRoom("south") != null && !this.getRoom().getNextRoom("south").getMobsPresent()) {
+				this.setYpos(this.getYpos() - 1);
+				this.getRoom().setMobsPresent(false);
+				this.setCurrentRoom(this.getRoom().getNextRoom("south"));
+				this.getRoom().setMobsPresent(true);
+				x = 0;
+			}
+		}		
 	}
 
 }

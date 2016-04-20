@@ -3,6 +3,7 @@ package model.mobs;
 import java.util.Random;
 
 import model.interactions.Interactions;
+import model.player.Player;
 
 public class OrdinaryWizards extends Mobs{
 
@@ -34,7 +35,7 @@ public class OrdinaryWizards extends Mobs{
 	}
 
 	@Override
-	public String action(String command) {
+	public String action(String command, Player p) {
 		if(command.compareTo("talk")==0){
 			if(house.compareTo("Gryffindor")==0){
 				return "Hey what can I help with?";
@@ -48,46 +49,62 @@ public class OrdinaryWizards extends Mobs{
 			if(house.compareTo("Ravenclaw")==0){
 				return "I'm gonna be the smarterest wizard evar!";
 			}
+			else{
+				return "I once belonged to a house, but then I took a spell to the knee :(";
+			}
 		}
 		if(command.compareTo("look") == 0){
 			return this.getDescription();
 		}
-		return null;
-	}
+		else{
+			return "You shouldn't be here.";
+		}
+		}
 
 	@Override
 	public void move() {
+		if(this.getRoom().getPlayerPresent()){
+			return;
+		}
 		Random rand = new Random();
 		int x = rand.nextInt(4);
 		if(x == 0){
-			if(this.getRoom().getNextRoom("north") != null && this.getRoom().getNextRoom("north").getMobsPresent()){
+			if(this.getRoom().getNextRoom("north") != null && !this.getRoom().getNextRoom("north").getMobsPresent()){
 				this.setYpos(this.getYpos() - 1);
 				this.getRoom().setMobsPresent(false);
+				this.getRoom().removeMobsInRoom(this);
 				this.setCurrentRoom(this.getRoom().getNextRoom("north"));
+				this.getRoom().setMobsInRoom(this);
 				this.getRoom().setMobsPresent(true);
 			}
 		}
 		else if(x == 1){
-			if(this.getRoom().getNextRoom("south") != null){
+			if(this.getRoom().getNextRoom("south") != null && !this.getRoom().getNextRoom("south").getMobsPresent()){
 				this.setYpos(this.getYpos() + 1);
 				this.getRoom().setMobsPresent(false);
+				this.getRoom().removeMobsInRoom(this);
 				this.setCurrentRoom(this.getRoom().getNextRoom("south"));
+				this.getRoom().setMobsInRoom(this);
 				this.getRoom().setMobsPresent(true);
 			}
 		}
 		else if(x == 2){
-			if(this.getRoom().getNextRoom("east") != null){
+			if(this.getRoom().getNextRoom("east") != null && !this.getRoom().getNextRoom("east").getMobsPresent()){
 				this.setXpos(this.getXpos() + 1);
 				this.getRoom().setMobsPresent(false);
+				this.getRoom().removeMobsInRoom(this);
 				this.setCurrentRoom(this.getRoom().getNextRoom("east"));
+				this.getRoom().setMobsInRoom(this);
 				this.getRoom().setMobsPresent(true);
 			}
 		}
 		else if(x == 3){
-			if(this.getRoom().getNextRoom("west") != null){
+			if(this.getRoom().getNextRoom("west") != null && !this.getRoom().getNextRoom("west").getMobsPresent()){
 				this.setXpos(this.getXpos() - 1);
 				this.getRoom().setMobsPresent(false);
+				this.getRoom().removeMobsInRoom(this);
 				this.setCurrentRoom(this.getRoom().getNextRoom("west"));
+				this.getRoom().setMobsInRoom(this);
 				this.getRoom().setMobsPresent(true);
 			}
 		}

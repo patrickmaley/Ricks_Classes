@@ -179,6 +179,14 @@ public abstract class GenericRoom implements Serializable{
 		 this.itemsInRoom.add(item);
 	}
 	
+	public void setMobsInRoom(Mobs mob){
+		this.mobsInRoom.add(mob);
+	}
+	public void removeMobsInRoom(Mobs mob){
+		if(this.mobsInRoom.contains(mob)){
+			this.mobsInRoom.remove(mob);
+		}
+	}
 	public void removeItemInRoom(Item item){
 		 if(this.itemsInRoom.contains(item)){
 			this.itemsInRoom.remove(item);
