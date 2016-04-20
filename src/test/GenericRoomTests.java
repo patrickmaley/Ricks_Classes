@@ -206,7 +206,7 @@ public class GenericRoomTests {
 		testRoom1.setIsVisible(false);
 		assertFalse(testRoom1.getIsVisible());
 		Item pot = new HealingPotion();
-		testRoom1.getitemsInRoom(pot);
+		testRoom1.additemsInRoom(pot);
 		System.out.println(testRoom1.getItemsToString());
 		Spiders spid = new Spiders("spid", 50, 0, 0);
 		testRoom1.setMobsInRoom(spid);
