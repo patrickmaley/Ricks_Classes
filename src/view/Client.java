@@ -44,7 +44,7 @@ public class Client extends JFrame{
 			+ "South:\n"
 			+ "East:\n"
 			+ "West:\n";
-	
+	private final String TEXT_BREAK ="------------------------------------------------------------------------------------------------------------\n";
 	private JPanel textPanel = new JPanel();
 	private JPanel playerInputPanel = new JPanel();
 	private JPanel signInPanel = new JPanel(new FlowLayout());
@@ -253,9 +253,13 @@ public class Client extends JFrame{
 			
 			String descriptions = Client.this.newPlayer.performAction(playerTextArea.getText().toLowerCase());
 			if(descriptions != null){
+				
 				Client.this.gameTextArea.append(descriptions + "\n");
+				Client.this.gameTextArea.append(TEXT_BREAK);
 			}else{
+				
 				Client.this.gameTextArea.append("Nothing much happens\n");
+				Client.this.gameTextArea.append(TEXT_BREAK);
 			}
 			
 			//Auto updates the scrollpane to the last description
