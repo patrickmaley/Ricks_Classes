@@ -1,6 +1,7 @@
 package model.mobs;
 
 import model.interactions.Interactions;
+import model.player.Player;
 
 public class Lupin extends Mobs{
 
@@ -21,7 +22,7 @@ public class Lupin extends Mobs{
 
 	@Override
 	public boolean canBeAttacked() {
-		return false;
+		return true;
 	}
 
 	public String getHouse() {
@@ -39,7 +40,7 @@ public class Lupin extends Mobs{
 		}
 	}
 	@Override
-	public String action(String command) {
+	public String action(String command, Player p) {
 		if(command.compareTo("look") == 0){
 			return this.getDescription();
 		}
@@ -53,9 +54,7 @@ public class Lupin extends Mobs{
 	}
 
 	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-		
+	public void move() {		
 	}
 
 }

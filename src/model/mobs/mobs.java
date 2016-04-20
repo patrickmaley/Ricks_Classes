@@ -1,6 +1,7 @@
 package model.mobs;
 
 import model.interactions.Interactions;
+import model.player.Player;
 import model.room.GenericRoom;
 
 public abstract class Mobs {
@@ -25,6 +26,12 @@ public abstract class Mobs {
 	}
 	public int getYpos(){
 		return this.ypos;
+	}
+	public void setXpos(int xpos){
+		this.xpos = xpos;
+	}
+	public void setYpos(int ypos) {
+		this.ypos = ypos;
 	}
 	public int getHp(){
 		return this.hp;
@@ -59,11 +66,6 @@ public abstract class Mobs {
 	
 	public abstract boolean canBeAttacked();
 	
-	public abstract String action(String a);
-	public void setXpos(int xpos){
-		this.xpos = xpos;
-	}
-	public void setYpos(int ypos) {
-		this.ypos = ypos;
-	}
+	public abstract String action(String a, Player p);
+	
 }

@@ -3,6 +3,7 @@ package model.mobs;
 import java.util.Random;
 
 import model.interactions.Interactions;
+import model.player.Player;
 
 public class Sirius extends Mobs{
 
@@ -36,7 +37,7 @@ public class Sirius extends Mobs{
 		return this.isPadfoot;
 	}
 	@Override
-	public String action(String command) {
+	public String action(String command, Player p) {
 		//TODO: talk over him having multiple forms
 		if(command.compareTo("talk")==0){
 			//maybe add in dog form to change things.
