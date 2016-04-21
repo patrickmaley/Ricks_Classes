@@ -74,6 +74,57 @@ public class Map implements Serializable {
 		GenericRoom stairsRoomOne = RoomFactory.designRoom(RoomType.STAIRS);
 		GenericRoom mobRoomThreeCastleEntrance = RoomFactory.designRoom(RoomType.MOB);
 
+		// Create second column 10 rooms
+		/*
+		 * - + - - - - - + - - - - - + - - - - - + - - - - - + - - - - - + - - -
+		 * - - + - - - - - + - - - - - + - - - - - + - - - -
+		 */
+
+		GenericRoom twoMobRoomOneHallway = RoomFactory.designRoom(RoomType.MOB);
+		GenericRoom twoMobRoomTwoRoomOfRequirement = RoomFactory.designRoom(RoomType.MOB);
+		GenericRoom twoMobRoomThreeForbiddenForest = RoomFactory.designRoom(RoomType.MOB);
+		GenericRoom twoMobRoomFourForbiddenForest = RoomFactory.designRoom(RoomType.MOB);
+		GenericRoom twoNPCRoomOneHarryRonShrine = RoomFactory.designRoom(RoomType.NPC);
+		GenericRoom twoMobRoomFiveBoysRoom = RoomFactory.designRoom(RoomType.NPC);
+		GenericRoom twoStairsOne = RoomFactory.designRoom(RoomType.STAIRS);
+		GenericRoom twoStairsTwo = RoomFactory.designRoom(RoomType.STAIRS);
+		GenericRoom twoStairsThree = RoomFactory.designRoom(RoomType.STAIRS);
+		GenericRoom twoMobRoomSixHallway = RoomFactory.designRoom(RoomType.MOB);
+
+		// Create third column 10 rooms
+		/*
+		 * - - + - - - - - + - - - - - + - - - - - + - - - - - + - - - - - + - -
+		 * - - - + - - - - - + - - - - - + - - - - - + - - -
+		 */
+
+		GenericRoom threeMobRoomOneJointBedRoom = RoomFactory.designRoom(RoomType.MOB);
+		GenericRoom threeMobRoomTwoHallway = RoomFactory.designRoom(RoomType.MOB);
+		GenericRoom threeStairsOne = RoomFactory.designRoom(RoomType.STAIRS);
+		GenericRoom threeMobRoomThreeThirdFloor = RoomFactory.designRoom(RoomType.MOB);
+		GenericRoom threeMobRoomFourBoysRoom = RoomFactory.designRoom(RoomType.MOB);
+		GenericRoom threeMobRoomFiveEmptyRoom = RoomFactory.designRoom(RoomType.MOB);
+		GenericRoom threeStairsTwo = RoomFactory.designRoom(RoomType.STAIRS);
+		GenericRoom threeMobRoomSixGriffindorCommonRoom = RoomFactory.designRoom(RoomType.MOB);
+		GenericRoom threeMobRoomSevenSlytherinCommonRoom = RoomFactory.designRoom(RoomType.MOB);
+		GenericRoom threeMobRoomEightHufflepuffCommonRoom = RoomFactory.designRoom(RoomType.MOB);
+
+		// Create fourth column 10 rooms
+		/*
+		 * - - + - - - - - + - - - - - + - - - - - + - - - - - + - - - - - + - -
+		 * - - - + - - - - - + - - - - - + - - - - - + - - -
+		 */
+
+		GenericRoom fourStairsOne = RoomFactory.designRoom(RoomType.STAIRS);
+		GenericRoom fourMobRoomOneLibary = RoomFactory.designRoom(RoomType.MOB);
+		GenericRoom fourMobRoomTwoRavenClawCommonRoom = RoomFactory.designRoom(RoomType.MOB);
+		GenericRoom fourStairsTwo = RoomFactory.designRoom(RoomType.STAIRS);
+		GenericRoom fourMobRoomThreeEmptyRoom = RoomFactory.designRoom(RoomType.MOB);
+		GenericRoom fourMobRoomFourGirlsRoom = RoomFactory.designRoom(RoomType.MOB);
+		GenericRoom fourMobRoomFiveHermionesShrine = RoomFactory.designRoom(RoomType.MOB);
+		GenericRoom fourNPCRoomOneMcgonagalsRoom = RoomFactory.designRoom(RoomType.NPC);
+		GenericRoom fourStairsThree = RoomFactory.designRoom(RoomType.STAIRS);
+		GenericRoom fourNPCRoomTwoProfessorTrudeauxRoom = RoomFactory.designRoom(RoomType.NPC);
+
 		// Set map entrance
 		mapStart = outdoorRoomOne;
 
@@ -102,13 +153,26 @@ public class Map implements Serializable {
 		stairsRoomOne.setNorthRoom(mobRoomTwoDiningHall);
 		mobRoomThreeCastleEntrance.setNorthRoom(stairsRoomOne);
 
+		// East connection
+		outdoorRoomThree.setEastRoom(twoMobRoomThreeForbiddenForest);
+		npcRoomOneHagridsHat.setEastRoom(twoMobRoomFourForbiddenForest);
+		mobRoomTwoDiningHall.setEastRoom(twoStairsTwo);
+		stairsRoomOne.setEastRoom(twoStairsThree);
+		mobRoomThreeCastleEntrance.setEastRoom(twoMobRoomSixHallway);
+		
+		// West Connection
+			//need to set hagrids room connection
+			//need to set outdoor room 5 west connection
+			//diningHall west connection 
+			//castle entrance west connection
+		
 		// set Title and Description of 10 rooms
 		// Room 0,0
 		outdoorRoomOne.setTitle("Beyond the Whomping Willow");
 		outdoorRoomOne.setRoomDescription("A tree sets off in the distance."
 				+ " The branches appear fragile, but you know how fierce they can be. Turning away, "
 				+ " you remember that you left something behind in the common room of Hogswart."
-				+ " There are two ways to go east or south.");
+				+ " There are three ways to go north, east, and south.");
 		outdoorRoomOne.setLookDownDescription("The grassy knoll leads down into a clearing."
 				+ " The grass near the Whomping Willow is still smuldering.");
 		outdoorRoomOne.setLookUpDescription(" Bright colors flash along the horizon."
@@ -121,7 +185,7 @@ public class Map implements Serializable {
 				.setRoomDescription("Walking down the side of a hill. You see the quidditch arena in the distance. "
 						+ " The small dots are whirling back and forth gliding through the air."
 						+ " Other students are milling about on the field practicing their spells."
-						+ " There are only two ways to go north or south.");
+						+ " There are three ways to go north, west, and south.");
 		outdoorRoomTwo.setLookDownDescription(" The path to the quidditch arena has been worn down. "
 				+ " Mudding footsteps line the path heading in both directions.");
 		outdoorRoomTwo.setLookUpDescription(" A sole figure is floating in the sky. It's cloack is whirling behind it. "
@@ -129,9 +193,9 @@ public class Map implements Serializable {
 		mapArray[1][0] = outdoorRoomTwo;
 
 		// Room 2,0
-		outdoorRoomThree.setTitle("The Quidditch Field");
+		outdoorRoomThree.setTitle("The Quidditch Practice Grounds");
 		outdoorRoomThree.setRoomDescription(
-				" As you approach the field, the HufflePuff and Ravenclaw players have been locked in a dead heat."
+				" As you approach the practice grounds, the HufflePuff and Ravenclaw players have been locked in a dead heat."
 						+ " On one side of the field, there are massive stands for each of the four House. "
 						+ " On the ends of the field, the three rings for each time team dwarf your height."
 						+ " In the distance to the east, the Forbidden Forest looms."
@@ -147,7 +211,7 @@ public class Map implements Serializable {
 				+ " A massive bon fire crackles on the side of the hut. Some unicorn meet is cooking."
 				+ " Hagrid doesn't seem to be here..."
 				+ " To the east of Hagrid's Hut, you hear a loud scream come from the Forbidden Forest."
-				+ " South of the Hut is the outdoor grounds to Hogwarts.");
+				+ " South of the Hut is the outdoor grounds to Hogwarts, but you can go in any direction you like");
 		npcRoomOneHagridsHat.setLookDownDescription(" Pieces of wood lie about. ");
 		npcRoomOneHagridsHat.setLookUpDescription(" Any light in this area is suffocated by the Forbidden Forest.");
 		mapArray[3][0] = npcRoomOneHagridsHat;
@@ -223,33 +287,8 @@ public class Map implements Serializable {
 				.setLookUpDescription(" The heros of Hogwarts line the arches in memory of their great deeds.");
 		mapArray[9][0] = mobRoomThreeCastleEntrance;
 
-		// Create second column 10 rooms
-		/*
-		 * - + - - - - - + - - - - - + - - - - - + - - - - - + - - - - - + - - -
-		 * - - + - - - - - + - - - - - + - - - - - + - - - -
-		 */
-
-		GenericRoom twoMobRoomOneHallway = RoomFactory.designRoom(RoomType.MOB);
-		GenericRoom twoMobRoomTwoRoomOfRequirement = RoomFactory.designRoom(RoomType.MOB);
-		GenericRoom twoMobRoomThreeForbiddenForest = RoomFactory.designRoom(RoomType.MOB);
-		GenericRoom twoMobRoomFourForbiddenForest = RoomFactory.designRoom(RoomType.MOB);
-		GenericRoom twoNPCRoomOneHarryRonShrine = RoomFactory.designRoom(RoomType.NPC);
-		GenericRoom twoMobRoomFiveBoysRoom = RoomFactory.designRoom(RoomType.NPC);
-		GenericRoom twoStairsOne = RoomFactory.designRoom(RoomType.STAIRS);
-		GenericRoom twoStairsTwo = RoomFactory.designRoom(RoomType.STAIRS);
-		GenericRoom twoStairsThree = RoomFactory.designRoom(RoomType.STAIRS);
-		GenericRoom twoMobRoomSixHallway = RoomFactory.designRoom(RoomType.MOB);
-
-		// First Column East Connection with second column
-		outdoorRoomOne.setEastRoom(twoMobRoomOneHallway);
-		outdoorRoomThree.setEastRoom(twoMobRoomThreeForbiddenForest);
-		npcRoomOneHagridsHat.setEastRoom(twoMobRoomFourForbiddenForest);
-		mobRoomTwoDiningHall.setEastRoom(twoStairsTwo);
-		stairsRoomOne.setEastRoom(twoStairsThree);
-		mobRoomThreeCastleEntrance.setEastRoom(twoMobRoomSixHallway);
 
 		// Second Column West Connection with first
-		twoMobRoomOneHallway.setWestRoom(outdoorRoomOne);
 		twoMobRoomThreeForbiddenForest.setWestRoom(outdoorRoomThree);
 		twoMobRoomFourForbiddenForest.setWestRoom(npcRoomOneHagridsHat);
 		twoStairsTwo.setWestRoom(mobRoomTwoDiningHall);
@@ -274,6 +313,14 @@ public class Map implements Serializable {
 		twoStairsThree.setNorthRoom(twoStairsTwo);
 		twoMobRoomSixHallway.setNorthRoom(twoStairsThree);
 
+		// Second Column East Connections
+		twoMobRoomOneHallway.setEastRoom(threeMobRoomOneJointBedRoom);
+		twoMobRoomTwoRoomOfRequirement.setEastRoom(threeMobRoomTwoHallway);
+		twoMobRoomFiveBoysRoom.setEastRoom(threeMobRoomFiveEmptyRoom);
+		twoStairsTwo.setEastRoom(threeMobRoomSixGriffindorCommonRoom);
+		twoStairsThree.setEastRoom(threeMobRoomSevenSlytherinCommonRoom);
+		twoMobRoomSixHallway.setEastRoom(threeMobRoomEightHufflepuffCommonRoom);
+	
 		// Room 0, 1
 		twoMobRoomOneHallway.setTitle("Spooky Hallway");
 		twoMobRoomOneHallway.setRoomDescription(" These back hallways have always been a little spooky."
@@ -381,53 +428,39 @@ public class Map implements Serializable {
 		twoMobRoomSixHallway.setLookUpDescription(" The ceiling is actually pretty normal here. Thank goodness.");
 		mapArray[9][1] = twoMobRoomSixHallway;
 
-		// Create third column 10 rooms
-		/*
-		 * - - + - - - - - + - - - - - + - - - - - + - - - - - + - - - - - + - -
-		 * - - - + - - - - - + - - - - - + - - - - - + - - -
-		 */
-
-		GenericRoom threeMobRoomOneJointBedRoom = RoomFactory.designRoom(RoomType.MOB);
-		GenericRoom threeMobRoomTwoHallway = RoomFactory.designRoom(RoomType.MOB);
-		GenericRoom threeStairsOne = RoomFactory.designRoom(RoomType.STAIRS);
-		GenericRoom threeMobRoomThreeThirdFloor = RoomFactory.designRoom(RoomType.MOB);
-		GenericRoom threeMobRoomFourBoysRoom = RoomFactory.designRoom(RoomType.MOB);
-		GenericRoom threeMobRoomFiveEmptyRoom = RoomFactory.designRoom(RoomType.MOB);
-		GenericRoom threeStairsTwo = RoomFactory.designRoom(RoomType.STAIRS);
-		GenericRoom threeMobRoomSixGriffindorCommonRoom = RoomFactory.designRoom(RoomType.MOB);
-		GenericRoom threeMobRoomSevenSlytherinCommonRoom = RoomFactory.designRoom(RoomType.MOB);
-		GenericRoom threeMobRoomEightHufflepuffCommonRoom = RoomFactory.designRoom(RoomType.MOB);
-
-		// Second Column east connection with third column
-		twoMobRoomOneHallway.setEastRoom(threeMobRoomOneJointBedRoom);
-		twoMobRoomTwoRoomOfRequirement.setEastRoom(threeMobRoomTwoHallway);
-		twoMobRoomFiveBoysRoom.setEastRoom(threeMobRoomFiveEmptyRoom);
-		twoStairsOne.setEastRoom(threeStairsTwo);
-		twoStairsTwo.setEastRoom(threeMobRoomSixGriffindorCommonRoom);
-		twoStairsThree.setEastRoom(threeMobRoomSevenSlytherinCommonRoom);
-		twoMobRoomSixHallway.setEastRoom(threeMobRoomEightHufflepuffCommonRoom);
-
 		// Third Column west connection with second column
-		threeStairsTwo.setWestRoom(twoStairsOne);
 		threeMobRoomOneJointBedRoom.setWestRoom(twoMobRoomOneHallway);
 		threeMobRoomTwoHallway.setWestRoom(twoMobRoomTwoRoomOfRequirement);
 		threeMobRoomFiveEmptyRoom.setWestRoom(twoMobRoomFiveBoysRoom);
 		threeMobRoomSixGriffindorCommonRoom.setWestRoom(twoStairsTwo);
 		threeMobRoomSevenSlytherinCommonRoom.setWestRoom(twoStairsThree);
 		threeMobRoomEightHufflepuffCommonRoom.setWestRoom(twoMobRoomSixHallway);
-
+		
 		// Third Column set south connection
 		threeMobRoomOneJointBedRoom.setSouthRoom(threeMobRoomTwoHallway);
 		threeMobRoomTwoHallway.setSouthRoom(threeStairsOne);
 		threeStairsOne.setSouthRoom(threeMobRoomThreeThirdFloor);
 		threeMobRoomFiveEmptyRoom.setSouthRoom(threeStairsTwo);
-
+		threeStairsTwo.setSouthRoom(threeMobRoomSixGriffindorCommonRoom);
+		
+		
 		// Third Column set North connection
+		threeMobRoomSixGriffindorCommonRoom.setNorthRoom(threeStairsTwo);
 		threeStairsTwo.setNorthRoom(threeMobRoomFiveEmptyRoom);
 		threeMobRoomThreeThirdFloor.setNorthRoom(threeStairsOne);
 		threeStairsOne.setNorthRoom(threeMobRoomTwoHallway);
 		threeMobRoomTwoHallway.setNorthRoom(threeMobRoomOneJointBedRoom);
 
+		// Third Column east connection with fourth column
+		threeMobRoomOneJointBedRoom.setEastRoom(fourStairsOne);
+		threeMobRoomTwoHallway.setEastRoom(fourMobRoomOneLibary);
+		threeStairsOne.setEastRoom(fourMobRoomTwoRavenClawCommonRoom);
+		threeMobRoomFourBoysRoom.setEastRoom(fourMobRoomThreeEmptyRoom);
+		threeMobRoomFiveEmptyRoom.setEastRoom(fourMobRoomFourGirlsRoom);
+		threeMobRoomSixGriffindorCommonRoom.setEastRoom(fourNPCRoomOneMcgonagalsRoom);
+		threeMobRoomSevenSlytherinCommonRoom.setEastRoom(fourStairsThree);
+		threeMobRoomEightHufflepuffCommonRoom.setEastRoom(fourNPCRoomTwoProfessorTrudeauxRoom);
+		
 		// Room 0,2
 		threeMobRoomOneJointBedRoom.setTitle("The BedRooms");
 		threeMobRoomOneJointBedRoom.setRoomDescription("The bed sheets and blankets are everywhere."
@@ -533,32 +566,6 @@ public class Map implements Serializable {
 				" The walls are lined with circular windows. " + " Magical sunlight enters the room and lights it up.");
 		mapArray[9][2] = threeMobRoomEightHufflepuffCommonRoom;
 
-		// Create fourth column 10 rooms
-		/*
-		 * - - + - - - - - + - - - - - + - - - - - + - - - - - + - - - - - + - -
-		 * - - - + - - - - - + - - - - - + - - - - - + - - -
-		 */
-
-		GenericRoom fourStairsOne = RoomFactory.designRoom(RoomType.STAIRS);
-		GenericRoom fourMobRoomOneLibary = RoomFactory.designRoom(RoomType.MOB);
-		GenericRoom fourMobRoomTwoRavenClawCommonRoom = RoomFactory.designRoom(RoomType.MOB);
-		GenericRoom fourStairsTwo = RoomFactory.designRoom(RoomType.STAIRS);
-		GenericRoom fourMobRoomThreeEmptyRoom = RoomFactory.designRoom(RoomType.MOB);
-		GenericRoom fourMobRoomFourGirlsRoom = RoomFactory.designRoom(RoomType.MOB);
-		GenericRoom fourMobRoomFiveHermionesShrine = RoomFactory.designRoom(RoomType.MOB);
-		GenericRoom fourNPCRoomOneMcgonagalsRoom = RoomFactory.designRoom(RoomType.NPC);
-		GenericRoom fourStairsThree = RoomFactory.designRoom(RoomType.STAIRS);
-		GenericRoom fourNPCRoomTwoProfessorTrudeauxRoom = RoomFactory.designRoom(RoomType.NPC);
-
-		// Third Column east connection with fourth column
-		threeMobRoomOneJointBedRoom.setEastRoom(fourStairsOne);
-		threeMobRoomTwoHallway.setEastRoom(fourMobRoomOneLibary);
-		threeStairsOne.setEastRoom(fourMobRoomTwoRavenClawCommonRoom);
-		threeMobRoomFourBoysRoom.setEastRoom(fourMobRoomThreeEmptyRoom);
-		threeMobRoomFiveEmptyRoom.setEastRoom(fourMobRoomFourGirlsRoom);
-		threeMobRoomSixGriffindorCommonRoom.setEastRoom(fourNPCRoomOneMcgonagalsRoom);
-		threeMobRoomSevenSlytherinCommonRoom.setEastRoom(fourStairsThree);
-		threeMobRoomEightHufflepuffCommonRoom.setEastRoom(fourNPCRoomTwoProfessorTrudeauxRoom);
 
 		// Fourth Column west connection with third column
 		fourStairsOne.setWestRoom(threeMobRoomOneJointBedRoom);
@@ -576,6 +583,7 @@ public class Map implements Serializable {
 		fourMobRoomFourGirlsRoom.setSouthRoom(fourMobRoomFiveHermionesShrine);
 
 		// Fourth Column set North connection
+		fourStairsOne.setNorthRoom(fourNPCRoomTwoProfessorTrudeauxRoom);
 		fourStairsTwo.setNorthRoom(fourMobRoomTwoRavenClawCommonRoom);
 		fourMobRoomThreeEmptyRoom.setNorthRoom(fourStairsTwo);
 		fourMobRoomFiveHermionesShrine.setNorthRoom(fourMobRoomFourGirlsRoom);
@@ -676,78 +684,78 @@ public class Map implements Serializable {
 		Spellbook spellbookPetrificusTotalus = new Spellbook(petrificusTotalus);
 		Spellbook spellbookSectumSempra = new Spellbook(sectumSempra);
 		Spellbook spellbookStuepfy = new Spellbook(stupefy);
-		//adding 5 spellbooks to the map only determining them here
+		// adding 5 spellbooks to the map only determining them here
 		int numberOfSpellbooksAdded = 0;
-		int whichSpellBook =0;
-		while(numberOfSpellbooksAdded!=5){
+		int whichSpellBook = 0;
+		while (numberOfSpellbooksAdded != 5) {
 			whichSpellBook = random.nextInt(10);
-			switch(whichSpellBook){
+			switch (whichSpellBook) {
 			case 0:
-				if(!itemsToAddToMap.contains(spellbookAvadaKedvra)){
+				if (!itemsToAddToMap.contains(spellbookAvadaKedvra)) {
 					itemsToAddToMap.add(spellbookAvadaKedvra);
 					numberOfSpellbooksAdded++;
 					break;
 				}
 			case 1:
-				if(!itemsToAddToMap.contains(spellbookExpelliarmus)){
+				if (!itemsToAddToMap.contains(spellbookExpelliarmus)) {
 					numberOfSpellbooksAdded++;
 					itemsToAddToMap.add(spellbookExpelliarmus);
 					break;
 				}
 			case 2:
-				if(!itemsToAddToMap.contains(spellbookExpectoPatronum)){
+				if (!itemsToAddToMap.contains(spellbookExpectoPatronum)) {
 					itemsToAddToMap.add(spellbookExpectoPatronum);
 					numberOfSpellbooksAdded++;
 					break;
 
 				}
 			case 3:
-				if(!itemsToAddToMap.contains(spellbookImperio)){
+				if (!itemsToAddToMap.contains(spellbookImperio)) {
 					itemsToAddToMap.add(spellbookImperio);
 					numberOfSpellbooksAdded++;
 					break;
 				}
 			case 4:
-				if(!itemsToAddToMap.contains(spellbookCrucio)){
+				if (!itemsToAddToMap.contains(spellbookCrucio)) {
 					itemsToAddToMap.add(spellbookCrucio);
 					numberOfSpellbooksAdded++;
 					break;
 				}
 			case 5:
-				if(!itemsToAddToMap.contains(spellbookIncendio)){
+				if (!itemsToAddToMap.contains(spellbookIncendio)) {
 					itemsToAddToMap.add(spellbookIncendio);
 					numberOfSpellbooksAdded++;
 					break;
 				}
 			case 6:
-				if(!itemsToAddToMap.contains(spellbookPetrificusTotalus)){
+				if (!itemsToAddToMap.contains(spellbookPetrificusTotalus)) {
 					itemsToAddToMap.add(spellbookPetrificusTotalus);
 					numberOfSpellbooksAdded++;
 					break;
 				}
 			case 7:
-				if(!itemsToAddToMap.contains(spellbookSectumSempra)){
+				if (!itemsToAddToMap.contains(spellbookSectumSempra)) {
 					itemsToAddToMap.add(spellbookSectumSempra);
 					numberOfSpellbooksAdded++;
 					break;
 				}
 			case 8:
-				if(!itemsToAddToMap.contains(spellbookExpulso)){
+				if (!itemsToAddToMap.contains(spellbookExpulso)) {
 					itemsToAddToMap.add(spellbookExpulso);
 					numberOfSpellbooksAdded++;
 					break;
 				}
 			case 9:
-				if(!itemsToAddToMap.contains(spellbookStuepfy)){
+				if (!itemsToAddToMap.contains(spellbookStuepfy)) {
 					itemsToAddToMap.add(spellbookStuepfy);
 					numberOfSpellbooksAdded++;
 					break;
 				}
 			default:
 				break;
-				}
+			}
 		}
-		//Adding the rest of the items to the arrayList
+		// Adding the rest of the items to the arrayList
 		BassilskFang bassilskFang = new BassilskFang();
 		Broomstick broomstick = new Broomstick();
 		PhoenixTears phoenixTears = new PhoenixTears();
@@ -777,8 +785,8 @@ public class Map implements Serializable {
 		itemsToAddToMap.add(healingPotion);
 		itemsToAddToMap.add(dependencyInjectionSword);
 		int row = 0;
-		int column =0;
-		for(int i =0;i < itemsToAddToMap.size();i++){
+		int column = 0;
+		for (int i = 0; i < itemsToAddToMap.size(); i++) {
 			row = random.nextInt(9);
 			column = random.nextInt(2);
 			this.mapArray[row][column].additemsInRoom(itemsToAddToMap.get(i));
@@ -786,22 +794,22 @@ public class Map implements Serializable {
 		}
 		System.out.println("Done adding items");
 	}
-	
-	public void generateMobs(){
+
+	public void generateMobs() {
 		ArrayList<Mobs> mobsToAddToMap = new ArrayList<Mobs>();
 		Bellatrix bellatrix = new Bellatrix(null, 0, 0, 0);
-		Dementor dementor = new Dementor(null, 0,0,0);
-		Snape snape = new Snape(null,0,0,0);
-		Dragons dragon = new Dragons("Dragon",0,0,0);
+		Dementor dementor = new Dementor(null, 0, 0, 0);
+		Snape snape = new Snape(null, 0, 0, 0);
+		Dragons dragon = new Dragons("Dragon", 0, 0, 0);
 		Dumbledore dumbldeore = new Dumbledore(null, 0, 0, 0);
-		Hagrid hagrid= new Hagrid(null, 0, 0, 0);
+		Hagrid hagrid = new Hagrid(null, 0, 0, 0);
 		Lupin lupin = new Lupin(null, 0, 0, 0);
 		McGonagall mcgonagall = new McGonagall(null, 0, 0, 0);
 		Sirius sirius = new Sirius(null, 0, 0, 0);
 		Spiders spider = new Spiders("Spiders", 0, 0, 0);
 		Trolls troll = new Trolls("Trolls", 0, 0, 0);
 		Werewolves werewolves = new Werewolves("Werewolves", 0, 0, 0);
-		OrdinaryWizards Ron = new OrdinaryWizards("Ron", 0,"Gryffindor", 0,0);
+		OrdinaryWizards Ron = new OrdinaryWizards("Ron", 0, "Gryffindor", 0, 0);
 		mobsToAddToMap.add(werewolves);
 		mobsToAddToMap.add(troll);
 		mobsToAddToMap.add(spider);
@@ -817,19 +825,18 @@ public class Map implements Serializable {
 		mobsToAddToMap.add(Ron);
 		Random random = new Random();
 		int row = 0;
-		int column =0;
-		for(int i =0;i < mobsToAddToMap.size();i++){
+		int column = 0;
+		for (int i = 0; i < mobsToAddToMap.size(); i++) {
 			row = random.nextInt(9);
 			column = random.nextInt(2);
-			if(!this.mapArray[row][column].getMobsPresent()){
+			if (!this.mapArray[row][column].getMobsPresent()) {
 				this.mapArray[row][column].setMobsInRoom(mobsToAddToMap.get(i));
 				this.mapArray[row][column].setMobsPresent(true);
 				mobsToAddToMap.get(i).setXpos(row);
 				mobsToAddToMap.get(i).setYpos(column);
 				mobsToAddToMap.get(i).setCurrentRoom(this.mapArray[row][column]);
 				System.out.println(row + " " + column + " " + mobsToAddToMap.get(i).getName());
-			}
-			else{
+			} else {
 				i--;
 			}
 		}
