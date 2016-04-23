@@ -125,6 +125,38 @@ public class Map implements Serializable {
 		GenericRoom fourStairsThree = RoomFactory.designRoom(RoomType.STAIRS);
 		GenericRoom fourNPCRoomTwoProfessorTrudeauxRoom = RoomFactory.designRoom(RoomType.NPC);
 
+		// Create fifth column 10 rooms
+		/*
+		 * - + - - - - - + - - - - - + - - - - - + - - - - - + - - - - - + - - -
+		 * - - + - - - - - + - - - - - + - - - - - + - - - -
+		 */
+		GenericRoom fiveCommonGroundOne = RoomFactory.designRoom(RoomType.OUTDOORS);
+		GenericRoom fiveHoneydukes = RoomFactory.designRoom(RoomType.NPC);
+		GenericRoom fiveAstronomyTower = RoomFactory.designRoom(RoomType.MOB);
+		GenericRoom fiveOutdoorGroundsOne = RoomFactory.designRoom(RoomType.NPC);
+		GenericRoom fiveRavenclawGirlsRoom = RoomFactory.designRoom(RoomType.MOB);
+		GenericRoom fiveQuidditchPitch = RoomFactory.designRoom(RoomType.MOB);
+		GenericRoom fiveVoldemortsShrine = RoomFactory.designRoom(RoomType.MOB);
+		GenericRoom fiveSlytherinBoysRoom = RoomFactory.designRoom(RoomType.NPC);
+		GenericRoom fiveSlytherinEmptyRoom = RoomFactory.designRoom(RoomType.NPC);
+		GenericRoom fiveSlytherinGirlsRoom = RoomFactory.designRoom(RoomType.NPC);
+
+		// Create fifth column 10 rooms
+		/*
+		 * - + - - - - - + - - - - - + - - - - - + - - - - - + - - - - - + - - -
+		 * - - + - - - - - + - - - - - + - - - - - + - - - -
+		 */
+		GenericRoom sixShriekingShack = RoomFactory.designRoom(RoomType.OUTDOORS);
+		GenericRoom sixHogsmeadeVillage = RoomFactory.designRoom(RoomType.NPC);
+		GenericRoom sixZonksJokeShop = RoomFactory.designRoom(RoomType.NPC);
+		GenericRoom sixOutdoorGroundsOne = RoomFactory.designRoom(RoomType.OUTDOORS);
+		GenericRoom sixOutdoorGroundsTwo = RoomFactory.designRoom(RoomType.OUTDOORS);
+		GenericRoom sixOutdoorGroundsThree = RoomFactory.designRoom(RoomType.OUTDOORS);
+		GenericRoom sixSnapesRoom = RoomFactory.designRoom(RoomType.MOB);
+		GenericRoom sixStairs = RoomFactory.designRoom(RoomType.STAIRS);
+		GenericRoom sixDumbledoresOffice = RoomFactory.designRoom(RoomType.MOB);
+		GenericRoom sixPensieveRoom = RoomFactory.designRoom(RoomType.NPC);
+
 		// Set map entrance
 		mapStart = outdoorRoomOne;
 
@@ -159,13 +191,14 @@ public class Map implements Serializable {
 		mobRoomTwoDiningHall.setEastRoom(twoStairsTwo);
 		stairsRoomOne.setEastRoom(twoStairsThree);
 		mobRoomThreeCastleEntrance.setEastRoom(twoMobRoomSixHallway);
-		
+
 		// West Connection
-			//need to set hagrids room connection
-			//need to set outdoor room 5 west connection
-			//diningHall west connection 
-			//castle entrance west connection
-		
+		outdoorRoomTwo.setWestRoom(sixHogsmeadeVillage);
+		npcRoomOneHagridsHat.setWestRoom(sixOutdoorGroundsOne);
+		outdoorRoomFour.setWestRoom(sixOutdoorGroundsTwo);
+		outdoorRoomFive.setWestRoom(sixOutdoorGroundsThree);
+		mobRoomOneHallway.setWestRoom(sixSnapesRoom);
+
 		// set Title and Description of 10 rooms
 		// Room 0,0
 		outdoorRoomOne.setTitle("Beyond the Whomping Willow");
@@ -287,7 +320,6 @@ public class Map implements Serializable {
 				.setLookUpDescription(" The heros of Hogwarts line the arches in memory of their great deeds.");
 		mapArray[9][0] = mobRoomThreeCastleEntrance;
 
-
 		// Second Column West Connection with first
 		twoMobRoomThreeForbiddenForest.setWestRoom(outdoorRoomThree);
 		twoMobRoomFourForbiddenForest.setWestRoom(npcRoomOneHagridsHat);
@@ -320,7 +352,7 @@ public class Map implements Serializable {
 		twoStairsTwo.setEastRoom(threeMobRoomSixGriffindorCommonRoom);
 		twoStairsThree.setEastRoom(threeMobRoomSevenSlytherinCommonRoom);
 		twoMobRoomSixHallway.setEastRoom(threeMobRoomEightHufflepuffCommonRoom);
-	
+
 		// Room 0, 1
 		twoMobRoomOneHallway.setTitle("Spooky Hallway");
 		twoMobRoomOneHallway.setRoomDescription(" These back hallways have always been a little spooky."
@@ -435,15 +467,14 @@ public class Map implements Serializable {
 		threeMobRoomSixGriffindorCommonRoom.setWestRoom(twoStairsTwo);
 		threeMobRoomSevenSlytherinCommonRoom.setWestRoom(twoStairsThree);
 		threeMobRoomEightHufflepuffCommonRoom.setWestRoom(twoMobRoomSixHallway);
-		
+
 		// Third Column set south connection
 		threeMobRoomOneJointBedRoom.setSouthRoom(threeMobRoomTwoHallway);
 		threeMobRoomTwoHallway.setSouthRoom(threeStairsOne);
 		threeStairsOne.setSouthRoom(threeMobRoomThreeThirdFloor);
 		threeMobRoomFiveEmptyRoom.setSouthRoom(threeStairsTwo);
 		threeStairsTwo.setSouthRoom(threeMobRoomSixGriffindorCommonRoom);
-		
-		
+
 		// Third Column set North connection
 		threeMobRoomSixGriffindorCommonRoom.setNorthRoom(threeStairsTwo);
 		threeStairsTwo.setNorthRoom(threeMobRoomFiveEmptyRoom);
@@ -460,7 +491,7 @@ public class Map implements Serializable {
 		threeMobRoomSixGriffindorCommonRoom.setEastRoom(fourNPCRoomOneMcgonagalsRoom);
 		threeMobRoomSevenSlytherinCommonRoom.setEastRoom(fourStairsThree);
 		threeMobRoomEightHufflepuffCommonRoom.setEastRoom(fourNPCRoomTwoProfessorTrudeauxRoom);
-		
+
 		// Room 0,2
 		threeMobRoomOneJointBedRoom.setTitle("The BedRooms");
 		threeMobRoomOneJointBedRoom.setRoomDescription("The bed sheets and blankets are everywhere."
@@ -566,7 +597,6 @@ public class Map implements Serializable {
 				" The walls are lined with circular windows. " + " Magical sunlight enters the room and lights it up.");
 		mapArray[9][2] = threeMobRoomEightHufflepuffCommonRoom;
 
-
 		// Fourth Column west connection with third column
 		fourStairsOne.setWestRoom(threeMobRoomOneJointBedRoom);
 		fourMobRoomOneLibary.setWestRoom(threeMobRoomTwoHallway);
@@ -587,6 +617,10 @@ public class Map implements Serializable {
 		fourStairsTwo.setNorthRoom(fourMobRoomTwoRavenClawCommonRoom);
 		fourMobRoomThreeEmptyRoom.setNorthRoom(fourStairsTwo);
 		fourMobRoomFiveHermionesShrine.setNorthRoom(fourMobRoomFourGirlsRoom);
+
+		// Fourth column set East Connection
+		fourMobRoomThreeEmptyRoom.setEastRoom(fiveRavenclawGirlsRoom);
+		fourStairsThree.setEastRoom(fiveSlytherinEmptyRoom);
 
 		// Room 0,3
 		fourStairsOne.setTitle("The Stairway ");
@@ -659,6 +693,197 @@ public class Map implements Serializable {
 				.setRoomDescription(" Stacks of paper clog the room. Old formulas and spells it seems."
 						+ " The floor is covered in from the outside. "
 						+ " There may be something I can learn from these stacks." + " The only exit is west.");
+
+		// fifth column set west directions
+		fiveRavenclawGirlsRoom.setWestRoom(fourMobRoomThreeEmptyRoom);
+		fiveSlytherinEmptyRoom.setWestRoom(fourStairsThree);
+
+		// fifth column set east directions
+		fiveCommonGroundOne.setEastRoom(sixShriekingShack);
+		fiveQuidditchPitch.setEastRoom(sixOutdoorGroundsThree);
+		fiveHoneydukes.setEastRoom(sixHogsmeadeVillage);
+
+		// fifth column set South direction
+		fiveAstronomyTower.setSouthRoom(fiveOutdoorGroundsOne);
+		fiveVoldemortsShrine.setSouthRoom(fiveSlytherinBoysRoom);
+		fiveSlytherinBoysRoom.setSouthRoom(fiveSlytherinEmptyRoom);
+		fiveSlytherinEmptyRoom.setSouthRoom(fiveSlytherinGirlsRoom);
+
+		// fifth column set North direction
+		fiveSlytherinGirlsRoom.setNorthRoom(fiveSlytherinEmptyRoom);
+		fiveSlytherinEmptyRoom.setNorthRoom(fiveSlytherinBoysRoom);
+		fiveSlytherinBoysRoom.setNorthRoom(fiveVoldemortsShrine);
+		fiveOutdoorGroundsOne.setNorthRoom(fiveAstronomyTower);
+
+		// room 0, 4
+		fiveCommonGroundOne.setTitle("Common Ground");
+		fiveCommonGroundOne.setRoomDescription(
+				"Look there to the east ... what is that" + "I hear screaming, I sense fear, beware of going there");
+		this.mapArray[0][4] = fiveCommonGroundOne;
+
+		// room 1,4
+		fiveHoneydukes.setTitle("Honeydukes Bar");
+		fiveHoneydukes.setRoomDescription("Ahhh my sanctum santorum. Refreshing butterbeer all over the place"
+				+ "and a nice sense of relaxation all over the place. Well I guess I can only go back to hogsmeade for here. I might as "
+				+ "just continue to drink here");
+		this.mapArray[1][4] = fiveHoneydukes;
+
+		// room 2,4
+		fiveAstronomyTower.setTitle("Astronomy Tower");
+		fiveAstronomyTower.setRoomDescription("Look up to the sky you can see the stars from here. I dont know"
+				+ "why, but I sense something bad my happen here in the future. It looks like I can only leave the way I came"
+				+ ", but why leave");
+		this.mapArray[2][4] = fiveAstronomyTower;
+
+		// room 3,4
+		fiveOutdoorGroundsOne.setTitle("Outdoor Grounds");
+		fiveOutdoorGroundsOne.setRoomDescription("A tree sets off in the distance."
+				+ " The branches appear fragile, but you know how fierce they can be. "
+				+ "You could go back to hagrids, but either you gotta go to the east");
+		this.mapArray[3][4] = fiveOutdoorGroundsOne;
+
+		// room 4,4
+		fiveRavenclawGirlsRoom.setTitle("Ravenclaws Girls Room");
+		fiveRavenclawGirlsRoom.setRoomDescription(
+				"This, this right here is where intelligence was born. There maybe a spellbook for you in here or not. IDK IM JUST A ROOM."
+						+ ", but if not just leave and get out");
+		this.mapArray[4][4] = fiveRavenclawGirlsRoom;
+
+		// room 5,4
+		fiveQuidditchPitch.setTitle("Qudditch Field");
+		fiveQuidditchPitch.setRoomDescription(
+				"I think if you pay attention you may still be able to hear the snitch. JK there is not snitch in this game"
+						+ ", but hey you can still see the hoops. By the way you can only go back the way you come. I mean there is only"
+						+ "one exit");
+		this.mapArray[5][4] = fiveQuidditchPitch;
+
+		// room 6,4
+		fiveVoldemortsShrine.setTitle("Voldemorts Shrine");
+		fiveVoldemortsShrine.setRoomDescription(
+				"This is the darkest room in the entire building. Only Slytherin would have shrine for the most"
+						+ "ruthless killer ever. Look over there you can see his statue. You can still here his victims scream. Wait can you feel that can you feel that it is calling for you."
+						+ "If you do not understand what I mean, stop playing pick up the books and read them. If not...");
+		this.mapArray[6][4] = fiveVoldemortsShrine;
+
+		// room 7,4
+		fiveSlytherinBoysRoom.setTitle("Slytherin Boys Room");
+		fiveSlytherinBoysRoom.setRoomDescription("This is the slytherins boys room. It deserves"
+				+ "no other description. Oh and there is something particularly facinating to the north. Only go if you dare.");
+		this.mapArray[7][4] = fiveSlytherinBoysRoom;
+
+		// room 8,4
+		fiveSlytherinEmptyRoom.setTitle("Slytheirn Common Room");
+		fiveSlytherinEmptyRoom.setRoomDescription("Here is where all the evil boys and girls reside peacefully and plot"
+				+ "You can go to the south and see the girls room or the north and see the boys room.");
+		this.mapArray[8][4] = fiveSlytherinEmptyRoom;
+
+		// room 9,4
+		fiveSlytherinGirlsRoom.setTitle("Slytherin Girls Room");
+		fiveSlytherinGirlsRoom.setRoomDescription("Honestly there is nothin in here sorry.");
+		this.mapArray[9][4] = fiveSlytherinGirlsRoom;
+
+		// sixth column set North direction
+		sixHogsmeadeVillage.setNorthRoom(sixShriekingShack);
+		sixZonksJokeShop.setNorthRoom(sixHogsmeadeVillage);
+		;
+		sixOutdoorGroundsTwo.setNorthRoom(sixOutdoorGroundsOne);
+		sixOutdoorGroundsThree.setNorthRoom(sixOutdoorGroundsThree);
+		sixStairs.setNorthRoom(sixSnapesRoom);
+		sixDumbledoresOffice.setNorthRoom(sixStairs);
+		sixPensieveRoom.setNorthRoom(sixDumbledoresOffice);
+
+		// sixth column set South direction
+		sixDumbledoresOffice.setSouthRoom(sixPensieveRoom);
+		sixStairs.setSouthRoom(sixDumbledoresOffice);
+		sixSnapesRoom.setSouthRoom(sixStairs);
+		sixOutdoorGroundsTwo.setSouthRoom(sixOutdoorGroundsThree);
+		sixOutdoorGroundsOne.setSouthRoom(sixOutdoorGroundsTwo);
+		sixShriekingShack.setSouthRoom(sixHogsmeadeVillage);
+		sixHogsmeadeVillage.setSouthRoom(sixZonksJokeShop);
+
+		// sixth column set West direction
+		sixShriekingShack.setWestRoom(fiveCommonGroundOne);
+		sixHogsmeadeVillage.setWestRoom(fiveHoneydukes);
+		sixOutdoorGroundsThree.setWestRoom(fiveQuidditchPitch);
+
+		// sixth column set East direction
+		sixHogsmeadeVillage.setEastRoom(outdoorRoomTwo);
+		sixOutdoorGroundsOne.setEastRoom(npcRoomOneHagridsHat);
+		sixOutdoorGroundsTwo.setEastRoom(outdoorRoomFour);
+		sixOutdoorGroundsThree.setEastRoom(outdoorRoomFive);
+		sixSnapesRoom.setEastRoom(mobRoomOneHallway);
+
+		// room 0,5
+		sixShriekingShack.setTitle("Shrieking Shack");
+		sixShriekingShack.setRoomDescription("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH"
+				+ "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH"
+				+ "...................................................................."
+				+ "........................................................................"
+				+ "AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH"
+				+ "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH"
+				+ "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+		this.mapArray[0][5] = sixShriekingShack;
+
+		// room 1,5
+		sixHogsmeadeVillage.setTitle("Hogsmeade Village");
+		sixHogsmeadeVillage.setRoomDescription(
+				"From here you can honestly go anywhere. Wanna beer head west, wanna hear something interesting go north, wanna laugh"
+						+ " go south, wanna go back to where you came from, well remember that direction at least I cant do everything for you. I am room not your mother.");
+		this.mapArray[1][5] = sixHogsmeadeVillage;
+
+		// room 2,5
+		sixZonksJokeShop.setTitle("Zonks Joke Shop");
+		sixZonksJokeShop.setRoomDescription(
+				"HAHA, LOL, GOD DAMN THOSE WEASLEY REALLY HAVE MADE ME A FUNNY PLACE! WANNA ELDER WAND???????????"
+						+ "JK LOL I DONT HAVE THAT. Well maybe I do IDK.");
+		this.mapArray[2][5] = sixZonksJokeShop;
+
+		// room 3,5
+		sixOutdoorGroundsOne.setTitle("Outdoor Grounds");
+		sixOutdoorGroundsOne.setRoomDescription("Hear that ... thats right that is the sound of peace and quiet"
+				+ "all you can hear is silence. The night sky is above you and all you can do is relax so sit back and realx and enjoy yourself");
+		this.mapArray[3][5] = sixOutdoorGroundsOne;
+
+		// room 4,5
+		sixOutdoorGroundsTwo.setTitle("Outdoor Grounds");
+		sixOutdoorGroundsTwo.setRoomDescription("Hear that ... thats right that is the sound of peace and quiet"
+				+ "all you can hear is silence. The night sky is above you and all you can do is relax so sit back and realx and enjoy yourself. No you arent in the same room again but jeez its the same thing essentially");
+		this.mapArray[4][5] = sixOutdoorGroundsTwo;
+
+		// room 5,5
+		sixOutdoorGroundsThree.setTitle("Outdoor Grounds");
+		sixOutdoorGroundsThree.setRoomDescription("Hear that ... thats right that is the sound of peace and quiet"
+				+ "all you can hear is silence. The night sky is above you and all you can do is relax so sit back and realx and enjoy yourself. No you arent in the same room again but jeez its the same thing essentially");
+		this.mapArray[5][5] = sixOutdoorGroundsThree;
+
+		// room 6,5
+		sixSnapesRoom.setTitle("Professor Snapes Room");
+		sixSnapesRoom.setRoomDescription("You are in the presence of the one and only Half-Blood Prince. If you try hard enough you can catch a faint whiff of the potions brewing"
+				+ "even though they are being over powered by the lilys in here. You want to know sectum sempra, ask him what he says just try and talk to him. I know it can be nerving but give it a go. ");
+		this.mapArray[6][5] = sixOutdoorGroundsTwo;
+		
+		//room 7,5
+		sixStairs.setTitle("The Stairway");
+		sixStairs.setRoomDescription(" You enter the stair. Along the walls are pictures of old wizards can be seen. "
+				+ " You double take. On the wall you see it."
+				+ " You're eyes glaze upon the figure. The caption of the painting states, \" Dependency Injection \""
+				+ " You don't quite understand the picture, but it is magnificent."
+				+ " The stairs go north to a certain professors room or south to a certain professors room. Take your pick");
+		this.mapArray[7][5]=sixStairs;
+	
+		//room 8,5 
+		sixDumbledoresOffice.setTitle("The Headmasters Office");
+		sixDumbledoresOffice.setRoomDescription("Can you pick up on all that wisdom and intelligence that is just ozzing out of every crack in the wall out of ever portion "
+				+ "of this room. The headmaster sits there waiting for you staring, no not just stairing in fact talking with the portraits of all of his predeccesors."
+				+ "He has been expecting you go ahead and go see him. Try and not be nervous, but remember he is the greatest wizard of all time. ");
+		this.mapArray[8][5]=sixDumbledoresOffice;
+		
+		//room 9,5
+		sixPensieveRoom.setTitle("The Headmasters Office");
+		sixPensieveRoom.setRoomDescription("This is where the Phoenix sits, more importantly there sits the pensieve. Many have came in here"
+				+ "to try and use it and see what has happened before, but it hasnt work, the pensieve no longer works. Its last user was the Chosen One and refuses"
+				+ "to work for anyone else. And you, you are not the chosen one. Leave go back to dumbledores office");
+		this.mapArray[9][5]=sixPensieveRoom;
 	}
 
 	private void generateItems() {
@@ -851,5 +1076,4 @@ public class Map implements Serializable {
 	public GenericRoom[][] getMapArray() {
 		return this.mapArray;
 	}
-
 }
