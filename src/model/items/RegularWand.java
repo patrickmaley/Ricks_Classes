@@ -39,8 +39,9 @@ public class RegularWand  extends Item {
 				if(mobToAttack.canBeAttacked()){
 					if(tryingToUseThis.canAttack(mobToAttack)){
 						mobToAttack.decreaseHP(attackPower+tryingToUseThis.getAttackPower());
-						return "You have just attacked "+ mobToAttack.getName() + " and his hp is now "+ mobToAttack.getHp(); 
-					}
+						p.decreaseHP(mobToAttack.getAttackPower());
+						return "You have just attacked "+ mobToAttack.getName() + " and his hp is now "+ mobToAttack.getHp() + "\n"
+								+ mobToAttack.getName() + "attacked back. Your hp is now: " + p.getHP(); 					}
 				}
 				else{
 					return "You cannot attack this mob";

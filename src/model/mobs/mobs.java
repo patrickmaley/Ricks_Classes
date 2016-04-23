@@ -14,6 +14,7 @@ public abstract class Mobs implements Serializable{
 	private int xpos;
 	private int ypos;
 	private GenericRoom currentRoom;
+	private double attackPower;
 
 	
 	public Mobs(String name, int hp, String description, int x, int y){
@@ -22,6 +23,9 @@ public abstract class Mobs implements Serializable{
 		this.description = description;
 		this.xpos = x;
 		this.setYpos(y);
+	}
+	public double getAttackPower(){
+		return this.attackPower;
 	}
 	public int getXpos(){
 		return this.xpos;

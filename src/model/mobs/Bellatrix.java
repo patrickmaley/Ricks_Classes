@@ -16,7 +16,8 @@ public class Bellatrix extends Mobs{
 		this.house = "Slytherin";
 		this.attackPower = 35;
 	}
-
+	
+	
 	public double getAttackPower(){
 		return this.attackPower;
 	}

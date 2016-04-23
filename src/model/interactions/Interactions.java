@@ -261,8 +261,10 @@ public class Interactions implements Serializable {
 		}		
 	}
 	private String drop(String commandParameters) {
+		Item temp = this.player.getInventory().getItem(commandParameters);
 		boolean beenDropped = this.player.getInventory().drop(commandParameters);
-		if(beenDropped){
+		if(beenDropped){			
+			this.player.getRoom().additemsInRoom(temp);
 			return commandParameters + " has been dropped from you inventory";
 		}
 		else{

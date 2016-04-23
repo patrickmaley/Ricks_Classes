@@ -27,7 +27,7 @@ import model.player.PlayerList;
  */
 public class Server {
 
-	public static final int SERVER_PORT = 4005;
+	public static final int SERVER_PORT = 4000;
 	private static ServerSocket sock;
 	private static List<ObjectOutputStream> clients = Collections.synchronizedList(new ArrayList<ObjectOutputStream>());
 	private static Map serverMap = Map.setMap();
