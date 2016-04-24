@@ -9,7 +9,7 @@ import model.room.GenericRoom;
 public abstract class Mobs implements Serializable{
 	
 	private String name;
-	private int hp;
+	private double hp;
 	private String description;
 	private int xpos;
 	private int ypos;
@@ -39,10 +39,15 @@ public abstract class Mobs implements Serializable{
 	public void setYpos(int ypos) {
 		this.ypos = ypos;
 	}
-	public int getHp(){
+	public double getHp(){
 		return this.hp;
 	}
-	
+	public void setHp(double x){
+		this.hp = x;
+	}
+	public String getDescription(){
+		return this.description;
+	}
 	public String getName(){
 		return this.name;
 	}
@@ -67,9 +72,7 @@ public abstract class Mobs implements Serializable{
 	}
 	
 	public abstract void move();
-	
-	public abstract String getDescription();
-	
+		
 	public abstract boolean canBeAttacked();
 	
 	public abstract String action(String a, Player p);

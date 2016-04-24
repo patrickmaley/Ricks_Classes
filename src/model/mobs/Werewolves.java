@@ -5,9 +5,6 @@ import model.player.Player;
 
 public class Werewolves extends Mobs{
 
-	private int hp;
-	private String name;
-	private String description;
 	private double attackPower;
 	
 	public Werewolves(String name, int hp, int x, int y) {
@@ -18,10 +15,6 @@ public class Werewolves extends Mobs{
 
 	public double getAttackPower(){
 		return this.attackPower;
-	}
-	@Override
-	public String getDescription() {
-		return this.description;
 	}
 
 	@Override

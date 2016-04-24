@@ -7,9 +7,6 @@ import model.player.Player;
 
 public class Spiders extends Mobs{
 
-	private int hp;
-	private String name;
-	private String description;
 	private double attackPower;
 	
 	public Spiders(String name, int hp, int x, int y) {
@@ -20,10 +17,7 @@ public class Spiders extends Mobs{
 	public double getAttackPower(){
 		return this.attackPower;
 	}
-	@Override
-	public String getDescription() {
-		return this.description;
-	}
+
 
 	@Override
 	public boolean canBeAttacked() {

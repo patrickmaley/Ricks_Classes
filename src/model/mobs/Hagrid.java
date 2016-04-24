@@ -6,20 +6,10 @@ import model.items.HealingPotion;
 import model.player.Player;
 
 public class Hagrid extends Mobs{
-
-	private int hp;
-	private String name;
-	private String description;
-	private int counter = 0;
 	
 	public Hagrid(String name, int hp, int x, int y) {
 		super("Hagrid", hp, "It's Hagrid, the nice half-giant. If you need some help he is probably a good"
 				+ " person to ask", x , y);
-	}
-
-	@Override
-	public String getDescription() {
-		return this.description;
 	}
 
 	@Override

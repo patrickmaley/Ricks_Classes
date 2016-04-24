@@ -7,21 +7,13 @@ import model.player.Player;
 
 public class Sirius extends Mobs{
 
-	private int hp;
-	private String name;
 	private String house;
-	private String description;
 	private boolean isPadfoot = false;
 	
 	public Sirius(String name, int hp, int x, int y) {
 		super("Sirius Black", hp, "It's that convict Sirius Black! I wonder how he escaped from Azkaban? "
 				+ "He was sent there for murdering innocent people!", x, y);
 		this.house = "Gryffindor";
-	}
-
-	@Override
-	public String getDescription() {
-		return this.description;
 	}
 
 	@Override

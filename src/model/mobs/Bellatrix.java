@@ -5,10 +5,7 @@ import model.player.Player;
 
 public class Bellatrix extends Mobs{
 
-	private int hp;
-	private String name;
 	private String house;
-	private String description;
 	private double attackPower;
 	
 	public Bellatrix(String name, int hp, int x, int y) {
@@ -20,10 +17,6 @@ public class Bellatrix extends Mobs{
 	
 	public double getAttackPower(){
 		return this.attackPower;
-	}
-	@Override
-	public String getDescription() {
-		return this.description;
 	}
 
 	@Override
@@ -38,9 +31,9 @@ public class Bellatrix extends Mobs{
 	@Override
 	public void decreaseHP(double x){
 		if(this.canBeAttacked()){
-			this.hp -= x;
+			this.setHp(this.getHp()-x);;
 		}
-		if(this.hp < 50){
+		if(this.getHp() < 50){
 			if(this.getRoom().getNextRoom("south") != null && !this.getRoom().getNextRoom("south").getMobsPresent()){
 				this.setYpos(this.getYpos() + 1);
 				this.getRoom().setMobsPresent(false);
@@ -58,7 +51,7 @@ public class Bellatrix extends Mobs{
 				this.getRoom().setMobsPresent(true);
 			}
 		}
-		if(this.hp < 0){
+		if(this.getHp() < 0){
 			this.getRoom().removeMobsInRoom(this);
 			this.getRoom().setMobsPresent(false);
 		}

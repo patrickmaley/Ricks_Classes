@@ -24,9 +24,13 @@ public class SwordOfGryffindor  extends Item {
 				Mobs mobToAttack = p.getRoom().getMobsInRoom().get(0);
 				if(mobToAttack.canBeAttacked()){
 						mobToAttack.decreaseHP(attackPower);
+						if(mobToAttack.getHp() > 0){
 						p.decreaseHP(mobToAttack.getAttackPower());
 						return "You have just attacked "+ mobToAttack.getName() + " and his hp is now "+ mobToAttack.getHp() + "\n"
-								+ mobToAttack.getName() + "attacked back. Your hp is now: " + p.getHP(); 	
+								+ mobToAttack.getName() + " attacked back. Your hp is now: " + p.getHP();
+						}
+						else{
+							return "You have just attacked "+ mobToAttack.getName() + " and is now dead.";							}
 						}
 				else{
 					return "You cannot attack this mob";
