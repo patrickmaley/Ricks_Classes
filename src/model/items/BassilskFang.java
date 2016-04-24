@@ -33,7 +33,9 @@ public class BassilskFang extends Item {
 					}
 				}
 			}
-
+	public String getForLookDescription(){
+		return "Oh look over there is a bassilsk fang";
+	}
 
 			
 }

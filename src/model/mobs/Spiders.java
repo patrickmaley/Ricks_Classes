@@ -9,11 +9,14 @@ public class Spiders extends Mobs{
 
 	private double attackPower;
 	
-	public Spiders(String name, int hp, int x, int y) {
-		super(name, hp, "Oh look its just your average spider, you know: 6 feet long and venemous.", x, y);
+	public Spiders() {
+		super("Spider a.k.a Erics favorite", 50, "Oh look its just your average spider, you know: 6 feet long and venemous.");
 		this.attackPower = 10;
 	}
-
+	public String getForLookDescription(){
+		return "Hey its rons biggest fear";
+	}
+	
 	public double getAttackPower(){
 		return this.attackPower;
 	}

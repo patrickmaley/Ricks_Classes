@@ -8,10 +8,14 @@ public class Trolls extends Mobs{
 
 	private double attackPower;
 	
-	public Trolls(String name, int hp, int x, int y) {
-		super(name, hp, "A big, hairy, stupid, looking troll. It would be wise to avoid it before it "
-				+ "sees you and smashes you.", x, y);
+	public Trolls() {
+		super("Troll", 100, "A big, hairy, stupid, looking troll. It would be wise to avoid it before it "
+				+ "sees you and smashes you.");
 		this.attackPower = 25;
+	}
+	
+	public String getForLookDescription(){
+		return "Oh great whats that smell coming from over there. Uh oh you might wanna take a look at that roll behind you? IS it friendly or dangerous?";
 	}
 
 	public double getAttackPower(){

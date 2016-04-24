@@ -13,4 +13,8 @@ public class MaurdersMap extends Item {
 	public String use(Player p, String notNeeded) {
 		return "Not functional yet part of the wow factor";
 	}
+	
+	public String getForLookDescription(){
+		return "Do you solemnly swear you are up to no good? Thats right im in here.";
+	}
 }

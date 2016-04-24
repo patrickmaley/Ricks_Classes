@@ -11,12 +11,16 @@ public class Dragons extends Mobs{
 	private String description;
 	private double attackPower;
 	
-	public Dragons(String name, int hp, int x, int y) {
-		super(name, hp,  "Oh shit! It's a mother fucking dragon! Wait whats that stuck in its teeth?"
-				+ " It's the Elder Wand! A worthy prize for someone who defeats this monster.", x, y);
+	public Dragons() {
+		super("Dragon", 300,  "Oh shit! It's a mother fucking dragon! Wait what's that stuck in its teeth?"
+				+ " It's the Elder Wand! A worthy prize for someone who defeats this monster.");
 		this.attackPower = 45;
 	}
 
+	public String getForLookDescription(){
+		return "Crap a dragon is with you in the room. Look at it there maybe something special for you.";
+	}
+	
 	public double getAttackPower(){
 		return this.attackPower;
 	}

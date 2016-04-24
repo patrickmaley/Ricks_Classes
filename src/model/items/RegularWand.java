@@ -54,7 +54,9 @@ public class RegularWand  extends Item {
 			}
 		}
 		return "The attack was not possible";
-
+	}
+	public String getForLookDescription(){
+		return "Remember the wand chooses the wizard. And this wand seems to be wanting you. Come and take it if you desire.";
 	}
 
 	}

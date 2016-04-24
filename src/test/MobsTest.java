@@ -36,9 +36,9 @@ public class MobsTest {
 	public void AddOrdinaryWiztest() {
 		setup();
 		GenericRoom[][] arrayMap = map.getMapArray();
-		OrdinaryWizards malfoy = new OrdinaryWizards("Malfoy", 100, "Slytherin",0,0);
+		OrdinaryWizards malfoy = new OrdinaryWizards("Malfoy", "Slytherin");
 		assertEquals("Malfoy", malfoy.getName());
-		assertEquals(100, malfoy.getHp());
+		assertEquals(100, malfoy.getHp(),.01);
 		assertEquals("Slytherin", malfoy.getHouse());
 		arrayMap[0][0].setMobsInRoom(malfoy);
 		malfoy.setCurrentRoom(arrayMap[0][0]);
@@ -48,9 +48,9 @@ public class MobsTest {
 		malfoy.move();
 		//assertEquals("Piss off!", malfoy.action());
 		assertFalse(malfoy.canBeAttacked());
-		OrdinaryWizards ron = new OrdinaryWizards("Ron", 100, "Gryffindor", 0, 1);
+		OrdinaryWizards ron = new OrdinaryWizards("Ron", "Gryffindor");
 		assertEquals("Ron", ron.getName());
-		assertEquals(100, ron.getHp());
+		assertEquals(100, ron.getHp(),.01);
 		assertEquals("Gryffindor", ron.getHouse());
 		ron.action("talk", p);
 		arrayMap[0][1].setMobsInRoom(ron);
@@ -59,9 +59,9 @@ public class MobsTest {
 			ron.move();
 		}
 		//assertEquals("Hey what can I help with?", ron.action());
-		OrdinaryWizards cedric = new OrdinaryWizards("Cedric", 100, "Hufflepuff", 2, 2);
+		OrdinaryWizards cedric = new OrdinaryWizards("Cedric", "Hufflepuff");
 		assertEquals("Cedric", cedric.getName());
-		assertEquals(100, cedric.getHp());
+		assertEquals(100, cedric.getHp(),.01);
 		assertEquals("Hufflepuff", cedric.getHouse());
 		cedric.action("talk", p);
 		arrayMap[2][2].setMobsInRoom(cedric);
@@ -70,9 +70,9 @@ public class MobsTest {
 			cedric.move();
 		}
 		//assertEquals("Our ghost is the Fat Friar", cedric.action());
-		OrdinaryWizards luna = new OrdinaryWizards("Luna", 100, "Ravenclaw", 5 , 0);
+		OrdinaryWizards luna = new OrdinaryWizards("Luna", "Ravenclaw");
 		assertEquals("Luna", luna.getName());
-		assertEquals(100, luna.getHp());
+		assertEquals(100, luna.getHp(),.01);
 		assertEquals("Ravenclaw", luna.getHouse());
 		luna.action("talk", p);
 		arrayMap[9][1].setMobsInRoom(luna);
@@ -84,9 +84,9 @@ public class MobsTest {
 		luna.move();
 		luna.action("", p);
 		//assertEquals("I'm smarter than you!", luna.action());
-		OrdinaryWizards groundskeep = new OrdinaryWizards("Keeper", 50,"", 0, 4);
+		OrdinaryWizards groundskeep = new OrdinaryWizards("Keeper", "");
 		assertEquals("Keeper", groundskeep.getName());
-		assertEquals(50, groundskeep.getHp());
+		assertEquals(100, groundskeep.getHp(),.01);
 		assertEquals("I once belonged to a house, but then I took a spell to the knee :(", groundskeep.action("talk", p));
 		assertEquals(groundskeep.getDescription(), groundskeep.action("look", null));
 	}
@@ -94,9 +94,9 @@ public class MobsTest {
 	@Test
 	public void testSnape(){
 		setup();
-		Snape snape = new Snape("Snape", 250, 0, 0);
+		Snape snape = new Snape();
 		assertEquals("Professor Snape", snape.getName());
-		assertEquals(250, snape.getHp());
+		assertEquals(100, snape.getHp(),.01);
 		assertEquals("Slytherin" , snape.getHouse());
 		arrayMap[0][0].setMobsInRoom(snape);
 		snape.setCurrentRoom(arrayMap[0][0]);
@@ -110,9 +110,9 @@ public class MobsTest {
 	@Test
 	public void testBellatrix(){
 		setup();
-		Bellatrix bellatrix = new Bellatrix("", 250, 9,1);
+		Bellatrix bellatrix = new Bellatrix();
 		assertEquals("Bellatrix", bellatrix.getName());
-		assertEquals(250, bellatrix.getHp());
+		assertEquals(100, bellatrix.getHp(),.01);
 		assertEquals("Slytherin" , bellatrix.getHouse());
 		assertEquals(35,bellatrix.getAttackPower(), 0);
 		arrayMap[7][0].setMobsInRoom(bellatrix);
@@ -136,13 +136,13 @@ public class MobsTest {
 	@Test
 	public void testDementor(){
 		setup();
-		Dementor demon = new Dementor("Demon", 100, 2,0);
+		Dementor demon = new Dementor();
 		demon.setCurrentRoom(arrayMap[9][1]);
 		demon.move();
 		arrayMap[2][0].setMobsInRoom(demon);
 		demon.setCurrentRoom(arrayMap[9][1]);
-		assertEquals("Demon", demon.getName());
-		assertEquals(100, demon.getHp());
+		assertEquals("Dementor", demon.getName());
+		assertEquals(100, demon.getHp(),.01);
 		assertEquals(100, demon.getAttackPower(), 0);
 		for(int i=0; i<100; i++){
 			demon.move();
@@ -155,9 +155,9 @@ public class MobsTest {
 	@Test
 	public void testDragons(){
 		setup();
-		Dragons drag = new Dragons("drag", 500, 0,0);
-		assertEquals("drag", drag.getName());
-		assertEquals(500, drag.getHp());
+		Dragons drag = new Dragons();
+		assertEquals("Dragon", drag.getName());
+		assertEquals(300, drag.getHp(),.01);
 		assertEquals(45, drag.getAttackPower(), 0);
 		assertTrue(drag.canBeAttacked());
 		assertEquals(drag.action("look", p), drag.getDescription());
@@ -168,11 +168,10 @@ public class MobsTest {
 	@Test
 	public void testDumbledore(){
 		setup();
-		Spell mySpell = new ExpectoPatronum();
-		Dumbledore dumbledore = new Dumbledore("", 250, 0,0);
+		Dumbledore dumbledore = new Dumbledore();
 		dumbledore.move();
 		assertEquals("Head Master Dumbledore", dumbledore.getName());
-		assertEquals(250, dumbledore.getHp());
+		assertEquals(1000, dumbledore.getHp(),.01);
 		assertEquals("Gryffindor" , dumbledore.getHouse());
 		assertFalse(dumbledore.canBeAttacked());
 		assertEquals(dumbledore.action("look", p), dumbledore.getDescription());
@@ -185,12 +184,12 @@ public class MobsTest {
 	@Test
 	public void testHagrid(){
 		setup();
-		Hagrid hagrid = new Hagrid("Hagrid", 300,0,0);
+		Hagrid hagrid = new Hagrid();
 		hagrid.move();
 		arrayMap[9][1].setMobsInRoom(hagrid);
 		hagrid.setCurrentRoom(arrayMap[9][1]);
 		assertEquals("Hagrid", hagrid.getName());
-		assertEquals(300, hagrid.getHp());
+		assertEquals(100, hagrid.getHp(),.01);
 		assertFalse(hagrid.canBeAttacked());
 		assertEquals(hagrid.action("look", p), hagrid.getDescription());
 		hagrid.action("talk", p);
@@ -207,12 +206,12 @@ public class MobsTest {
 	@Test
 	public void testLupin(){
 		setup();
-		Lupin lupin = new Lupin("Lupin", 100,0,0);
+		Lupin lupin = new Lupin();
 		lupin.move();
 		arrayMap[9][1].setMobsInRoom(lupin);
 		lupin.setCurrentRoom(arrayMap[9][1]);
 		assertEquals("Lupin", lupin.getName());
-		assertEquals(100, lupin.getHp());
+		assertEquals(100, lupin.getHp(),.01);
 		lupin.decreaseHP(50);
 		lupin.decreaseHP(100);
 		assertEquals("Gryffindor" , lupin.getHouse());
@@ -224,9 +223,9 @@ public class MobsTest {
 	
 	@Test
 	public void testMcGonagall(){
-		McGonagall mcgonagall = new McGonagall("Professor McGonagall", 200,0,0);
+		McGonagall mcgonagall = new McGonagall();
 		assertEquals("Professor McGonagall", mcgonagall.getName());
-		assertEquals(200, mcgonagall.getHp());
+		assertEquals(100, mcgonagall.getHp(),.01);
 		assertEquals("Gryffindor" , mcgonagall.getHouse());
 		//assertEquals("Get. Out.", snape.action());
 		assertFalse(mcgonagall.canBeAttacked());
@@ -236,7 +235,7 @@ public class MobsTest {
 	@Test
 	public void testSirius(){
 		setup();
-		Sirius sirius = new Sirius("Sirius", 100,0,0);
+		Sirius sirius = new Sirius();
 		arrayMap[8][1].setMobsInRoom(sirius);
 		sirius.setCurrentRoom(arrayMap[8][1]);
 		for(int i=0; i<100; i++){
@@ -245,7 +244,7 @@ public class MobsTest {
 		assertEquals("Sirius Black", sirius.getName());
 		assertFalse(sirius.isPadfoot());
 		assertEquals(sirius.action("look", p),sirius.getDescription());
-		assertEquals(100, sirius.getHp());
+		assertEquals(100, sirius.getHp(),.01);
 		assertEquals("Gryffindor" , sirius.getHouse());
 		sirius.action("talk", p);
 		assertTrue(sirius.isPadfoot());
@@ -258,14 +257,14 @@ public class MobsTest {
 	@Test
 	public void testSpiders(){
 		setup();
-		Spiders spid = new Spiders("Spid", 100,0,0);
+		Spiders spid = new Spiders();
 		arrayMap[5][2].setMobsInRoom(spid);
 		spid.setCurrentRoom(arrayMap[5][2]);
 		for(int i=0; i<100; i++){
 			spid.move();
 		}
-		assertEquals("Spid", spid.getName());
-		assertEquals(100, spid.getHp());
+		assertEquals("Spider a.k.a Erics favorite", spid.getName());
+		assertEquals(50, spid.getHp(),.01);
 		assertEquals(10, spid.getAttackPower(), 0);
 		assertTrue(spid.canBeAttacked());
 		assertEquals(spid.action("look", p), spid.getDescription());
@@ -276,32 +275,32 @@ public class MobsTest {
 	@Test
 	public void testTrolls(){
 		setup();
-		Trolls trogdor = new Trolls("Trogdor", 350,8,1);
+		Trolls trogdor = new Trolls();
 		arrayMap[8][1].setMobsInRoom(trogdor);
 		trogdor.setCurrentRoom(arrayMap[8][1]);
 		for(int i=0; i<20; i++){
 			trogdor.move();
 		}
-		assertEquals("Trogdor", trogdor.getName());
-		assertEquals(350, trogdor.getHp());
+		assertEquals("Troll", trogdor.getName());
+		assertEquals(100, trogdor.getHp(),.01);
 		assertEquals(25, trogdor.getAttackPower(), 0);
 		assertTrue(trogdor.canBeAttacked());
 		assertEquals(trogdor.getDescription(), trogdor.action("look", p));
 		trogdor.decreaseHP(50);
-		assertTrue(trogdor.getHp() == 300);
+		assertTrue(trogdor.getHp() == 50);
 	}
 	
 	@Test
 	public void testWerewolves(){
 		setup();
-		Werewolves wuf = new Werewolves("Wuf", 100,0,0);
+		Werewolves wuf = new Werewolves();
 		arrayMap[8][1].setMobsInRoom(wuf);
 		wuf.setCurrentRoom(arrayMap[4][0]);
 		for(int i=0; i<20; i++){
 			wuf.move();
 		}
-		assertEquals("Wuf", wuf.getName());
-		assertEquals(100, wuf.getHp());
+		assertEquals("Werewolf", wuf.getName());
+		assertEquals(75, wuf.getHp(),.01);
 		assertEquals(20, wuf.getAttackPower(), 0);
 		assertTrue(wuf.canBeAttacked());
 		assertEquals(wuf.getDescription(), wuf.action("look", p));

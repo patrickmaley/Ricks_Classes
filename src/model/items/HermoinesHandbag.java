@@ -15,5 +15,7 @@ public class HermoinesHandbag extends Item {
 		temp.drop(this.getName().toLowerCase());
 		return returner;
 	}
-
+	public String getForLookDescription(){
+		return "Man it seems like I may have struck the motherload Hermoines Handbag is here.";
+	}
 }

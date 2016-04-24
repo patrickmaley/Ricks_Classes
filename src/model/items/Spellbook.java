@@ -22,4 +22,7 @@ public class Spellbook extends Item{
 		returner="You now know how to use "+ name + "\n"+ "It does this much damage: " + power + " AP";
 		return returner;
 	}
+	public String getForLookDescription(){
+		return "Ah you have a thirst for knowledge?? A spellbook is sitting here awaiting your hands.";
+	}
 }

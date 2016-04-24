@@ -8,8 +8,8 @@ public class Bellatrix extends Mobs{
 	private String house;
 	private double attackPower;
 	
-	public Bellatrix(String name, int hp, int x, int y) {
-		super("Bellatrix", hp, "Oh no it's that crazy bitch Bellatrix!", x, y);
+	public Bellatrix() {
+		super("Bellatrix", 100, "Oh no it's that crazy bitch Bellatrix!");
 		this.house = "Slytherin";
 		this.attackPower = 35;
 	}
@@ -66,7 +66,9 @@ public class Bellatrix extends Mobs{
 		}		
 		return "...";
 	}
-
+	public String getForLookDescription(){
+		return "Oh mother f.... Bellatrix Lestrange is in the room with you!! DEFEAT HER!!";
+	}
 	@Override
 	public void move() {
 		// TODO Auto-generated method stub		

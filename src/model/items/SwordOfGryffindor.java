@@ -37,8 +37,9 @@ public class SwordOfGryffindor  extends Item {
 				}
 			}
 		}
-
-
+	public String getForLookDescription(){
+		return "Only a worthy wizard is shown this sword. You must be worthy. The Sword Of Gryffindor is only available to the elite.";
+	}
 		
 	}
 

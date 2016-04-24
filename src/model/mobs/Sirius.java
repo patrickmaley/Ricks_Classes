@@ -10,12 +10,14 @@ public class Sirius extends Mobs{
 	private String house;
 	private boolean isPadfoot = false;
 	
-	public Sirius(String name, int hp, int x, int y) {
-		super("Sirius Black", hp, "It's that convict Sirius Black! I wonder how he escaped from Azkaban? "
-				+ "He was sent there for murdering innocent people!", x, y);
+	public Sirius() {
+		super("Sirius Black", 100, "It's that convict Sirius Black! I wonder how he escaped from Azkaban? "
+				+ "He was sent there for murdering innocent people!");
 		this.house = "Gryffindor";
 	}
-
+	public String getForLookDescription(){
+		return " Hey padfoot is here too!";
+	}
 	@Override
 	public boolean canBeAttacked() {
 		return false;

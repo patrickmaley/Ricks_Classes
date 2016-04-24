@@ -22,4 +22,7 @@ public class HealingPotion extends Item {
 		}
 		return returner;
 	}
+	public String getForLookDescription(){
+		return "Hey there is a healing potion in here.";
+	}
 }

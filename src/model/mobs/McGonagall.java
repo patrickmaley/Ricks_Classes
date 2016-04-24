@@ -8,12 +8,16 @@ public class McGonagall extends Mobs{
 
 	private String house;
 	
-	public McGonagall(String name, int hp, int x, int y) {
-		super("Professor McGonagall", hp, "Its Professor McGonagall! We're lucky we caught her in her human form. Maybe "
-				+ "she could teach us how to transform into an animal.", x, y);
+	public McGonagall() {
+		super("Professor McGonagall", 100, "Its Professor McGonagall! We're lucky we caught her in her human form. Maybe "
+				+ "she could teach us how to transform into an animal.");
 		this.house = "Gryffindor";
 	}
-
+	
+	public String getForLookDescription(){
+		return " Professor McGonagall looks like shes been waiting for you!";
+	}
+	
 	@Override
 	public boolean canBeAttacked() {
 		return false;
