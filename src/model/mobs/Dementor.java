@@ -9,9 +9,9 @@ public class Dementor extends Mobs{
 
 	private double attackPower;
 	
-	public Dementor(String name, int hp, int x, int y) {
-		super(name, hp, "Oh snap it's a dementor. I wonder why its this far from Azkaban. Best have your"
-				+ " Expecto Patronum spell ready or it will eat your soul straight out your face.", x, y);
+	public Dementor() {
+		super("Dementor", 100, "Oh snap it's a dementor. I wonder why its this far from Azkaban. Best have your"
+				+ " Expecto Patronum spell ready or it will eat your soul straight out your face.");
 		this.attackPower = 100;
 	}
 
@@ -23,7 +23,9 @@ public class Dementor extends Mobs{
 	public boolean canBeAttacked() {
 		return true;
 	}
-
+	public String getForLookDescription(){
+		return " It seems as if all the happiness has left the room and the world ... that can only mean one thing ... dementor";
+	}
 
 	@Override
 	public String action(String command, Player p) {

@@ -17,12 +17,10 @@ public abstract class Mobs implements Serializable{
 	private double attackPower;
 
 	
-	public Mobs(String name, int hp, String description, int x, int y){
+	public Mobs(String name, int hp, String description){
 		this.name = name;
 		this.hp = hp;
 		this.description = description;
-		this.xpos = x;
-		this.setYpos(y);
 	}
 	public double getAttackPower(){
 		return this.attackPower;

@@ -81,9 +81,9 @@ private RessurectionStone ressurectionStone = new RessurectionStone();
 private ButterBeer butterBeer = new ButterBeer();
 private HealingPotion healingPotion = new HealingPotion();
 private DependencyInjectionSword dependencyInjectionSword = new DependencyInjectionSword();
-private Snape snape = new Snape("Snape", 0, 0, 0);
-private Dementor dementor = new Dementor("Dementor", 0, 0, 0); 
-private OrdinaryWizards ordinaryWizard = new OrdinaryWizards("ordinary", 0, "syltherin", 0, 0); 
+private Snape snape = new Snape();
+private Dementor dementor = new Dementor(); 
+private OrdinaryWizards ordinaryWizard = new OrdinaryWizards("ordinary", "syltherin"); 
 @Test
 public void testSpells(){
 	avadaKedvra.putInBook();
@@ -160,7 +160,7 @@ public void testSpells(){
 @Test
 public void testItems(){
 	setup();	
-	Spiders spid = new Spiders("Spid", 100,0,0);
+	Spiders spid = new Spiders();
 	arrayMap[5][1].setMobsInRoom(spid);
 	
 	
@@ -208,7 +208,7 @@ public void testItems(){
 	String d10 = neverEndingBook.getDescription();
 	System.out.println(d10);
 	//
-	Spiders spid1 = new Spiders("Spid", 100,0,0);
+	Spiders spid1 = new Spiders();
 	arrayMap[5][1].setMobsInRoom(spid1);
 	
 	
@@ -275,7 +275,7 @@ public void testItemsWithCommands() throws NoSuchAlgorithmException, NoSuchProvi
 //	Player p = new Player("Player", password);
 //
 //	 p.setGameName("booby");
-	 Spiders spider = new Spiders("Spider", 100,0,0);
+	 Spiders spider = new Spiders();
 	 arrayMap[5][1].setMobsInRoom(spider);
 	 spider.setCurrentRoom(arrayMap[5][1]);
 	 p.setCurrentRoom(arrayMap[5][1]);

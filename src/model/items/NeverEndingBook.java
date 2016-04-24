@@ -21,5 +21,8 @@ public class NeverEndingBook extends Item{
 		}
 		return theBook;
 	}
+	public String getForLookDescription(){
+		return "Over here in the corner there is a book waiting for you.";
+	}
 
 }

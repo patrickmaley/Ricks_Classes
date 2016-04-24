@@ -12,11 +12,13 @@ public class Dumbledore extends Mobs{
 	private String house;
 	private Spell mySpell = new ExpectoPatronum();
 
-	public Dumbledore(String name, int hp, int x, int y) {
-		super("Head Master Dumbledore", hp, "Its head master Dumbledore, I wonder what he could teach us?", x, y);
+	public Dumbledore() {
+		super("Head Master Dumbledore", 1000, "Its head master Dumbledore, I wonder what he could teach us?");
 		this.house = "Gryffindor";
 	}
-
+	public String getForLookDescription(){
+		return " Head Master Dumbledore looks like hes been waiting for you!";
+	}
 	@Override
 	public boolean canBeAttacked() {
 		return false;
@@ -39,7 +41,7 @@ public class Dumbledore extends Mobs{
 				return "Ahh here to get more knowledge?\n Here learn this new spell to help you in your journeys.\n"
 						+ "Professor Dumbledore teaches you teh Expecto Patronum spell!";
 			}
-			return "Ahh here to get more knowledge?";
+			return "Ahh here to get more knowledge? Sorry you already know what I can teach you";
 		}
 		return "Is that all?";
 	}

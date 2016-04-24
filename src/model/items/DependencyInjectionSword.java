@@ -15,6 +15,9 @@ public class DependencyInjectionSword extends Item {
 		String returner = "LOL you actually though this weapon did something didn't you!!";
 		return returner;
 	}
+	public String getForLookDescription(){
+		return "Oh no way the dependency injection is in here";
+	}
 
 
 }

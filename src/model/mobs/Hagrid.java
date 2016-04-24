@@ -7,16 +7,20 @@ import model.player.Player;
 
 public class Hagrid extends Mobs{
 	
-	public Hagrid(String name, int hp, int x, int y) {
-		super("Hagrid", hp, "It's Hagrid, the nice half-giant. If you need some help he is probably a good"
-				+ " person to ask", x , y);
+	public Hagrid() {
+		super("Hagrid",100, "It's Hagrid, the nice half-giant. If you need some help he is probably a good"
+				+ " person to ask");
 	}
 
 	@Override
 	public boolean canBeAttacked() {
 		return false;
 	}
-
+	
+	public String getForLookDescription(){
+		return "Do you hear that?? I should not have said. I should not have said. Looks like your favorite fried is here.";
+	}
+	
 	@Override
 	public String action(String command, Player p) {
 		if(command.compareTo("look") == 0){

@@ -104,11 +104,7 @@ public class MapTest {
 		testRoom = testRoom.getNorthRoom();
 		assertTrue(testRoom != null);
 		System.out.println(testRoom.getRoomDescription());
-		
-		testRoom = testRoom.getEastRoom();
-		assertTrue(testRoom != null);
-		System.out.println(testRoom.getRoomDescription());
-		
+		/*
 		testRoom = testRoom.getNorthRoom();
 		assertTrue(testRoom != null);
 		System.out.println(testRoom.getRoomDescription());
@@ -129,6 +125,7 @@ public class MapTest {
 		testRoom = testRoom.getEastRoom();
 		assertTrue(testRoom != null);
 		System.out.println(testRoom.getRoomDescription());
+	*/
 	}
 
 }

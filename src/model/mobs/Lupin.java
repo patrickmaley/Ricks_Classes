@@ -7,11 +7,15 @@ public class Lupin extends Mobs{
 
 	private String house;
 	
-	public Lupin(String name, int hp, int x, int y) {
-		super("Lupin", hp, "Look its Lupin, I bet if you offer him a bone he'll turn into a werewolf!", x, y);
+	public Lupin() {
+		super("Lupin", 100, "Look its Lupin, I bet if you offer him a bone he'll turn into a werewolf!");
 		this.house = "Gryffindor";
 	}
-
+	
+	public String getForLookDescription(){
+		return "Oh yeah it seems like Lupin is here!";
+	}
+	
 	@Override
 	public boolean canBeAttacked() {
 		return true;
@@ -28,7 +32,7 @@ public class Lupin extends Mobs{
 		}
 		if(this.getHp() < 0){
 			this.getRoom().removeMobsInRoom(this);
-			this.getRoom().setMobsInRoom(new Werewolves("Lupin", 100, this.getXpos(), this.getYpos()));
+			this.getRoom().setMobsInRoom(new Werewolves());
 		}
 	}
 	@Override
