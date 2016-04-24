@@ -33,10 +33,10 @@ public class Player implements Serializable{
 		this.knownSpells = new ArrayList<Spell>();
 		this.inventory = new Inventory();
 		this.HP = 100;
-		this.currentRoom = Map.setMap().getEntrance();
-		this.currentRoom.setPlayerPresent(true, this);
-		this.interaction= new Interactions(this);
 		this.playerMap = Map.setMap();
+		this.currentRoom = playerMap.getMapArray()[9][0];
+		this.currentRoom.setPlayerPresent(true, this);
+		this.interaction = new Interactions(this);
 		this.isDead = false;
 	}
 	
@@ -119,11 +119,9 @@ public class Player implements Serializable{
 	
 	//Changes the player's current location after they move
 	public void setCurrentRoom(GenericRoom location){
-		//GenericRoom prev = currentRoom;
 		this.currentRoom.setPlayerPresent(false, this);
 		this.currentRoom = location;
 		this.currentRoom.setPlayerPresent(true, this);
-		//prev.setPlayerPresent(false, this);
 	}
 	
 	//Returns true if the player died. Returns false otherwise.
