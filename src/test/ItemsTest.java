@@ -172,7 +172,6 @@ public void testItems(){
 	assertEquals(bassilskFang.getName(), "Bassilsk Fang");
 	String d2 = bassilskFang.getDescription();
 	bassilskFang.use(this.p, "");
-	assertTrue(arrayMap[5][1].getMobsPresent());
 	System.out.println(d2);
 	//
 	assertEquals(butterBeer.getName(), "Butter Beer");
@@ -279,7 +278,6 @@ public void testItemsWithCommands() throws NoSuchAlgorithmException, NoSuchProvi
 	 arrayMap[5][1].setMobsInRoom(spider);
 	 spider.setCurrentRoom(arrayMap[5][1]);
 	 p.setCurrentRoom(arrayMap[5][1]);
-
 	 p.getInventory().add(this.regularWand);
 	 System.out.println(p.performAction("use regular wand"));
 	 System.out.println(p.performAction("drop regular wand"));
@@ -301,6 +299,9 @@ public void testItemsWithCommands() throws NoSuchAlgorithmException, NoSuchProvi
 	 System.out.println(p.performAction(commands));
 	 p.getInventory().add(healingPotion);
 	 p.getInventory().add(neverEndingBook);
+	 System.out.println(spider.getDescription());
+	 System.out.println(p.performAction("look Spider"));
+	 assertEquals(p.performAction("look Spider"), spider.getDescription());
 	 System.out.println(p.performAction("use healing potion"));
 	 System.out.println(p.performAction("use never ending book"));
 	 System.out.println(p.performAction(info));
@@ -309,23 +310,19 @@ public void testItemsWithCommands() throws NoSuchAlgorithmException, NoSuchProvi
 	 System.out.println(p.getInventory().getInventorySize());
 	 System.out.println(p.getInventory().add(this.broomstick));
 	 System.out.println(p.performAction("use broomstick"));
-	 p.performAction("look");
-	 System.out.println(spider.getDescription());
-	 System.out.println(p.performAction("look Spider"));
-//	 assertEquals(p.performAction("look Spider"), spider.getDescription());
-	 
-//	 p.performAction("up");
-//	 p.performAction("down");
-//	 p.performAction("north");
-//	 p.performAction("south");
-//	 p.performAction("east");
-//	 p.performAction("west");
-//	 p.performAction("take potion");
-//	 p.performAction("inventory");
-//	 p.performAction("use dependency");
-//	 p.performAction("who");
-//	 p.performAction("say");
-//	 p.performAction("tell");
-//	 p.performAction("give");	 
+	 p.performAction("look");	 
+	 p.performAction("up");
+	 p.performAction("down");
+	 p.performAction("north");
+	 p.performAction("south");
+	 p.performAction("east");
+	 p.performAction("west");
+	 p.performAction("take potion");
+	 p.performAction("inventory");
+	 p.performAction("use dependency");
+	 p.performAction("who");
+	 p.performAction("say");
+	 p.performAction("tell");
+	 p.performAction("give");	 
 }
 }
