@@ -1,6 +1,7 @@
 package model.mobs;
 
 import model.interactions.Interactions;
+import model.items.ElderWand;
 import model.player.Player;
 
 public class Dragons extends Mobs{
@@ -28,7 +29,18 @@ public class Dragons extends Mobs{
 	public boolean canBeAttacked() {
 		return true;
 	}
-
+	
+	@Override
+	public void decreaseHP(double x){
+		if(this.canBeAttacked()){
+			this.hp -= x;
+		}
+		if(this.hp < 0){
+			this.getRoom().additemsInRoom(new ElderWand());
+			this.getRoom().removeMobsInRoom(this);
+			this.getRoom().setMobsPresent(false);
+		}
+	}
 
 	@Override
 	public String action(String command, Player p) {

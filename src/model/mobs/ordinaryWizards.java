@@ -7,10 +7,7 @@ import model.player.Player;
 
 public class OrdinaryWizards extends Mobs{
 
-	private String name;
-	private int hp;
 	private String house;
-	private String description;
 	
 	public OrdinaryWizards(String name, int hp, String house, int x, int y) {
 		super(name, hp, "This is " + name + " just an ordinary wizard minding their own business.", x , y);
@@ -27,11 +24,6 @@ public class OrdinaryWizards extends Mobs{
 	@Override
 	public boolean canBeAttacked() {
 		return false;
-	}
-
-	@Override
-	public String getDescription() {
-		return this.description;
 	}
 
 	@Override

@@ -6,9 +6,6 @@ import model.player.Player;
 
 public class Trolls extends Mobs{
 
-	private int hp;
-	private String name;
-	private String description;
 	private double attackPower;
 	
 	public Trolls(String name, int hp, int x, int y) {
@@ -19,10 +16,6 @@ public class Trolls extends Mobs{
 
 	public double getAttackPower(){
 		return this.attackPower;
-	}
-	@Override
-	public String getDescription() {
-		return this.description;
 	}
 
 	@Override
