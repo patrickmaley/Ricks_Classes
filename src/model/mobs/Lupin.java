@@ -5,19 +5,11 @@ import model.player.Player;
 
 public class Lupin extends Mobs{
 
-	private int hp;
-	private String name;
 	private String house;
-	private String description;
 	
 	public Lupin(String name, int hp, int x, int y) {
 		super("Lupin", hp, "Look its Lupin, I bet if you offer him a bone he'll turn into a werewolf!", x, y);
 		this.house = "Gryffindor";
-	}
-
-	@Override
-	public String getDescription() {
-		return this.description;
 	}
 
 	@Override
@@ -32,9 +24,9 @@ public class Lupin extends Mobs{
 	@Override
 	public void decreaseHP(double x){
 		if(this.canBeAttacked()){
-			this.hp -= x;
+			this.setHp(this.getHp()-x);
 		}
-		if(this.hp < 0){
+		if(this.getHp() < 0){
 			this.getRoom().removeMobsInRoom(this);
 			this.getRoom().setMobsInRoom(new Werewolves("Lupin", 100, this.getXpos(), this.getYpos()));
 		}

@@ -9,20 +9,12 @@ import model.player.Player;
 
 public class Dumbledore extends Mobs{
 
-	private int hp;
-	private String name;
 	private String house;
-	private String description;
 	private Spell mySpell = new ExpectoPatronum();
 
 	public Dumbledore(String name, int hp, int x, int y) {
 		super("Head Master Dumbledore", hp, "Its head master Dumbledore, I wonder what he could teach us?", x, y);
 		this.house = "Gryffindor";
-	}
-
-	@Override
-	public String getDescription() {
-		return this.description;
 	}
 
 	@Override

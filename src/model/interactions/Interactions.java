@@ -261,8 +261,10 @@ public class Interactions implements Serializable {
 		}		
 	}
 	private String drop(String commandParameters) {
+		Item temp = this.player.getInventory().getItem(commandParameters);
 		boolean beenDropped = this.player.getInventory().drop(commandParameters);
-		if(beenDropped){
+		if(beenDropped){			
+			this.player.getRoom().additemsInRoom(temp);
 			return commandParameters + " has been dropped from you inventory";
 		}
 		else{
@@ -336,7 +338,7 @@ public class Interactions implements Serializable {
 		return returning;
 	}
 	private String look(String commandParameters) {
-		if(commandParameters.compareTo("") == 0){
+		if(commandParameters.length() == 0){
 			String withItemsAndMobs ="";
 			if(player.getRoom().getitemsInRoom().size()!=0){
 				withItemsAndMobs+= "The following items are in the room with you: ";
@@ -355,16 +357,19 @@ public class Interactions implements Serializable {
 		boolean mobIsInRoom = false;
 		Mobs mobInRoom = null;
 		for(int i=0; i< itemsInPlayersCurrentRoom.size();i++){
-			String itemName = itemsInPlayersCurrentRoom.get(i).getName();
-			String mobName = mobsInPlayersCurrentRoom.get(i).getName();
+			String itemName = itemsInPlayersCurrentRoom.get(i).getName().toLowerCase();
 			if(itemName.compareTo(commandParameters)==0){
 				itemIsInRoom = true;
 				toAdd = itemsInPlayersCurrentRoom.get(i);
 				break;	
 			}
+		}
+		for(int i=0; i< mobsInPlayersCurrentRoom.size();i++){
+			String mobName = mobsInPlayersCurrentRoom.get(i).getName().toLowerCase();
 			if(mobName.compareTo(commandParameters)==0){
 				mobIsInRoom = true;
 				mobInRoom = mobsInPlayersCurrentRoom.get(i);
+				break;
 			}
 		}
 		if(itemIsInRoom){

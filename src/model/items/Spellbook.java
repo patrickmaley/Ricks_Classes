@@ -18,6 +18,7 @@ public class Spellbook extends Item{
 		String name = this.mySpell.getName();
 		double power = this.mySpell.getAttackPower();
 		p.addKnownSpells(mySpell);
+		p.getInventory().drop("spellbook");
 		returner="You now know how to use "+ name + "\n"+ "It does this much damage: " + power + " AP";
 		return returner;
 	}
