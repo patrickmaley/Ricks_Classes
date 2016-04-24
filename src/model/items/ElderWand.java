@@ -12,6 +12,7 @@ public class ElderWand extends Item {
 				+ "this Elder Wand will add 30 attack points to all the spells you can use making you"
 				+ "a beast!!");
 	}
+	
 	@Override
 	public String use(Player p, String spellName) {		
 		ArrayList<Spell> playerKnownSpells = p.getKnownSpells();
@@ -51,6 +52,11 @@ public class ElderWand extends Item {
 				}
 
 		}
+
+	@Override
+	public String getForLookDescription() {
+		return " Hey the all powerful elder wand is here!";
+	}
 
 
 }
