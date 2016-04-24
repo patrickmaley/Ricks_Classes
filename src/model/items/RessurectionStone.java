@@ -16,5 +16,8 @@ public class RessurectionStone  extends Item {
 		temp.drop(this.getName().toLowerCase());
 		return returner;
 	}
+	public String getForLookDescription(){
+		return "OHHHHHH YEAHHH THE RESSURECTION STONE!!";
+	}
 
 }

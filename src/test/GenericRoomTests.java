@@ -208,7 +208,7 @@ public class GenericRoomTests {
 		Item pot = new HealingPotion();
 		testRoom1.additemsInRoom(pot);
 		System.out.println(testRoom1.getItemsToString());
-		Spiders spid = new Spiders("spid", 50, 0, 0);
+		Spiders spid = new Spiders();
 		testRoom1.setMobsInRoom(spid);
 		System.out.println(testRoom1.getMobsToString());
 		System.out.print(testRoom1.getitemsInRoom().toString());

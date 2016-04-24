@@ -7,12 +7,14 @@ public class Werewolves extends Mobs{
 
 	private double attackPower;
 	
-	public Werewolves(String name, int hp, int x, int y) {
-		super(name, hp, "It's a werewolf, it looks pretty friendly with its massive teeth, huge claws, "
-				+  "and all of that. We should go pet it or something.", x, y);
+	public Werewolves() {
+		super("Werewolf", 75, "It's a werewolf, it looks pretty friendly with its massive teeth, huge claws, "
+				+  "and all of that. We should go pet it or something.");
 		this.attackPower = 20;
 	}
-
+	public String getForLookDescription(){
+		return "A werewolf has joined the room with you.";
+	}
 	public double getAttackPower(){
 		return this.attackPower;
 	}

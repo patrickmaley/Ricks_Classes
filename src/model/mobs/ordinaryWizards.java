@@ -9,11 +9,15 @@ public class OrdinaryWizards extends Mobs{
 
 	private String house;
 	
-	public OrdinaryWizards(String name, int hp, String house, int x, int y) {
-		super(name, hp, "This is " + name + " just an ordinary wizard minding their own business.", x , y);
+	public OrdinaryWizards(String name, String house) {
+		super(name, 100, "This is " + name + " just an ordinary wizard minding their own business.");
 		this.house = house;
 	}
 
+	public String getForLookDescription(){
+		return this.getName()+ " has joined the room too. ";
+	}
+	
 	public String getHouse(){
 		if(this.house == null){
 			return null;

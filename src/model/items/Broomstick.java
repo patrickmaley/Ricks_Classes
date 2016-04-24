@@ -62,4 +62,7 @@ public class Broomstick extends Item {
 		}
 		return p.getRoom().getRoomDescription();
 	}
+	public String getForLookDescription(){
+		return "Oh look over there, its that flying thang called a broom stick broomstick.";
+	}
 }

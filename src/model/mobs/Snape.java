@@ -11,11 +11,13 @@ public class Snape extends Mobs {
 	private String house;
 	private String description;
 	
-	public Snape(String name, int hp, int x, int y) {
-		super("Professor Snape", hp, "Oh its Professor Snape. It would probably be wise to not piss him off...", x, y);
+	public Snape() {
+		super("Professor Snape", 100, "Oh its Professor Snape. It would probably be wise to not piss him off...");
 		this.house = "Slytherin";
 	}
-
+	public String getForLookDescription(){
+		return " Professor Snape looks like hes been waiting for you!";
+	}
 	public String getHouse(){
 		return this.house;
 	}

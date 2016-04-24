@@ -16,4 +16,7 @@ public class Horcrux extends Item {
 		p.getInventory().drop(this.getName().toLowerCase());
 		return "Congrats you death eater. You have sacrificed your soul for power. Your HP is now : " + p.getHP()+ " , but you do know the killing curse now";
 	}
+	public String getForLookDescription(){
+		return "Whats the dark eerily sensation you are feeling. Crap over there a horcrux, are you drawn in by the dark side?";
+	}
 }

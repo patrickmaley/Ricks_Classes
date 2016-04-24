@@ -15,5 +15,7 @@ public class PhoenixTears extends Item {
 		p.getInventory().drop(this.getName().toLowerCase());
 		return ("Phoenix Tears has added " + healthThatWillBeAdded + " hp to your health resetting you to 100");		
 	}
-
+	public String getForLookDescription(){
+		return "Phoenix tears have healing powers. And there are some right here in a jar for you.";
+	}
 }

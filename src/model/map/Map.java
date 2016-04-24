@@ -632,7 +632,7 @@ public class Map implements Serializable {
 						+ " The stairs go west or North");
 		fourStairsOne.setLookUpDescription("Its more stairs guys ... just more stairs nothing else to it");
 		fourStairsOne.setLookDownDescription("The floor. You wanted to look down at the floor. What is wrong with you");
-		this.mapArray[0][3]=fourStairsOne;
+		this.mapArray[0][3] = fourStairsOne;
 
 		// Room 1,3
 		fourMobRoomOneLibary.setTitle("Old Main Library");
@@ -643,20 +643,24 @@ public class Map implements Serializable {
 						+ " Smuldering pages can be heard in the background."
 						+ " Grasping your wand, you turn the corner." + " Gone."
 						+ " You can only go back the way you came.");
-		this.mapArray[1][3]=fourMobRoomOneLibary;
-		fourMobRoomOneLibary.setLookDownDescription("The floor is wooden, but so old you can start to the see floorboard coming apart. Nothing a couple of spells shouldnt take care. Or instead Ill just get Filch to do it.");
-		fourMobRoomOneLibary.setLookUpDescription("The ceiling changes its mood every so often and along with that its colors. You can see that you being in here has made it upset ... it is as red as Mars");
-		
+		this.mapArray[1][3] = fourMobRoomOneLibary;
+		fourMobRoomOneLibary.setLookDownDescription(
+				"The floor is wooden, but so old you can start to the see floorboard coming apart. Nothing a couple of spells shouldnt take care. Or instead Ill just get Filch to do it.");
+		fourMobRoomOneLibary.setLookUpDescription(
+				"The ceiling changes its mood every so often and along with that its colors. You can see that you being in here has made it upset ... it is as red as Mars");
+
 		// Room 2, 3
 		fourMobRoomTwoRavenClawCommonRoom.setTitle("Ravenclaw Common Room");
 		fourMobRoomTwoRavenClawCommonRoom.setRoomDescription(" As you enter the room, a shout echoes from behind you."
 				+ " \"AVADA.. \" " + " Immediately you seize the door and slam it shut. "
 				+ " Casting a spell to seal the door. " + " South is the only way out.");
-		fourMobRoomTwoRavenClawCommonRoom.setLookDownDescription("The magestic Eagle, the symbol of Ravenclaw covers the ground as its all you can see.");
-		fourMobRoomTwoRavenClawCommonRoom.setLookUpDescription("Hmmm what do you expect to see when you look up in a room. Oh thats right a ceiling.");
+		fourMobRoomTwoRavenClawCommonRoom.setLookDownDescription(
+				"The magestic Eagle, the symbol of Ravenclaw covers the ground as its all you can see.");
+		fourMobRoomTwoRavenClawCommonRoom.setLookUpDescription(
+				"Hmmm what do you expect to see when you look up in a room. Oh thats right a ceiling.");
 
-		this.mapArray[2][3]=fourMobRoomTwoRavenClawCommonRoom;
-		
+		this.mapArray[2][3] = fourMobRoomTwoRavenClawCommonRoom;
+
 		// Room 3, 3
 		fourStairsTwo.setTitle("The Stairway ");
 		fourStairsTwo
@@ -665,46 +669,52 @@ public class Map implements Serializable {
 						+ " You're eyes glaze upon the figure. The caption of the painting states, \" Netpaint for Dummies. \""
 						+ " You don't quite understand the picture, but it is magnificent."
 						+ " The stairs go west or North");
-		this.mapArray[3][3]=fourStairsTwo;
+		this.mapArray[3][3] = fourStairsTwo;
 		fourStairsTwo.setLookDownDescription(" The stairs glide along as you move up them.");
 		fourStairsTwo.setLookUpDescription(" Moving back and forth, the stairs eerily glide over your head.");
-		
+
 		// Room 4, 3
 		fourMobRoomThreeEmptyRoom.setTitle("Empty Room");
 		fourMobRoomThreeEmptyRoom.setRoomDescription(" The room is untouched. Everything is clean."
 				+ " Wow so clean. Much sparkle. Wow." + " It's also empty." + " The only way out is west and north.");
-		this.mapArray[4][3]=fourMobRoomThreeEmptyRoom;
-		fourMobRoomThreeEmptyRoom.setLookDownDescription("This is a empty room. That is all Look I took away period for you. If you want important info look down. ");
-		fourMobRoomThreeEmptyRoom.setLookUpDescription("This is a empty room. That is all. Look I added a period for you. If you want important info look up. ");
-		
+		this.mapArray[4][3] = fourMobRoomThreeEmptyRoom;
+		fourMobRoomThreeEmptyRoom.setLookDownDescription(
+				"This is a empty room. That is all Look I took away period for you. If you want important info look down. ");
+		fourMobRoomThreeEmptyRoom.setLookUpDescription(
+				"This is a empty room. That is all. Look I added a period for you. If you want important info look up. ");
+
 		// Room 5, 3
 		fourMobRoomFourGirlsRoom.setTitle("The Girls Room");
 		fourMobRoomFourGirlsRoom.setRoomDescription(" The girls room is untouched. The beds and stands remain intact."
 				+ " Whatever is happening hasn't been here yet." + " The only way out are west and south.");
-		this.mapArray[5][3]=fourMobRoomFourGirlsRoom;
-		fourMobRoomFourGirlsRoom.setLookUpDescription("The ceiling is quite beautiful isnt it. You see that flower over there, that Petuina next to the Lily. It was painted by "
-				+ "by my most important occupant");
+		this.mapArray[5][3] = fourMobRoomFourGirlsRoom;
+		fourMobRoomFourGirlsRoom.setLookUpDescription(
+				"The ceiling is quite beautiful isnt it. You see that flower over there, that Petuina next to the Lily. It was painted by "
+						+ "by my most important occupant");
 		fourMobRoomFourGirlsRoom.setLookDownDescription("Yeah its just a floor board.");
-		
-		
+
 		// Room 6, 3
 		fourMobRoomFiveHermionesShrine.setTitle("Hermione's Shrine ");
 		fourMobRoomFiveHermionesShrine.setRoomDescription(" You've read about this place in all your course."
 				+ " The fabled shrine of the smartest student to ever go to Hogswarts. "
 				+ " Something appears to be lodged in her hand. I wonder what it is." + " The only exit is north.");
-		this.mapArray[6][3]=fourMobRoomFiveHermionesShrine;
-		fourMobRoomFiveHermionesShrine.setLookDownDescription("Even the floor crawls with intelligence wait look over there theres some sort of bag, wait it cant be can it");
-		fourMobRoomFiveHermionesShrine.setLookUpDescription("Just a bunch of pictures of Emma Watson. Enjoy my friend enjoy!!");
-		
+		this.mapArray[6][3] = fourMobRoomFiveHermionesShrine;
+		fourMobRoomFiveHermionesShrine.setLookDownDescription(
+				"Even the floor crawls with intelligence wait look over there theres some sort of bag, wait it cant be can it");
+		fourMobRoomFiveHermionesShrine
+				.setLookUpDescription("Just a bunch of pictures of Emma Watson. Enjoy my friend enjoy!!");
+
 		// Room 7, 3
 		fourNPCRoomOneMcgonagalsRoom.setTitle("McGonagals Office");
 		fourNPCRoomOneMcgonagalsRoom.setRoomDescription(
 				" As you enter the room, a torrent of wind pushes you on your back. Behind the desk, a wand points at you"
 						+ " \"WHO GOES THERE?\"");
-		this.mapArray[7][3]=fourNPCRoomOneMcgonagalsRoom;
-		fourNPCRoomOneMcgonagalsRoom.setLookDownDescription("Hey wait theres a cat ... I know what you're thinking oh bloody hell");
-		fourNPCRoomOneMcgonagalsRoom.setLookUpDescription("           why is it whenever anything happens its you. Wait you wanted a description?? Too bad.");
-		
+		this.mapArray[7][3] = fourNPCRoomOneMcgonagalsRoom;
+		fourNPCRoomOneMcgonagalsRoom
+				.setLookDownDescription("Hey wait theres a cat ... I know what you're thinking oh bloody hell");
+		fourNPCRoomOneMcgonagalsRoom.setLookUpDescription(
+				"           why is it whenever anything happens its you. Wait you wanted a description?? Too bad.");
+
 		// Room 8, 3
 		fourStairsThree.setTitle("The Stairway ");
 		fourStairsThree
@@ -713,22 +723,22 @@ public class Map implements Serializable {
 						+ " You're eyes glaze upon the figure. The caption of the painting states, \" THIS IS 335!\""
 						+ " You don't quite understand the picture, but it is magnificent."
 						+ " The stairs go west or North");
-		this.mapArray[8][3]=fourStairsThree;
+		this.mapArray[8][3] = fourStairsThree;
 		fourStairsThree.setLookDownDescription(" The stairs glide along as you move up them.");
 		fourStairsThree.setLookUpDescription(" Moving back and forth, the stairs eerily glide over your head.");
-		
-		
-		
+
 		// Room 9, 3
 		fourNPCRoomTwoProfessorTrudeauxRoom.setTitle("Professor Trudeaux's Room");
 		fourNPCRoomTwoProfessorTrudeauxRoom
 				.setRoomDescription(" Stacks of paper clog the room. Old prohecies it seems it seems."
 						+ " The floor is covered in from the outside. "
 						+ " There may be something I can learn from these stacks." + " The only exit is west.");
-		this.mapArray[9][3]=fourNPCRoomTwoProfessorTrudeauxRoom;
-		fourNPCRoomTwoProfessorTrudeauxRoom.setLookDownDescription("I the ground predict that you will not be pleased with this description");
-		fourNPCRoomTwoProfessorTrudeauxRoom.setLookUpDescription("I the ceiling predict pain and misfortune in your future. THE GRIM!!!!! THE GRIM!!!!");		
-		
+		this.mapArray[9][3] = fourNPCRoomTwoProfessorTrudeauxRoom;
+		fourNPCRoomTwoProfessorTrudeauxRoom
+				.setLookDownDescription("I the ground predict that you will not be pleased with this description");
+		fourNPCRoomTwoProfessorTrudeauxRoom.setLookUpDescription(
+				"I the ceiling predict pain and misfortune in your future. THE GRIM!!!!! THE GRIM!!!!");
+
 		// fifth column set west directions
 		fiveRavenclawGirlsRoom.setWestRoom(fourMobRoomThreeEmptyRoom);
 		fiveSlytherinEmptyRoom.setWestRoom(fourStairsThree);
@@ -756,16 +766,18 @@ public class Map implements Serializable {
 				"Look there to the east ... what is that" + "I hear screaming, I sense fear, beware of going there");
 		this.mapArray[0][4] = fiveCommonGroundOne;
 		fiveCommonGroundOne.setLookDownDescription("The grass flows from the sound of the screams to the east.");
-		fiveCommonGroundOne.setLookUpDescription("Even the stars dont seem to be as pretty anymore. The screams seem haunting to them too.");
-		
+		fiveCommonGroundOne.setLookUpDescription(
+				"Even the stars dont seem to be as pretty anymore. The screams seem haunting to them too.");
+
 		// room 1,4
 		fiveHoneydukes.setTitle("Honeydukes Bar");
 		fiveHoneydukes.setRoomDescription("Ahhh my sanctum santorum. Refreshing butterbeer all over the place"
 				+ "and a nice sense of relaxation all over the place. Well I guess I can only go back to hogsmeade for here. I might as "
 				+ "just continue to drink here");
 		this.mapArray[1][4] = fiveHoneydukes;
-		fiveHoneydukes.setLookDownDescription("Wooden floor boards all sticky and covered in the spilt delicious butterbeer of the bumbling drunks.");
-		fiveHoneydukes.setLookUpDescription("The ceiling. No butterbeer there!!!!");		
+		fiveHoneydukes.setLookDownDescription(
+				"Wooden floor boards all sticky and covered in the spilt delicious butterbeer of the bumbling drunks.");
+		fiveHoneydukes.setLookUpDescription("The ceiling. No butterbeer there!!!!");
 
 		// room 2,4
 		fiveAstronomyTower.setTitle("Astronomy Tower");
@@ -773,9 +785,11 @@ public class Map implements Serializable {
 				+ "why, but I sense something bad my happen here in the future. It looks like I can only leave the way I came"
 				+ ", but why leave");
 		this.mapArray[2][4] = fiveAstronomyTower;
-		fiveAstronomyTower.setLookUpDescription("The Astronomy Tower. What could possibly be up from here. The sky you twit.");
-		fiveAstronomyTower.setLookDownDescription("The bricks that were used to build this place are still quiet solid.");
-		
+		fiveAstronomyTower
+				.setLookUpDescription("The Astronomy Tower. What could possibly be up from here. The sky you twit.");
+		fiveAstronomyTower
+				.setLookDownDescription("The bricks that were used to build this place are still quiet solid.");
+
 		// room 3,4
 		fiveOutdoorGroundsOne.setTitle("Outdoor Grounds");
 		fiveOutdoorGroundsOne.setRoomDescription("A tree sets off in the distance."
@@ -783,8 +797,8 @@ public class Map implements Serializable {
 				+ "You could go back to hagrids, but either you gotta go to the east");
 		this.mapArray[3][4] = fiveOutdoorGroundsOne;
 		fiveOutdoorGroundsOne.setLookDownDescription("The grass is beneath you.");
-		fiveOutdoorGroundsOne.setLookUpDescription("The sky is above you.");		
-		
+		fiveOutdoorGroundsOne.setLookUpDescription("The sky is above you.");
+
 		// room 4,4
 		fiveRavenclawGirlsRoom.setTitle("Ravenclaws Girls Room");
 		fiveRavenclawGirlsRoom.setRoomDescription(
@@ -792,8 +806,8 @@ public class Map implements Serializable {
 						+ ", but if not just leave and get out");
 		this.mapArray[4][4] = fiveRavenclawGirlsRoom;
 		fiveRavenclawGirlsRoom.setLookDownDescription("Really nothing to describe here. ");
-		fiveRavenclawGirlsRoom.setLookUpDescription("An eagle flying over everyone while they try and sleep. ");		
-		
+		fiveRavenclawGirlsRoom.setLookUpDescription("An eagle flying over everyone while they try and sleep. ");
+
 		// room 5,4
 		fiveQuidditchPitch.setTitle("Qudditch Field");
 		fiveQuidditchPitch.setRoomDescription(
@@ -801,10 +815,12 @@ public class Map implements Serializable {
 						+ ", but hey you can still see the hoops. By the way you can only go back the way you come. I mean there is only"
 						+ "one exit");
 		this.mapArray[5][4] = fiveQuidditchPitch;
-		fiveQuidditchPitch.setLookDownDescription("The grassy fields are torn up but only towards the entrance as it is Qudditch, you dont really walk except entering the field."
-				+ "You can see that clearly.");
-		fiveQuidditchPitch.setLookUpDescription("The stands surrounding the pitch are decorated differently for each Quidditch match at Hogwarts. Every second stand would be decorated with the colours of one team, and every other stand with the colours of the opposing team."
-				+ " Spectators would sit in between these stands.");
+		fiveQuidditchPitch.setLookDownDescription(
+				"The grassy fields are torn up but only towards the entrance as it is Qudditch, you dont really walk except entering the field."
+						+ "You can see that clearly.");
+		fiveQuidditchPitch.setLookUpDescription(
+				"The stands surrounding the pitch are decorated differently for each Quidditch match at Hogwarts. Every second stand would be decorated with the colours of one team, and every other stand with the colours of the opposing team."
+						+ " Spectators would sit in between these stands.");
 
 		// room 6,4
 		fiveVoldemortsShrine.setTitle("Voldemorts Shrine");
@@ -813,34 +829,37 @@ public class Map implements Serializable {
 						+ "ruthless killer ever. Look over there you can see his statue. You can still here his victims scream. Wait can you feel that can you feel that it is calling for you."
 						+ "If you do not understand what I mean, stop playing pick up the books and read them. If not...");
 		this.mapArray[6][4] = fiveVoldemortsShrine;
-		fiveVoldemortsShrine.setLookUpDescription("The serpent the skull all together, it can only be one thing. The dark mark is on the ceiling.");
+		fiveVoldemortsShrine.setLookUpDescription(
+				"The serpent the skull all together, it can only be one thing. The dark mark is on the ceiling.");
 		fiveVoldemortsShrine.setLookDownDescription("Blood, blood all over the place.");
-		
+
 		// room 7,4
 		fiveSlytherinBoysRoom.setTitle("Slytherin Boys Room");
 		fiveSlytherinBoysRoom.setRoomDescription("This is the slytherins boys room. It deserves"
 				+ "no other description. Oh and there is something particularly facinating to the north. Only go if you dare.");
 		this.mapArray[7][4] = fiveSlytherinBoysRoom;
 		fiveSlytherinBoysRoom.setLookDownDescription("The serpent slitherin all over the god damn floor.");
-		fiveSlytherinBoysRoom.setLookUpDescription("Nothin but green.");		
-		
+		fiveSlytherinBoysRoom.setLookUpDescription("Nothin but green.");
+
 		// room 8,4
 		fiveSlytherinEmptyRoom.setTitle("Slytheirn Common Room");
 		fiveSlytherinEmptyRoom.setRoomDescription("Here is where all the evil boys and girls reside peacefully and plot"
 				+ "You can go to the south and see the girls room or the north and see the boys room.");
 		this.mapArray[8][4] = fiveSlytherinEmptyRoom;
-		fiveSlytherinEmptyRoom.setLookUpDescription("The ceiling is even trembling with all the evil that goes along in its corresponding rooms,"
-				+ ", but its also calm known about the potential greatness that is ozzoing from the north and south,");
-		fiveSlytherinEmptyRoom.setLookDownDescription("Clothes, everywhere all over the place, the Slytherins have no time for "
-				+ "laundy with all of the plotting they do.");
-		
+		fiveSlytherinEmptyRoom.setLookUpDescription(
+				"The ceiling is even trembling with all the evil that goes along in its corresponding rooms,"
+						+ ", but its also calm known about the potential greatness that is ozzoing from the north and south,");
+		fiveSlytherinEmptyRoom
+				.setLookDownDescription("Clothes, everywhere all over the place, the Slytherins have no time for "
+						+ "laundy with all of the plotting they do.");
+
 		// room 9,4
 		fiveSlytherinGirlsRoom.setTitle("Slytherin Girls Room");
-		fiveSlytherinGirlsRoom.setRoomDescription("Nothin in the room nothin on the ceiling, nothin on the floor, nothing to describe. This room is pointless. Wait maybe Bellatrix is in here.");
+		fiveSlytherinGirlsRoom.setRoomDescription(
+				"Nothin in the room nothin on the ceiling, nothin on the floor, nothing to describe. This room is pointless. Wait maybe Bellatrix is in here.");
 		this.mapArray[9][4] = fiveSlytherinGirlsRoom;
 		fiveSlytherinGirlsRoom.setLookDownDescription("Nothin here to describe.");
 		fiveSlytherinGirlsRoom.setLookUpDescription("Nothin here to describe.");
-		
 
 		// sixth column set North direction
 		sixHogsmeadeVillage.setNorthRoom(sixShriekingShack);
@@ -903,12 +922,13 @@ public class Map implements Serializable {
 				"From here you can honestly go anywhere. Wanna beer head west, wanna hear something interesting go north, wanna laugh"
 						+ " go south, wanna go back to where you came from, well remember that direction at least I cant do everything for you. I am room not your mother.");
 		this.mapArray[1][5] = sixHogsmeadeVillage;
-		sixHogsmeadeVillage.setLookDownDescription("Footprint, shoe prints, all over the place as you could see the dust kicked up from "
-				+ " the excited rumblings and tumblings of the young wizards ");
-		sixHogsmeadeVillage.setLookUpDescription("The beautiful stary sky, the clouds, hanging over you. Nothing but peace a quiet can be felt from that look"
-				+ "up");
-		
-		
+		sixHogsmeadeVillage.setLookDownDescription(
+				"Footprint, shoe prints, all over the place as you could see the dust kicked up from "
+						+ " the excited rumblings and tumblings of the young wizards ");
+		sixHogsmeadeVillage.setLookUpDescription(
+				"The beautiful stary sky, the clouds, hanging over you. Nothing but peace a quiet can be felt from that look"
+						+ "up");
+
 		// room 2,5
 		sixZonksJokeShop.setTitle("Zonks Joke Shop");
 		sixZonksJokeShop.setRoomDescription(
@@ -916,7 +936,7 @@ public class Map implements Serializable {
 						+ "JK LOL I DONT HAVE THAT. Well maybe I do IDK.");
 		this.mapArray[2][5] = sixZonksJokeShop;
 		sixZonksJokeShop.setLookDownDescription("HAHAHAHAHHAHAHHA");
-		sixZonksJokeShop.setLookUpDescription("HAHAHAHAHHAHAHHA");		
+		sixZonksJokeShop.setLookUpDescription("HAHAHAHAHHAHAHHA");
 
 		// room 3,5
 		sixOutdoorGroundsOne.setTitle("Outdoor Grounds");
@@ -925,7 +945,7 @@ public class Map implements Serializable {
 		this.mapArray[3][5] = sixOutdoorGroundsOne;
 		sixOutdoorGroundsOne.setLookDownDescription("The grass is beneath you.");
 		sixOutdoorGroundsOne.setLookUpDescription("The sky is above you.");
-		
+
 		// room 4,5
 		sixOutdoorGroundsTwo.setTitle("Outdoor Grounds");
 		sixOutdoorGroundsTwo.setRoomDescription("Hear that ... thats right that is the sound of peace and quiet"
@@ -944,40 +964,45 @@ public class Map implements Serializable {
 
 		// room 6,5
 		sixSnapesRoom.setTitle("Professor Snapes Room");
-		sixSnapesRoom.setRoomDescription("You are in the presence of the one and only Half-Blood Prince. If you try hard enough you can catch a faint whiff of the potions brewing"
-				+ "even though they are being over powered by the lilys in here. You want to know sectum sempra, ask him what he says just try and talk to him. I know it can be nerving but give it a go. ");
+		sixSnapesRoom.setRoomDescription(
+				"You are in the presence of the one and only Half-Blood Prince. If you try hard enough you can catch a faint whiff of the potions brewing"
+						+ "even though they are being over powered by the lilys in here. You want to know sectum sempra, ask him what he says just try and talk to him. I know it can be nerving but give it a go. ");
 		this.mapArray[6][5] = sixSnapesRoom;
-		sixSnapesRoom.setLookUpDescription("The shadowy walls were lined with shelves of large glass jars filled with slimy, revolting things, such as bits of animals and plants, floating in potions of varying colour.");
+		sixSnapesRoom.setLookUpDescription(
+				"The shadowy walls were lined with shelves of large glass jars filled with slimy, revolting things, such as bits of animals and plants, floating in potions of varying colour.");
 		sixSnapesRoom.setLookDownDescription("Darkness, black floor boards should fill you up with fear and sadness");
-		
-		//room 7,5
+
+		// room 7,5
 		sixStairs.setTitle("The Stairway");
 		sixStairs.setRoomDescription(" You enter the stair. Along the walls are pictures of old wizards can be seen. "
 				+ " You double take. On the wall you see it."
 				+ " The stairs go north to a certain professors room or south to a certain professors room. Take your pick");
-		this.mapArray[7][5]=sixStairs;
+		this.mapArray[7][5] = sixStairs;
 		sixStairs.setLookDownDescription("The floor");
 		sixStairs.setLookUpDescription("More stairs");
-		
-		//room 8,5 
+
+		// room 8,5
 		sixDumbledoresOffice.setTitle("The Headmasters Office");
-		sixDumbledoresOffice.setRoomDescription("Can you pick up on all that wisdom and intelligence that is just ozzing out of every crack in the wall out of ever portion "
-				+ "of this room. The headmaster sits there waiting for you staring, no not just stairing in fact talking with the portraits of all of his predeccesors."
-				+ "He has been expecting you go ahead and go see him. Try and not be nervous, but remember he is the greatest wizard of all time. ");
-		this.mapArray[8][5]=sixDumbledoresOffice;
-		sixDumbledoresOffice.setLookUpDescription("Caww caww, the phoenix is flying around above acting like a protector. That phoenix"
-				+ "would give its life for dumbledore and it seems like you too. Congrats you made a friend just by looking up");
+		sixDumbledoresOffice.setRoomDescription(
+				"Can you pick up on all that wisdom and intelligence that is just ozzing out of every crack in the wall out of ever portion "
+						+ "of this room. The headmaster sits there waiting for you staring, no not just stairing in fact talking with the portraits of all of his predeccesors."
+						+ "He has been expecting you go ahead and go see him. Try and not be nervous, but remember he is the greatest wizard of all time. ");
+		this.mapArray[8][5] = sixDumbledoresOffice;
+		sixDumbledoresOffice.setLookUpDescription(
+				"Caww caww, the phoenix is flying around above acting like a protector. That phoenix"
+						+ "would give its life for dumbledore and it seems like you too. Congrats you made a friend just by looking up");
 		sixDumbledoresOffice.setLookDownDescription("Nothin here but look up, there is something for you there.");
-		
-		//room 9,5
+
+		// room 9,5
 		sixPensieveRoom.setTitle("The Pensieve Room");
-		sixPensieveRoom.setRoomDescription("This is where the Phoenix sits, more importantly there sits the pensieve. Many have came in here"
-				+ "to try and use it and see what has happened before, but it hasnt work, the pensieve no longer works. Its last user was the Chosen One and refuses"
-				+ "to work for anyone else. And you, you are not the chosen one. Leave go back to dumbledores office");
-		this.mapArray[9][5]=sixPensieveRoom;
+		sixPensieveRoom.setRoomDescription(
+				"This is where the Phoenix sits, more importantly there sits the pensieve. Many have came in here"
+						+ "to try and use it and see what has happened before, but it hasnt work, the pensieve no longer works. Its last user was the Chosen One and refuses"
+						+ "to work for anyone else. And you, you are not the chosen one. Leave go back to dumbledores office");
+		this.mapArray[9][5] = sixPensieveRoom;
 		sixPensieveRoom.setLookDownDescription("Nothing, absolutely nothing.");
 		sixPensieveRoom.setLookUpDescription("Memories, floating memories all over the palce");
-		
+
 	}
 
 	private void generateItems() {
@@ -1003,77 +1028,16 @@ public class Map implements Serializable {
 		Spellbook spellbookPetrificusTotalus = new Spellbook(petrificusTotalus);
 		Spellbook spellbookSectumSempra = new Spellbook(sectumSempra);
 		Spellbook spellbookStuepfy = new Spellbook(stupefy);
-		// adding 5 spellbooks to the map only determining them here
-		int numberOfSpellbooksAdded = 0;
-		int whichSpellBook = 0;
-		while (numberOfSpellbooksAdded != 7) {
-			whichSpellBook = random.nextInt(10);
-			switch (whichSpellBook) {
-			case 0:
-				if (!itemsToAddToMap.contains(spellbookAvadaKedvra)) {
-					itemsToAddToMap.add(spellbookAvadaKedvra);
-					numberOfSpellbooksAdded++;
-					break;
-				}
-			case 1:
-				if (!itemsToAddToMap.contains(spellbookExpelliarmus)) {
-					numberOfSpellbooksAdded++;
-					itemsToAddToMap.add(spellbookExpelliarmus);
-					break;
-				}
-			case 2:
-				if (!itemsToAddToMap.contains(spellbookExpectoPatronum)) {
-					itemsToAddToMap.add(spellbookExpectoPatronum);
-					numberOfSpellbooksAdded++;
-					break;
-
-				}
-			case 3:
-				if (!itemsToAddToMap.contains(spellbookImperio)) {
-					itemsToAddToMap.add(spellbookImperio);
-					numberOfSpellbooksAdded++;
-					break;
-				}
-			case 4:
-				if (!itemsToAddToMap.contains(spellbookCrucio)) {
-					itemsToAddToMap.add(spellbookCrucio);
-					numberOfSpellbooksAdded++;
-					break;
-				}
-			case 5:
-				if (!itemsToAddToMap.contains(spellbookIncendio)) {
-					itemsToAddToMap.add(spellbookIncendio);
-					numberOfSpellbooksAdded++;
-					break;
-				}
-			case 6:
-				if (!itemsToAddToMap.contains(spellbookPetrificusTotalus)) {
-					itemsToAddToMap.add(spellbookPetrificusTotalus);
-					numberOfSpellbooksAdded++;
-					break;
-				}
-			case 7:
-				if (!itemsToAddToMap.contains(spellbookSectumSempra)) {
-					itemsToAddToMap.add(spellbookSectumSempra);
-					numberOfSpellbooksAdded++;
-					break;
-				}
-			case 8:
-				if (!itemsToAddToMap.contains(spellbookExpulso)) {
-					itemsToAddToMap.add(spellbookExpulso);
-					numberOfSpellbooksAdded++;
-					break;
-				}
-			case 9:
-				if (!itemsToAddToMap.contains(spellbookStuepfy)) {
-					itemsToAddToMap.add(spellbookStuepfy);
-					numberOfSpellbooksAdded++;
-					break;
-				}
-			default:
-				break;
-			}
-		}
+		itemsToAddToMap.add(spellbookAvadaKedvra);
+		itemsToAddToMap.add(spellbookExpectoPatronum);
+		itemsToAddToMap.add(spellbookImperio);
+		itemsToAddToMap.add(spellbookCrucio);
+		itemsToAddToMap.add(spellbookIncendio);
+		itemsToAddToMap.add(spellbookPetrificusTotalus);
+		itemsToAddToMap.add(spellbookSectumSempra);
+		itemsToAddToMap.add(spellbookExpulso);
+		itemsToAddToMap.add(spellbookStuepfy);
+		itemsToAddToMap.add(spellbookExpelliarmus);
 		// Adding the rest of the items to the arrayList
 		BassilskFang bassilskFang = new BassilskFang();
 		Broomstick broomstick = new Broomstick();
@@ -1090,7 +1054,7 @@ public class Map implements Serializable {
 		RegularWand regularWandSeven = new RegularWand();
 		RegularWand regularWandEight = new RegularWand();
 		RegularWand regularWandNine = new RegularWand();
-		RegularWand regularWandTen = new RegularWand();	
+		RegularWand regularWandTen = new RegularWand();
 		SwordOfGryffindor swordOfGryffindor = new SwordOfGryffindor();
 		HermoinesHandbag hermoinesHandbag = new HermoinesHandbag();
 		RessurectionStone ressurectionStone = new RessurectionStone();
@@ -1132,31 +1096,31 @@ public class Map implements Serializable {
 
 	public void generateMobs() {
 		ArrayList<Mobs> mobsToAddToMap = new ArrayList<Mobs>();
-		Bellatrix bellatrix = new Bellatrix(null, 0, 0, 0);
-		Dementor dementor = new Dementor(null, 0, 0, 0);
-		Snape snape = new Snape(null, 0, 0, 0);
-		Dragons dragon = new Dragons("Dragon", 0, 0, 0);
-		Dumbledore dumbledore = new Dumbledore(null, 0, 0, 0);
-		Hagrid hagrid = new Hagrid(null, 0, 0, 0);
-		Lupin lupin = new Lupin(null, 0, 0, 0);
-		McGonagall mcgonagall = new McGonagall(null, 0, 0, 0);
-		Sirius sirius = new Sirius(null, 0, 0, 0);
-		Spiders spider = new Spiders("Spiders", 0, 0, 0);
-		Spiders spiderTwo = new Spiders("Spiders", 0, 0, 0);
-		Spiders spiderThree = new Spiders("Spiders", 0, 0, 0);
-		Spiders spiderFour = new Spiders("Spiders", 0, 0, 0);
-		Spiders spiderFive = new Spiders("Spiders", 0, 0, 0);
-		Spiders spiderSix = new Spiders("Spiders", 0, 0, 0);
-		Spiders spiderSeven = new Spiders("Spiders", 0, 0, 0);
-		Spiders spiderEight = new Spiders("Spiders", 0, 0, 0);
-		Trolls troll = new Trolls("Trolls", 0, 0, 0);
-		Werewolves werewolves = new Werewolves("Werewolves", 0, 0, 0);
-		OrdinaryWizards Ron = new OrdinaryWizards("Ron", 0, "Gryffindor", 0, 0);
-		OrdinaryWizards Hermoine = new OrdinaryWizards("Hermoine", 0, "Gryffindor", 0, 0);
-		OrdinaryWizards Harry = new OrdinaryWizards("Harry", 0, "Gryffindor", 0, 0);
-		OrdinaryWizards Draco = new OrdinaryWizards("Malfoy", 0, "Slytherin", 0, 0);
-		OrdinaryWizards Neville = new OrdinaryWizards("Neville", 0, "Gryffindor", 0, 0);
-		OrdinaryWizards Cedric = new OrdinaryWizards("Cedric", 0, "Gryffindor", 0, 0);
+		Bellatrix bellatrix = new Bellatrix();
+		Dementor dementor = new Dementor();
+		Snape snape = new Snape();
+		Dragons dragon = new Dragons();
+		Dumbledore dumbledore = new Dumbledore();
+		Hagrid hagrid = new Hagrid();
+		Lupin lupin = new Lupin();
+		McGonagall mcgonagall = new McGonagall();
+		Sirius sirius = new Sirius();
+		Spiders spider = new Spiders();
+		Spiders spiderTwo = new Spiders();
+		Spiders spiderThree = new Spiders();
+		Spiders spiderFour = new Spiders();
+		Spiders spiderFive = new Spiders();
+		Spiders spiderSix = new Spiders();
+		Spiders spiderSeven = new Spiders();
+		Spiders spiderEight = new Spiders();
+		Trolls troll = new Trolls();
+		Werewolves werewolves = new Werewolves();
+		OrdinaryWizards Ron = new OrdinaryWizards("Ron", "Gryffindor");
+		OrdinaryWizards Hermoine = new OrdinaryWizards("Hermoine", "Gryffindor");
+		OrdinaryWizards Harry = new OrdinaryWizards("Harry", "Gryffindor");
+		OrdinaryWizards Draco = new OrdinaryWizards("Malfoy", "Slytherin");
+		OrdinaryWizards Neville = new OrdinaryWizards("Neville", "Gryffindor");
+		OrdinaryWizards Cedric = new OrdinaryWizards("Cedric", "Gryffindor");
 		mobsToAddToMap.add(spider);
 		mobsToAddToMap.add(spiderTwo);
 		mobsToAddToMap.add(spiderThree);
@@ -1175,56 +1139,55 @@ public class Map implements Serializable {
 		mobsToAddToMap.add(Draco);
 		mobsToAddToMap.add(Neville);
 
-//adding those to specific rooms that need to be added
+		// adding those to specific rooms that need to be added
 		this.mapArray[8][5].setMobsInRoom(dumbledore);
 		this.mapArray[8][5].setMobsPresent(true);
 		dumbledore.setXpos(8);
 		dumbledore.setYpos(5);
 		dumbledore.setCurrentRoom(this.mapArray[8][5]);
-		
+
 		this.mapArray[6][5].setMobsInRoom(snape);
 		this.mapArray[6][5].setMobsPresent(true);
 		snape.setXpos(6);
 		snape.setYpos(5);
 		snape.setCurrentRoom(this.mapArray[6][5]);
-		
+
 		this.mapArray[7][3].setMobsInRoom(mcgonagall);
 		this.mapArray[7][3].setMobsPresent(true);
 		mcgonagall.setXpos(7);
 		mcgonagall.setYpos(3);
 		mcgonagall.setCurrentRoom(this.mapArray[7][3]);
-		
+
 		this.mapArray[9][4].setMobsInRoom(bellatrix);
 		this.mapArray[9][4].setMobsPresent(true);
 		bellatrix.setXpos(9);
 		bellatrix.setYpos(4);
 		bellatrix.setCurrentRoom(this.mapArray[9][4]);
-		
+
 		this.mapArray[3][0].setMobsInRoom(hagrid);
 		this.mapArray[3][0].setMobsPresent(true);
 		hagrid.setXpos(3);
 		hagrid.setYpos(0);
 		hagrid.setCurrentRoom(this.mapArray[3][0]);
-		
+
 		this.mapArray[2][1].setMobsInRoom(werewolves);
 		this.mapArray[2][1].setMobsPresent(true);
 		dumbledore.setXpos(2);
 		dumbledore.setYpos(1);
 		dumbledore.setCurrentRoom(this.mapArray[2][1]);
-		
+
 		this.mapArray[1][5].setMobsInRoom(troll);
 		this.mapArray[1][5].setMobsPresent(true);
 		troll.setXpos(1);
 		troll.setYpos(5);
 		troll.setCurrentRoom(this.mapArray[1][5]);
-		
+
 		this.mapArray[0][4].setMobsInRoom(dragon);
 		this.mapArray[0][4].setMobsPresent(true);
 		dumbledore.setXpos(0);
 		dumbledore.setYpos(4);
 		dumbledore.setCurrentRoom(this.mapArray[0][4]);
-		
-		
+
 		Random random = new Random();
 		int row = 0;
 		int column = 0;

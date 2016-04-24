@@ -15,4 +15,7 @@ public class ButterBeer extends Item{
 	public String use(Player p, String notNeeded) {
 		return drinkingTheBeer;
 	}
+	public String getForLookDescription(){
+		return "Oh yeah we got butterbeer in here!!";
+	}
 }
