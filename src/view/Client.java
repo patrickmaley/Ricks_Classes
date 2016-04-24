@@ -204,7 +204,7 @@ public class Client extends JFrame{
 		}
 	}
 
-	private class ServerListener extends Thread {
+	private class ServerListener extends Thread {	
 		@Override
 		public void run() {
 			try {
@@ -227,6 +227,7 @@ public class Client extends JFrame{
 		}
 
 	}
+	
 	private void cleanUpAndQuit(String message) {
 		JOptionPane.showMessageDialog(this, message);
 		try {
@@ -238,6 +239,7 @@ public class Client extends JFrame{
 		}
 		Client.this.dispatchEvent(new WindowEvent(Client.this,WindowEvent.WINDOW_CLOSING));
 	}
+	
 	private class textBoxListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {

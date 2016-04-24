@@ -48,22 +48,13 @@ public class PlayerTest {
 		assertEquals(player1.getPlayerMap(), currMap);
 		player1.setPlayerMap(currMap);
 		assertEquals(player1.getPlayerMap(), currMap);
-		
-		//Tests playerList
-		assertEquals(0, current.getCurrentList().size());
-		current.newPlayer(player1);
-		assertEquals(1, current.getCurrentList().size());
-		current.newPlayer(player2);
-		assertEquals(2, current.getCurrentList().size());
-		current.newPlayer(player3);
-		assertEquals(3, current.getCurrentList().size());
-		current.newPlayer(player3);
-		assertEquals(3, current.getCurrentList().size());
 
-		//Tests username, password, and gameName
+		//Tests username, password, descritpion, and gameName
 		player1.setGameName("Doris");
 		player2.setGameName("Debbie");
 		player3.setGameName("THEBOMB.COM");
+		player1.setDescription("I am fucking amazing");
+		assertEquals("I am fucking amazing", player1.getDescription());
 		assertEquals("Lee", player1.getUsername());
 		assertEquals(true, player1.checkPassword(password1));
 		assertNotEquals(player1.getUsername(), player2.getUsername());
@@ -89,23 +80,32 @@ public class PlayerTest {
 		assertEquals("Gryffindor", player1.getHouse());
 		assertNotEquals("Gryffindor", player2.getHouse());
 		
+		//Tests playerList
+		assertEquals(0, current.getCurrentList().size());
+		current.newPlayer(player1);
+		assertEquals(1, current.getCurrentList().size());
+		current.newPlayer(player2);
+		assertEquals(2, current.getCurrentList().size());
+		current.newPlayer(player3);
+		assertEquals(3, current.getCurrentList().size());
+		current.newPlayer(player3);
+		assertEquals(3, current.getCurrentList().size());
+		
 		//Tests HP getter, decrease, and increase
 		assertEquals(100, player3.getHP(), .0001);
 		player3.decreaseHP(50);
 		assertEquals(50, player3.getHP(), .0001);
 		player3.increaseHP(25);
 		assertEquals(75, player3.getHP(), .0001);
-		player3.decreaseHP(100);
-		assertEquals(0, player3.getHP(), .0001);
-		assertTrue(player3.getIsDead());
-		player3.resetPlayerData();
+		player3.decreaseHP(75);
+		assertEquals(100, player3.getHP(), .0001);
 		assertFalse(player3.getIsDead());
 		assertEquals(100, player3.getHP(), .0001);
 		player3.increaseHP(100);
 		assertEquals(200, player3.getHP(), .0001);
 		
 		//Tests map and room
-		assertEquals(currMap.getEntrance(), player1.getRoom());
+		assertEquals(currMap.getMapArray()[9][0], player1.getRoom());
 		player1.setCurrentRoom(nextRoom);
 		assertNotEquals(currMap.getEntrance(), player1.getRoom());
 		assertEquals(nextRoom, player1.getRoom());

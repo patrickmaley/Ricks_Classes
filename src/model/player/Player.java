@@ -25,6 +25,7 @@ public class Player implements Serializable{
 	private String house;
 	private Map playerMap;
 	private boolean isDead;
+	private String description;
 	
 	
 	public Player(String username, char[] password) throws NoSuchAlgorithmException, NoSuchProviderException{
@@ -33,10 +34,10 @@ public class Player implements Serializable{
 		this.knownSpells = new ArrayList<Spell>();
 		this.inventory = new Inventory();
 		this.HP = 100;
-		this.currentRoom = Map.setMap().getEntrance();
-		this.currentRoom.setPlayerPresent(true, this);
-		this.interaction= new Interactions(this);
 		this.playerMap = Map.setMap();
+		this.currentRoom = playerMap.getMapArray()[9][0];
+		this.currentRoom.setPlayerPresent(true, this);
+		this.interaction = new Interactions(this);
 		this.isDead = false;
 	}
 	
@@ -53,6 +54,16 @@ public class Player implements Serializable{
 	//Sets the house of the player
 	public void setHouse(String houseName){
 		this.house = houseName;
+	}
+	
+	//Returns the description of the player
+	public String getDescription(){
+		return this.description;
+	}
+	
+	//Sets the player description
+	public void setDescription(String des){
+		this.description = des;
 	}
 	
 	//Returns true if the password is correct. False otherwise.
@@ -78,6 +89,7 @@ public class Player implements Serializable{
 		if (HP - amount <= 0){
 			HP = 0;
 			isDead = true;
+			resetPlayerData();
 		}
 		else{
 			HP = HP - amount;
@@ -136,7 +148,7 @@ public class Player implements Serializable{
 		this.HP = 100;
 		this.interaction= new Interactions(this);
 		this.playerMap = Map.setMap();
-		setCurrentRoom(playerMap.getEntrance());
+		this.setCurrentRoom(Map.setMap().getEntrance());
 		this.isDead = false;
 	}
 	

@@ -36,6 +36,7 @@ public class Server {
 	private static final String SAVED_PLAYERLIST_LOCATION = "savedPlayer";
 	
 	private ArrayList<Player> loggedOnPlayers = new ArrayList<Player>();
+	
 	/**
 	 * This is the main method which runs everything
 	 * @param args
@@ -67,12 +68,31 @@ public class Server {
 
 			ObjectInputStream is = new ObjectInputStream(s.getInputStream());
 			ObjectOutputStream os = new ObjectOutputStream(s.getOutputStream());
+			
+			try {
+				// FileInputStream lets us read in data from a file.
+				FileInputStream fis = new FileInputStream(SAVED_MAP_LOCATION);
+				FileInputStream fis2 = new FileInputStream(SAVED_PLAYERLIST_LOCATION);
+				// ObjectInputStream decorates a FileInputStream and adds functionality to read Objects.
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				ObjectInputStream ois2 = new ObjectInputStream(fis2);
+				setServerMap((Map) ois.readObject());
+				setPlayerList((PlayerList) ois2.readObject());
+				
+				ois.close();
+				ois2.close();
+				fis.close();
+				fis2.close();
+			} catch (Exception exception) {
+				exception.printStackTrace();
+			}
 
 			clients.add(os);
 			ClientHandler c = new ClientHandler(is, clients);
 			c.start();
 
 			System.out.println("Accepted a new connection from " + s.getInetAddress());
+			
 		}
 	}
 	
@@ -115,6 +135,7 @@ public class Server {
 			ObjectOutputStream oos2 = new ObjectOutputStream(fos2);
 			// Write out the collection as binary
 			// Also note that we are writing out only model classes, never write out view elements!
+
 		    oos.writeObject(Server.getServerMap());
 			oos2.writeObject(Server.getPlayerList());
 			oos.close();
@@ -124,7 +145,8 @@ public class Server {
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
-  }
+	}
+
 }
 
 
