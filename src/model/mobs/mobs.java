@@ -75,4 +75,7 @@ public abstract class Mobs implements Serializable{
 	
 	public abstract String action(String a, Player p);
 	
+	public abstract String getForLookDescription();
+
+	
 }
