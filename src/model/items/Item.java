@@ -18,4 +18,5 @@ public String getDescription(){
 	return description;
 }
 abstract public String use(Player p, String ifNeeded);
+abstract public String getForLookDescription();
 }
