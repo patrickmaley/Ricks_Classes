@@ -49,10 +49,12 @@ public class PlayerTest {
 		player1.setPlayerMap(currMap);
 		assertEquals(player1.getPlayerMap(), currMap);
 
-		//Tests username, password, and gameName
+		//Tests username, password, descritpion, and gameName
 		player1.setGameName("Doris");
 		player2.setGameName("Debbie");
 		player3.setGameName("THEBOMB.COM");
+		player1.setDescription("I am fucking amazing");
+		assertEquals("I am fucking amazing", player1.getDescription());
 		assertEquals("Lee", player1.getUsername());
 		assertEquals(true, player1.checkPassword(password1));
 		assertNotEquals(player1.getUsername(), player2.getUsername());
@@ -103,7 +105,7 @@ public class PlayerTest {
 		assertEquals(200, player3.getHP(), .0001);
 		
 		//Tests map and room
-		assertEquals(currMap.getEntrance(), player1.getRoom());
+		assertEquals(currMap.getMapArray()[9][0], player1.getRoom());
 		player1.setCurrentRoom(nextRoom);
 		assertNotEquals(currMap.getEntrance(), player1.getRoom());
 		assertEquals(nextRoom, player1.getRoom());

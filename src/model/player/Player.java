@@ -25,6 +25,7 @@ public class Player implements Serializable{
 	private String house;
 	private Map playerMap;
 	private boolean isDead;
+	private String description;
 	
 	
 	public Player(String username, char[] password) throws NoSuchAlgorithmException, NoSuchProviderException{
@@ -53,6 +54,16 @@ public class Player implements Serializable{
 	//Sets the house of the player
 	public void setHouse(String houseName){
 		this.house = houseName;
+	}
+	
+	//Returns the description of the player
+	public String getDescription(){
+		return this.description;
+	}
+	
+	//Sets the player description
+	public void setDescription(String des){
+		this.description = des;
 	}
 	
 	//Returns true if the password is correct. False otherwise.
