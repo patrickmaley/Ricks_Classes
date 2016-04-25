@@ -255,7 +255,7 @@ public class Map implements Serializable {
 		outdoorRoomFour.setTitle("The Open Field");
 		outdoorRoomFour.setRoomDescription(
 				" You see an open field." + " It seems strangely desolate... " + " Mudding steps are seen everywhere. "
-						+ " Like people left in a panic." + " The only way to go is south.");
+						+ " Like people left in a panic." + " You can go north, south or east. Take ya pick.");
 		outdoorRoomFour.setLookDownDescription(
 				" A lone pair of steps gain your attention. They seem to change as they go along"
 						+ " Steps of a man becoming... wider... and longer. You see the imprint of claws begin to take root in the mud."
@@ -269,7 +269,7 @@ public class Map implements Serializable {
 		outdoorRoomFive
 				.setRoomDescription(" You saw the smoke as you approached." + " It was the scorched remains of a body. "
 						+ " There are no signs of who it is." + " What happened here..."
-						+ " To the south you see the entrance hallway of Hogwarts, it is the only way to go.");
+						+ " To the south you see the entrance hallway of Hogwarts, to the west there is more open, and the north will lead you back to where you came from. ");
 		outdoorRoomFive.setLookDownDescription(" Charred pink fabric lines the ground. Who was this...");
 		outdoorRoomFive.setLookUpDescription(" A smokey mist flies over your head.");
 		mapArray[5][0] = outdoorRoomFive;
@@ -281,7 +281,7 @@ public class Map implements Serializable {
 						+ " Wands... shoes are strewn about." + " Something just happened."
 						+ " The entrance is a grand door. Upon further examination, you see burn marks on it. "
 						+ " The strong scent of smoke that you smelled outside remains."
-						+ " The dining hall is the only room connected to the great entrance and it is south.");
+						+ " The dining hall is the only room connected to the great entrance and it is south, but there is some royalty I can sense about going west.");
 		mobRoomOneHallway.setLookDownDescription(" You see bloody splotches of fur. What kind of animal was this?");
 		mobRoomOneHallway
 				.setLookUpDescription(" The entrance arches remind you of when you first came here many years ago.");
@@ -316,7 +316,7 @@ public class Map implements Serializable {
 				.setRoomDescription(" The grand entrance to the castle is more majestic than you remembered. "
 						+ " Vin Diesel sits atop in his bronze statue. You remember his famous wizard, Melchior. "
 						+ " Your resolve to figure out what happen grows. "
-						+ " The entrance leads east to a hallway. ");
+						+ " The entrance can take you anywhere,but west. ");
 		mobRoomThreeCastleEntrance.setLookDownDescription(" Etched in stone: \"Cindiesel was here\"");
 		mobRoomThreeCastleEntrance
 				.setLookUpDescription(" The heros of Hogwarts line the arches in memory of their great deeds.");
@@ -343,8 +343,8 @@ public class Map implements Serializable {
 		twoMobRoomTwoRoomOfRequirement.setNorthRoom(twoMobRoomOneHallway);
 		twoMobRoomFourForbiddenForest.setNorthRoom(twoMobRoomThreeForbiddenForest);
 		twoMobRoomFiveBoysRoom.setNorthRoom(twoNPCRoomOneHarryRonShrine);
-		twoStairsTwo.setNorthRoom(twoStairsOne);
 		twoStairsThree.setNorthRoom(twoStairsTwo);
+		twoStairsTwo.setNorthRoom(twoStairsOne);
 		twoMobRoomSixHallway.setNorthRoom(twoStairsThree);
 
 		// Second Column East Connections
@@ -359,7 +359,7 @@ public class Map implements Serializable {
 		twoMobRoomOneHallway.setTitle("Spooky Hallway");
 		twoMobRoomOneHallway.setRoomDescription(" These back hallways have always been a little spooky."
 				+ " It doesn't help that they are the darkest placec in the castle."
-				+ " I wish there was some way to light it up..." + " There is only one mysterious way to the south...");
+				+ " I wish there was some way to light it up..." + " There are 3 ways to go, but from the soutb I keep on hear the ghost of Rowena Ravenclaw if you need you must not, if you ask you will never know...");
 		twoMobRoomOneHallway.setLookDownDescription(" Slime lines the ground. It's getting everywhere.");
 		twoMobRoomOneHallway.setLookUpDescription(" On the roof and walls, spiderwebs line the hallway.");
 		mapArray[0][1] = twoMobRoomOneHallway;
@@ -420,11 +420,8 @@ public class Map implements Serializable {
 		// Room 6,1
 		twoStairsOne.setTitle("The Stairway ");
 		twoStairsOne
-				.setRoomDescription(" You enter the stair. Along the walls are pictures of old wizards can be seen. "
-						+ " You double take. On the wall you see it."
-						+ " You're eyes glaze upon the figure. The caption of the painting states, \" CinDiesel \""
-						+ " You don't quite understand the picture, but it is magnificent."
-						+ " The stairs go south to the castle entrance or east to... more stairs huehuehuehue");
+				.setRoomDescription("Hello!!!"
+						+ " The stairs only go to the south. So pretty much this is a dead end lol");
 		twoStairsOne.setLookDownDescription(" The stairs glide along as you move up them.");
 		twoStairsOne.setLookUpDescription(" Moving back and forth, the stairs eerily glide over your head.");
 		mapArray[6][1] = twoStairsOne;
@@ -448,7 +445,7 @@ public class Map implements Serializable {
 						+ " You double take. On the wall you see it."
 						+ " You're eyes glaze upon the figure. The caption of the painting states, \" CSC 345 Red Black Tree \""
 						+ " You don't quite understand the picture, but it is magnificent."
-						+ " The stairs go south or east");
+						+ " The stairs go south, west, north and east");
 		twoStairsThree.setLookDownDescription(" The stairs glide along as you move up them.");
 		twoStairsThree.setLookUpDescription(" Moving back and forth, the stairs eerily glide over your head.");
 		mapArray[8][1] = twoStairsThree;
@@ -457,7 +454,7 @@ public class Map implements Serializable {
 		twoMobRoomSixHallway.setTitle("The Entrance Hallway");
 		twoMobRoomSixHallway.setRoomDescription(" The scorch marks at the entrance door continue here."
 				+ " This hallway is unusually dark. Old, armored knights line the hallways. "
-				+ " Their shining armor helps your vision somewhat. The hallway leads north or east.");
+				+ " Their shining armor helps your vision somewhat. The hallway leads north, west, south, and east.");
 		twoMobRoomSixHallway.setLookDownDescription(" Metal swords hit the ground. And soon you hear footsteps.");
 		twoMobRoomSixHallway.setLookUpDescription(" The ceiling is actually pretty normal here. Thank goodness.");
 		mapArray[9][1] = twoMobRoomSixHallway;
@@ -523,7 +520,7 @@ public class Map implements Serializable {
 						+ " You double take. On the wall you see it."
 						+ " You're eyes glaze upon the figure. The caption of the painting states, \" Sahil was here \""
 						+ " You don't quite understand the picture, but it is magnificent."
-						+ " The stairs go south or east");
+						+ " The stairs go south,north, and east");
 		threeStairsOne.setLookDownDescription(" The stairs glide along as you move up them.");
 		threeStairsOne.setLookUpDescription(" Moving back and forth, the stairs eerily glide over your head.");
 		mapArray[2][2] = threeStairsOne;
@@ -548,7 +545,7 @@ public class Map implements Serializable {
 
 		// Room 5, 2
 		threeMobRoomFiveEmptyRoom.setTitle("Empty Room");
-		threeMobRoomFiveEmptyRoom.setRoomDescription(" This is an empty room with an empty description.");
+		threeMobRoomFiveEmptyRoom.setRoomDescription(" This is an empty room with an empty description, but you can go south, east, or west.");
 		threeMobRoomFiveEmptyRoom.setLookDownDescription(" Empty floor for an empty room.");
 		threeMobRoomFiveEmptyRoom.setLookUpDescription(" Empty ceiling for an empty room.");
 		mapArray[5][2] = threeMobRoomFiveEmptyRoom;
@@ -560,7 +557,7 @@ public class Map implements Serializable {
 						+ " You double take. On the wall you see it."
 						+ " You're eyes glaze upon the figure. The caption of the painting states, \" For he who is worthy, they shall wield the Dependency Injection Staff of Jeremy \""
 						+ " You don't quite understand the picture, but it is magnificent."
-						+ " The stairs go south or east");
+						+ " The stairs go south or north");
 		threeStairsTwo.setLookDownDescription(" The stairs glide along as you move up them.");
 		threeStairsTwo.setLookUpDescription(" Moving back and forth, the stairs eerily glide over your head.");
 		mapArray[6][2] = threeStairsTwo;
@@ -591,7 +588,7 @@ public class Map implements Serializable {
 		// Room 9, 2
 		threeMobRoomEightHufflepuffCommonRoom.setTitle("Hufflepuff Common Room");
 		threeMobRoomEightHufflepuffCommonRoom
-				.setRoomDescription(" Hufflepuff things are in HufflePuffs room." + " What a weird name...");
+				.setRoomDescription(" Hufflepuff things are in HufflePuffs room." + " What a weird name..."+ "..... but you can go to the east or to the west");
 		threeMobRoomEightHufflepuffCommonRoom
 				.setLookDownDescription(" The floor is engraved with past leaders of HufflePuff."
 						+ " A majestic rug lines the floor in front of the fire place.");
@@ -655,7 +652,7 @@ public class Map implements Serializable {
 		fourMobRoomTwoRavenClawCommonRoom.setTitle("Ravenclaw Common Room");
 		fourMobRoomTwoRavenClawCommonRoom.setRoomDescription(" As you enter the room, a shout echoes from behind you."
 				+ " \"AVADA.. \" " + " Immediately you seize the door and slam it shut. "
-				+ " Casting a spell to seal the door. " + " South is the only way out.");
+				+ " Casting a spell to seal the door. " + " South or west are the only ways out.");
 		fourMobRoomTwoRavenClawCommonRoom.setLookDownDescription(
 				"The magestic Eagle, the symbol of Ravenclaw covers the ground as its all you can see.");
 		fourMobRoomTwoRavenClawCommonRoom.setLookUpDescription(
@@ -670,7 +667,7 @@ public class Map implements Serializable {
 						+ " You double take. On the wall you see it."
 						+ " You're eyes glaze upon the figure. The caption of the painting states, \" Netpaint for Dummies. \""
 						+ " You don't quite understand the picture, but it is magnificent."
-						+ " The stairs go west or North");
+						+ " The stairs go south or North");
 		this.mapArray[3][3] = fourStairsTwo;
 		fourStairsTwo.setLookDownDescription(" The stairs glide along as you move up them.");
 		fourStairsTwo.setLookUpDescription(" Moving back and forth, the stairs eerily glide over your head.");
@@ -678,7 +675,7 @@ public class Map implements Serializable {
 		// Room 4, 3
 		fourMobRoomThreeEmptyRoom.setTitle("Empty Room");
 		fourMobRoomThreeEmptyRoom.setRoomDescription(" The room is untouched. Everything is clean."
-				+ " Wow so clean. Much sparkle. Wow." + " It's also empty." + " The only way out is west and north.");
+				+ " Wow so clean. Much sparkle. Wow." + " It's also empty." + " The only way out is west, east, and north.");
 		this.mapArray[4][3] = fourMobRoomThreeEmptyRoom;
 		fourMobRoomThreeEmptyRoom.setLookDownDescription(
 				"This is a empty room. That is all Look I took away period for you. If you want important info look down. ");
@@ -724,7 +721,7 @@ public class Map implements Serializable {
 						+ " You double take. On the wall you see it."
 						+ " You're eyes glaze upon the figure. The caption of the painting states, \" THIS IS 335!\""
 						+ " You don't quite understand the picture, but it is magnificent."
-						+ " The stairs go west or North");
+						+ " The stairs go west back or east towards the slytherin bedrooms.");
 		this.mapArray[8][3] = fourStairsThree;
 		fourStairsThree.setLookDownDescription(" The stairs glide along as you move up them.");
 		fourStairsThree.setLookUpDescription(" Moving back and forth, the stairs eerily glide over your head.");
@@ -734,7 +731,7 @@ public class Map implements Serializable {
 		fourNPCRoomTwoProfessorTrudeauxRoom
 				.setRoomDescription(" Stacks of paper clog the room. Old prohecies it seems it seems."
 						+ " The floor is covered in from the outside. "
-						+ " There may be something I can learn from these stacks." + " The only exit is west.");
+						+ " There may be something I can learn from these stacks." + " The only exit is south.");
 		this.mapArray[9][3] = fourNPCRoomTwoProfessorTrudeauxRoom;
 		fourNPCRoomTwoProfessorTrudeauxRoom
 				.setLookDownDescription("I the ground predict that you will not be pleased with this description");
