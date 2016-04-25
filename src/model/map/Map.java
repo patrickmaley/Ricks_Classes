@@ -50,8 +50,10 @@ public class Map implements Serializable {
 		generateMobs();
 	}
 
-	public static Map setMap() {
-		if (uniqueInstance == null) {
+	public static Map setMap(Map savedMap) {
+		if(savedMap != null)
+			uniqueInstance = savedMap;
+		else if (uniqueInstance == null) {
 			uniqueInstance = new Map();
 		}
 		return uniqueInstance;

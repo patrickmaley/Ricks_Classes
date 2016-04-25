@@ -34,7 +34,7 @@ public class Player implements Serializable{
 		this.knownSpells = new ArrayList<Spell>();
 		this.inventory = new Inventory();
 		this.HP = 100;
-		this.playerMap = Map.setMap();
+		this.playerMap = Map.setMap(null);
 		this.currentRoom = playerMap.getMapArray()[9][0];
 		this.currentRoom.setPlayerPresent(true, this);
 		this.interaction = new Interactions(this);
@@ -147,8 +147,8 @@ public class Player implements Serializable{
 		this.inventory = new Inventory();
 		this.HP = 100;
 		this.interaction= new Interactions(this);
-		this.playerMap = Map.setMap();
-		this.setCurrentRoom(Map.setMap().getEntrance());
+		this.playerMap = Map.setMap(null);
+		this.setCurrentRoom(Map.setMap(null).getEntrance());
 		this.isDead = false;
 	}
 	

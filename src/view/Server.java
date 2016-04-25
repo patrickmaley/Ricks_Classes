@@ -7,12 +7,19 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-
 import java.util.Set;
+import java.util.TreeMap;
+
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 import model.map.Map;
 import model.player.Player;
@@ -30,12 +37,13 @@ public class Server {
 	public static final int SERVER_PORT = 4008;
 	private static ServerSocket sock;
 	private static List<ObjectOutputStream> clients = Collections.synchronizedList(new ArrayList<ObjectOutputStream>());
-	private static Map serverMap = Map.setMap();
-	private static PlayerList playerList = PlayerList.setList();
-	private static final String SAVED_MAP_LOCATION = "savedMap";
-	private static final String SAVED_PLAYERLIST_LOCATION = "savedPlayer";
+	private static Map serverMap;
+	private static PlayerList playerList;
+	private static final String SAVED_SERVER = "savedServer";
+	//private static final String SAVED_PLAYERLIST_LOCATION = "savedPlayer";
 	
 	private ArrayList<Player> loggedOnPlayers = new ArrayList<Player>();
+	
 	
 	/**
 	 * This is the main method which runs everything
@@ -47,20 +55,30 @@ public class Server {
 		System.out.println("Server started on port " + SERVER_PORT);
 		try {
 			// FileInputStream lets us read in data from a file.
-			FileInputStream fis = new FileInputStream(SAVED_MAP_LOCATION);
-			FileInputStream fis2 = new FileInputStream(SAVED_PLAYERLIST_LOCATION);
+			FileInputStream fis = new FileInputStream(SAVED_SERVER);
+			
 			// ObjectInputStream decorates a FileInputStream and adds functionality to read Objects.
 			ObjectInputStream ois = new ObjectInputStream(fis);
-			ObjectInputStream ois2 = new ObjectInputStream(fis2);
-			setServerMap((Map) ois.readObject());
-			setPlayerList((PlayerList) ois2.readObject());
+			Map test =(Map) ois.readObject();
+			Server.serverMap = Map.setMap(test);
+			PlayerList players = (PlayerList) ois.readObject();
+			Server.playerList = players;
 			
 			ois.close();
-			ois2.close();
 			fis.close();
-			fis2.close();
+			
 		} catch (Exception exception) {
-			//exception.printStackTrace();
+			exception.printStackTrace();
+		}
+		
+		if(Server.serverMap == null){
+			Server.serverMap = Map.setMap(null);
+		}
+		
+		if(playerList == null){
+			Server.playerList = PlayerList.setList();
+			
+			
 		}
 		
 		while(true) {
@@ -68,31 +86,12 @@ public class Server {
 
 			ObjectInputStream is = new ObjectInputStream(s.getInputStream());
 			ObjectOutputStream os = new ObjectOutputStream(s.getOutputStream());
-			
-			try {
-				// FileInputStream lets us read in data from a file.
-				FileInputStream fis = new FileInputStream(SAVED_MAP_LOCATION);
-				FileInputStream fis2 = new FileInputStream(SAVED_PLAYERLIST_LOCATION);
-				// ObjectInputStream decorates a FileInputStream and adds functionality to read Objects.
-				ObjectInputStream ois = new ObjectInputStream(fis);
-				ObjectInputStream ois2 = new ObjectInputStream(fis2);
-				setServerMap((Map) ois.readObject());
-				setPlayerList((PlayerList) ois2.readObject());
-				
-				ois.close();
-				ois2.close();
-				fis.close();
-				fis2.close();
-			} catch (Exception exception) {
-				exception.printStackTrace();
-			}
 
 			clients.add(os);
 			ClientHandler c = new ClientHandler(is, clients);
 			c.start();
 
 			System.out.println("Accepted a new connection from " + s.getInetAddress());
-			
 		}
 	}
 	
@@ -101,7 +100,7 @@ public class Server {
 		return serverMap;
 	}
 	public static void setServerMap(Map serverMap) {
-		Server.serverMap = serverMap;
+		 Server.serverMap = serverMap;
 	}
 	
 	public static PlayerList getPlayerList() {
@@ -123,30 +122,29 @@ public class Server {
 		return this.loggedOnPlayers;
 	}
 	
-	public static void saveState(){
-	// Save the data by creating a FileOuputStream to the file name above, then decorate it with an ObjectOuputStream
-	// then write out the StudentCollection instance to the file.
-		try {
-			// FileOutputStream lets us write data to a file.
-			FileOutputStream fos = new FileOutputStream(SAVED_MAP_LOCATION);
-			FileOutputStream fos2 = new FileOutputStream(SAVED_PLAYERLIST_LOCATION);
-			// ObjectOutputStream decorates a FileOutputStream and adds functionality to write Objects.
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			ObjectOutputStream oos2 = new ObjectOutputStream(fos2);
-			// Write out the collection as binary
-			// Also note that we are writing out only model classes, never write out view elements!
-
-		    oos.writeObject(Server.getServerMap());
-			oos2.writeObject(Server.getPlayerList());
-			oos.close();
-			oos2.close();
-			fos.close();
-			fos2.close();
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		}
-	}
-
+	public static  void saveState(){
+		// Save the data by creating a FileOuputStream to the file name above, then decorate it with an ObjectOuputStream
+		// then write out the StudentCollection instance to the file.
+			try {
+				// FileOutputStream lets us write data to a file.
+				FileOutputStream fos = new FileOutputStream(SAVED_SERVER);
+				// ObjectOutputStream decorates a FileOutputStream and adds functionality to write Objects.
+				ObjectOutputStream oos = new ObjectOutputStream(fos);
+				// Write out the collection as binary
+				// Also note that we are writing out only model classes, never write out view elements!
+				Map map = Server.getServerMap();
+				oos.writeObject(map);
+			    //oos.writeObject(Server.getServerMap());
+				PlayerList pl = Server.getPlayerList();
+				oos.writeObject(pl);
+				oos.close();
+				oos.flush();
+				fos.close();
+				fos.flush();
+			} catch (Exception exception) {
+				exception.printStackTrace();
+			}
+	  }
 }
 
 
@@ -154,6 +152,7 @@ class ClientHandler extends Thread {
 
 	private ObjectInputStream input;
 	private List<ObjectOutputStream> clients;
+	private PlayerList test = PlayerList.setList();
 	/**
 	 * 
 	 * @param input
@@ -170,25 +169,74 @@ class ClientHandler extends Thread {
 	 */
 	public void run() {
 		while (true) {
+			
 			Player player = null;
-			Map map =  null;
+			//Map map =  null;
 			try {
-				player = (Player) input.readObject();
-				map = (Map) input.readObject();
-				Server.setServerMap(map);
-				Player returningPlayer = null;
+				String name = (String) input.readObject();
+				char[] pass = (char[]) input.readObject();
+				Player savePlayer = (Player) input.readObject();
+				//System.out.println("Username" + savePlayer.getUsername());
+				Map saveMap = (Map) input.readObject();
 				
-				//Only for new players
-				if(player.getGameName() == null && !Server.getPlayerList().getCurrentList().containsKey(player.getUsername())){
-					Server.getPlayerList().newPlayer(player);
-					returningPlayer = Server.getPlayerList().getCurrentList().get(player.getUsername());
-				}else{
-					Server.getPlayerList().getCurrentList().replace(player.getUsername(), player);
-					returningPlayer = Server.getPlayerList().getCurrentList().get(player.getUsername());
+				PlayerList testList = Server.getPlayerList();
+				if(savePlayer != null){
+					Player oldPlayer = Server.getPlayerList().getCurrentList().get(savePlayer.getUsername());
+					System.out.println("Old room" + oldPlayer.getRoom());
 					
+					oldPlayer = Server.getPlayerList().getCurrentList().put(savePlayer.getUsername(), savePlayer);
+					System.out.println("New room" + oldPlayer.getRoom());
+					oldPlayer = Server.getPlayerList().getCurrentList().get(savePlayer.getUsername());
+					System.out.println("New room" + oldPlayer.getRoom());
 				}
-				writeObjectToClients(returningPlayer);
-				writeObjectToClients(map);
+				if(saveMap != null){
+					Server.setServerMap(saveMap);
+				}
+				if(name != null && pass != null){
+
+					if(Server.getPlayerList().getCurrentList().size() > 0  && Server.getPlayerList().getCurrentList().containsKey(name)){
+						Player savedPlayer = Server.getPlayerList().getCurrentList().get(name);
+						try {
+							if(savedPlayer.checkPassword(pass)){
+								writePlayerToClients(savedPlayer);
+							}else{
+								writePlayerToClients(savedPlayer);
+								writePlayerToClients(Server.getServerMap());
+							}
+						} catch (NoSuchAlgorithmException | NoSuchProviderException e) {
+							e.printStackTrace();
+						}
+					}else{
+						JTextField gameName = new JTextField();
+						JTextField houseName = new JTextField();
+						final JComponent[] inputs = new JComponent[] {
+								new JLabel("Please enter your game name:"),
+								gameName,
+								new JLabel("Please enter your house name"),
+								houseName
+						};
+						
+						JOptionPane.showMessageDialog(null, inputs, "Character Information", JOptionPane.PLAIN_MESSAGE);
+						try {
+							player = new Player(name, pass);
+						} catch (NoSuchAlgorithmException | NoSuchProviderException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						player.setGameName(gameName.getText());
+						player.setHouse(houseName.getText());
+						Server.getPlayerList().getCurrentList().put(player.getUsername(), player);
+						writePlayerToClients(player);
+						writePlayerToClients(Server.getServerMap());
+					}
+				}else{
+					writePlayerToClients(savePlayer);
+					writePlayerToClients(Server.getServerMap());
+				}
+				
+				Server.saveState();
+				savePlayer = null;
+				saveMap = null;
 			} catch (IOException e) {
 				/* Client left -- clean up and let the thread die */
 				this.cleanUp();
@@ -203,12 +251,13 @@ class ClientHandler extends Thread {
 		}
 	}
 	
-	private void writeObjectToClients(Object s) {
+	private void writePlayerToClients(Object s) {
 		synchronized (clients) {
 			Set<ObjectOutputStream> closed = new HashSet<>();
 			for (ObjectOutputStream client : clients) {
 				System.out.println("Writing the Player" + s + " to a client.");
 				try {
+					
 					client.writeObject(s);
 					client.reset();
 				} catch (IOException e) {
