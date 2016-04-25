@@ -236,6 +236,15 @@ public class Client extends JFrame{
 					}
 					System.out.println("Listener room" + Client.this.newPlayer.getRoom());
 					Client.this.playerMap =  (Map)ois.readObject();
+					String hello = (String)ois.readObject();
+					
+					if(hello.compareTo("") != 0){
+						if(hello.contains("GlobalChat:")){
+							Client.this.gameTextArea.append(hello);
+						}else if(player.getRoom().getRoomDescription().compareTo(Client.this.newPlayer.getRoom().getRoomDescription())==0){
+							Client.this.gameTextArea.append(hello);
+						}
+					}
 				}
 			} catch (IOException e) {
 				Client.this.cleanUpAndQuit("The server hung up on us. Exiting...");
@@ -275,23 +284,11 @@ public class Client extends JFrame{
 					e1.printStackTrace();
 				}
 				cleanUpAndQuit("Do you really want to quit?");
-			}else if(firstWord[0].compareTo("shutdown")==0){
+			}else if(firstWord[0].compareTo("shutdown")==0 ||
+					firstWord[0].compareTo("say")==0 ||
+					firstWord[0].compareTo("global")==0){
 				String[] commandsd = command.split("\\s+");
 				if(commandsd[1] != null){
-					try {
-						oos.writeObject("");
-						oos.writeObject(null);
-						oos.writeObject(null);
-						Map map = Client.this.newPlayer.getPlayerMap();
-						oos.writeObject(map);
-						oos.writeObject(commandsd);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-			}else if(firstWord[0].compareTo("say")==0){
-				String[] commandsd = command.split("\\s+");
 					try {
 						oos.writeObject("");
 						oos.writeObject(null);
@@ -300,10 +297,9 @@ public class Client extends JFrame{
 						oos.writeObject(map);
 						oos.writeObject(commandsd);
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-				
+				}
 			}else{
 			    descriptions = Client.this.newPlayer.performAction(command);
 				if(descriptions != null){

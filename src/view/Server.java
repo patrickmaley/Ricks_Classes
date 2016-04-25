@@ -181,6 +181,7 @@ class ClientHandler extends Thread {
 		while (true) {
 			
 			Player player = null;
+			String playerText = "";
 			//Map map =  null;
 			try {
 				String name = (String) input.readObject();
@@ -199,25 +200,38 @@ class ClientHandler extends Thread {
 										System.exit(1);
 							}
 							break;
-						case "say": System.out.println("hello");
+						case "say": 
+							playerText += savePlayer.getUsername().toString() + ": ";
+							for (int i = 1; i < commandsd.length; i++) {
+								playerText += commandsd[i] + " ";
+							}
+							playerText += "\n";
+							break;
+						case "global": 
+							playerText += "GlobalChat: PlayerName:" +savePlayer.getUsername().toString() + ": ";
+							for (int i = 1; i < commandsd.length; i++) {
+								playerText += commandsd[i] + " ";
+							}
+							playerText += "\n";
+							break;
 						default: break;
 					}
 					
 				}
 				if(savePlayer != null){
 					Player oldPlayer = Server.getPlayerList().getCurrentList().get(savePlayer.getUsername());
-					System.out.println("Old room" + oldPlayer.getRoom());
+					//System.out.println("Old room" + oldPlayer.getRoom());
 					
 					oldPlayer = Server.getPlayerList().getCurrentList().put(savePlayer.getUsername(), savePlayer);
-					System.out.println("New room" + oldPlayer.getRoom());
+					//System.out.println("New room" + oldPlayer.getRoom());
 					oldPlayer = Server.getPlayerList().getCurrentList().get(savePlayer.getUsername());
-					System.out.println("New room" + oldPlayer.getRoom());
+					//System.out.println("New room" + oldPlayer.getRoom());
 				}
 				if(saveMap != null){
-					Server.setServerMap(saveMap);
+					//Server.setServerMap(saveMap);
+					Server.getServerMap().setMap(saveMap);
 				}
 				if(name != null && pass != null){
-
 					if(Server.getPlayerList().getCurrentList().size() > 0  && Server.getPlayerList().getCurrentList().containsKey(name)){
 						Player savedPlayer = Server.getPlayerList().getCurrentList().get(name);
 						try {
@@ -271,7 +285,7 @@ class ClientHandler extends Thread {
 					writePlayerToClients(savePlayer);
 					writePlayerToClients(Server.getServerMap());
 				}
-				
+				writePlayerToClients(playerText);
 				Server.saveState();
 				savePlayer = null;
 				saveMap = null;
