@@ -18,7 +18,7 @@ public class MobsTest {
 	public Player p;
 	GenericRoom[][] arrayMap;
 	public void setup(){
-		map =  Map.setMap();
+		map =  Map.setMap(null);
 		char[] a = {'a','b','c'};
 		try {
 			p = new Player("Joe", a);

@@ -11,11 +11,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -33,15 +32,12 @@ import model.player.Player;
 public class Client extends JFrame{
 	private static final String ADDRESS = "localhost";
 	private final Dimension STATUS_PANEL_DIMENSION = new Dimension(200, 575);
-	private final String GAME_COMMANDS = "After logging in please enter your name and house for new characters. \n\nCommand List:\n"
-			+ "Look\n"
+	private final String GAME_COMMANDS = "After logging in please enter your name and house for new characters. \n\n           Command List\n"
+			+ "    Movement: \nNorth, South, East, West\n"
+			+ "    Interactions:\nLook: Look or Look <arg>\n"
 			+ "Take\n"
 			+ "Up\n"
 			+ "Down\n"
-			+ "North\n"
-			+ "South\n"
-			+ "East\n"
-			+ "West\n"
 			+ "Use\n"
 			+ "Quit\n";
 	private final String TEXT_BREAK ="------------------------------------------------------------------------------------------------------------\n";
@@ -69,21 +65,17 @@ public class Client extends JFrame{
 	private JPasswordField passwordText = new JPasswordField();
 	private JButton signInButton = new JButton("Sign In");
 	//private JButton signOutButton = new JButton("Sign Out");
-	
+	Font displayFont = new Font("AngsanaUPC", 1, 14);
 	//private String dragonTitle = "\t\tDragon\n";
 	private Player newPlayer = null;
 	
 	public static void main(String[] args) {
 		new Client().setVisible(true);
+		
 	}
 	
 	public Client(){
 		openConnection();
-		frameProperties();
-		new ServerListener().start();
-	}
-	
-	private void frameProperties() {
 		setTitle("9 3/4 Jump Street: Hogwarts");
 		setLayout(new FlowLayout());
 		//setPreferredSize(new Dimension(450, 110));
@@ -93,33 +85,34 @@ public class Client extends JFrame{
 		//setResizable(false);
 		getContentPane().setBackground(new Color(8, 2, 50));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//Adds all the components to the JFrame
-		addComponents();
+		signInFrame();
+		
+		new ServerListener().start();
+		
+//		try {
+//			//oos.writeObject(Client.this.newPlayer);
+//			oos.writeObject(Client.this.playerMap);
+//		} catch (IOException e1) {
+//			e1.printStackTrace();
+//		}
 	}
 	
-
-	
-	private void addComponents() {
-		Font displayFont = new Font("AngsanaUPC", 1, 14);
-		
+	private void signInFrame() {
+		setLayout(new FlowLayout());
+		//setPreferredSize(new Dimension(450, 110));
+		setSize(800, 650);
+		setLocation(0,0);
 		//Sets up the sign In Panel where the user inputs information
 		JLabel userNameLabel = new JLabel("User Name");
 		JLabel passwordLabel = new JLabel("Password  ");
-		JLabel gameNameLabel = new JLabel("Game Name");
-		JLabel gameHouseLabel = new JLabel("House Name");
+		
 		userNameLabel.setForeground(new Color(59, 58, 54));
 		userNameLabel.setLabelFor(signInText);
 		userNameLabel.setFont(displayFont);
 		passwordLabel.setForeground(new Color(59, 58, 54));
 		passwordLabel.setLabelFor(passwordText);
 		passwordLabel.setFont(displayFont);	
-		gameNameLabel.setForeground(new Color(59, 58, 54));
-		gameNameLabel.setLabelFor(gameNameText);
-		gameNameLabel.setFont(displayFont);	
-		gameHouseLabel.setForeground(new Color(59, 58, 54));
-		gameHouseLabel.setLabelFor(gameHouseText);
-		gameHouseLabel.setFont(displayFont);	
-		
+	
 		signInPanel.setPreferredSize(STATUS_PANEL_DIMENSION);
 		signInPanel.add(userNameLabel);
 		signInText.setPreferredSize(new Dimension(100, 25));
@@ -128,8 +121,26 @@ public class Client extends JFrame{
 		passwordText.setPreferredSize(new Dimension(100, 25));
         signInPanel.add(passwordText);
         signInPanel.add(this.signInButton);
-       // signInPanel.add(this.signOutButton);
-        signInPanel.setBackground(new Color(192, 142, 45));
+        add(signInPanel);
+        
+        signInButton.addActionListener(new SignInListener()); 
+	}
+
+	private void frameProperties() {
+		addComponents();
+	}
+	
+	private void addComponents() {
+		JLabel gameNameLabel = new JLabel("Game Name");
+		JLabel gameHouseLabel = new JLabel("House Name");
+		gameNameLabel.setForeground(new Color(59, 58, 54));
+		gameNameLabel.setLabelFor(gameNameText);
+		gameNameLabel.setFont(displayFont);	
+		gameHouseLabel.setForeground(new Color(59, 58, 54));
+		gameHouseLabel.setLabelFor(gameHouseText);
+		gameHouseLabel.setFont(displayFont);	
+		signInPanel.removeAll();
+		signInPanel.setBackground(new Color(192, 142, 45));
         signInInstructions.setText(GAME_COMMANDS);
         signInInstructions.setPreferredSize(new Dimension(175, 400));
         signInInstructions.setBackground(new Color(192, 142, 45));
@@ -139,12 +150,12 @@ public class Client extends JFrame{
         signInPanel.add(signInInstructions);
         gameNameText.setPreferredSize(new Dimension(100, 25));
         gameNameText.setEditable(false);
-        signInPanel.add(gameNameLabel);
-        signInPanel.add(gameNameText);
-        gameHouseText.setPreferredSize(new Dimension(100, 25));
-        gameHouseText.setEditable(false);
-        signInPanel.add(gameHouseLabel);
-        signInPanel.add(gameHouseText);
+        //signInPanel.add(gameNameLabel);
+        //signInPanel.add(gameNameText);
+        //gameHouseText.setPreferredSize(new Dimension(100, 25));
+        //gameHouseText.setEditable(false);
+        //signInPanel.add(gameHouseLabel);
+        //signInPanel.add(gameHouseText);
         add(signInPanel);
 		
         //Set panel for second column
@@ -173,7 +184,7 @@ public class Client extends JFrame{
 		TitledBorder title;
 		title = BorderFactory.createTitledBorder("Player Commands");
 		playerTextArea.setBorder(title);
-		playerTextArea.setEditable(false);
+		playerTextArea.setEditable(true);
 		playerTextArea.setPreferredSize(new Dimension(450,50));
 		textPanel.add(playerTextArea);
 		
@@ -187,7 +198,7 @@ public class Client extends JFrame{
 		//Add all components to the frame and set actionlistener
 		add(textPanel);
 		playerTextArea.addActionListener(new textBoxListener());
-		signInButton.addActionListener(new SignInListener());
+		
 		//signOutButton.addActionListener(new SignOutListener());
 		gameNameText.addActionListener(new gameNameTextListener());
 		gameHouseText.addActionListener(new gameHouseTextListener());
@@ -204,19 +215,26 @@ public class Client extends JFrame{
 		}
 	}
 
-	private class ServerListener extends Thread {	
+	private class ServerListener extends Thread {
 		@Override
 		public void run() {
 			try {
 				while (true){
 					Player player = (Player) ois.readObject();
-					if(Client.this.newPlayer == null){
-						Client.this.newPlayer =  player;
+					//If the client is new, then this loads up the first player
+					if(player != null && Client.this.newPlayer == null){
+						Client.this.newPlayer = player;
+						//Client.this.newPlayer.setPlayerRoom(player);
 						Client.this.gameTextArea.append("You wake up after taking a nap outside of Hogwarts." + "\n");
 						Client.this.gameTextArea.append(TEXT_BREAK);
 					}
-					if(player.getGameName() != null && Client.this.newPlayer.getGameName() != null && player.getGameName().compareTo(Client.this.newPlayer.getGameName())== 0)
-						Client.this.newPlayer =  player;
+					
+					//Sets the player to the updated version
+					if(player != null && player.getUsername().compareTo(Client.this.newPlayer.getUsername()) ==0){
+						Client.this.newPlayer = player;
+						//Client.this.newPlayer.setPlayerRoom(player);
+					}
+					System.out.println("Listener room" + Client.this.newPlayer.getRoom());
 					Client.this.playerMap =  (Map)ois.readObject();
 				}
 			} catch (IOException e) {
@@ -227,7 +245,6 @@ public class Client extends JFrame{
 		}
 
 	}
-	
 	private void cleanUpAndQuit(String message) {
 		JOptionPane.showMessageDialog(this, message);
 		try {
@@ -239,13 +256,22 @@ public class Client extends JFrame{
 		}
 		Client.this.dispatchEvent(new WindowEvent(Client.this,WindowEvent.WINDOW_CLOSING));
 	}
-	
 	private class textBoxListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String command = playerTextArea.getText().toLowerCase();
 			String descriptions = null;
 			if(command.compareTo("quit")== 0){
+				try {
+					oos.writeObject("");
+					oos.writeObject(null);
+					oos.writeObject(Client.this.newPlayer);
+					Map map = Client.this.newPlayer.getPlayerMap();
+					oos.writeObject(map);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				cleanUpAndQuit("Do you really want to quit?");
 			}else{
 			    descriptions = Client.this.newPlayer.performAction(command);
@@ -257,6 +283,7 @@ public class Client extends JFrame{
 					Client.this.gameTextArea.append(TEXT_BREAK);
 				}
 			}
+			
 			//Auto updates the scrollpane to the last description
 			gameTextArea.setCaretPosition(gameTextArea.getDocument().getLength());
 			
@@ -266,8 +293,12 @@ public class Client extends JFrame{
 			playerTextArea.setText("");
 			
 			try {
+				oos.writeObject("");
+				oos.writeObject(null);
+				System.out.println("In client " + Client.this.newPlayer.getRoom());
 				oos.writeObject(Client.this.newPlayer);
-				oos.writeObject(playerMap);
+				Map map = Client.this.playerMap;
+				oos.writeObject(map);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -299,21 +330,22 @@ public class Client extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			String userName = signInText.getText();
 			char[] password = passwordText.getPassword();
-			Player player = null;
-			
 			try {
-				 player = new Player(userName, password);
-			} catch (NoSuchAlgorithmException | NoSuchProviderException e1) {
-				e1.printStackTrace();
-			}
-			try {
-				oos.writeObject(player);
-				oos.writeObject(playerMap);
+				oos.writeObject(userName);
+				oos.writeObject(password);
+				oos.writeObject(null);
+				oos.writeObject(null);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-			gameNameText.setEditable(true);
-			gameHouseText.setEditable(true);
+
+			
+			//Removes all components from a the Jframe and sets up the new Window
+			getContentPane().removeAll();
+			frameProperties();
+			
+			revalidate();
+			getContentPane().repaint();
 		}	
 	}
 }
