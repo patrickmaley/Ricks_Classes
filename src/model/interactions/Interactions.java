@@ -121,7 +121,7 @@ public class Interactions implements Serializable {
 
 	private String information() {
 		return "There is no score in this game. God not everything is about winning and losing, but here is some of you information" + "\n" +
-				"Your HP : "+this.player.getHP() + "\n" + "Your known spells: " + this.player.getKnownSpells().toString() + "\n" + "Your Inventory: " +
+				"Your HP : "+this.player.getHP() + "\n" + "Your known spells: " + this.player.getKnownSpellsToString() + "\n" + "Your Inventory: " +
 				this.player.getInventory().toString();
 		
 	}
@@ -152,8 +152,13 @@ public class Interactions implements Serializable {
 			if(player.getRoom().getitemsInRoom().size()!=0){
 				ArrayList<Item> itemsinRoom = player.getRoom().getitemsInRoom();
 				for(int i=0; i< itemsinRoom.size(); i++){
-					withItemsAndMobs += itemsinRoom.get(i).getForLookDescription() + ", ";
+					if(itemsinRoom.size()>1){
+					withItemsAndMobs += itemsinRoom.get(i).getForLookDescription() + ", and ";
 				}
+					else{
+						withItemsAndMobs += itemsinRoom.get(i).getForLookDescription();
+					}
+				}	
 			}
 			if(player.getRoom().getMobsPresent()){
 				ArrayList<Item> mobsinRoom = player.getRoom().getitemsInRoom();

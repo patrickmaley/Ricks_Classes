@@ -118,6 +118,13 @@ public class Player implements Serializable{
 		return this.knownSpells;
 	}
 	
+	public String getKnownSpellsToString(){
+		String toReturn = "";
+		for(int i=0;i<this.knownSpells.size();i++){
+			toReturn += this.knownSpells.get(i).getName() + " ";
+		}
+		return toReturn;
+	}
 	//Returns the user's house
 	public String getHouse(){
 		return this.house;
