@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Dimension;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -14,11 +15,12 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeMap;
 
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import model.map.Map;
@@ -40,6 +42,7 @@ public class Server {
 	private static Map serverMap;
 	private static PlayerList playerList;
 	private static final String SAVED_SERVER = "savedServer";
+	private static final int SERVER_KEY = 123450;
 	//private static final String SAVED_PLAYERLIST_LOCATION = "savedPlayer";
 	
 	private ArrayList<Player> loggedOnPlayers = new ArrayList<Player>();
@@ -145,6 +148,13 @@ public class Server {
 				exception.printStackTrace();
 			}
 	  }
+	
+	public static boolean shutDownKey(int test){
+		if(Server.SERVER_KEY % 10 == test % 10){
+			return true;
+		}
+		return false;
+	}
 }
 
 
@@ -178,8 +188,22 @@ class ClientHandler extends Thread {
 				Player savePlayer = (Player) input.readObject();
 				//System.out.println("Username" + savePlayer.getUsername());
 				Map saveMap = (Map) input.readObject();
-				
-				PlayerList testList = Server.getPlayerList();
+				String[] commandsd = (String[]) input.readObject();
+				//PlayerList testList = Server.getPlayerList();
+				if(commandsd != null){
+					switch(commandsd[0]){
+						case "shutdown":
+							if(Server.shutDownKey(Integer.parseInt(commandsd[1]))){
+										Server.saveState();
+										//closeAllClients();
+										System.exit(1);
+							}
+							break;
+						case "say": System.out.println("hello");
+						default: break;
+					}
+					
+				}
 				if(savePlayer != null){
 					Player oldPlayer = Server.getPlayerList().getCurrentList().get(savePlayer.getUsername());
 					System.out.println("Old room" + oldPlayer.getRoom());
@@ -209,14 +233,27 @@ class ClientHandler extends Thread {
 					}else{
 						JTextField gameName = new JTextField();
 						JTextField houseName = new JTextField();
+						JTextArea characterDescription = new JTextArea();
+						characterDescription.setPreferredSize(new Dimension(100, 150));
+						characterDescription.setLineWrap(true);
+						characterDescription.setWrapStyleWord(true);
 						final JComponent[] inputs = new JComponent[] {
 								new JLabel("Please enter your game name:"),
 								gameName,
 								new JLabel("Please enter your house name"),
-								houseName
+								houseName,
+								new JLabel("Please enter your character description"),
+								characterDescription
 						};
 						
-						JOptionPane.showMessageDialog(null, inputs, "Character Information", JOptionPane.PLAIN_MESSAGE);
+						JOptionPane optionPane = new JOptionPane(inputs);
+						
+						JDialog dialog = optionPane.createDialog("Character Information");
+						
+						dialog.setAlwaysOnTop(true);
+						dialog.setModal(true);
+						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+						dialog.setVisible(true);
 						try {
 							player = new Player(name, pass);
 						} catch (NoSuchAlgorithmException | NoSuchProviderException e) {
@@ -225,6 +262,7 @@ class ClientHandler extends Thread {
 						}
 						player.setGameName(gameName.getText());
 						player.setHouse(houseName.getText());
+						player.setDescription(characterDescription.getText());
 						Server.getPlayerList().getCurrentList().put(player.getUsername(), player);
 						writePlayerToClients(player);
 						writePlayerToClients(Server.getServerMap());
@@ -257,7 +295,6 @@ class ClientHandler extends Thread {
 			for (ObjectOutputStream client : clients) {
 				System.out.println("Writing the Player" + s + " to a client.");
 				try {
-					
 					client.writeObject(s);
 					client.reset();
 				} catch (IOException e) {
@@ -267,6 +304,19 @@ class ClientHandler extends Thread {
 					 */
 					closed.add(client);
 				}
+			}
+			/* Remove closed connections from the list */
+			clients.removeAll(closed);
+		}
+	}
+	
+	private void closeAllClients() {
+		synchronized (clients) {
+			Set<ObjectOutputStream> closed = new HashSet<>();
+			for (ObjectOutputStream client : clients) {
+				//System.out.println("Writing the Player" + s + " to a client.");
+				closed.add(client);
+				
 			}
 			/* Remove closed connections from the list */
 			clients.removeAll(closed);

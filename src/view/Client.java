@@ -14,7 +14,6 @@ import java.net.Socket;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -68,6 +67,7 @@ public class Client extends JFrame{
 	Font displayFont = new Font("AngsanaUPC", 1, 14);
 	//private String dragonTitle = "\t\tDragon\n";
 	private Player newPlayer = null;
+	
 	
 	public static void main(String[] args) {
 		new Client().setVisible(true);
@@ -200,8 +200,8 @@ public class Client extends JFrame{
 		playerTextArea.addActionListener(new textBoxListener());
 		
 		//signOutButton.addActionListener(new SignOutListener());
-		gameNameText.addActionListener(new gameNameTextListener());
-		gameHouseText.addActionListener(new gameHouseTextListener());
+		//gameNameText.addActionListener(new gameNameTextListener());
+		//gameHouseText.addActionListener(new gameHouseTextListener());
 	}
 	
 	private void openConnection() {
@@ -260,19 +260,50 @@ public class Client extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String command = playerTextArea.getText().toLowerCase();
+			String[] firstWord = command.split("\\s+");
 			String descriptions = null;
-			if(command.compareTo("quit")== 0){
+			if(firstWord[0].compareTo("quit")== 0){
 				try {
 					oos.writeObject("");
 					oos.writeObject(null);
 					oos.writeObject(Client.this.newPlayer);
 					Map map = Client.this.newPlayer.getPlayerMap();
 					oos.writeObject(map);
+					oos.writeObject(null);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				cleanUpAndQuit("Do you really want to quit?");
+			}else if(firstWord[0].compareTo("shutdown")==0){
+				String[] commandsd = command.split("\\s+");
+				if(commandsd[1] != null){
+					try {
+						oos.writeObject("");
+						oos.writeObject(null);
+						oos.writeObject(null);
+						Map map = Client.this.newPlayer.getPlayerMap();
+						oos.writeObject(map);
+						oos.writeObject(commandsd);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}else if(firstWord[0].compareTo("say")==0){
+				String[] commandsd = command.split("\\s+");
+					try {
+						oos.writeObject("");
+						oos.writeObject(null);
+						oos.writeObject(Client.this.newPlayer);
+						Map map = Client.this.newPlayer.getPlayerMap();
+						oos.writeObject(map);
+						oos.writeObject(commandsd);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				
 			}else{
 			    descriptions = Client.this.newPlayer.performAction(command);
 				if(descriptions != null){
@@ -299,6 +330,7 @@ public class Client extends JFrame{
 				oos.writeObject(Client.this.newPlayer);
 				Map map = Client.this.playerMap;
 				oos.writeObject(map);
+				oos.writeObject(null);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -306,24 +338,24 @@ public class Client extends JFrame{
 		}
 	}
 	
-	private class gameNameTextListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			String gameName = gameNameText.getText();
-			Client.this.newPlayer.setGameName(gameName);
-			gameNameText.setEditable(false);
-			playerTextArea.setEditable(true);
-		}
-	}
+//	private class gameNameTextListener implements ActionListener {
+//		@Override
+//		public void actionPerformed(ActionEvent e) {
+//			String gameName = gameNameText.getText();
+//			Client.this.newPlayer.setGameName(gameName);
+//			gameNameText.setEditable(false);
+//			playerTextArea.setEditable(true);
+//		}
+//	}
 	
-	private class gameHouseTextListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			String gameHouse = gameHouseText.getText();
-			Client.this.newPlayer.setHouse(gameHouse);
-			gameHouseText.setEditable(false);
-		}
-	}
+//	private class gameHouseTextListener implements ActionListener {
+//		@Override
+//		public void actionPerformed(ActionEvent e) {
+//			String gameHouse = gameHouseText.getText();
+//			Client.this.newPlayer.setHouse(gameHouse);
+//			gameHouseText.setEditable(false);
+//		}
+//	}
 	
 	private class SignInListener implements ActionListener {
 		@Override
@@ -335,15 +367,14 @@ public class Client extends JFrame{
 				oos.writeObject(password);
 				oos.writeObject(null);
 				oos.writeObject(null);
+				oos.writeObject(null);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
 
-			
 			//Removes all components from a the Jframe and sets up the new Window
 			getContentPane().removeAll();
 			frameProperties();
-			
 			revalidate();
 			getContentPane().repaint();
 		}	
