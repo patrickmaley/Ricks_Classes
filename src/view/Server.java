@@ -45,7 +45,7 @@ public class Server {
 	private static final int SERVER_KEY = 123450;
 	//private static final String SAVED_PLAYERLIST_LOCATION = "savedPlayer";
 	
-	private ArrayList<Player> loggedOnPlayers = new ArrayList<Player>();
+	private static ArrayList<Player> loggedOnPlayers = new ArrayList<Player>();
 	
 	
 	/**
@@ -113,16 +113,16 @@ public class Server {
 		playerList = players;
 	}
 	
-	public void addPlayer(Player player) {
-		this.loggedOnPlayers.add(player);
+	public static void addPlayer(Player player) {
+		loggedOnPlayers.add(player);
 	}
-	public void removePlayer(Player player) {
-		if(this.loggedOnPlayers.contains(player))	
-			this.loggedOnPlayers.remove(player);
+	public static void removePlayer(Player player) {
+		if(loggedOnPlayers.contains(player))	
+			loggedOnPlayers.remove(player);
 	}
 	
-	public  ArrayList<Player> getLoggedOnPlayers() {
-		return this.loggedOnPlayers;
+	public static ArrayList<Player> getLoggedOnPlayers() {
+		return loggedOnPlayers;
 	}
 	
 	public static  void saveState(){
@@ -224,6 +224,17 @@ class ClientHandler extends Thread {
 							}
 							playerText += "\n";
 							break;
+						case "who":
+							playerText += "Players on server: ";
+							ArrayList<Player> playersOnServer = Server.getLoggedOnPlayers();
+							for (Player logPlayer : playersOnServer) {
+								playerText += logPlayer.getUsername() + " ";
+							}
+							playerText += "\n";
+							break;
+						case "quit":
+							Server.removePlayer(savePlayer);
+							break;
 						default: break;
 					}
 					
@@ -249,6 +260,7 @@ class ClientHandler extends Thread {
 						Player foundPlayer = Server.getPlayerList().getCurrentList().get(name);
 						try {
 							if(foundPlayer.checkPassword(pass)){
+								Server.addPlayer(foundPlayer);
 								writePlayerToClients(foundPlayer);
 								writePlayerToClients(Server.getServerMap());
 								System.out.println("Password Authentication works");
@@ -293,6 +305,7 @@ class ClientHandler extends Thread {
 						player.setGameName(gameName.getText());
 						player.setHouse(houseName.getText());
 						player.setDescription(characterDescription.getText());
+						Server.addPlayer(player);
 						Server.getPlayerList().getCurrentList().put(player.getUsername(), player);
 						writePlayerToClients(player);
 						writePlayerToClients(Server.getServerMap());

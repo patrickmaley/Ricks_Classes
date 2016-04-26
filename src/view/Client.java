@@ -33,12 +33,23 @@ public class Client extends JFrame{
 	private final Dimension STATUS_PANEL_DIMENSION = new Dimension(200, 575);
 	private final String GAME_COMMANDS = "After logging in please enter your name and house for new characters. \n\n           Command List\n"
 			+ "    Movement: \nNorth, South, East, West\n"
-			+ "    Interactions:\nLook: Look or Look <arg>\n"
-			+ "Take\n"
+			+ "    Interactions:\n"
+			+ "Look: Look or Look <arg>\n"
+			+ "Take: Take <item>\n"
+			+ "Drop <item>"
 			+ "Up\n"
 			+ "Down\n"
-			+ "Use\n"
-			+ "Quit\n";
+			+ "Use <item>\n"
+			+ "Quit\n"
+			+ "    Chat Commands:\n "
+			+ "say <message>\n"
+			+ "tell <player name><message>\n"
+			+ "ooc <message>"
+			+ "	   Miscellaneous:\n"
+			+ "who"
+			+ "score"
+			+ "inventory"
+			+ "";
 	private final String TEXT_BREAK ="------------------------------------------------------------------------------------------------------------\n";
 	
 	private JPanel textPanel = new JPanel();
@@ -303,7 +314,7 @@ public class Client extends JFrame{
 					oos.writeObject(Client.this.newPlayer);
 					Map map = Client.this.newPlayer.getPlayerMap();
 					oos.writeObject(map);
-					oos.writeObject(null);
+					oos.writeObject("quit");
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -312,16 +323,17 @@ public class Client extends JFrame{
 			}else if(firstWord[0].compareTo("shutdown")==0 ||
 					firstWord[0].compareTo("say")==0 ||
 					firstWord[0].compareTo("ooc")==0 ||
-					firstWord[0].compareTo("tell")==0){
-				String[] commandsd = command.split("\\s+");
-				if(commandsd[1] != null){
+					firstWord[0].compareTo("tell")==0 ||
+					firstWord[0].compareTo("who")==0){
+				String[] commandArray = command.split("\\s+");
+				if(firstWord[0].compareTo("who") == 0 ||commandArray[1] != null){
 					try {
 						oos.writeObject("");
 						oos.writeObject(null);
 						oos.writeObject(Client.this.newPlayer);
 						Map map = Client.this.newPlayer.getPlayerMap();
 						oos.writeObject(map);
-						oos.writeObject(commandsd);
+						oos.writeObject(commandArray);
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
