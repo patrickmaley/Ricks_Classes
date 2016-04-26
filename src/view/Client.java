@@ -221,8 +221,16 @@ public class Client extends JFrame{
 			try {
 				while (true){
 					Player player = (Player) ois.readObject();
+					if(player == null){
+						JOptionPane.showMessageDialog(Client.this, "Password incorrect!!!!");
+					}
 					//If the client is new, then this loads up the first player
 					if(player != null && Client.this.newPlayer == null){
+						Client.this.getContentPane().removeAll();
+						Client.this.frameProperties();
+						Client.this.revalidate();
+						Client.this.getContentPane().repaint();
+						
 						Client.this.newPlayer = player;
 						//Client.this.newPlayer.setPlayerRoom(player);
 						Client.this.gameTextArea.append("You wake up after taking a nap outside of Hogwarts." + "\n");
@@ -236,9 +244,12 @@ public class Client extends JFrame{
 						//Client.this.playerMap = player.getPlayerMap();
 						//Client.this.newPlayer.setPlayerRoom(player);
 					}
-					System.out.println("Listener Map" + Client.this.newPlayer.getPlayerMap());
+					
+					//System.out.println("Listener Map" + Client.this.newPlayer.getPlayerMap());
 					Map playersmap = (Map)ois.readObject();
-					Client.this.newPlayer.setPlayerMap(player.getPlayerMap()); //=  (Map)ois.readObject();
+					if(playersmap != null && Client.this.newPlayer != null)
+						Client.this.newPlayer.setPlayerMap(player.getPlayerMap()); //=  (Map)ois.readObject();
+					
 					//Client.this.playerMap = player.getPlayerMap();
 					String hello = (String)ois.readObject();
 					
@@ -373,6 +384,7 @@ public class Client extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			String userName = signInText.getText();
 			char[] password = passwordText.getPassword();
+			System.out.println("Password in client " + new String(password));
 			try {
 				oos.writeObject(userName);
 				oos.writeObject(password);
@@ -384,10 +396,7 @@ public class Client extends JFrame{
 			}
 
 			//Removes all components from a the Jframe and sets up the new Window
-			getContentPane().removeAll();
-			frameProperties();
-			revalidate();
-			getContentPane().repaint();
+			
 		}	
 	}
 }

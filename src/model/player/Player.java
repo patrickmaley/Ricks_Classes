@@ -29,7 +29,7 @@ public class Player implements Serializable{
 	
 	
 	public Player(String username, char[] password) throws NoSuchAlgorithmException, NoSuchProviderException{
-		this.password = getSecurePassword(password.toString());
+		this.password = getSecurePassword(new String(password));
 		this.username = username;
 		this.knownSpells = new ArrayList<Spell>();
 		this.inventory = new Inventory();
@@ -68,7 +68,11 @@ public class Player implements Serializable{
 	
 	//Returns true if the password is correct. False otherwise.
 	public boolean checkPassword(char[] other) throws NoSuchAlgorithmException, NoSuchProviderException{
-		if (password.compareTo(getSecurePassword(other.toString())) == 0){
+		System.out.println("Hashed password " + this.password);
+		System.out.println("Password passes in to client " + other);
+		System.out.println("other hashed password " + getSecurePassword(new String(other)));
+		if (password.compareTo(getSecurePassword(new String(other))) == 0){
+			System.out.println("PASSWORD WORKS");
 			return true;
 		}
 		return false;
