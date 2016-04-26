@@ -188,7 +188,10 @@ class ClientHandler extends Thread {
 				char[] pass = (char[]) input.readObject();
 				Player savePlayer = (Player) input.readObject();
 				//System.out.println("Username" + savePlayer.getUsername());
+				System.out.println("Servers map " + Server.getServerMap().toString());
 				Map saveMap = (Map) input.readObject();
+				if(saveMap != null)
+					System.out.println("Server gets map " + saveMap.toString());
 				String[] commandsd = (String[]) input.readObject();
 				//PlayerList testList = Server.getPlayerList();
 				if(commandsd != null){
@@ -207,9 +210,16 @@ class ClientHandler extends Thread {
 							}
 							playerText += "\n";
 							break;
-						case "global": 
-							playerText += "GlobalChat: PlayerName:" +savePlayer.getUsername().toString() + ": ";
+						case "ooc": 
+							playerText += "Global Chat: Player Name:" + savePlayer.getUsername().toString() + ": ";
 							for (int i = 1; i < commandsd.length; i++) {
+								playerText += commandsd[i] + " ";
+							}
+							playerText += "\n";
+							break;
+						case "tell":
+							playerText += "Tell: To: " + commandsd[1] + " From: " + savePlayer.getUsername().toString() + ": ";
+							for (int i = 2; i < commandsd.length; i++) {
 								playerText += commandsd[i] + " ";
 							}
 							playerText += "\n";
@@ -228,8 +238,10 @@ class ClientHandler extends Thread {
 					//System.out.println("New room" + oldPlayer.getRoom());
 				}
 				if(saveMap != null){
-					//Server.setServerMap(saveMap);
+					Server.setServerMap(saveMap);
 					Server.getServerMap().setMap(saveMap);
+					System.out.println("Servers new map" + saveMap.toString());
+					
 				}
 				if(name != null && pass != null){
 					if(Server.getPlayerList().getCurrentList().size() > 0  && Server.getPlayerList().getCurrentList().containsKey(name)){

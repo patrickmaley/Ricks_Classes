@@ -232,15 +232,29 @@ public class Client extends JFrame{
 					//Sets the player to the updated version
 					if(player != null && player.getUsername().compareTo(Client.this.newPlayer.getUsername()) ==0){
 						Client.this.newPlayer = player;
+						//Client.this.newPlayer.setPlayerMap(player.getPlayerMap());
+						//Client.this.playerMap = player.getPlayerMap();
 						//Client.this.newPlayer.setPlayerRoom(player);
 					}
-					System.out.println("Listener room" + Client.this.newPlayer.getRoom());
-					Client.this.playerMap =  (Map)ois.readObject();
+					System.out.println("Listener Map" + Client.this.newPlayer.getPlayerMap());
+					Map playersmap = (Map)ois.readObject();
+					Client.this.newPlayer.setPlayerMap(player.getPlayerMap()); //=  (Map)ois.readObject();
+					//Client.this.playerMap = player.getPlayerMap();
 					String hello = (String)ois.readObject();
 					
 					if(hello.compareTo("") != 0){
-						if(hello.contains("GlobalChat:")){
+						if(hello.contains("Global Chat:")){
 							Client.this.gameTextArea.append(hello);
+						}else if(hello.contains("Tell:")){
+							String[] username = hello.split("\\s+");
+							System.out.println(Client.this.newPlayer.getUsername().toString() + " " + username[2]);
+							System.out.println(player.getUsername().toString() + " " + username[4]);
+							
+//							if(Client.this.newPlayer.getUsername().toString().compareTo(username[2]) == 0 ||
+//									player.getUsername().toString().compareTo(username[4]) == 0){
+							if(hello.contains(Client.this.newPlayer.getUsername()))
+								Client.this.gameTextArea.append(hello);
+							//}
 						}else if(player.getRoom().getRoomDescription().compareTo(Client.this.newPlayer.getRoom().getRoomDescription())==0){
 							Client.this.gameTextArea.append(hello);
 						}
@@ -286,7 +300,8 @@ public class Client extends JFrame{
 				cleanUpAndQuit("Do you really want to quit?");
 			}else if(firstWord[0].compareTo("shutdown")==0 ||
 					firstWord[0].compareTo("say")==0 ||
-					firstWord[0].compareTo("global")==0){
+					firstWord[0].compareTo("ooc")==0 ||
+					firstWord[0].compareTo("tell")==0){
 				String[] commandsd = command.split("\\s+");
 				if(commandsd[1] != null){
 					try {
@@ -322,9 +337,9 @@ public class Client extends JFrame{
 			try {
 				oos.writeObject("");
 				oos.writeObject(null);
-				System.out.println("In client " + Client.this.newPlayer.getRoom());
+				System.out.println("In client map" + Client.this.newPlayer.getPlayerMap().toString());
 				oos.writeObject(Client.this.newPlayer);
-				Map map = Client.this.playerMap;
+				Map map = Client.this.newPlayer.getPlayerMap();
 				oos.writeObject(map);
 				oos.writeObject(null);
 			} catch (IOException e1) {
