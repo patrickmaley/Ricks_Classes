@@ -243,14 +243,18 @@ class ClientHandler extends Thread {
 					System.out.println("Servers new map" + saveMap.toString());
 					
 				}
+				//Checks to see if the players name and password are in the hash map.
 				if(name != null && pass != null){
 					if(Server.getPlayerList().getCurrentList().size() > 0  && Server.getPlayerList().getCurrentList().containsKey(name)){
-						Player savedPlayer = Server.getPlayerList().getCurrentList().get(name);
+						Player foundPlayer = Server.getPlayerList().getCurrentList().get(name);
 						try {
-							if(savedPlayer.checkPassword(pass)){
-								writePlayerToClients(savedPlayer);
+							if(foundPlayer.checkPassword(pass)){
+								writePlayerToClients(foundPlayer);
+								writePlayerToClients(Server.getServerMap());
+								System.out.println("Password Authentication works");
 							}else{
-								writePlayerToClients(savedPlayer);
+								System.out.println("Password Authentication failed");
+								writePlayerToClients(savePlayer);
 								writePlayerToClients(Server.getServerMap());
 							}
 						} catch (NoSuchAlgorithmException | NoSuchProviderException e) {
