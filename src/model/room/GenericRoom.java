@@ -19,7 +19,6 @@ public abstract class GenericRoom implements Serializable{
 	private String lookDownDescription;
 	private ArrayList<Item> itemsInRoom = new ArrayList<Item>();
 	private ArrayList<Mobs> mobsInRoom = new ArrayList<Mobs>();
-	private ArrayList<Mobs> npcInRoom = new ArrayList<Mobs>();
 	private ArrayList<Player> playersInRoom = new ArrayList<Player>();
 	private boolean mobPresent;
 	private boolean playerPresent;

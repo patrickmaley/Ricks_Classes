@@ -1093,8 +1093,13 @@ public class Map implements Serializable {
 		System.out.println("Done adding items");
 	}
 
+	private ArrayList<Mobs> mobsToAddToMap;
+	public ArrayList<Mobs> getMobsToAdd(){
+		return this.mobsToAddToMap;
+	}
+	
 	public void generateMobs() {
-		ArrayList<Mobs> mobsToAddToMap = new ArrayList<Mobs>();
+		mobsToAddToMap = new ArrayList<Mobs>();
 		Bellatrix bellatrix = new Bellatrix();
 		Dementor dementor = new Dementor();
 		Snape snape = new Snape();
@@ -1171,9 +1176,9 @@ public class Map implements Serializable {
 
 		this.mapArray[2][1].setMobsInRoom(werewolves);
 		this.mapArray[2][1].setMobsPresent(true);
-		dumbledore.setXpos(2);
-		dumbledore.setYpos(1);
-		dumbledore.setCurrentRoom(this.mapArray[2][1]);
+		werewolves.setXpos(2);
+		werewolves.setYpos(1);
+		werewolves.setCurrentRoom(this.mapArray[2][1]);
 
 		this.mapArray[1][5].setMobsInRoom(troll);
 		this.mapArray[1][5].setMobsPresent(true);
@@ -1183,9 +1188,9 @@ public class Map implements Serializable {
 
 		this.mapArray[0][4].setMobsInRoom(dragon);
 		this.mapArray[0][4].setMobsPresent(true);
-		dumbledore.setXpos(0);
-		dumbledore.setYpos(4);
-		dumbledore.setCurrentRoom(this.mapArray[0][4]);
+		dragon.setXpos(0);
+		dragon.setYpos(4);
+		dragon.setCurrentRoom(this.mapArray[0][4]);
 
 		Random random = new Random();
 		int row = 0;
@@ -1204,6 +1209,14 @@ public class Map implements Serializable {
 				i--;
 			}
 		}
+		mobsToAddToMap.add(dragon);
+		mobsToAddToMap.add(troll);
+		mobsToAddToMap.add(werewolves);
+		mobsToAddToMap.add(hagrid);
+		mobsToAddToMap.add(bellatrix);
+		mobsToAddToMap.add(mcgonagall);
+		mobsToAddToMap.add(snape);
+		mobsToAddToMap.add(dumbledore);
 		System.out.println("Done adding mobs");
 
 	}
@@ -1215,4 +1228,5 @@ public class Map implements Serializable {
 	public GenericRoom[][] getMapArray() {
 		return this.mapArray;
 	}
+	
 }

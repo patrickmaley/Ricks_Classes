@@ -146,6 +146,7 @@ public class Interactions implements Serializable {
 		+ "\n" + "commands" + "\n" + "who" + "\n" + "say" + "\n" + "tell <player/mob> <message>" + "\n"+ "score" + "\n" + "drop" + "\n" + "use" + "\n" + "quit" + "\n" + "shutdown"; 
 		return returning;
 	}
+	
 	private String look(String commandParameters) {
 		if(commandParameters.length() == 0){
 			String withItemsAndMobs ="";
@@ -160,10 +161,13 @@ public class Interactions implements Serializable {
 					}
 				}	
 			}
+			System.out.println(player.getRoom().getMobsPresent());
 			if(player.getRoom().getMobsPresent()){
-				ArrayList<Item> mobsinRoom = player.getRoom().getitemsInRoom();
+				ArrayList<Mobs> mobsinRoom = player.getRoom().getMobsInRoom();
+				System.out.println(mobsinRoom.size());
 				for(int i=0; i< mobsinRoom.size(); i++){
 					withItemsAndMobs += mobsinRoom.get(i).getForLookDescription() + ".";
+					System.out.print(withItemsAndMobs);
 				}
 			}
 			return player.getRoom().getRoomDescription() + "\n" + withItemsAndMobs;

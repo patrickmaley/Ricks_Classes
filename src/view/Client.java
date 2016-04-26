@@ -326,7 +326,7 @@ public class Client extends JFrame{
 					firstWord[0].compareTo("tell")==0 ||
 					firstWord[0].compareTo("who")==0){
 				String[] commandArray = command.split("\\s+");
-				if(firstWord[0].compareTo("who") == 0 ||commandArray[1] != null){
+				if(firstWord[0].compareTo("who") == 0 ||commandArray.length  > 1){
 					try {
 						oos.writeObject("");
 						oos.writeObject(null);

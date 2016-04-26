@@ -43,6 +43,10 @@ public class Werewolves extends Mobs{
 	@Override
 	public void move() {
 		if (x == 0) {
+			if(this == null ){
+				int test = 0;
+				test++;
+			}
 			if (this.getRoom().getNextRoom("north") != null && !this.getRoom().getNextRoom("north").getMobsPresent()) {
 				this.setYpos(this.getYpos() - 1);
 				this.getRoom().setMobsPresent(false);

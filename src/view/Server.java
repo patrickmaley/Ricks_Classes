@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Timer;
 
 import javax.swing.JComponent;
 import javax.swing.JDialog;
@@ -84,6 +85,10 @@ public class Server {
 			
 		}
 		
+
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new moveTask(serverMap), 10000, 60000); 
+        
 		while(true) {
 			Socket s = sock.accept();
 

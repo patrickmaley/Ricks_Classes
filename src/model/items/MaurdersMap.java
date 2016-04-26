@@ -1,6 +1,7 @@
 package model.items;
 
 import model.player.Player;
+import model.room.GenericRoom;
 
 public class MaurdersMap extends Item {
 	public MaurdersMap() {
@@ -11,7 +12,15 @@ public class MaurdersMap extends Item {
 
 	@Override
 	public String use(Player p, String notNeeded) {
-		return "Not functional yet part of the wow factor";
+		String allRoomStrings = "";
+		GenericRoom[][] allRooms = p.getPlayerMap().getMapArray();
+		for (int i = 0; i < allRooms.length; i++) {
+			for (int j = 0; j < allRooms.length; j++) {
+				allRoomStrings += allRooms[i][j].getTitle() + "\n";
+				allRoomStrings += allRooms[i][j].getItemsToString() + "\n";
+			}
+		}
+		return allRoomStrings;
 	}
 	
 	public String getForLookDescription(){
