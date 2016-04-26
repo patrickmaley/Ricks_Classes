@@ -104,7 +104,7 @@ public class Trolls extends Mobs{
 			}
 		}
 		else if(x == 6){
-			if(this.getRoom().getNextRoom("west") != null && !this.getRoom().getNextRoom("north").getMobsPresent()){
+			if(this.getRoom().getNextRoom("west") != null && !this.getRoom().getNextRoom("west").getMobsPresent()){
 				this.setXpos(this.getXpos() - 1);
 				this.getRoom().setMobsPresent(false);
 				this.setCurrentRoom(this.getRoom().getNextRoom("west"));
@@ -113,7 +113,7 @@ public class Trolls extends Mobs{
 			}
 		}
 		else if(x == 7){
-			if(this.getRoom().getNextRoom("east") != null && !this.getRoom().getNextRoom("north").getMobsPresent()){
+			if(this.getRoom().getNextRoom("east") != null && !this.getRoom().getNextRoom("east").getMobsPresent()){
 				this.setXpos(this.getXpos() + 1);
 				this.getRoom().setMobsPresent(false);
 				this.setCurrentRoom(this.getRoom().getNextRoom("east"));
