@@ -185,6 +185,7 @@ public abstract class GenericRoom implements Serializable{
 	}
 	public void removeItemInRoom(Item item){
 		 if(this.itemsInRoom.contains(item)){
+			 System.out.println("REMOVED");
 			this.itemsInRoom.remove(item);
 		 }
 	}	

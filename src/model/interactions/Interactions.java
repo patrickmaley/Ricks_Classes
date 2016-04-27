@@ -186,11 +186,23 @@ public class Interactions implements Serializable {
 				break;	
 			}
 		}
+		
 		for(int i=0; i< mobsInPlayersCurrentRoom.size();i++){
 			String mobName = mobsInPlayersCurrentRoom.get(i).getName().toLowerCase();
 			if(mobName.compareTo(commandParameters)==0){
 				mobIsInRoom = true;
 				mobInRoom = mobsInPlayersCurrentRoom.get(i);
+				break;
+			}
+		}
+		ArrayList<Player> playersInRoom = player.getRoom().getPlayersInRoom();
+		boolean playersIsInRoom = false;
+		Player playerInRoom = null;
+		for (int i = 0; i < playersInRoom.size(); i++) {
+			String playerName = playersInRoom.get(i).getUsername().toLowerCase();
+			if(playerName.compareTo(commandParameters) == 0){
+				playersIsInRoom = true;
+				playerInRoom = playersInRoom.get(i);
 				break;
 			}
 		}
@@ -200,8 +212,13 @@ public class Interactions implements Serializable {
 		if(mobIsInRoom){
 			return mobInRoom.getDescription();
 		}
+		if(playersIsInRoom){
+			return playerInRoom.getDescription();
+		}
 		else{
 			return "What you are looking for is not here.";
 		}
 	}
+	
+	
 }

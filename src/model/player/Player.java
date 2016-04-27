@@ -34,9 +34,9 @@ public class Player implements Serializable{
 		this.knownSpells = new ArrayList<Spell>();
 		this.inventory = new Inventory();
 		this.HP = 100;
-		this.playerMap = Map.setMap(null);
-		this.currentRoom = playerMap.getMapArray()[9][0];
-		this.currentRoom.setPlayerPresent(true, this);
+		//this.playerMap = Map.setMap();
+		//this.currentRoom = playerMap.getMapArray()[9][0];
+		//this.currentRoom.setPlayerPresent(true, this);
 		this.interaction = new Interactions(this);
 		this.isDead = false;
 	}
@@ -141,8 +141,12 @@ public class Player implements Serializable{
 	
 	//Changes the player's current location after they move
 	public void setCurrentRoom(GenericRoom location){
-		this.currentRoom.setPlayerPresent(false, this);
-		this.currentRoom = location;
+		if(this.currentRoom == null)
+			this.currentRoom = location;
+		else{
+			this.currentRoom.setPlayerPresent(false, this);
+			this.currentRoom = location;
+		}
 		this.currentRoom.setPlayerPresent(true, this);
 	}
 	
@@ -158,8 +162,8 @@ public class Player implements Serializable{
 		this.inventory = new Inventory();
 		this.HP = 100;
 		this.interaction= new Interactions(this);
-		this.playerMap = Map.setMap(null);
-		this.setCurrentRoom(Map.setMap(null).getEntrance());
+		this.playerMap = Map.setMap();
+		this.setCurrentRoom(Map.setMap().getEntrance());
 		this.isDead = false;
 	}
 	
@@ -171,6 +175,7 @@ public class Player implements Serializable{
 	//Sets the player map to the map given
 	public void setPlayerMap(Map m){
 		this.playerMap = m;
+		this.playerMap.setMapArray(m.getMapArray());
 	}
 	
 	//Allows the player to perform an action in the game
@@ -207,6 +212,17 @@ public class Player implements Serializable{
 	//Returns the current inventory of the player
 	public Inventory getInventory() {
 		return this.inventory;
+	}
+
+	public void updateMap(Map playerMap2) {
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 6; j++) {
+				if(playerMap2.getMapArray()[i][j].getRoomDescription().compareTo(this.currentRoom.getRoomDescription()) == 0){
+					playerMap2.getMapArray()[i][j] = this.currentRoom;
+				}
+			}
+		}
+		
 	}
      
 }

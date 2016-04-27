@@ -20,7 +20,7 @@ public class ItemsTest {
 	public Player p;
 	GenericRoom[][] arrayMap;
 	public void setup(){
-		map =  Map.setMap(null);
+		map =  Map.setMap();
 		char[] a = {'a','b','c'};
 		try {
 			p = new Player("Joe", a);

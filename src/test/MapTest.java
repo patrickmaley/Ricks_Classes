@@ -13,7 +13,7 @@ public class MapTest {
 	public void test() {
 		GenericRoom testRoom = null;
 		
-		Map mapOne = Map.setMap(null);
+		Map mapOne = Map.setMap();
 		GenericRoom firstRoom = mapOne.getEntrance();
 		assertTrue(firstRoom != null);
 		System.out.println(firstRoom.getRoomDescription());

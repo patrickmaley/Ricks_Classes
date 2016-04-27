@@ -29,7 +29,7 @@ public class PlayerTest {
 	public void testPlayerGetters() throws NoSuchAlgorithmException, NoSuchProviderException {
 		//Initial list, map, and a GenericRoom
 		PlayerList current = PlayerList.setList();
-		Map currMap = Map.setMap(null);
+		Map currMap = Map.setMap();
 		GenericRoom nextRoom = RoomFactory.designRoom(RoomType.NPC);
 		
 		//Usable players

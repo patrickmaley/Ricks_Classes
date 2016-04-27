@@ -64,7 +64,7 @@ public class Server {
 			// ObjectInputStream decorates a FileInputStream and adds functionality to read Objects.
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			Map test =(Map) ois.readObject();
-			Server.serverMap = Map.setMap(test);
+			Server.setServerMap(test);
 			PlayerList players = (PlayerList) ois.readObject();
 			Server.playerList = players;
 			
@@ -76,7 +76,7 @@ public class Server {
 		}
 		
 		if(Server.serverMap == null){
-			Server.serverMap = Map.setMap(null);
+			Server.serverMap = Map.setMap();
 		}
 		
 		if(playerList == null){
@@ -140,7 +140,7 @@ public class Server {
 				ObjectOutputStream oos = new ObjectOutputStream(fos);
 				// Write out the collection as binary
 				// Also note that we are writing out only model classes, never write out view elements!
-				Map map = Server.getServerMap();
+				Map map = Map.setMap();
 				oos.writeObject(map);
 			    //oos.writeObject(Server.getServerMap());
 				PlayerList pl = Server.getPlayerList();
@@ -192,13 +192,13 @@ class ClientHandler extends Thread {
 				String name = (String) input.readObject();
 				char[] pass = (char[]) input.readObject();
 				Player savePlayer = (Player) input.readObject();
-				//System.out.println("Username" + savePlayer.getUsername());
-				System.out.println("Servers map " + Server.getServerMap().toString());
 				Map saveMap = (Map) input.readObject();
-				if(saveMap != null)
-					System.out.println("Server gets map " + saveMap.toString());
 				String[] commandsd = (String[]) input.readObject();
-				//PlayerList testList = Server.getPlayerList();
+				if(saveMap != null){
+					Server.setServerMap(saveMap);
+					System.out.println("Servers new map" + saveMap.getMapArray()[9][0].getItemsToString());
+				}
+				
 				if(commandsd != null){
 					switch(commandsd[0]){
 						case "shutdown":
@@ -240,25 +240,24 @@ class ClientHandler extends Thread {
 						case "quit":
 							Server.removePlayer(savePlayer);
 							break;
+						//Not implemented yet
+						case "look":
+							playerText += "Players on server: ";
+							playerText += "\n";
+							break;
 						default: break;
 					}
 					
 				}
+				
+				//Updates player in playerlist
 				if(savePlayer != null){
 					Player oldPlayer = Server.getPlayerList().getCurrentList().get(savePlayer.getUsername());
-					//System.out.println("Old room" + oldPlayer.getRoom());
-					
 					oldPlayer = Server.getPlayerList().getCurrentList().put(savePlayer.getUsername(), savePlayer);
-					//System.out.println("New room" + oldPlayer.getRoom());
 					oldPlayer = Server.getPlayerList().getCurrentList().get(savePlayer.getUsername());
-					//System.out.println("New room" + oldPlayer.getRoom());
 				}
-				if(saveMap != null){
-					Server.setServerMap(saveMap);
-					Server.getServerMap().setMap(saveMap);
-					System.out.println("Servers new map" + saveMap.toString());
-					
-				}
+				
+				
 				//Checks to see if the players name and password are in the hash map.
 				if(name != null && pass != null){
 					if(Server.getPlayerList().getCurrentList().size() > 0  && Server.getPlayerList().getCurrentList().containsKey(name)){
@@ -308,8 +307,11 @@ class ClientHandler extends Thread {
 							e.printStackTrace();
 						}
 						player.setGameName(gameName.getText());
+						player.setPlayerMap(Server.getServerMap());
 						player.setHouse(houseName.getText());
 						player.setDescription(characterDescription.getText());
+						player.setCurrentRoom(Server.getServerMap().getMapArray()[9][0]);
+						player.getRoom().setPlayerPresent(true, player);
 						Server.addPlayer(player);
 						Server.getPlayerList().getCurrentList().put(player.getUsername(), player);
 						writePlayerToClients(player);

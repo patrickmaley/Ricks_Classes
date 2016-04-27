@@ -50,10 +50,8 @@ public class Map implements Serializable {
 		generateMobs();
 	}
 
-	public static Map setMap(Map savedMap) {
-		if(savedMap != null)
-			uniqueInstance = savedMap;
-		else if (uniqueInstance == null) {
+	public static Map setMap() {
+	    if (uniqueInstance == null) {
 			uniqueInstance = new Map();
 		}
 		return uniqueInstance;
@@ -1090,6 +1088,7 @@ public class Map implements Serializable {
 			this.mapArray[row][column].additemsInRoom(itemsToAddToMap.get(i));
 			System.out.println(row + " " + column + " " + itemsToAddToMap.get(i).getName());
 		}
+		this.mapArray[9][0].additemsInRoom(healingPotion);
 		System.out.println("Done adding items");
 	}
 
@@ -1227,6 +1226,10 @@ public class Map implements Serializable {
 
 	public GenericRoom[][] getMapArray() {
 		return this.mapArray;
+	}
+	
+	public void setMapArray(GenericRoom[][] mapArray) {
+		this.mapArray = mapArray;
 	}
 	
 }

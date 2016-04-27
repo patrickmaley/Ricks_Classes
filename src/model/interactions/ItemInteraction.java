@@ -42,7 +42,9 @@ public class ItemInteraction implements Serializable{
 			Inventory playersInventory = player.getInventory();
 			boolean abilityToAdd = playersInventory.add(toAdd);
 			if(abilityToAdd){
+				
 				player.getRoom().removeItemInRoom(toAdd);
+				System.out.println("THIS IS ERICS " + player.getRoom().getItemsToString());
 				return "The following item: " + commandParameters + " was added to your inventory";
 			}
 			else{

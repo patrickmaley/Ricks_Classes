@@ -232,11 +232,16 @@ public class Client extends JFrame{
 			try {
 				while (true){
 					Player player = (Player) ois.readObject();
+					Map playersmap = (Map)ois.readObject();
+					
+					//Wrong password typed in to an already created account
 					if(player == null){
 						JOptionPane.showMessageDialog(Client.this, "Password incorrect!!!!");
 					}
+					
 					//If the client is new, then this loads up the first player
 					if(player != null && Client.this.newPlayer == null){
+						//Changes the gui to the game gui
 						Client.this.getContentPane().removeAll();
 						Client.this.frameProperties();
 						Client.this.revalidate();
@@ -256,10 +261,16 @@ public class Client extends JFrame{
 						//Client.this.newPlayer.setPlayerRoom(player);
 					}
 					
-					//System.out.println("Listener Map" + Client.this.newPlayer.getPlayerMap());
-					Map playersmap = (Map)ois.readObject();
-					if(playersmap != null && Client.this.newPlayer != null)
-						Client.this.newPlayer.setPlayerMap(player.getPlayerMap()); //=  (Map)ois.readObject();
+					System.out.println("Listener Map" + Client.this.newPlayer.getPlayerMap());
+					
+					//Update the players map -  NOT WORKING
+					if(playersmap != null && Client.this.newPlayer != null){
+						System.out.println("Server Map on client:  " + Client.this.newPlayer.getPlayerMap().getMapArray()[9][0].getItemsToString());
+						System.out.println("Server map from player: " + player.getPlayerMap().getMapArray()[9][0].getItemsToString());
+						Client.this.newPlayer.setPlayerMap(playersmap); //=  (Map)ois.readObject();
+						System.out.println("After setting on Client:  " + Client.this.newPlayer.getPlayerMap().getMapArray()[9][0].getItemsToString());
+						System.out.println("After setting on player: " + player.getPlayerMap().getMapArray()[9][0].getItemsToString());
+					}
 					
 					//Client.this.playerMap = player.getPlayerMap();
 					String hello = (String)ois.readObject();
@@ -312,9 +323,12 @@ public class Client extends JFrame{
 					oos.writeObject("");
 					oos.writeObject(null);
 					oos.writeObject(Client.this.newPlayer);
+					newPlayer.updateMap(newPlayer.getPlayerMap());
 					Map map = Client.this.newPlayer.getPlayerMap();
+					System.out.println(" Client map send to server: " + Client.this.newPlayer.getPlayerMap().getMapArray()[9][0].getItemsToString());
 					oos.writeObject(map);
 					oos.writeObject("quit");
+					oos.reset();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -325,15 +339,20 @@ public class Client extends JFrame{
 					firstWord[0].compareTo("ooc")==0 ||
 					firstWord[0].compareTo("tell")==0 ||
 					firstWord[0].compareTo("who")==0){
+					//firstWord[0].compareTo("look")== 0 && firstWord.length > 1){
 				String[] commandArray = command.split("\\s+");
 				if(firstWord[0].compareTo("who") == 0 ||commandArray.length  > 1){
 					try {
 						oos.writeObject("");
 						oos.writeObject(null);
 						oos.writeObject(Client.this.newPlayer);
-						Map map = Client.this.newPlayer.getPlayerMap();
+						newPlayer.updateMap(newPlayer.getPlayerMap());
+						Map map = newPlayer.getPlayerMap();
+						//Map map = Client.this.newPlayer.getPlayerMap();
+						System.out.println("Client map send to server: " + Client.this.newPlayer.getPlayerMap().getMapArray()[9][0].getItemsToString());
 						oos.writeObject(map);
 						oos.writeObject(commandArray);
+						oos.reset();
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
@@ -358,38 +377,28 @@ public class Client extends JFrame{
 			playerTextArea.setText("");
 			
 			try {
+
 				oos.writeObject("");
 				oos.writeObject(null);
 				System.out.println("In client map" + Client.this.newPlayer.getPlayerMap().toString());
 				oos.writeObject(Client.this.newPlayer);
-				Map map = Client.this.newPlayer.getPlayerMap();
+				newPlayer.updateMap(newPlayer.getPlayerMap());
+				Map map = newPlayer.getPlayerMap();
+				System.out.println("MAP ROOM ID: " + newPlayer.getPlayerMap().getMapArray()[9][0].toString());
+				System.out.println("CURRENT ROOM ID" + newPlayer.getRoom().toString());
+				System.out.println("Client:" + Client.this.newPlayer.getUsername()+ " map send to server: " + Client.this.newPlayer.getPlayerMap().getMapArray()[9][0].getItemsToString());
+				
 				oos.writeObject(map);
+				oos.reset();
 				oos.writeObject(null);
+			
+				
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}
+			}//
 		}
 	}
-	
-//	private class gameNameTextListener implements ActionListener {
-//		@Override
-//		public void actionPerformed(ActionEvent e) {
-//			String gameName = gameNameText.getText();
-//			Client.this.newPlayer.setGameName(gameName);
-//			gameNameText.setEditable(false);
-//			playerTextArea.setEditable(true);
-//		}
-//	}
-	
-//	private class gameHouseTextListener implements ActionListener {
-//		@Override
-//		public void actionPerformed(ActionEvent e) {
-//			String gameHouse = gameHouseText.getText();
-//			Client.this.newPlayer.setHouse(gameHouse);
-//			gameHouseText.setEditable(false);
-//		}
-//	}
 	
 	private class SignInListener implements ActionListener {
 		@Override
@@ -398,11 +407,13 @@ public class Client extends JFrame{
 			char[] password = passwordText.getPassword();
 			System.out.println("Password in client " + new String(password));
 			try {
+				
 				oos.writeObject(userName);
 				oos.writeObject(password);
 				oos.writeObject(null);
 				oos.writeObject(null);
 				oos.writeObject(null);
+				oos.reset();
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
