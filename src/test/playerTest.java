@@ -36,7 +36,12 @@ public class PlayerTest {
 		Player player1 = new Player("Lee", password1);
 		Player player2 = new Player("Luna", password2);
 		Player player3 = new Player("Neville", password3);
-		
+		player1.setPlayerMap(currMap);
+		player2.setPlayerMap(currMap);
+		player3.setPlayerMap(currMap);
+		player1.setCurrentRoom(currMap.getEntrance().getNorthRoom());
+		player2.setCurrentRoom(currMap.getEntrance().getNorthRoom());
+		player3.setCurrentRoom(currMap.getEntrance().getNorthRoom());
 		//Usable spells
 		Spell spell1 = new AvadaKedvra();
 		Spell spell2 = new Expelliarumus();
@@ -112,7 +117,7 @@ public class PlayerTest {
 		
 		//Tests inventory
 		assertNotEquals(player1.getInventory(), player2.getInventory());
-
+		
 	}
 
 }

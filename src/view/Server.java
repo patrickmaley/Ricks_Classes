@@ -103,7 +103,6 @@ public class Server {
 		}
 	}
 	
-
 	public static Map getServerMap() {
 		return serverMap;
 	}
@@ -187,16 +186,16 @@ class ClientHandler extends Thread {
 			
 			Player player = null;
 			String playerText = "";
-			//Map map =  null;
+			Map saveMap =  null;
 			try {
 				String name = (String) input.readObject();
 				char[] pass = (char[]) input.readObject();
 				Player savePlayer = (Player) input.readObject();
-				Map saveMap = (Map) input.readObject();
+				saveMap = (Map) input.readObject();
 				String[] commandsd = (String[]) input.readObject();
+				
 				if(saveMap != null){
 					Server.setServerMap(saveMap);
-					System.out.println("Servers new map" + saveMap.getMapArray()[9][0].getItemsToString());
 				}
 				
 				if(commandsd != null){
@@ -276,6 +275,7 @@ class ClientHandler extends Thread {
 						} catch (NoSuchAlgorithmException | NoSuchProviderException e) {
 							e.printStackTrace();
 						}
+					//If not in hashmap, create a new player
 					}else{
 						JTextField gameName = new JTextField();
 						JTextField houseName = new JTextField();
@@ -346,7 +346,9 @@ class ClientHandler extends Thread {
 				System.out.println("Writing the Player" + s + " to a client.");
 				try {
 					client.writeObject(s);
+					client.flush();
 					client.reset();
+					
 				} catch (IOException e) {
 					/*
 					 * If we can't write to the client, their socket was closed.
@@ -360,20 +362,20 @@ class ClientHandler extends Thread {
 		}
 	}
 	
-	private void closeAllClients() {
-		synchronized (clients) {
-			Set<ObjectOutputStream> closed = new HashSet<>();
-			for (ObjectOutputStream client : clients) {
-				//System.out.println("Writing the Player" + s + " to a client.");
-				closed.add(client);
-				
-			}
-			/* Remove closed connections from the list */
-			clients.removeAll(closed);
-		}
-	}
-	
-		 
+//	private void closeAllClients() {
+//		synchronized (clients) {
+//			Set<ObjectOutputStream> closed = new HashSet<>();
+//			for (ObjectOutputStream client : clients) {
+//				//System.out.println("Writing the Player" + s + " to a client.");
+//				closed.add(client);
+//				
+//			}
+//			/* Remove closed connections from the list */
+//			clients.removeAll(closed);
+//		}
+//	}
+//	
+//		 
 		 
 	private void cleanUp() {
 		/*

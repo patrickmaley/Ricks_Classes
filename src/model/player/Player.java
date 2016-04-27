@@ -204,7 +204,7 @@ public class Player implements Serializable{
             generatedPassword = sb.toString();
         } 
         catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
         return generatedPassword;
     }
