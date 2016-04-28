@@ -40,7 +40,7 @@ public class Map implements Serializable {
 	private static Map uniqueInstance = null;
 	private GenericRoom mapStart;
 	private GenericRoom[][] mapArray = new GenericRoom[10][6];
-
+	private ArrayList<Item> itemsToAddToMap = new ArrayList<Item>();
 	// 0 to 2 as second
 	// 0 to 9 as first
 	// Implement singleton to only use one map
@@ -1003,7 +1003,6 @@ public class Map implements Serializable {
 	}
 
 	private void generateItems() {
-		ArrayList<Item> itemsToAddToMap = new ArrayList<Item>();
 		Random random = new Random();
 		Spell avadaKedvra = new AvadaKedvra();
 		Spell expelliarumus = new Expelliarumus();
@@ -1230,6 +1229,9 @@ public class Map implements Serializable {
 	
 	public void setMapArray(GenericRoom[][] mapArray) {
 		this.mapArray = mapArray;
+	}
+	public ArrayList<Item> getItemsOnMap(){
+		return this.itemsToAddToMap;
 	}
 	
 }

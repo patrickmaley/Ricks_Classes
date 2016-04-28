@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import model.items.Item;
 import model.map.Map;
 import model.player.Player;
 import model.player.PlayerList;
@@ -195,6 +196,7 @@ class ClientHandler extends Thread {
 				String[] commandsd = (String[]) input.readObject();
 				
 				if(saveMap != null){
+					System.out.println("Server items in room at 9, 0" + saveMap.getMapArray()[9][0].getitemsInRoom().toString());
 					Server.setServerMap(saveMap);
 				}
 				
@@ -243,6 +245,36 @@ class ClientHandler extends Thread {
 						case "look":
 							playerText += "Players on server: ";
 							playerText += "\n";
+							break;
+						case "take":
+							String itemDesired="";
+							for(int i=1;i<commandsd.length-1;i++){
+								itemDesired+=commandsd[i];
+							}
+							itemDesired = itemDesired.trim();
+							String playerUserName = commandsd[commandsd.length-1];
+							ArrayList<Player> playersLoggedOn = Server.getLoggedOnPlayers();
+							Player toGetFrom = null;
+							for(int i =0;i<playersLoggedOn.size();i++){
+								if(playersLoggedOn.get(i).getUsername().compareTo(playerUserName)==0){
+									toGetFrom = playersLoggedOn.get(i);
+									break;
+								}
+							}
+							if(toGetFrom!=null){
+								Item desired = toGetFrom.getInventory().getItem(itemDesired);
+								if(desired!=null){
+									playerText += savePlayer.getUsername() + " would like to take "+itemDesired + 
+											" from " + toGetFrom.getUsername()+ "."+"If you would like to give it to "
+													+ "them please type in give " + itemDesired + " username" ;
+								}
+								else{
+									playerText+= toGetFrom.getUsername() + " does not have the following item. Therefore you cannot get it from them.";
+								}
+							}
+							else{
+								playerText+= playerUserName + " isnt logged in.";
+							}
 							break;
 						default: break;
 					}

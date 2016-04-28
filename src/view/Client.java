@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -24,6 +25,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import model.items.Item;
 import model.map.Map;
 import model.player.Player;
 
@@ -302,7 +304,8 @@ public class Client extends JFrame{
 					firstWord[0].compareTo("say")==0 ||
 					firstWord[0].compareTo("ooc")==0 ||
 					firstWord[0].compareTo("tell")==0 ||
-					firstWord[0].compareTo("who")==0){
+					firstWord[0].compareTo("who")==0 ||
+					firstWord[0].compareTo("take")==0 && itemsIsNotOnMap(firstWord[firstWord.length-1])){
 				String[] commandArray = command.split("\\s+");
 				
 				if(firstWord[0].compareTo("who") == 0 ||commandArray.length  > 1){
@@ -336,6 +339,7 @@ public class Client extends JFrame{
 					oos.writeObject(null);
 					oos.writeObject(Client.this.newPlayer);
 					newPlayer.updateMap(newPlayer.getPlayerMap());
+					System.out.println("Client items in room at 9, 0" + newPlayer.getPlayerMap().getMapArray()[9][0].getitemsInRoom().toString());
 					Map map = newPlayer.getPlayerMap();
 					oos.writeObject(map);
 					oos.writeObject(null);
@@ -372,4 +376,21 @@ public class Client extends JFrame{
 			}
 		}	
 	}
+	
+	private boolean itemsIsNotOnMap(String lastWord) {
+		boolean itIsAPlayer = false;
+		ArrayList<Item> temp = Client.this.newPlayer.getPlayerMap().getItemsOnMap();
+		System.out.println(temp.size());
+		for(int i =0;i<temp.size();i++){
+			System.out.println(lastWord);
+			if(temp.get(i).getName().toLowerCase().contains(lastWord)){
+				itIsAPlayer=false;
+				System.out.println(itIsAPlayer);
+				return itIsAPlayer;
+			}
+		}
+		itIsAPlayer = true;
+		return itIsAPlayer;
+	}
+
 }
