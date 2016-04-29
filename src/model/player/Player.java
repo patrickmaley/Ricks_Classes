@@ -215,13 +215,17 @@ public class Player implements Serializable{
 	}
 
 	public void updateMap(Map playerMap2) {
-		for (int i = 0; i < 10; i++) {
-			for (int j = 0; j < 6; j++) {
-				if(playerMap2.getMapArray()[i][j].getRoomDescription().compareTo(this.currentRoom.getRoomDescription()) == 0){
-					playerMap2.getMapArray()[i][j] = this.currentRoom;
-				}
-			}
-		}
+		//for (int i = 0; i < 10; i++) {
+			//for (int j = 0; j < 6; j++) {
+				this.getPlayerMap().setMapArray(playerMap2.getMapArray());
+					
+			//}
+		//}
+		
+	}
+
+	public void setRoom(GenericRoom genericRoom) {
+		this.currentRoom = genericRoom;
 		
 	}
      

@@ -28,6 +28,7 @@ import javax.swing.border.TitledBorder;
 import model.items.Item;
 import model.map.Map;
 import model.player.Player;
+import model.room.GenericRoom;
 
 
 public class Client extends JFrame{
@@ -212,7 +213,6 @@ public class Client extends JFrame{
 			try {
 				while (true){
 					Player player = (Player) ois.readObject();
-					Map playersmap = (Map)ois.readObject();
 					String hello = (String)ois.readObject();
 					
 					//Wrong password typed in to an already created account
@@ -236,15 +236,11 @@ public class Client extends JFrame{
 					//Sets the player to the updated version
 					if(player != null && player.getUsername().compareTo(Client.this.newPlayer.getUsername()) ==0){
 						Client.this.newPlayer = player;
-					}
-					
-					
-					//Update the players map -  NOT WORKING
-					if(playersmap != null && Client.this.newPlayer != null){
-						newPlayer.updateMap(playersmap);
-						Client.this.newPlayer.setPlayerMap(playersmap);
+					}else{
+						Client.this.newPlayer.setPlayerMap(player.getPlayerMap());
 						
 					}
+
 					
 					if(hello.compareTo("") != 0){
 						if(hello.contains("Global Chat:")){
@@ -254,10 +250,26 @@ public class Client extends JFrame{
 							if(hello.contains(Client.this.newPlayer.getUsername())){
 								Client.this.gameTextArea.append(hello);
 							}
-						}else if(player.getRoom().getRoomDescription().compareTo(Client.this.newPlayer.getRoom().getRoomDescription())==0){
-							Client.this.gameTextArea.append(hello);
+//						}else if(player.getRoom().getRoomDescription().compareTo(Client.this.newPlayer.getRoom().getRoomDescription())==0){
+//							Client.this.gameTextArea.append(hello);
+						}else{
+							if(player != null && player.getUsername().compareTo(Client.this.newPlayer.getUsername()) ==0){
+									Client.this.gameTextArea.append(hello + "\n");
+									Client.this.gameTextArea.append(TEXT_BREAK);
+							}
+						}
+					}else{
+						if(player != null && player.getUsername().compareTo(Client.this.newPlayer.getUsername()) ==0){
+							Client.this.gameTextArea.append("Nothing much happens\n");
+							Client.this.gameTextArea.append(TEXT_BREAK);
 						}
 					}
+					//Auto updates the scrollpane to the last description
+					gameTextArea.setCaretPosition(gameTextArea.getDocument().getLength());
+					
+					//Resets descriptions value
+					playerTextArea.setText("");
+					
 				}
 			} catch (IOException e) {
 				Client.this.cleanUpAndQuit("The server hung up on us. Exiting...");
@@ -281,18 +293,15 @@ public class Client extends JFrame{
 	private class textBoxListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+		
 			String command = playerTextArea.getText().toLowerCase();
 			String[] firstWord = command.split("\\s+");
-			String descriptions = null;
 			
 			if(firstWord[0].compareTo("quit")== 0){
 				try {
 					oos.writeObject("");
-					oos.writeObject(null);
+					oos.writeObject(new char[0]);
 					oos.writeObject(Client.this.newPlayer);
-					newPlayer.updateMap(newPlayer.getPlayerMap());
-					Map map = Client.this.newPlayer.getPlayerMap();
-					oos.writeObject(map);
 					oos.writeObject(firstWord);
 					oos.reset();
 				} catch (IOException e1) {
@@ -311,11 +320,8 @@ public class Client extends JFrame{
 				if(firstWord[0].compareTo("who") == 0 ||commandArray.length  > 1){
 					try {
 						oos.writeObject("");
-						oos.writeObject(null);
+						oos.writeObject(new char[0]);
 						oos.writeObject(Client.this.newPlayer);
-						newPlayer.updateMap(newPlayer.getPlayerMap());
-						Map map = newPlayer.getPlayerMap();
-						oos.writeObject(map);
 						oos.writeObject(commandArray);
 						oos.reset();
 					} catch (IOException e1) {
@@ -324,37 +330,20 @@ public class Client extends JFrame{
 				}
 				
 			}else{
-				
-			    descriptions = Client.this.newPlayer.performAction(command);
-				if(descriptions != null){
-					Client.this.gameTextArea.append(descriptions + "\n");
-					Client.this.gameTextArea.append(TEXT_BREAK);
-				}else{
-					Client.this.gameTextArea.append("Nothing much happens\n");
-					Client.this.gameTextArea.append(TEXT_BREAK);
-				}
-				
+				String commandInstruction = "command " + command;
+				String[] commandArray = commandInstruction.split("\\s+");
 				try {
 					oos.writeObject("");
-					oos.writeObject(null);
+					oos.writeObject(new char[0]);
 					oos.writeObject(Client.this.newPlayer);
-					newPlayer.updateMap(newPlayer.getPlayerMap());
-					System.out.println("Client items in room at 9, 0" + newPlayer.getPlayerMap().getMapArray()[9][0].getitemsInRoom().toString());
-					Map map = newPlayer.getPlayerMap();
-					oos.writeObject(map);
-					oos.writeObject(null);
+					oos.writeObject(commandArray);
 					oos.reset();
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
 			}
 			
-			//Auto updates the scrollpane to the last description
-			gameTextArea.setCaretPosition(gameTextArea.getDocument().getLength());
 			
-			//Resets descriptions value
-			descriptions = null;
-			playerTextArea.setText("");
 		}
 	}
 	
@@ -367,7 +356,6 @@ public class Client extends JFrame{
 			try {
 				oos.writeObject(userName);
 				oos.writeObject(password);
-				oos.writeObject(null);
 				oos.writeObject(null);
 				oos.writeObject(null);
 				oos.reset();

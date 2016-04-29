@@ -28,6 +28,7 @@ import model.items.Item;
 import model.map.Map;
 import model.player.Player;
 import model.player.PlayerList;
+import model.room.GenericRoom;
 
 
 /**
@@ -184,22 +185,39 @@ class ClientHandler extends Thread {
 	 */
 	public void run() {
 		while (true) {
-			
-			Player player = null;
-			String playerText = "";
-			Map saveMap =  null;
 			try {
 				String name = (String) input.readObject();
 				char[] pass = (char[]) input.readObject();
 				Player savePlayer = (Player) input.readObject();
-				saveMap = (Map) input.readObject();
 				String[] commandsd = (String[]) input.readObject();
+				Player player = null;
+				String playerText = "";
 				
-				if(saveMap != null){
-					System.out.println("Server items in room at 9, 0" + saveMap.getMapArray()[9][0].getitemsInRoom().toString());
-					Server.setServerMap(saveMap);
+				//Updates player in playerlist
+				if(savePlayer != null){
+					Player oldPlayer = Server.getPlayerList().getCurrentList().get(savePlayer.getUsername());
+					oldPlayer = Server.getPlayerList().getCurrentList().put(savePlayer.getUsername(), savePlayer);
+					oldPlayer = Server.getPlayerList().getCurrentList().get(savePlayer.getUsername());
+					savePlayer.setPlayerMap(Server.getServerMap());
+					savePlayer.updateMap(Server.getServerMap());
+					
+					//Updates all of players rooms they are not in.
+					Map map = Server.getServerMap();
+					GenericRoom[][] mapArray = map.getMapArray();
+					GenericRoom[][] playerMapArray = savePlayer.getPlayerMap().getMapArray();
+					for (int i = 0; i < mapArray.length; i++) {
+						for (int j = 0; j < mapArray[i].length; j++) {
+							if(savePlayer.getRoom().getRoomDescription().compareTo(mapArray[i][j].getRoomDescription()) == 0){
+								savePlayer.setRoom(mapArray[i][j]);
+							}else{
+								playerMapArray[i][j] = mapArray[i][j];
+							}
+						}
+					}
+					savePlayer.getPlayerMap().setMapArray(playerMapArray);
+					
 				}
-				
+
 				if(commandsd != null){
 					switch(commandsd[0]){
 						case "shutdown":
@@ -276,33 +294,44 @@ class ClientHandler extends Thread {
 								playerText+= playerUserName + " isnt logged in.";
 							}
 							break;
+						case "command":
+							for (int i = 1; i < commandsd.length; i++) {
+								playerText += commandsd[i] + " ";
+							}
+							playerText = savePlayer.performAction(playerText);
+							break;
 						default: break;
 					}
 					
 				}
 				
-				//Updates player in playerlist
+				//Update the server map
 				if(savePlayer != null){
-					Player oldPlayer = Server.getPlayerList().getCurrentList().get(savePlayer.getUsername());
-					oldPlayer = Server.getPlayerList().getCurrentList().put(savePlayer.getUsername(), savePlayer);
-					oldPlayer = Server.getPlayerList().getCurrentList().get(savePlayer.getUsername());
+					Map map = Server.getServerMap();
+					GenericRoom[][] mapArray = Server.getServerMap().getMapArray();
+					for (int i = 0; i < mapArray.length; i++) {
+						for (int j = 0; j < mapArray[i].length; j++) {
+							if(savePlayer.getRoom().getRoomDescription().compareTo(mapArray[i][j].getRoomDescription()) == 0){
+								mapArray[i][j] = savePlayer.getRoom();
+							}
+						}
+					}
+					map.setMapArray(mapArray);
+				    Server.setServerMap(savePlayer.getPlayerMap());
 				}
 				
-				
 				//Checks to see if the players name and password are in the hash map.
-				if(name != null && pass != null){
+				if(name.compareTo("") != 0 && pass.length > 0){
 					if(Server.getPlayerList().getCurrentList().size() > 0  && Server.getPlayerList().getCurrentList().containsKey(name)){
 						Player foundPlayer = Server.getPlayerList().getCurrentList().get(name);
 						try {
 							if(foundPlayer.checkPassword(pass)){
 								Server.addPlayer(foundPlayer);
 								writePlayerToClients(foundPlayer);
-								writePlayerToClients(Server.getServerMap());
 								System.out.println("Password Authentication works");
 							}else{
 								System.out.println("Password Authentication failed");
 								writePlayerToClients(savePlayer);
-								writePlayerToClients(Server.getServerMap());
 							}
 						} catch (NoSuchAlgorithmException | NoSuchProviderException e) {
 							e.printStackTrace();
@@ -347,16 +376,13 @@ class ClientHandler extends Thread {
 						Server.addPlayer(player);
 						Server.getPlayerList().getCurrentList().put(player.getUsername(), player);
 						writePlayerToClients(player);
-						writePlayerToClients(Server.getServerMap());
 					}
 				}else{
 					writePlayerToClients(savePlayer);
-					writePlayerToClients(Server.getServerMap());
 				}
 				writePlayerToClients(playerText);
 				Server.saveState();
 				savePlayer = null;
-				saveMap = null;
 			} catch (IOException e) {
 				/* Client left -- clean up and let the thread die */
 				this.cleanUp();
