@@ -1087,7 +1087,7 @@ public class Map implements Serializable {
 			this.mapArray[row][column].additemsInRoom(itemsToAddToMap.get(i));
 			System.out.println(row + " " + column + " " + itemsToAddToMap.get(i).getName());
 		}
-		this.mapArray[9][0].additemsInRoom(healingPotion);
+		this.mapArray[9][0].additemsInRoom(maurdersMap);
 		System.out.println("Done adding items");
 	}
 

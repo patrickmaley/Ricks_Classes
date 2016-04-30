@@ -4,10 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.MediaTracker;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -35,9 +32,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import model.items.Item;
-import model.map.Map;
 import model.player.Player;
-import model.room.GenericRoom;
 
 
 public class Client extends JFrame{
@@ -66,7 +61,7 @@ public class Client extends JFrame{
 	
 	private JPanel textPanel = new JPanel();
 	private JPanel signInPanel = new JPanel(new FlowLayout());
-	private JPanel graphicsView = new GraphicsView();
+	
 	
 	private JTextArea signInInstructions = new JTextArea();
 	private JTextArea gameTextArea = new JTextArea();
@@ -88,10 +83,8 @@ public class Client extends JFrame{
 	Font displayFont = new Font("AngsanaUPC", 1, 16);
 	private Player newPlayer = null;
 	
-	private Image harryPotter, schools, express;
+	private Image harryPotter, schools, express, hogwartsMap;
 	public static void main(String[] args) {
-		
-		
 		new Client().setVisible(true);
 		
 	}
@@ -101,7 +94,7 @@ public class Client extends JFrame{
 		setTitle("9 3/4 Jump Street: Hogwarts");
 		setLayout(new FlowLayout());
 		//setPreferredSize(new Dimension(1200, 600));
-		setSize(1300, 650);
+		setSize(1350, 650);
 		setLocation(0,0);
 		//setLocationRelativeTo(null);
 		//setResizable(false);
@@ -109,8 +102,9 @@ public class Client extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		try {
 			harryPotter = ImageIO.read(new File("images/hp.jpg"));
-			schools = ImageIO.read(new File("images/schools.jpg"));
+			
 			express = ImageIO.read(new File("images/hogwartsExpress.jpg"));
+			hogwartsMap = ImageIO.read(new File("images/rsz_yeoldemap2.jpg"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -233,7 +227,8 @@ public class Client extends JFrame{
 		
 		//Add all components to the frame and set actionlistener
 		add(textPanel);
-		add(graphicsView);
+		
+		//add(graphicsView);
 		playerTextArea.addActionListener(new textBoxListener());
 	}
 	
@@ -309,6 +304,14 @@ public class Client extends JFrame{
 										Client.this.gameTextArea.append(TEXT_BREAK);
 										//Resets descriptions value
 										playerTextArea.setText("");
+										if(hello.contains("I solemnly swear that I am up")){
+											ImageIcon icon = new ImageIcon(hogwartsMap); 
+											JLabel thumb = new JLabel();
+											thumb.setIcon(icon);
+											add(thumb);
+											Client.this.revalidate();
+											Client.this.getContentPane().repaint();
+										}
 								}
 							}
 						}
