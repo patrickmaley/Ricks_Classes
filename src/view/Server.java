@@ -228,7 +228,7 @@ class ClientHandler extends Thread {
 							}
 							break;
 						case "say": 
-							playerText += savePlayer.getUsername().toString() + ": ";
+							playerText += "Room Chat: " + savePlayer.getUsername().toString() + ": ";
 							for (int i = 1; i < commandsd.length; i++) {
 								playerText += commandsd[i] + " ";
 							}
@@ -329,6 +329,7 @@ class ClientHandler extends Thread {
 								playerText += commandsd[i] + " ";
 							}
 							playerText = savePlayer.performAction(playerText);
+						
 							break;
 						default: break;
 					}
