@@ -293,6 +293,36 @@ class ClientHandler extends Thread {
 							else{
 								playerText+= playerUserName + " isnt logged in.";
 							}
+							break;	
+						case "give":
+							String itemToGive="";
+							for(int i=1;i<commandsd.length-1;i++){
+								itemToGive+=commandsd[i];
+							}
+							itemDesired = itemToGive.trim();
+							String playerName = commandsd[commandsd.length-1];
+							ArrayList<Player> loggedOnPlayers = Server.getLoggedOnPlayers();
+							Player toGiveTo = null;
+							for(int i =0;i<loggedOnPlayers.size();i++){
+								if(loggedOnPlayers.get(i).getUsername().compareTo(playerName)==0){
+									toGiveTo = loggedOnPlayers.get(i);
+									break;
+								}
+							}
+							if(toGiveTo!=null){
+								Item desired = savePlayer.getInventory().getItem(itemDesired);
+								if(desired!=null){
+									playerText += savePlayer.getUsername() + " would like to give "+itemDesired + 
+											" to " + toGiveTo.getUsername()+ "."+"If you would like to take it from "
+													+ "them please type in take " + itemDesired + " username" ;
+								}
+								else{
+									playerText+= "You do not have the following item. Therefore you cannot give it to " + toGiveTo.getUsername() + ".";
+								}
+							}
+							else{
+								playerText+= playerName + " isnt logged in.";
+							}
 							break;
 						case "command":
 							for (int i = 1; i < commandsd.length; i++) {
