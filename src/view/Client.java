@@ -12,6 +12,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -242,16 +244,26 @@ public class Client extends JFrame{
 					}
 
 					
-					if(hello.compareTo("") != 0){
+					if(hello.compareTo("") != 0 ){
+						//Global Chat
 						if(hello.contains("Global Chat:")){
 							Client.this.gameTextArea.append(hello);
+						//Tell command
 						}else if(hello.contains("Tell:")){
 							String[] username = hello.split("\\s+");
 							if(hello.contains(Client.this.newPlayer.getUsername())){
 								Client.this.gameTextArea.append(hello);
 							}
-//						}else if(player.getRoom().getRoomDescription().compareTo(Client.this.newPlayer.getRoom().getRoomDescription())==0){
-//							Client.this.gameTextArea.append(hello);
+						//Say command
+						}else if(hello.contains("Room Chat:")){
+							ArrayList<Player> playersInRoom = player.getRoom().getPlayersInRoom();
+							Set<Player> s = new HashSet<Player>(playersInRoom);
+							for (Player player2 : s) {
+								if(Client.this.newPlayer.getUsername().compareTo(player2.getUsername()) == 0){
+									Client.this.gameTextArea.append(hello + "\n");
+								}
+							}
+						//All other actions
 						}else{
 							if(player != null && player.getUsername().compareTo(Client.this.newPlayer.getUsername()) ==0){
 									Client.this.gameTextArea.append(hello + "\n");
