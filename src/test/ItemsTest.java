@@ -3,6 +3,7 @@ import model.player.Player;
 import model.room.GenericRoom;
 import model.items.*;
 import model.map.Map;
+import model.mobs.Bellatrix;
 import model.mobs.Dementor;
 import model.mobs.OrdinaryWizards;
 import model.mobs.Snape;
@@ -33,6 +34,7 @@ public class ItemsTest {
 		p.setCurrentRoom(arrayMap[5][1]);
 		p.addKnownSpells(avadaKedvra);
 	}
+	
 private String get = "get";
 private String look = "look";
 private String commands = "commands";
@@ -83,7 +85,9 @@ private HealingPotion healingPotion = new HealingPotion();
 private DependencyInjectionSword dependencyInjectionSword = new DependencyInjectionSword();
 private Snape snape = new Snape();
 private Dementor dementor = new Dementor(); 
+private Bellatrix bellatrix = new Bellatrix();
 private OrdinaryWizards ordinaryWizard = new OrdinaryWizards("ordinary", "syltherin"); 
+
 @Test
 public void testSpells(){
 	avadaKedvra.putInBook();
@@ -156,7 +160,10 @@ public void testSpells(){
 	assertEquals(stupefy.getName(), "Stupefy");
 	assertTrue(stupefy.canAttack(snape));
 	assertFalse(stupefy.canAttack(dementor));
+	//
+	assertEquals(sbOne.getSpell(), avadaKedvra);
 }	
+
 @Test
 public void testItems(){
 	setup();	
@@ -173,6 +180,10 @@ public void testItems(){
 	String d2 = bassilskFang.getDescription();
 	bassilskFang.use(this.p, "");
 	System.out.println(d2);
+	//
+	assertEquals(maurdersMap.getName(), "Maurders Map");
+	String m1 = maurdersMap.getForLookDescription();
+	System.out.println(m1);
 	//
 	assertEquals(butterBeer.getName(), "Butter Beer");
 	String d3 = butterBeer.getDescription();
@@ -238,20 +249,22 @@ public void testItems(){
 	}
 
 }
+
 @Test 
 public void testInventory() throws NoSuchAlgorithmException, NoSuchProviderException{
 	char [] password = new char ['p'];
 	Player p = new Player("Player", password);
 	p.setGameName("fucktard");
 	Inventory inventory = p.getInventory();
+	assertFalse(inventory.drop("horcrux"));
 	inventory.add(horcrux);
 	inventory.add(sbOne);
 	inventory.add(hermoinesHandbag);
 	inventory.add(healingPotion);
 	inventory.add(elderWand);
+	assertFalse(inventory.add(swordOfGryffindor));
 	String usingSpellBook=sbOne.use(p, null);
 	System.out.println(usingSpellBook);
-	//assertFalse(inventory.add(broomstick));
 	inventory.drop("horcrux");
 	assertEquals(null, inventory.getItem("horcrux"));
 	hermoinesHandbag.use(p,null);
@@ -260,6 +273,9 @@ public void testInventory() throws NoSuchAlgorithmException, NoSuchProviderExcep
 	System.out.println(inventory.toString());
 	String usinghP = healingPotion.use(p,null);
 	System.out.println(usinghP);
+	p.decreaseHP(10);
+	usinghP = healingPotion.use(p, null);
+	System.out.println(usinghP);
 	String usingbBeer = butterBeer.use(p,null);
 	System.out.println(usingbBeer);
 	inventory.add(dependencyInjectionSword);
@@ -267,13 +283,11 @@ public void testInventory() throws NoSuchAlgorithmException, NoSuchProviderExcep
 	assertTrue(inventory.add(ressurectionStone));
 	System.out.println(ressurectionStone.use(p,null));
 }
+
 @Test 
 public void testItemsWithCommands() throws NoSuchAlgorithmException, NoSuchProviderException{
 	setup();
-//	char [] password = new char ['p'];
-//	Player p = new Player("Player", password);
-//
-//	 p.setGameName("booby");
+	
 	 Spiders spider = new Spiders();
 	 arrayMap[5][1].setMobsInRoom(spider);
 	 spider.setCurrentRoom(arrayMap[5][1]);
@@ -301,7 +315,6 @@ public void testItemsWithCommands() throws NoSuchAlgorithmException, NoSuchProvi
 	 p.getInventory().add(neverEndingBook);
 	 System.out.println(spider.getDescription());
 	 System.out.println(p.performAction("look Spider"));
-	 assertEquals(p.performAction("look Spider"), spider.getDescription());
 	 System.out.println(p.performAction("use healing potion"));
 	 System.out.println(p.performAction("use never ending book"));
 	 System.out.println(p.performAction(info));
@@ -323,6 +336,68 @@ public void testItemsWithCommands() throws NoSuchAlgorithmException, NoSuchProvi
 	 p.performAction("who");
 	 p.performAction("say");
 	 p.performAction("tell");
-	 p.performAction("give");	 
+	 p.performAction("give");
+}
+
+@Test
+public void testUseMaurdersMap(){
+	setup();
+	p.setPlayerMap(map);
+	String allRoomStrings = "";
+	GenericRoom[][] allRooms = arrayMap;
+	for (int i = 0; i < allRooms.length; i++) {
+		for (int j = 0; j < allRooms[0].length; j++) {
+			allRoomStrings += allRooms[i][j].getTitle() + "\n";
+			allRoomStrings += allRooms[i][j].getItemsToString() + "\n";
+		}
+	}
+	System.out.println(allRoomStrings);
+	String mapString = maurdersMap.use(p, null);
+	assertEquals(mapString, allRoomStrings);
+}
+
+@Test
+public void testForLookDescriptions(){
+	System.out.println(ressurectionStone.getForLookDescription());
+	System.out.println(phoenixTears.getForLookDescription());
+	System.out.println(neverEndingBook.getForLookDescription());
+	System.out.println(horcrux.getForLookDescription());
+	System.out.println(hermoinesHandbag.getForLookDescription());
+	System.out.println(dependencyInjectionSword.getForLookDescription());
+	System.out.println(butterBeer.getForLookDescription());
+	System.out.println(broomstick.getForLookDescription());
+	System.out.println(sbOne.getForLookDescription());
+	System.out.println(bassilskFang.getForLookDescription());
+	System.out.println(healingPotion.getForLookDescription());
+	System.out.println(swordOfGryffindor.getForLookDescription());
+	System.out.println(elderWand.getForLookDescription());
+	System.out.println(regularWand.getForLookDescription());
+}
+
+@Test
+public void testAttackItems(){
+	setup();
+	p.setPlayerMap(map);
+	arrayMap[5][1].setPlayerPresent(false, p);
+	p.setCurrentRoom(arrayMap[9][0]);
+	p.addKnownSpells(expelliarumus);
+	arrayMap[9][0].setPlayerPresent(true, p);
+	System.out.println(swordOfGryffindor.use(p, ""));
+	System.out.println(bassilskFang.use(p, ""));
+	System.out.println(regularWand.use(p, "expelliarumus"));
+	
+	arrayMap[9][0].setMobsInRoom(bellatrix);
+	bellatrix.setCurrentRoom(arrayMap[9][0]);
+	System.out.println(swordOfGryffindor.use(p, ""));
+	System.out.println(bassilskFang.use(p, ""));
+	System.out.println(regularWand.use(p, "expelliarumus"));
+	arrayMap[9][0].removeMobsInRoom(bellatrix);
+	bellatrix.setCurrentRoom(arrayMap[5][1]);
+	
+	arrayMap[9][0].setMobsInRoom(snape);
+	snape.setCurrentRoom(arrayMap[9][0]);
+	System.out.println(swordOfGryffindor.use(p, ""));
+	System.out.println(bassilskFang.use(p, ""));
+	System.out.println(regularWand.use(p, "expelliarumus"));
 }
 }

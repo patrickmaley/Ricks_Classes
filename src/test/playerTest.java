@@ -8,7 +8,9 @@ import java.security.NoSuchProviderException;
 import org.junit.Test;
 
 import model.items.AvadaKedvra;
+import model.items.ButterBeer;
 import model.items.Expelliarumus;
+import model.items.RessurectionStone;
 import model.items.SectumSempra;
 import model.items.Spell;
 import model.map.Map;
@@ -24,6 +26,12 @@ public class PlayerTest {
 	private char[] password1 = new char[] {'1'};
 	private char[] password2 = new char[] {'2', '2'};
 	private char[] password3 = new char[] {'3', '3', '3'};
+	
+	//Some items
+	private RessurectionStone ressurectionStone = new RessurectionStone();
+	private ButterBeer butterBeer = new ButterBeer();
+	
+	private Player one;
 	
 	@Test
 	public void testPlayerGetters() throws NoSuchAlgorithmException, NoSuchProviderException {
@@ -117,7 +125,7 @@ public class PlayerTest {
 		
 		//Tests inventory
 		assertNotEquals(player1.getInventory(), player2.getInventory());
-		
+		one = player1;
 	}
 
 }

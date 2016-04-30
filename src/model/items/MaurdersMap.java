@@ -15,7 +15,7 @@ public class MaurdersMap extends Item {
 		String allRoomStrings = "";
 		GenericRoom[][] allRooms = p.getPlayerMap().getMapArray();
 		for (int i = 0; i < allRooms.length; i++) {
-			for (int j = 0; j < allRooms.length; j++) {
+			for (int j = 0; j < allRooms[0].length; j++) {
 				allRoomStrings += allRooms[i][j].getTitle() + "\n";
 				allRoomStrings += allRooms[i][j].getItemsToString() + "\n";
 			}
