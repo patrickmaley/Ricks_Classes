@@ -48,7 +48,7 @@ public class Server {
 	private static final int SERVER_KEY = 123450;
 	//private static final String SAVED_PLAYERLIST_LOCATION = "savedPlayer";
 	
-	private static ArrayList<Player> loggedOnPlayers = new ArrayList<Player>();
+	private static  ArrayList<Player> loggedOnPlayers = new ArrayList<Player>();
 	
 	
 	/**
@@ -123,12 +123,21 @@ public class Server {
 		loggedOnPlayers.add(player);
 	}
 	public static void removePlayer(Player player) {
-		if(loggedOnPlayers.contains(player))	
-			loggedOnPlayers.remove(player);
+		ArrayList<Player> copyPlayersLoggedOn = loggedOnPlayers;
+		for (Player player2 : copyPlayersLoggedOn) {
+			if(player2.getUsername().compareTo(player.getUsername())== 0){
+				copyPlayersLoggedOn.remove(player2);
+			}
+		}
+		Server.setLoggedOnPlayers(copyPlayersLoggedOn);
 	}
 	
 	public static ArrayList<Player> getLoggedOnPlayers() {
 		return loggedOnPlayers;
+	}
+	
+	public static void setLoggedOnPlayers(ArrayList<Player> playersLoggedOnCopy) {
+		loggedOnPlayers = playersLoggedOnCopy;
 	}
 	
 	public static  void saveState(){

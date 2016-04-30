@@ -4,9 +4,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.MediaTracker;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -15,7 +20,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,7 +42,7 @@ import model.room.GenericRoom;
 
 public class Client extends JFrame{
 	private static final String ADDRESS = "localhost";
-	private final Dimension STATUS_PANEL_DIMENSION = new Dimension(200, 575);
+	private final Dimension STATUS_PANEL_DIMENSION = new Dimension(200, 300);
 	private final String GAME_COMMANDS = "After logging in please enter your name and house for new characters. \n\n           Command List\n"
 			+ "    Movement: \nNorth, South, East, West\n"
 			+ "    Interactions:\n"
@@ -59,6 +66,7 @@ public class Client extends JFrame{
 	
 	private JPanel textPanel = new JPanel();
 	private JPanel signInPanel = new JPanel(new FlowLayout());
+	private JPanel graphicsView = new GraphicsView();
 	
 	private JTextArea signInInstructions = new JTextArea();
 	private JTextArea gameTextArea = new JTextArea();
@@ -68,7 +76,7 @@ public class Client extends JFrame{
 	private JTextField signInText = new JTextField();
 	private JTextField gameNameText = new JTextField();
 	private JTextField gameHouseText = new JTextField();
-	private JTextField titleText = new JTextField("9 3/4 Jump Street: Hogwarts");
+	private JTextField titleText = new JTextField();
 	
 	private Socket socket;
 	private ObjectOutputStream oos;
@@ -77,10 +85,13 @@ public class Client extends JFrame{
 	
 	private JPasswordField passwordText = new JPasswordField();
 	private JButton signInButton = new JButton("Sign In");
-	Font displayFont = new Font("AngsanaUPC", 1, 14);
+	Font displayFont = new Font("AngsanaUPC", 1, 16);
 	private Player newPlayer = null;
 	
+	private Image harryPotter, schools, express;
 	public static void main(String[] args) {
+		
+		
 		new Client().setVisible(true);
 		
 	}
@@ -89,24 +100,48 @@ public class Client extends JFrame{
 		openConnection();
 		setTitle("9 3/4 Jump Street: Hogwarts");
 		setLayout(new FlowLayout());
-		//setPreferredSize(new Dimension(450, 110));
-		setSize(800, 650);
+		//setPreferredSize(new Dimension(1200, 600));
+		setSize(1300, 650);
 		setLocation(0,0);
-		
+		//setLocationRelativeTo(null);
 		//setResizable(false);
 		getContentPane().setBackground(new Color(8, 2, 50));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		try {
+			harryPotter = ImageIO.read(new File("images/hp.jpg"));
+			schools = ImageIO.read(new File("images/schools.jpg"));
+			express = ImageIO.read(new File("images/hogwartsExpress.jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		signInFrame();
 		
 		new ServerListener().start();
 	}
 	
 	private void signInFrame() {
-		setLayout(new FlowLayout());
+		//setLayout(new FlowLayout());
 		//setPreferredSize(new Dimension(450, 110));
-		setSize(800, 650);
-		setLocation(0,0);
+		//setSize(800, 650);
+		//setLocation(0,0);
 		//Sets up the sign In Panel where the user inputs information
+		//BackgroundPanel test = new BackgroundPanel();
+		
+		//Set title of the game
+  		Font titleFont = new Font("Bodoni MT Black", 1, 60);
+  		titleText.setSize(1800, 100);
+  		titleText.setFont(titleFont);
+  		titleText.setBackground(new Color(192, 142, 45));
+  		titleText.setEditable(false);
+  		titleText.setText("Harry Potter in 9 3/4's Jump Street");
+  		add(titleText);
+  		
+  		ImageIcon icon = new ImageIcon(express); 
+  		JLabel thumb = new JLabel();
+  		thumb.setIcon(icon);
+  		add(thumb);
+  		
 		JLabel userNameLabel = new JLabel("User Name");
 		JLabel passwordLabel = new JLabel("Password  ");
 		
@@ -126,7 +161,7 @@ public class Client extends JFrame{
         signInPanel.add(passwordText);
         signInPanel.add(this.signInButton);
         add(signInPanel);
-        
+      
         signInButton.addActionListener(new SignInListener()); 
 	}
 
@@ -135,6 +170,8 @@ public class Client extends JFrame{
 	}
 	
 	private void addComponents() {
+		//this.setPreferredSize(new Dimension(800,1000));
+		//setSize(800, 1200);
 		JLabel gameNameLabel = new JLabel("Game Name");
 		JLabel gameHouseLabel = new JLabel("House Name");
 		gameNameLabel.setForeground(new Color(59, 58, 54));
@@ -167,6 +204,7 @@ public class Client extends JFrame{
   		titleText.setFont(titleFont);
   		titleText.setBackground(new Color(192, 142, 45));
   		titleText.setEditable(false);
+  		titleText.setText("9 3/4 Jump Street: Hogwarts");
   		textPanel.add(titleText);
       		
   		//Jtextarea for the game
@@ -195,6 +233,7 @@ public class Client extends JFrame{
 		
 		//Add all components to the frame and set actionlistener
 		add(textPanel);
+		add(graphicsView);
 		playerTextArea.addActionListener(new textBoxListener());
 	}
 	
@@ -243,44 +282,47 @@ public class Client extends JFrame{
 						
 					}
 
-					
-					if(hello.compareTo("") != 0 ){
-						//Global Chat
-						if(hello.contains("Global Chat:")){
-							Client.this.gameTextArea.append(hello);
-						//Tell command
-						}else if(hello.contains("Tell:")){
-							String[] username = hello.split("\\s+");
-							if(hello.contains(Client.this.newPlayer.getUsername())){
+					if(hello != null){
+						if(hello.compareTo("") != 0 ){
+							//Global Chat
+							if(hello.contains("Global Chat:")){
 								Client.this.gameTextArea.append(hello);
-							}
-						//Say command
-						}else if(hello.contains("Room Chat:")){
-							ArrayList<Player> playersInRoom = player.getRoom().getPlayersInRoom();
-							Set<Player> s = new HashSet<Player>(playersInRoom);
-							for (Player player2 : s) {
-								if(Client.this.newPlayer.getUsername().compareTo(player2.getUsername()) == 0){
-									Client.this.gameTextArea.append(hello + "\n");
+							//Tell command
+							}else if(hello.contains("Tell:")){
+								String[] username = hello.split("\\s+");
+								if(hello.contains(Client.this.newPlayer.getUsername())){
+									Client.this.gameTextArea.append(hello);
 								}
-							}
-						//All other actions
-						}else{
-							if(player != null && player.getUsername().compareTo(Client.this.newPlayer.getUsername()) ==0){
-									Client.this.gameTextArea.append(hello + "\n");
-									Client.this.gameTextArea.append(TEXT_BREAK);
+							//Say command
+							}else if(hello.contains("Room Chat:")){
+								ArrayList<Player> playersInRoom = player.getRoom().getPlayersInRoom();
+								Set<Player> s = new HashSet<Player>(playersInRoom);
+								for (Player player2 : s) {
+									if(Client.this.newPlayer.getUsername().compareTo(player2.getUsername()) == 0){
+										Client.this.gameTextArea.append(hello + "\n");
+									}
+								}
+							//All other actions
+							}else{
+								if(player != null && player.getUsername().compareTo(Client.this.newPlayer.getUsername()) ==0){
+										Client.this.gameTextArea.append(hello + "\n");
+										Client.this.gameTextArea.append(TEXT_BREAK);
+										//Resets descriptions value
+										playerTextArea.setText("");
+								}
 							}
 						}
 					}else{
 						if(player != null && player.getUsername().compareTo(Client.this.newPlayer.getUsername()) ==0){
 							Client.this.gameTextArea.append("Nothing much happens\n");
 							Client.this.gameTextArea.append(TEXT_BREAK);
+							//Resets descriptions value
+							playerTextArea.setText("");
 						}
 					}
 					//Auto updates the scrollpane to the last description
 					gameTextArea.setCaretPosition(gameTextArea.getDocument().getLength());
 					
-					//Resets descriptions value
-					playerTextArea.setText("");
 					
 				}
 			} catch (IOException e) {
@@ -302,25 +344,16 @@ public class Client extends JFrame{
 		}
 		Client.this.dispatchEvent(new WindowEvent(Client.this,WindowEvent.WINDOW_CLOSING));
 	}
+	
 	private class textBoxListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-		
 			String command = playerTextArea.getText().toLowerCase();
 			String[] firstWord = command.split("\\s+");
 			
 			if(firstWord[0].compareTo("quit")== 0){
-				try {
-					oos.writeObject("");
-					oos.writeObject(new char[0]);
-					oos.writeObject(Client.this.newPlayer);
-					oos.writeObject(firstWord);
-					oos.reset();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				sendObjects("",new char[0], Client.this.newPlayer, firstWord);
 				cleanUpAndQuit("Do you really want to quit?");
-				
 			}else if(firstWord[0].compareTo("shutdown")==0 ||
 					firstWord[0].compareTo("say")==0 ||
 					firstWord[0].compareTo("ooc")==0 ||
@@ -330,53 +363,40 @@ public class Client extends JFrame{
 				String[] commandArray = command.split("\\s+");
 				
 				if(firstWord[0].compareTo("who") == 0 ||commandArray.length  > 1){
-					try {
-						oos.writeObject("");
-						oos.writeObject(new char[0]);
-						oos.writeObject(Client.this.newPlayer);
-						oos.writeObject(commandArray);
-						oos.reset();
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
+					sendObjects("",new char[0], Client.this.newPlayer, commandArray);
 				}
-				
 			}else{
 				String commandInstruction = "command " + command;
 				String[] commandArray = commandInstruction.split("\\s+");
-				try {
-					oos.writeObject("");
-					oos.writeObject(new char[0]);
-					oos.writeObject(Client.this.newPlayer);
-					oos.writeObject(commandArray);
-					oos.reset();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				sendObjects("",new char[0], Client.this.newPlayer, commandArray);
 			}
-			
-			
 		}
 	}
 	
+
 	private class SignInListener implements ActionListener {
 		@Override
-		public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(ActionEvent e){
+			
 			String userName = signInText.getText();
 			char[] password = passwordText.getPassword();
-
-			try {
-				oos.writeObject(userName);
-				oos.writeObject(password);
-				oos.writeObject(null);
-				oos.writeObject(null);
-				oos.reset();
-			} catch (IOException e1) {
-				e1.printStackTrace();
+			if(password.length > 0){
+				sendObjects(userName,password, null, null);
 			}
 		}	
 	}
 	
+	private  void sendObjects(String string, char[] array, Player player, String[] commands){
+		try {
+			oos.writeObject(string);
+			oos.writeObject(array);
+			oos.writeObject(player);
+			oos.writeObject(commands);
+			oos.reset();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	private boolean itemsIsNotOnMap(String lastWord) {
 		boolean itIsAPlayer = false;
 		ArrayList<Item> temp = Client.this.newPlayer.getPlayerMap().getItemsOnMap();
@@ -392,5 +412,4 @@ public class Client extends JFrame{
 		itIsAPlayer = true;
 		return itIsAPlayer;
 	}
-
 }
