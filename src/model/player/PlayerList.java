@@ -45,4 +45,11 @@ public class PlayerList implements Serializable {
 		}
 	}
 	
+	public Player getPlayer(String userName){
+		if(validPlayers.containsKey(userName)){
+			return validPlayers.get(userName);
+		}
+		else return null;
+	}
+	
 }
