@@ -18,7 +18,7 @@ public class Hagrid extends Mobs{
 	}
 	
 	public String getForLookDescription(){
-		return "Do you hear that?? I should not have said. I should not have said. Looks like your favorite fried is here.";
+		return "Do you hear that?? I should not have said. I should not have said. Looks like your favorite friend is here.";
 	}
 	
 	@Override

@@ -12,7 +12,7 @@ public Inventory(){
 }
 public Item getItem(String getThis){
 	for(int j=0;j<inventory.size();j++){
-		if(inventory.get(j).getName().toLowerCase().contains(getThis)){
+		if(inventory.get(j).getName().toLowerCase().contains(getThis.toLowerCase())){
 			return inventory.get(j);		
 		}
 	}

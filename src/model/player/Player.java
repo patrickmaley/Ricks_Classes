@@ -10,6 +10,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.util.ArrayList;
 import model.items.Inventory;
+import model.items.Item;
 import model.items.Spell;
 
 public class Player implements Serializable{
@@ -183,6 +184,48 @@ public class Player implements Serializable{
 		return this.interaction.performAction(s);
 	}
 	
+	public Spell strongestSpell(){
+		Spell strong = null;
+		for(int i=0; i< this.knownSpells.size(); i++){
+			if(strong == null){
+				strong = this.knownSpells.get(i);
+			}
+			else if(strong.getAttackPower() < this.knownSpells.get(i).getAttackPower() &&
+					this.knownSpells.get(i).getName().compareTo("Expecto Patronum") != 0){
+				strong = this.knownSpells.get(i);
+			}
+		}
+		return strong;
+	}
+	
+	public Item strongestItem(){
+		Item strongest = null;
+		if(this.getInventory().getItem("Elder Wand") != null){
+			strongest = this.getInventory().getItem("Elder Wand");
+		}
+		else if(this.getInventory().getItem("Sword of Gryffindor") != null){
+			strongest = this.getInventory().getItem("Sword of Gryffindor");
+		}
+		else if(this.getInventory().getItem("Bassilsk Fang") != null){
+			strongest = this.getInventory().getItem("Bassilsk Fang");
+		}
+		if(this.getInventory().getItem("Regular Wand") != null){
+			if(strongest == null){
+				strongest = this.getInventory().getItem("Regular Wand");
+			}
+			else if(strongest.getName().toLowerCase().compareTo("Sword of Gryffindor") == 0){
+				if(this.strongestSpell().getAttackPower() > 50){
+					strongest = this.getInventory().getItem("Regular Wand");
+				}
+			}
+			else if(strongest.getName().toLowerCase().compareTo("Bassilsk Fang") == 0){
+				if(this.strongestSpell().getAttackPower() > 15){
+					strongest = this.getInventory().getItem("Regular Wand");
+				}
+			}
+		}	
+		return strongest;
+	}
 	//Makes the user's password secure
 	private static String getSecurePassword(String passwordToHash){
         String generatedPassword = null;
