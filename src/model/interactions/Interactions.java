@@ -6,6 +6,7 @@ import model.interactions.*;
 import model.items.ElderWand;
 import model.items.Inventory;
 import model.items.Item;
+import model.items.Spell;
 import model.mobs.Mobs;
 import model.player.*;
 import model.room.GenericRoom;
@@ -94,11 +95,32 @@ public class Interactions implements Serializable {
 		else if(command.equals("quit")){
 			return quit();
 		}
+		else if(command.equals("attack")){
+			return attack();
+		}
 		else{
 			return shutdown();
 		}
 	}
 
+	private String attack() {
+		Item strongestItem = player.strongestItem();
+		Spell strongestSpell = player.strongestSpell();
+		String returner = "";
+		String parameters = "";
+		if(strongestItem != null){
+			if(strongestSpell != null){
+				parameters = strongestItem.getName() + " " + strongestSpell.getName();
+			}
+			else{
+				parameters = strongestItem.getName();
+			}
+			return useItem.use(parameters.toLowerCase());
+		}
+		else{
+			return "You currently have nothing to attack with.";
+		}
+	}
 	private String down() {
 		return player.getRoom().getLookDownDescription();
 	}
@@ -149,28 +171,40 @@ public class Interactions implements Serializable {
 	
 	private String look(String commandParameters) {
 		if(commandParameters.length() == 0){
+			int sizeOfArray = player.getRoom().getitemsInRoom().size();
 			String withItemsAndMobs ="";
-			if(player.getRoom().getitemsInRoom().size()!=0){
+			if(sizeOfArray==1){
+				withItemsAndMobs = "Hey it seems like there is an item in the room with you, look over there you can see a ";
+			}
+			if(sizeOfArray>1){
+				withItemsAndMobs = "Lucky you there are multiple items in here scattered all over the place, instead of making "
+					+ "you look again I'll tell you what they are now, there is a ";
+			}
+				String period = ".";
+			if(sizeOfArray!=0){
 				ArrayList<Item> itemsinRoom = player.getRoom().getitemsInRoom();
 				for(int i=0; i< itemsinRoom.size(); i++){
 					if(itemsinRoom.size()>1){
-					withItemsAndMobs += itemsinRoom.get(i).getForLookDescription() + ", and ";
-				}
+						if(sizeOfArray-1!=i){
+							withItemsAndMobs += itemsinRoom.get(i).getName().toLowerCase()+", and ";
+						}
+						else{
+							withItemsAndMobs += itemsinRoom.get(i).getName().toLowerCase();
+						}
+						}
 					else{
-						withItemsAndMobs += itemsinRoom.get(i).getForLookDescription();
+						withItemsAndMobs += itemsinRoom.get(i).getName();
 					}
 				}	
 			}
-			System.out.println(player.getRoom().getMobsPresent());
+			withItemsAndMobs+=period;
 			if(player.getRoom().getMobsPresent()){
 				ArrayList<Mobs> mobsinRoom = player.getRoom().getMobsInRoom();
-				System.out.println(mobsinRoom.size());
 				for(int i=0; i< mobsinRoom.size(); i++){
 					withItemsAndMobs += mobsinRoom.get(i).getForLookDescription() + ".";
-					System.out.print(withItemsAndMobs);
 				}
 			}
-			return player.getRoom().getRoomDescription() + "\n" + withItemsAndMobs;
+			return player.getRoom().getRoomDescription() + withItemsAndMobs;
 		}
 		ArrayList<Item> itemsInPlayersCurrentRoom = player.getRoom().getitemsInRoom();
 		boolean itemIsInRoom = false;
@@ -186,8 +220,7 @@ public class Interactions implements Serializable {
 				break;	
 			}
 		}
-		
-		for(int i=0; i< mobsInPlayersCurrentRoom.size();i++){
+				for(int i=0; i< mobsInPlayersCurrentRoom.size();i++){
 			String mobName = mobsInPlayersCurrentRoom.get(i).getName().toLowerCase();
 			if(mobName.compareTo(commandParameters)==0){
 				mobIsInRoom = true;

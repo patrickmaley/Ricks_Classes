@@ -30,6 +30,8 @@ public class UseItem implements Serializable{
 		}
 		String spellName = commandParameters.substring(a).trim();
 		if(item.equals("elder")){
+			int index = spellName.indexOf(" ");
+			spellName = spellName.substring(index+1);
 			Item toUse = player.getInventory().getItem(item);
 			if(toUse==null){
 				return "This item was not found in your inventory therefore you cannot use it";
@@ -39,6 +41,8 @@ public class UseItem implements Serializable{
 			}		
 		}
 		else if (item.equals("regular")){
+			int index = spellName.indexOf(" ");
+			spellName = spellName.substring(index+1);
 			Item toUse = player.getInventory().getItem(item);
 			if(toUse==null){
 				return "This item was not found in your inventory therefore you cannot use it";

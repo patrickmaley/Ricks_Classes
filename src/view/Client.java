@@ -298,7 +298,130 @@ public class Client extends JFrame{
 									}
 								}
 							//All other actions
-							}else{
+							}else if(hello.contains("NO")){
+								String returned = hello.toLowerCase();
+								String[] take = returned.split("\\s+");
+								String playerGettingUserName = take[3];
+								String playerTakingFromUserName = take[4];
+								ArrayList<Player> playersInRoom = player.getRoom().getPlayersInRoom();
+								Set<Player> s = new HashSet<Player>(playersInRoom);
+								for (Player player2 : s) {
+									if(playerGettingUserName.compareTo(player2.getUsername()) == 0){
+										Client.this.gameTextArea.append("Deal was rejected ");
+										Client.this.gameTextArea.append(TEXT_BREAK);
+
+									}
+									else if(playerTakingFromUserName.compareTo(player2.getUsername()) == 0){
+										Client.this.gameTextArea.append("Deal was rejected ");
+										Client.this.gameTextArea.append(TEXT_BREAK);
+	;
+									}
+								}
+							}else if(hello.contains("YES")){
+								String returned = hello.toLowerCase();
+								String[] take = returned.split("\\s+");
+								String playerGettingUserName = take[3];
+								String playerTakingFromUserName = take[4];
+								if(Client.this.newPlayer.getUsername().compareTo(playerTakingFromUserName)==0){
+									Client.this.gameTextArea.append("Deal is done " + "\n");
+									Client.this.gameTextArea.append(TEXT_BREAK);
+								}
+								ArrayList<Player> playersInRoom = player.getRoom().getPlayersInRoom();
+								Set<Player> s = new HashSet<Player>(playersInRoom);
+								Player sendingBack=null;
+								for(int i =0;i<playersInRoom.size();i++){
+									if(playersInRoom.get(i).getUsername().contains(playerGettingUserName)){
+										sendingBack = playersInRoom.get(i);
+										break;
+									}
+								}
+//								oos.writeObject("");
+//								oos.writeObject(new char [0]);
+//								oos.writeObject(sendingBack);
+//								oos.writeObject(null);
+//								oos.reset();
+								sendObjects("",new char[0], sendingBack, null);
+								
+							}else if(hello.contains("Take")){
+								String returned = hello.toLowerCase();
+								String[] take = returned.split("\\s+");
+								ArrayList<Player> playersInRoom = player.getRoom().getPlayersInRoom();
+								Set<Player> s = new HashSet<Player>(playersInRoom);
+								String itemName="";
+								for(int i =1;i<take.length-1;i++){
+									itemName+=take[i] + " ";
+								}
+								itemName=itemName.trim();
+								String toTakeFromUserName = take [take.length-2];
+								String askingToTakeUserName = take[take.length-1];
+								if(Client.this.newPlayer.getUsername().compareTo(toTakeFromUserName)==0){
+									int reply = JOptionPane.showConfirmDialog(null, askingToTakeUserName + " would like to take " + itemName, "Take Request", JOptionPane.YES_NO_OPTION);
+									if(reply == JOptionPane.YES_OPTION){
+//									try {
+//										oos.writeObject("");
+//										oos.writeObject(new char[0]);
+//										oos.writeObject(Client.this.newPlayer);
+										String [] tradeYes = {"trade", "Accepted", take[1], askingToTakeUserName};
+//										oos.writeObject(tradeYes);
+//										oos.reset();
+										sendObjects("",new char[0], Client.this.newPlayer, tradeYes);
+//									} catch (IOException e1) {
+//										e1.printStackTrace();
+//									}
+								}
+									if(reply == JOptionPane.NO_OPTION){
+									
+//											oos.writeObject("");
+//											oos.writeObject(new char[0]);
+//											oos.writeObject(Client.this.newPlayer);
+											String [] tradeNo = {"trade", "Rejected", take[1], askingToTakeUserName};
+//											oos.writeObject(tradeNo);
+//											oos.reset();
+											sendObjects("",new char[0], Client.this.newPlayer, tradeNo);
+										
+									}
+							}}
+							else if(hello.contains("Give")){
+								String returned = hello.toLowerCase();
+								String[] take = returned.split("\\s+");
+								ArrayList<Player> playersInRoom = player.getRoom().getPlayersInRoom();
+								Set<Player> s = new HashSet<Player>(playersInRoom);
+								String itemName="";
+								for(int i =1;i<take.length-1;i++){
+									itemName+=take[i] + " ";
+								}
+								itemName=itemName.trim();
+								String toTakeFromUserName = take [take.length-2];
+								String ToGiveToUserName = take[take.length-1];
+								if(Client.this.newPlayer.getUsername().compareTo(ToGiveToUserName)==0){
+									int reply = JOptionPane.showConfirmDialog(null, toTakeFromUserName + " would like to give " + itemName, "Take Request", JOptionPane.YES_NO_OPTION);
+									if(reply == JOptionPane.YES_OPTION){
+//									try {
+//										oos.writeObject("");
+//										oos.writeObject(new char[0]);
+//										oos.writeObject(Client.this.newPlayer);
+										String [] tradeYes = {"giving", "Accepted", take[1], toTakeFromUserName};
+//										oos.writeObject(tradeYes);
+										sendObjects("",new char[0], Client.this.newPlayer, tradeYes);
+//										oos.reset();
+//									} catch (IOException e1) {
+//										e1.printStackTrace();
+//									}
+								}
+									if(reply == JOptionPane.NO_OPTION){
+//										try {
+//											oos.writeObject("");
+//											oos.writeObject(new char[0]);
+//											oos.writeObject(Client.this.newPlayer);
+											String [] tradeNo = {"giving", "Rejected", take[1], toTakeFromUserName};
+//											oos.writeObject(tradeNo);
+											sendObjects("",new char[0], Client.this.newPlayer, tradeNo);
+//											oos.reset();
+//										} catch (IOException e1) {
+//											e1.printStackTrace();
+//										}
+									}
+							}}else{
 								if(player != null && player.getUsername().compareTo(Client.this.newPlayer.getUsername()) ==0){
 										Client.this.gameTextArea.append(hello + "\n");
 										Client.this.gameTextArea.append(TEXT_BREAK);

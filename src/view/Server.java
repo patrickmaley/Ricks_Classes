@@ -24,8 +24,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import model.items.Inventory;
 import model.items.Item;
 import model.map.Map;
+import model.mobs.Mobs;
 import model.player.Player;
 import model.player.PlayerList;
 import model.room.GenericRoom;
@@ -204,12 +206,17 @@ class ClientHandler extends Thread {
 				
 				//Updates player in playerlist
 				if(savePlayer != null){
-					Player oldPlayer = Server.getPlayerList().getCurrentList().get(savePlayer.getUsername());
-					oldPlayer = Server.getPlayerList().getCurrentList().put(savePlayer.getUsername(), savePlayer);
-					oldPlayer = Server.getPlayerList().getCurrentList().get(savePlayer.getUsername());
-					savePlayer.setPlayerMap(Server.getServerMap());
-					savePlayer.updateMap(Server.getServerMap());
-					
+					if(commandsd ==null){
+						savePlayer = Server.getPlayerList().getCurrentList().get(savePlayer.getUsername());
+						playerText+="The deal was accepted";
+						}
+					else{
+						Player oldPlayer = Server.getPlayerList().getCurrentList().get(savePlayer.getUsername());
+						oldPlayer = Server.getPlayerList().getCurrentList().put(savePlayer.getUsername(), savePlayer);
+						oldPlayer = Server.getPlayerList().getCurrentList().get(savePlayer.getUsername());
+						savePlayer.setPlayerMap(Server.getServerMap());
+						savePlayer.updateMap(Server.getServerMap());
+					}
 					//Updates all of players rooms they are not in.
 					Map map = Server.getServerMap();
 					GenericRoom[][] mapArray = map.getMapArray();
@@ -256,6 +263,13 @@ class ClientHandler extends Thread {
 								playerText += commandsd[i] + " ";
 							}
 							playerText += "\n";
+							Mobs mobInRoom = savePlayer.getRoom().getMobsInRoom().get(0);
+							if(mobInRoom != null){
+								if(commandsd[1].toLowerCase().compareTo(mobInRoom.getName().toLowerCase()) == 0){
+									playerText += mobInRoom.getName() + ": ";
+									playerText += mobInRoom.action("talk", savePlayer) + "\n";
+								}
+							}
 							break;
 						case "who":
 							playerText += "Players on server: ";
@@ -273,27 +287,35 @@ class ClientHandler extends Thread {
 							playerText += "Players on server: ";
 							playerText += "\n";
 							break;
+						
+						case "command":
+							for (int i = 1; i < commandsd.length; i++) {
+								playerText += commandsd[i] + " ";
+							}
+							playerText = savePlayer.performAction(playerText);
+						
+							break;
 						case "take":
 							String itemDesired="";
 							for(int i=1;i<commandsd.length-1;i++){
-								itemDesired+=commandsd[i];
+								itemDesired+=commandsd[i] + " ";
 							}
 							itemDesired = itemDesired.trim();
-							String playerUserName = commandsd[commandsd.length-1];
+							String playerUserName = commandsd[commandsd.length-1].trim();
 							ArrayList<Player> playersLoggedOn = Server.getLoggedOnPlayers();
+							PlayerList playerList = Server.getPlayerList();
 							Player toGetFrom = null;
 							for(int i =0;i<playersLoggedOn.size();i++){
 								if(playersLoggedOn.get(i).getUsername().compareTo(playerUserName)==0){
-									toGetFrom = playersLoggedOn.get(i);
+									toGetFrom = playerList.getPlayer(playerUserName);
 									break;
 								}
 							}
 							if(toGetFrom!=null){
-								Item desired = toGetFrom.getInventory().getItem(itemDesired);
+								Inventory desiredFrom = toGetFrom.getInventory();
+								Item desired = desiredFrom.getItem(itemDesired);
 								if(desired!=null){
-									playerText += savePlayer.getUsername() + " would like to take "+itemDesired + 
-											" from " + toGetFrom.getUsername()+ "."+"If you would like to give it to "
-													+ "them please type in give " + itemDesired + " username" ;
+									playerText+= "Take " + itemDesired+ " " + toGetFrom.getUsername()+ " " + savePlayer.getUsername();
 								}
 								else{
 									playerText+= toGetFrom.getUsername() + " does not have the following item. Therefore you cannot get it from them.";
@@ -303,12 +325,71 @@ class ClientHandler extends Thread {
 								playerText+= playerUserName + " isnt logged in.";
 							}
 							break;
-						case "command":
-							for (int i = 1; i < commandsd.length; i++) {
-								playerText += commandsd[i] + " ";
+						case "give":
+							String itemDesiredForGive="";
+							for(int i=1;i<commandsd.length-1;i++){
+								itemDesiredForGive+=commandsd[i] + " ";
 							}
-							playerText = savePlayer.performAction(playerText);
-						
+							itemDesired = itemDesiredForGive.trim();
+							String playerGivingToUserName = commandsd[commandsd.length-1].trim();
+							ArrayList<Player> playersLoggedOnGive = Server.getLoggedOnPlayers();
+							PlayerList playerListGive = Server.getPlayerList();
+							Player toGiveTo=null;
+							for(int i =0;i<playersLoggedOnGive.size();i++){
+								if(playersLoggedOnGive.get(i).getUsername().compareTo(playerGivingToUserName)==0){
+									toGiveTo = playerListGive.getPlayer(playerGivingToUserName);
+									break;
+								}
+							}
+							if(toGiveTo!=null){
+								Inventory desiredFrom = savePlayer.getInventory();
+								Item desired = desiredFrom.getItem(itemDesired);
+								if(desired!=null){
+									playerText+= "Give " + itemDesired+ " " + savePlayer.getUsername()+ " " +  toGiveTo.getUsername();
+								}
+								else{
+									playerText+= " You do not have the following item. Therefore you cannot get it from them.";
+								}
+							}
+							else{
+								playerText+= playerGivingToUserName + " isnt logged in.";
+							}
+							break;
+						case "giving":
+							String itemGiving = commandsd[2];
+							String playerGivingUserName = commandsd[3];
+							ArrayList<Player> playersLoggedOn2 = Server.getLoggedOnPlayers();
+							PlayerList playerList2 = Server.getPlayerList();
+							Player givingUp = playerList2.getPlayer(playerGivingUserName);
+							if(commandsd[1].compareTo("Accepted")==0){
+								Item givingUpTo = givingUp.getInventory().getItem(itemGiving);
+								savePlayer.getInventory().add(givingUpTo);
+								givingUp.getInventory().drop(itemGiving);
+								givingUp.getRoom().removeItemInRoom(givingUpTo);
+								playerText+= "YES TO DEAL " + givingUp.getUsername() + " " + savePlayer.getUsername();
+							}
+							else{
+								playerText+= "NO TO DEAL " + givingUp.getUsername()+ " "+ savePlayer.getUsername();
+							}
+							break;
+						case "trade":
+							String itemTrade = commandsd[2];
+							String playerWantingUserName = commandsd[3];
+							ArrayList<Player> playersLoggedOn1 = Server.getLoggedOnPlayers();
+							PlayerList playerList1 = Server.getPlayerList();
+							Player wanting = playerList1.getPlayer(playerWantingUserName);
+							if(commandsd[1].compareTo("Accepted")==0){
+								System.out.println(wanting.getUsername());
+								System.out.println(savePlayer.getUsername());
+								Item giving = savePlayer.getInventory().getItem(itemTrade);
+								wanting.getInventory().add(giving);
+								savePlayer.getInventory().drop(itemTrade);
+								savePlayer.getRoom().removeItemInRoom(giving);
+								playerText+= "YES TO DEAL " + wanting.getUsername() + " " + savePlayer.getUsername();
+							}
+							else{
+								playerText+= "NO TO DEAL " + wanting.getUsername()+ " "+ savePlayer.getUsername();
+							}
 							break;
 						default: break;
 					}
