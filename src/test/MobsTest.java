@@ -43,7 +43,6 @@ public class MobsTest {
 		malfoy.action("look", p);
 		malfoy.move();
 		malfoy.getForLookDescription();
-		//assertEquals("Piss off!", malfoy.action());
 		assertFalse(malfoy.canBeAttacked());
 		OrdinaryWizards ron = new OrdinaryWizards("Ron", "Gryffindor");
 		assertEquals("Ron", ron.getName());
@@ -55,7 +54,6 @@ public class MobsTest {
 		for(int i=0; i<50; i++){
 			ron.move();
 		}
-		//assertEquals("Hey what can I help with?", ron.action());
 		OrdinaryWizards cedric = new OrdinaryWizards("Cedric", "Hufflepuff");
 		assertEquals("Cedric", cedric.getName());
 		assertEquals(100, cedric.getHp(),.01);
@@ -66,7 +64,6 @@ public class MobsTest {
 		for(int i=0; i<50; i++){
 			cedric.move();
 		}
-		//assertEquals("Our ghost is the Fat Friar", cedric.action());
 		OrdinaryWizards luna = new OrdinaryWizards("Luna", "Ravenclaw");
 		assertEquals("Luna", luna.getName());
 		assertEquals(100, luna.getHp(),.01);
@@ -80,7 +77,6 @@ public class MobsTest {
 		luna.move();
 		luna.move();
 		luna.action("", p);
-		//assertEquals("I'm smarter than you!", luna.action());
 		OrdinaryWizards groundskeep = new OrdinaryWizards("Keeper", "");
 		assertEquals("Keeper", groundskeep.getName());
 		assertEquals(100, groundskeep.getHp(),.01);
@@ -140,14 +136,13 @@ public class MobsTest {
 		setup();
 		Dementor demon = new Dementor();
 		demon.setCurrentRoom(arrayMap[9][1]);
-		demon.move();
-		arrayMap[2][0].setMobsInRoom(demon);
+		arrayMap[9][1].setMobsInRoom(demon);
 		demon.setCurrentRoom(arrayMap[9][1]);
 		demon.getForLookDescription();
 		assertEquals("Dementor", demon.getName());
 		assertEquals(100, demon.getHp(),.01);
 		assertEquals(100, demon.getAttackPower(), 0);
-		for(int i=0; i<100; i++){
+		for(int i=0; i<40; i++){
 			demon.move();
 		}
 		assertTrue(demon.canBeAttacked());
@@ -183,7 +178,6 @@ public class MobsTest {
 		dumbledore.getForLookDescription();
 		assertEquals(dumbledore.action("look", p), dumbledore.getDescription());
 		dumbledore.action("talk", p);
-		//System.out.print(p.getKnownSpells().toString()); Checked, it works
 		dumbledore.action("talk", p);
 		dumbledore.action("", p);
 	}
@@ -252,7 +246,7 @@ public class MobsTest {
 		Sirius sirius = new Sirius();
 		arrayMap[8][1].setMobsInRoom(sirius);
 		sirius.setCurrentRoom(arrayMap[8][1]);
-		for(int i=0; i<100; i++){
+		for(int i=0; i<200; i++){
 			sirius.move();
 		}
 		assertEquals("Sirius Black", sirius.getName());
@@ -277,7 +271,7 @@ public class MobsTest {
 		Spiders spid = new Spiders();
 		arrayMap[5][2].setMobsInRoom(spid);
 		spid.setCurrentRoom(arrayMap[5][2]);
-		for(int i=0; i<100; i++){
+		for(int i=0; i<40; i++){
 			spid.move();
 		}
 		assertEquals("Spider a.k.a Erics favorite", spid.getName());
@@ -315,8 +309,8 @@ public class MobsTest {
 	public void testWerewolves(){
 		setup();
 		Werewolves wuf = new Werewolves();
-		arrayMap[4][0].setMobsInRoom(wuf);
-		wuf.setCurrentRoom(arrayMap[4][0]);
+		arrayMap[4][1].setMobsInRoom(wuf);
+		wuf.setCurrentRoom(arrayMap[4][1]);
 		for(int i=0; i<40; i++){
 			wuf.move();
 		}

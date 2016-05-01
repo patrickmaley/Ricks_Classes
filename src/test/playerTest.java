@@ -8,8 +8,10 @@ import java.security.NoSuchProviderException;
 import org.junit.Test;
 
 import model.items.AvadaKedvra;
-import model.items.ButterBeer;
+import model.items.DependencyInjectionSword;
 import model.items.Expelliarumus;
+import model.items.HermoinesHandbag;
+import model.items.MaurdersMap;
 import model.items.RessurectionStone;
 import model.items.SectumSempra;
 import model.items.Spell;
@@ -29,9 +31,9 @@ public class PlayerTest {
 	
 	//Some items
 	private RessurectionStone ressurectionStone = new RessurectionStone();
-	private ButterBeer butterBeer = new ButterBeer();
-	
-	private Player one;
+	private MaurdersMap maurdersMap = new MaurdersMap();
+	private DependencyInjectionSword depSword = new DependencyInjectionSword();
+	private HermoinesHandbag hermoinesHandbag = new HermoinesHandbag();
 	
 	@Test
 	public void testPlayerGetters() throws NoSuchAlgorithmException, NoSuchProviderException {
@@ -44,12 +46,14 @@ public class PlayerTest {
 		Player player1 = new Player("Lee", password1);
 		Player player2 = new Player("Luna", password2);
 		Player player3 = new Player("Neville", password3);
+		
 		player1.setPlayerMap(currMap);
 		player2.setPlayerMap(currMap);
 		player3.setPlayerMap(currMap);
 		player1.setCurrentRoom(currMap.getEntrance().getNorthRoom());
 		player2.setCurrentRoom(currMap.getEntrance().getNorthRoom());
 		player3.setCurrentRoom(currMap.getEntrance().getNorthRoom());
+		
 		//Usable spells
 		Spell spell1 = new AvadaKedvra();
 		Spell spell2 = new Expelliarumus();
@@ -62,7 +66,7 @@ public class PlayerTest {
 		player1.setPlayerMap(currMap);
 		assertEquals(player1.getPlayerMap(), currMap);
 
-		//Tests username, password, descritpion, and gameName
+		//Tests username, password, description, and gameName
 		player1.setGameName("Doris");
 		player2.setGameName("Debbie");
 		player3.setGameName("THEBOMB.COM");
@@ -125,7 +129,91 @@ public class PlayerTest {
 		
 		//Tests inventory
 		assertNotEquals(player1.getInventory(), player2.getInventory());
-		one = player1;
+	}
+	
+	
+	public Map map;
+	public Player p;
+	GenericRoom[][] arrayMap;
+	public void setup(){
+		map =  Map.setMap();
+		char[] a = {'a','b','c'};
+		try {
+			p = new Player("Kevin", a);
+		} catch (NoSuchAlgorithmException e) {
+		} catch (NoSuchProviderException e) {
+		}
+		arrayMap = map.getMapArray();
+		p.setGameName("kevin");
+	}
+	
+	@Test
+	public void testInteractions(){
+		setup();
+		p.setPlayerMap(map);
+		p.setGameName("hayyy");
+		p.setDescription("I go up to bales of hay and I'm like HAAAAY BALES!");
+		p.setCurrentRoom(p.getPlayerMap().getMapArray()[9][0]);
+		
+		//Test directions and look
+		p.performAction("west");
+		p.performAction("look");
+		p.performAction("east");
+		p.performAction("look");
+		p.performAction("east");
+		p.performAction("look");
+		p.performAction("west");
+		p.performAction("look");
+		p.performAction("north");
+		p.performAction("look");
+		p.performAction("south");
+		p.performAction("look");
+		p.performAction("east");
+		p.performAction("look");
+		p.performAction("east");
+		p.performAction("look");
+		p.performAction("east");
+		p.performAction("look");
+		p.performAction("north");
+		p.performAction("look");
+		p.performAction("east");
+		p.performAction("look");
+		p.performAction("east");
+		p.performAction("look");
+		p.performAction("east");
+		p.performAction("look");
+		p.performAction("south");
+		p.performAction("look");
+		
+		//test using items when they are not in inventory
+		p.performAction("use elder");
+		p.performAction("use regular");
+		p.performAction("use sword");
+		p.performAction("use bassilsk");
+		p.performAction("use butter");
+		p.performAction("use healing");
+		p.performAction("use hermoines");
+		p.performAction("use horcrux");
+		p.performAction("use phoenix");
+		p.performAction("use maurders");
+		p.performAction("use never");
+		p.performAction("use ressurection");
+		p.performAction("use broomstick");
+		p.performAction("use blahh");
+		
+		//test using items in inventory
+		p.getInventory().add(ressurectionStone);
+		p.getInventory().add(maurdersMap);
+		p.getInventory().add(depSword);
+		p.getInventory().add(hermoinesHandbag);
+		p.performAction("use hermoines handbag");
+		p.performAction("use ressurection stone");
+		p.performAction("use maurders map");
+		p.performAction("use dependency injection sword");
+		
+		//test quit and shutdown
+		p.performAction("quit");
+		p.performAction("shutdown");
 	}
 
 }
