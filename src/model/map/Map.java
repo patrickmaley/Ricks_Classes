@@ -205,7 +205,7 @@ public class Map implements Serializable {
 		outdoorRoomOne.setRoomDescription("A tree sets off in the distance."
 				+ " The branches appear fragile, but you know how fierce they can be. Turning away, "
 				+ " you remember that you left something behind in the common room of Hogswart."
-				+ " There are three ways to go north, east, and south.");
+				+ " There are three ways to go north, west, and south.");
 		outdoorRoomOne.setLookDownDescription("The grassy knoll leads down into a clearing."
 				+ " The grass near the Whomping Willow is still smuldering.");
 		outdoorRoomOne.setLookUpDescription(" Bright colors flash along the horizon."
