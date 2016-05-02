@@ -8,13 +8,16 @@ import java.security.NoSuchProviderException;
 import org.junit.Test;
 
 import model.items.AvadaKedvra;
+import model.items.BassilskFang;
 import model.items.DependencyInjectionSword;
 import model.items.Expelliarumus;
 import model.items.HermoinesHandbag;
 import model.items.MaurdersMap;
+import model.items.RegularWand;
 import model.items.RessurectionStone;
 import model.items.SectumSempra;
 import model.items.Spell;
+import model.items.SwordOfGryffindor;
 import model.map.Map;
 import model.player.Player;
 import model.player.PlayerList;
@@ -34,6 +37,9 @@ public class PlayerTest {
 	private MaurdersMap maurdersMap = new MaurdersMap();
 	private DependencyInjectionSword depSword = new DependencyInjectionSword();
 	private HermoinesHandbag hermoinesHandbag = new HermoinesHandbag();
+	private RegularWand regularWand = new RegularWand();
+	private BassilskFang bassilskFang = new BassilskFang();
+	private SwordOfGryffindor swordOfGryffindor = new SwordOfGryffindor();
 	
 	@Test
 	public void testPlayerGetters() throws NoSuchAlgorithmException, NoSuchProviderException {
@@ -81,10 +87,11 @@ public class PlayerTest {
 		assertNotEquals("Debbie", player1.getGameName());
 		
 		//Tests spellbook
-		player1.addKnownSpells(spell1);
-		assertEquals(1, player1.getKnownSpells().size());
 		player1.addKnownSpells(spell2);
+		assertEquals(1, player1.getKnownSpells().size());
+		player1.addKnownSpells(spell1);
 		assertEquals(2, player1.getKnownSpells().size());
+		assertEquals(spell1, player1.strongestSpell());
 		player1.removeKnownSpells(spell1);
 		assertEquals(1, player1.getKnownSpells().size());
 		player1.removeKnownSpells(spell3);
@@ -129,6 +136,14 @@ public class PlayerTest {
 		
 		//Tests inventory
 		assertNotEquals(player1.getInventory(), player2.getInventory());
+		player1.getInventory().add(ressurectionStone);
+		player1.getInventory().add(regularWand);
+		assertEquals(regularWand, player1.strongestItem());
+		player1.getInventory().add(swordOfGryffindor);
+		player1.getInventory().add(bassilskFang);
+		assertEquals(swordOfGryffindor, player1.strongestItem());
+		player1.getInventory().drop("sword of gryffindor");
+		assertEquals(bassilskFang, player1.strongestItem());
 	}
 	
 	

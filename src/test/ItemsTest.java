@@ -262,6 +262,7 @@ public void testInventory() throws NoSuchAlgorithmException, NoSuchProviderExcep
 	inventory.add(hermoinesHandbag);
 	inventory.add(healingPotion);
 	inventory.add(elderWand);
+	assertEquals(elderWand, p.strongestItem());
 	assertFalse(inventory.add(swordOfGryffindor));
 	String usingSpellBook=sbOne.use(p, null);
 	System.out.println(usingSpellBook);
@@ -296,7 +297,11 @@ public void testItemsWithCommands() throws NoSuchAlgorithmException, NoSuchProvi
 	 System.out.println(p.performAction("use regular wand"));
 	 System.out.println(p.performAction("drop regular wand"));
 	 p.getInventory().add(this.swordOfGryffindor);
+	 assertEquals(swordOfGryffindor, p.strongestItem());
+	 p.getInventory().drop("sword of gryffindor");
 	 p.getInventory().add(this.bassilskFang);
+	 assertEquals(bassilskFang, p.strongestItem());
+	 p.getInventory().add(swordOfGryffindor);
 	 p.getInventory().add(this.butterBeer);
 	 p.getInventory().add(this.phoenixTears);
 	 p.getInventory().add(this.horcrux);

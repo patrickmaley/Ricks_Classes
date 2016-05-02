@@ -93,6 +93,7 @@ public class MobsTest {
 		assertEquals("Slytherin" , snape.getHouse());
 		arrayMap[0][0].setMobsInRoom(snape);
 		snape.setCurrentRoom(arrayMap[0][0]);
+		snape.move();
 		assertEquals("Here take this potion a student made. Hopefully it works right.\nProfessor Snape drops a healing potion", snape.action("talk", p));
 		assertEquals(snape.getDescription(), snape.action("look", p));
 		assertFalse(snape.canBeAttacked());
@@ -122,7 +123,7 @@ public class MobsTest {
 		bellatrix.decreaseHP(.1);
 		bellatrix.decreaseHP(.1);
 		bellatrix.decreaseHP(.1);
-		bellatrix.decreaseHP(30);
+		bellatrix.move();
 		assertTrue(bellatrix.canBeAttacked());
 		bellatrix.action("talk", p);
 		assertEquals(bellatrix.action("look", p), bellatrix.getDescription());
@@ -221,6 +222,7 @@ public class MobsTest {
 		assertTrue(lupin.canBeAttacked());
 		assertEquals(lupin.getDescription(), lupin.action("look", p));
 		lupin.action("talk", p);
+		lupin.action("attack", p);
 		lupin.action("", p);
 	}
 	
@@ -234,6 +236,7 @@ public class MobsTest {
 		mcgonagall.setCurrentRoom(Map.setMap().getEntrance());
 		mcgonagall.getForLookDescription();
 		assertFalse(mcgonagall.canBeAttacked());
+		mcgonagall.move();
 		mcgonagall.getDescription();
 		mcgonagall.action("look", p);
 		mcgonagall.action("yo", p);
