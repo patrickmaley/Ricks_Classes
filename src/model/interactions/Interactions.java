@@ -98,11 +98,31 @@ public class Interactions implements Serializable {
 		else if(command.equals("attack")){
 			return attack();
 		}
+		else if(command.equals("talk")){
+			return talk(commandParameters);
+		}
 		else{
 			return shutdown();
 		}
 	}
 
+	private String talk(String commandParameters) {
+		String playerText = "";
+		if(player.getRoom().getMobsInRoom().size()>0){
+			Mobs mobInRoom = player.getRoom().getMobsInRoom().get(0);
+			if(commandParameters.toLowerCase().compareTo(mobInRoom.getName().toLowerCase()) == 0){
+				playerText += mobInRoom.getName() + ": ";
+				playerText += mobInRoom.action("talk", player) + "\n";
+			}
+			else{
+				playerText += "That person is not in this room.";
+			}
+		}
+		else{
+			playerText += "That person is not in this room.";
+		}
+		return playerText;
+	}
 	private String attack() {
 		Item strongestItem = player.strongestItem();
 		Spell strongestSpell = player.strongestSpell();
@@ -163,10 +183,28 @@ public class Interactions implements Serializable {
 	}
 
 	private String listOfCommands() {
-		String returning = "";
-		returning = "north" + "\n" + "south" + "\n" + "east" + "\n" + "west" + "\n" + "up" + "\n" + "down" + "\n" + "take <item> " +"\n" +"take <item> <target> "+"\n" + "give <item> <target>" + "\n" + "look"
-		+ "\n" + "commands" + "\n" + "who" + "\n" + "say" + "\n" + "tell <player/mob> <message>" + "\n"+ "score" + "\n" + "drop" + "\n" + "use" + "\n" + "quit" + "\n" + "shutdown"; 
-		return returning;
+		return "Movement: \nNorth, South, East, West\n"
+				+ "Interactions:\n"
+				+ "Look: Look or Look <arg>\n"
+				+ "Take: Take <item>\n"
+				+ "Take: Take <item> <playerUsername>\n"
+				+ "Give: Give <item> <playerUsername>\n"
+				+ "You cannot take/give from a mob. They will drop the item in the room once you have earned it\n "
+				+ "Drop <item>\n"
+				+ "Up\n"
+				+ "Down\n"
+				+ "Use <item>\n"
+				+ "Quit\n"
+				+ "say <message>\n"
+				+ "tell <player name> <message>\n"
+				+ "talk <mob name> <message>\n"
+				+ "ooc <message>\n"
+				+ "Miscellaneous:\n"
+				+ "who\n"
+				+ "score\n"
+				+ "inventory\n"
+				+ "commands \n"
+				+ "";
 	}
 	
 	private String look(String commandParameters) {
