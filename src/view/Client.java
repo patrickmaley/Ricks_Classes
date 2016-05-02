@@ -487,6 +487,7 @@ public class Client extends JFrame{
 					firstWord[0].compareTo("ooc")==0 ||
 					firstWord[0].compareTo("tell")==0 ||
 					firstWord[0].compareTo("who")==0 ||
+					firstWord[0].compareTo("give")==0 ||
 					firstWord[0].compareTo("take")==0 && itemsIsNotOnMap(firstWord[firstWord.length-1])){
 				String[] commandArray = command.split("\\s+");
 				

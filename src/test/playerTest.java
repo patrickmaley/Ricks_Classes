@@ -8,9 +8,16 @@ import java.security.NoSuchProviderException;
 import org.junit.Test;
 
 import model.items.AvadaKedvra;
+import model.items.BassilskFang;
+import model.items.DependencyInjectionSword;
 import model.items.Expelliarumus;
+import model.items.HermoinesHandbag;
+import model.items.MaurdersMap;
+import model.items.RegularWand;
+import model.items.RessurectionStone;
 import model.items.SectumSempra;
 import model.items.Spell;
+import model.items.SwordOfGryffindor;
 import model.map.Map;
 import model.player.Player;
 import model.player.PlayerList;
@@ -25,6 +32,15 @@ public class PlayerTest {
 	private char[] password2 = new char[] {'2', '2'};
 	private char[] password3 = new char[] {'3', '3', '3'};
 	
+	//Some items
+	private RessurectionStone ressurectionStone = new RessurectionStone();
+	private MaurdersMap maurdersMap = new MaurdersMap();
+	private DependencyInjectionSword depSword = new DependencyInjectionSword();
+	private HermoinesHandbag hermoinesHandbag = new HermoinesHandbag();
+	private RegularWand regularWand = new RegularWand();
+	private BassilskFang bassilskFang = new BassilskFang();
+	private SwordOfGryffindor swordOfGryffindor = new SwordOfGryffindor();
+	
 	@Test
 	public void testPlayerGetters() throws NoSuchAlgorithmException, NoSuchProviderException {
 		//Initial list, map, and a GenericRoom
@@ -36,12 +52,14 @@ public class PlayerTest {
 		Player player1 = new Player("Lee", password1);
 		Player player2 = new Player("Luna", password2);
 		Player player3 = new Player("Neville", password3);
+		
 		player1.setPlayerMap(currMap);
 		player2.setPlayerMap(currMap);
 		player3.setPlayerMap(currMap);
 		player1.setCurrentRoom(currMap.getEntrance().getNorthRoom());
 		player2.setCurrentRoom(currMap.getEntrance().getNorthRoom());
 		player3.setCurrentRoom(currMap.getEntrance().getNorthRoom());
+		
 		//Usable spells
 		Spell spell1 = new AvadaKedvra();
 		Spell spell2 = new Expelliarumus();
@@ -54,7 +72,7 @@ public class PlayerTest {
 		player1.setPlayerMap(currMap);
 		assertEquals(player1.getPlayerMap(), currMap);
 
-		//Tests username, password, descritpion, and gameName
+		//Tests username, password, description, and gameName
 		player1.setGameName("Doris");
 		player2.setGameName("Debbie");
 		player3.setGameName("THEBOMB.COM");
@@ -69,10 +87,11 @@ public class PlayerTest {
 		assertNotEquals("Debbie", player1.getGameName());
 		
 		//Tests spellbook
-		player1.addKnownSpells(spell1);
-		assertEquals(1, player1.getKnownSpells().size());
 		player1.addKnownSpells(spell2);
+		assertEquals(1, player1.getKnownSpells().size());
+		player1.addKnownSpells(spell1);
 		assertEquals(2, player1.getKnownSpells().size());
+		assertEquals(spell1, player1.strongestSpell());
 		player1.removeKnownSpells(spell1);
 		assertEquals(1, player1.getKnownSpells().size());
 		player1.removeKnownSpells(spell3);
@@ -114,10 +133,105 @@ public class PlayerTest {
 		player1.setCurrentRoom(nextRoom);
 		assertNotEquals(currMap.getEntrance(), player1.getRoom());
 		assertEquals(nextRoom, player1.getRoom());
+		player3.updateMap(player3.getPlayerMap());
+		player3.setRoom(player3.getRoom());
 		
 		//Tests inventory
 		assertNotEquals(player1.getInventory(), player2.getInventory());
+		player1.getInventory().add(ressurectionStone);
+		player1.getInventory().add(regularWand);
+		assertEquals(regularWand, player1.strongestItem());
+		player1.getInventory().add(swordOfGryffindor);
+		player1.getInventory().add(bassilskFang);
+		assertEquals(swordOfGryffindor, player1.strongestItem());
+		player1.getInventory().drop("sword of gryffindor");
+		assertEquals(bassilskFang, player1.strongestItem());
+	}
+	
+	
+	public Map map;
+	public Player p;
+	GenericRoom[][] arrayMap;
+	public void setup(){
+		map =  Map.setMap();
+		char[] a = {'a','b','c'};
+		try {
+			p = new Player("Kevin", a);
+		} catch (NoSuchAlgorithmException e) {
+		} catch (NoSuchProviderException e) {
+		}
+		arrayMap = map.getMapArray();
+		p.setGameName("kevin");
+	}
+	
+	@Test
+	public void testInteractions(){
+		setup();
+		p.setPlayerMap(map);
+		p.setGameName("hayyy");
+		p.setDescription("I go up to bales of hay and I'm like HAAAAY BALES!");
+		p.setCurrentRoom(p.getPlayerMap().getMapArray()[9][0]);
 		
+		//Test directions and look
+		p.performAction("west");
+		p.performAction("look");
+		p.performAction("east");
+		p.performAction("look");
+		p.performAction("east");
+		p.performAction("look");
+		p.performAction("west");
+		p.performAction("look");
+		p.performAction("north");
+		p.performAction("look");
+		p.performAction("south");
+		p.performAction("look");
+		p.performAction("east");
+		p.performAction("look");
+		p.performAction("east");
+		p.performAction("look");
+		p.performAction("east");
+		p.performAction("look");
+		p.performAction("north");
+		p.performAction("look");
+		p.performAction("east");
+		p.performAction("look");
+		p.performAction("east");
+		p.performAction("look");
+		p.performAction("east");
+		p.performAction("look");
+		p.performAction("south");
+		p.performAction("look");
+		
+		//test using items when they are not in inventory
+		p.performAction("use elder");
+		p.performAction("use regular");
+		p.performAction("use sword");
+		p.performAction("use bassilsk");
+		p.performAction("use butter");
+		p.performAction("use healing");
+		p.performAction("use hermoines");
+		p.performAction("use horcrux");
+		p.performAction("use phoenix");
+		p.performAction("use maurders");
+		p.performAction("use never");
+		p.performAction("use ressurection");
+		p.performAction("use broomstick");
+		p.performAction("use blahh");
+		
+		//test using items in inventory
+		p.getInventory().add(ressurectionStone);
+		p.getInventory().add(maurdersMap);
+		p.getInventory().add(depSword);
+		p.getInventory().add(hermoinesHandbag);
+		p.performAction("use hermoines handbag");
+		p.performAction("use ressurection stone");
+		p.performAction("use maurders map");
+		p.performAction("use dependency injection sword");
+		p.performAction("attack");
+		
+		//test quit and shutdown
+		p.performAction("quit");
+		p.performAction("shutdown");
 	}
 
 }
