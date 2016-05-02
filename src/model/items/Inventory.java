@@ -20,11 +20,13 @@ public Item getItem(String getThis){
 }
 public String toString(){
 	String list="";
+	if(inventory.size()==0){
+		list+="You have nothing in your inventory";
+	}
 	for(int i=0;i<inventory.size();i++){
 		System.out.println(inventory.get(i).getName());
 		list= list + inventory.get(i).getName()+" ";
 	}
-	System.out.println(list);
 	return list;
 }
 public boolean add(Item i){
