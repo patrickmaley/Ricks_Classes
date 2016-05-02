@@ -481,7 +481,7 @@ public class Client extends JFrame{
 			
 			if(firstWord[0].compareTo("quit")== 0){
 				sendObjects("",new char[0], Client.this.newPlayer, firstWord);
-				cleanUpAndQuit("Do you really want to quit?");
+				cleanUpAndQuit("See ya next time!");
 			}else if(firstWord[0].compareTo("shutdown")==0 ||
 					firstWord[0].compareTo("say")==0 ||
 					firstWord[0].compareTo("ooc")==0 ||
