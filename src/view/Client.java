@@ -350,7 +350,7 @@ public class Client extends JFrame{
 								ArrayList<Player> playersInRoom = player.getRoom().getPlayersInRoom();
 								Set<Player> s = new HashSet<Player>(playersInRoom);
 								String itemName="";
-								for(int i =1;i<take.length-1;i++){
+								for(int i =1;i<take.length-2;i++){
 									itemName+=take[i] + " ";
 								}
 								itemName=itemName.trim();
@@ -389,7 +389,7 @@ public class Client extends JFrame{
 								ArrayList<Player> playersInRoom = player.getRoom().getPlayersInRoom();
 								Set<Player> s = new HashSet<Player>(playersInRoom);
 								String itemName="";
-								for(int i =1;i<take.length-1;i++){
+								for(int i =1;i<take.length-2;i++){
 									itemName+=take[i] + " ";
 								}
 								itemName=itemName.trim();
