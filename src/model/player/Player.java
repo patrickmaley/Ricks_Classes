@@ -188,7 +188,9 @@ public class Player implements Serializable{
 		Spell strong = null;
 		for(int i=0; i< this.knownSpells.size(); i++){
 			if(strong == null){
+				if(this.knownSpells.get(i).getName().compareTo("Expecto Patronum") != 0){
 				strong = this.knownSpells.get(i);
+				}
 			}
 			else if(strong.getAttackPower() < this.knownSpells.get(i).getAttackPower() &&
 					this.knownSpells.get(i).getName().compareTo("Expecto Patronum") != 0){
