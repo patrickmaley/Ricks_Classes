@@ -133,6 +133,8 @@ public class PlayerTest {
 		player1.setCurrentRoom(nextRoom);
 		assertNotEquals(currMap.getEntrance(), player1.getRoom());
 		assertEquals(nextRoom, player1.getRoom());
+		player3.updateMap(player3.getPlayerMap());
+		player3.setRoom(player3.getRoom());
 		
 		//Tests inventory
 		assertNotEquals(player1.getInventory(), player2.getInventory());
@@ -225,6 +227,7 @@ public class PlayerTest {
 		p.performAction("use ressurection stone");
 		p.performAction("use maurders map");
 		p.performAction("use dependency injection sword");
+		p.performAction("attack");
 		
 		//test quit and shutdown
 		p.performAction("quit");
