@@ -263,13 +263,6 @@ class ClientHandler extends Thread {
 								playerText += commandsd[i] + " ";
 							}
 							playerText += "\n";
-							Mobs mobInRoom = savePlayer.getRoom().getMobsInRoom().get(0);
-							if(mobInRoom != null){
-								if(commandsd[1].toLowerCase().compareTo(mobInRoom.getName().toLowerCase()) == 0){
-									playerText += mobInRoom.getName() + ": ";
-									playerText += mobInRoom.action("talk", savePlayer) + "\n";
-								}
-							}
 							break;
 						case "who":
 							playerText += "Playe rs on server: ";
@@ -302,7 +295,7 @@ class ClientHandler extends Thread {
 							}
 							itemDesired = itemDesired.trim();
 							String playerUserName = commandsd[commandsd.length-1].trim();
-							ArrayList<Player> playersLoggedOn = Server.getLoggedOnPlayers();
+							ArrayList<Player> playersLoggedOn = savePlayer.getRoom().getPlayersInRoom();
 							PlayerList playerList = Server.getPlayerList();
 							Player toGetFrom = null;
 							for(int i =0;i<playersLoggedOn.size();i++){
@@ -322,7 +315,7 @@ class ClientHandler extends Thread {
 								}
 							}
 							else{
-								playerText+= playerUserName + " isnt logged in.";
+								playerText+= playerUserName + " isnt logged in or is not in the room therefore you cannot take an item from them.";
 							}
 							break;
 						case "give":
@@ -332,7 +325,7 @@ class ClientHandler extends Thread {
 							}
 							itemDesiredForGive = itemDesiredForGive.trim();
 							String playerGivingToUserName = commandsd[commandsd.length-1].trim();
-							ArrayList<Player> playersLoggedOnGive = Server.getLoggedOnPlayers();
+							ArrayList<Player> playersLoggedOnGive = savePlayer.getRoom().getPlayersInRoom();
 							PlayerList playerListGive = Server.getPlayerList();
 							Player toGiveTo=null;
 							for(int i =0;i<playersLoggedOnGive.size();i++){
@@ -352,14 +345,14 @@ class ClientHandler extends Thread {
 								}
 							}
 							else{
-								playerText+= playerGivingToUserName + " isnt logged in.";
+								playerText+= playerGivingToUserName + " isnt logged on or is not in the room therefore you cannot give an item to them.";
 							}
 							break;
 						case "giving":
 							String itemGiving = commandsd[2];
 							System.out.println(itemGiving);
 							String playerGivingUserName = commandsd[3];
-							ArrayList<Player> playersLoggedOn2 = Server.getLoggedOnPlayers();
+							ArrayList<Player> playersLoggedOn2 = savePlayer.getRoom().getPlayersInRoom();
 							PlayerList playerList2 = Server.getPlayerList();
 							Player givingUp = playerList2.getPlayer(playerGivingUserName);
 							if(commandsd[1].compareTo("Accepted")==0){
@@ -377,7 +370,7 @@ class ClientHandler extends Thread {
 							String itemTrade = commandsd[2];
 							System.out.println(itemTrade);
 							String playerWantingUserName = commandsd[3];
-							ArrayList<Player> playersLoggedOn1 = Server.getLoggedOnPlayers();
+							ArrayList<Player> playersLoggedOn1 =savePlayer.getRoom().getPlayersInRoom();
 							PlayerList playerList1 = Server.getPlayerList();
 							Player wanting = playerList1.getPlayer(playerWantingUserName);
 							if(commandsd[1].compareTo("Accepted")==0){
