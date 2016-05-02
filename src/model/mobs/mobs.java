@@ -54,7 +54,7 @@ public abstract class Mobs implements Serializable{
 		if(this.canBeAttacked()){
 			this.hp -= x;
 		}
-		if(this.hp < 0){
+		if(this.hp <= 0){
 			this.getRoom().removeMobsInRoom(this);
 			this.getRoom().setMobsPresent(false);
 		}

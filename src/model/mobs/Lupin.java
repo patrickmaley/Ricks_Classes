@@ -30,7 +30,7 @@ public class Lupin extends Mobs{
 		if(this.canBeAttacked()){
 			this.setHp(this.getHp()-x);
 		}
-		if(this.getHp() < 0){
+		if(this.getHp() <= 0){
 			this.getRoom().removeMobsInRoom(this);
 			Werewolves a = new Werewolves();
 			a.setCurrentRoom(this.getRoom());
