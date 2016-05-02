@@ -330,7 +330,7 @@ class ClientHandler extends Thread {
 							for(int i=1;i<commandsd.length-1;i++){
 								itemDesiredForGive+=commandsd[i] + " ";
 							}
-							itemDesired = itemDesiredForGive.trim();
+							itemDesiredForGive = itemDesiredForGive.trim();
 							String playerGivingToUserName = commandsd[commandsd.length-1].trim();
 							ArrayList<Player> playersLoggedOnGive = Server.getLoggedOnPlayers();
 							PlayerList playerListGive = Server.getPlayerList();
@@ -343,9 +343,9 @@ class ClientHandler extends Thread {
 							}
 							if(toGiveTo!=null){
 								Inventory desiredFrom = savePlayer.getInventory();
-								Item desired = desiredFrom.getItem(itemDesired);
-								if(desired!=null){
-									playerText+= "Give " + itemDesired+ " " + savePlayer.getUsername()+ " " +  toGiveTo.getUsername();
+								Item desired2 = desiredFrom.getItem(itemDesiredForGive);
+								if(desired2!=null){
+									playerText+= "Give " + itemDesiredForGive+ " " + savePlayer.getUsername()+ " " +  toGiveTo.getUsername();
 								}
 								else{
 									playerText+= " You do not have the following item. Therefore you cannot get it from them.";
@@ -357,6 +357,7 @@ class ClientHandler extends Thread {
 							break;
 						case "giving":
 							String itemGiving = commandsd[2];
+							System.out.println(itemGiving);
 							String playerGivingUserName = commandsd[3];
 							ArrayList<Player> playersLoggedOn2 = Server.getLoggedOnPlayers();
 							PlayerList playerList2 = Server.getPlayerList();
@@ -374,6 +375,7 @@ class ClientHandler extends Thread {
 							break;
 						case "trade":
 							String itemTrade = commandsd[2];
+							System.out.println(itemTrade);
 							String playerWantingUserName = commandsd[3];
 							ArrayList<Player> playersLoggedOn1 = Server.getLoggedOnPlayers();
 							PlayerList playerList1 = Server.getPlayerList();

@@ -41,7 +41,7 @@ public boolean add(Item i){
 }
 public boolean drop(String dropThis){
 	for(int j=0;j<inventory.size();j++){
-		if(inventory.get(j).getName().toLowerCase().equals(dropThis)){
+		if(inventory.get(j).getName().toLowerCase().contains(dropThis)){
 			inventory.remove(j);
 			return true;
 		}
