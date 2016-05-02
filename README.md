@@ -1,2 +1,0 @@
-# MUD
-Manager: Cindy Trieu
