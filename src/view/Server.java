@@ -272,7 +272,7 @@ class ClientHandler extends Thread {
 							}
 							break;
 						case "who":
-							playerText += "Players on server: ";
+							playerText += "Playe rs on server: ";
 							ArrayList<Player> playersOnServer = Server.getLoggedOnPlayers();
 							for (Player logPlayer : playersOnServer) {
 								playerText += logPlayer.getUsername() + " ";

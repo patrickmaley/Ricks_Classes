@@ -254,6 +254,8 @@ public class Client extends JFrame{
 					//Wrong password typed in to an already created account
 					if(player == null && Client.this.newPlayer == null){
 						JOptionPane.showMessageDialog(Client.this, "Password incorrect!!!!");
+						Client.this.revalidate();
+						Client.this.getContentPane().repaint();
 					}
 					
 					//If the client is new, then this loads up the first player
@@ -272,7 +274,7 @@ public class Client extends JFrame{
 					//Sets the player to the updated version
 					if(player != null && player.getUsername().compareTo(Client.this.newPlayer.getUsername()) ==0){
 						Client.this.newPlayer = player;
-					}else{
+					}else if(player!=null){
 						Client.this.newPlayer.setPlayerMap(player.getPlayerMap());
 						
 					}
@@ -509,6 +511,9 @@ public class Client extends JFrame{
 			char[] password = passwordText.getPassword();
 			if(password.length > 0){
 				sendObjects(userName,password, null, null);
+			}else{
+				Client.this.revalidate();
+				Client.this.getContentPane().repaint();
 			}
 		}	
 	}

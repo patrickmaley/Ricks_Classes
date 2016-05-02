@@ -33,7 +33,7 @@ public class Bellatrix extends Mobs{
 		if(this.canBeAttacked()){
 			this.setHp(this.getHp()-x);;
 		}
-		if(this.getHp() < 50){
+		if(this.getHp() <= 50){
 			if(this.getRoom().getNextRoom("south") != null && !this.getRoom().getNextRoom("south").getMobsPresent()){
 				this.setYpos(this.getYpos() + 1);
 				this.getRoom().setMobsPresent(false);
@@ -51,7 +51,7 @@ public class Bellatrix extends Mobs{
 				this.getRoom().setMobsPresent(true);
 			}
 		}
-		if(this.getHp() < 0){
+		if(this.getHp() <= 0){
 			this.getRoom().removeMobsInRoom(this);
 			this.getRoom().setMobsPresent(false);
 		}
