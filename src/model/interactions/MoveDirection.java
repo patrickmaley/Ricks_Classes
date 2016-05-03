@@ -20,7 +20,7 @@ public class MoveDirection implements Serializable {
 				player.getRoom().setPlayerPresent(false, this.player);
 				player.setCurrentRoom(roomToMoveIn);
 				player.getRoom().setPlayerPresent(true, this.player);
-				return player.getRoom().getRoomDescription();
+				return player.performAction("look");
 			}
 		else{
 			return "There is no door in the north direction. Please enter a new direction";
@@ -33,7 +33,7 @@ public class MoveDirection implements Serializable {
 				player.getRoom().setPlayerPresent(false, this.player);
 				player.setCurrentRoom(roomToMoveIn);
 				player.getRoom().setPlayerPresent(true, this.player);
-				return player.getRoom().getRoomDescription();
+				return player.performAction("look");
 			}
 			else{
 				return "There is no door in the south direction. Please enter a new direction";
@@ -46,7 +46,7 @@ public class MoveDirection implements Serializable {
 				player.getRoom().setPlayerPresent(false, this.player);
 				player.setCurrentRoom(roomToMoveIn);
 				player.getRoom().setPlayerPresent(true, this.player);
-				return player.getRoom().getRoomDescription();
+				return player.performAction("look");
 			}
 				else{
 				return "There is no door in the east direction. Please enter a new direction";
@@ -59,7 +59,7 @@ public class MoveDirection implements Serializable {
 				player.getRoom().setPlayerPresent(false, this.player);
 				player.setCurrentRoom(roomToMoveIn);
 				player.getRoom().setPlayerPresent(true, this.player);
-				return player.getRoom().getRoomDescription();
+				return player.performAction("look");
 			}
 			else{
 				return "There is no door in the west direction. Please enter a new direction";

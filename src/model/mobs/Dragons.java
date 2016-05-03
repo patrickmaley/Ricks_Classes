@@ -8,7 +8,6 @@ public class Dragons extends Mobs{
 
 	private int hp;
 	private String name;
-	private String description;
 	private double attackPower;
 	
 	public Dragons() {
@@ -23,10 +22,6 @@ public class Dragons extends Mobs{
 	
 	public double getAttackPower(){
 		return this.attackPower;
-	}
-	@Override
-	public String getDescription() {
-		return this.description;
 	}
 
 	@Override
