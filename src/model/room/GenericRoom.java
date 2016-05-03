@@ -76,7 +76,9 @@ public abstract class GenericRoom implements Serializable{
 	public void setPlayerPresent(boolean player, Player p){
 		if(player == false){
 			for(int i =0;i<playersInRoom.size();i++){
-				if(playersInRoom.get(i).getGameName().equals(p.getGameName())){
+				if(playersInRoom.get(i).getGameName() == null){
+					playersInRoom.remove(i);
+				}else if(playersInRoom.get(i).getGameName().equals(p.getGameName())){
 					playersInRoom.remove(i);
 					break;
 				}

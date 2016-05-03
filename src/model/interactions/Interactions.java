@@ -1,6 +1,9 @@
 package model.interactions;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import model.interactions.*;
 import model.items.ElderWand;
@@ -240,6 +243,15 @@ public class Interactions implements Serializable {
 				ArrayList<Mobs> mobsinRoom = player.getRoom().getMobsInRoom();
 				for(int i=0; i< mobsinRoom.size(); i++){
 					withItemsAndMobs += mobsinRoom.get(i).getForLookDescription() + ".";
+				}
+			}
+			if(player.getRoom().getPlayersInRoom().size()> 0){
+				ArrayList<Player> playersInRoom = player.getRoom().getPlayersInRoom();
+				Set<Player> playersHashSet = new HashSet<Player>(playersInRoom);
+				withItemsAndMobs += "\n Players in this Room:\n";
+				Iterator<Player> players = playersHashSet.iterator();
+				while(players.hasNext()){
+					withItemsAndMobs += players.next().getUsername() + "\n";
 				}
 			}
 			return player.getRoom().getRoomDescription() + withItemsAndMobs;
