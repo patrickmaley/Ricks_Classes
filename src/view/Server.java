@@ -266,7 +266,7 @@ class ClientHandler extends Thread {
 							playerText += "\n";
 							break;
 						case "who":
-							playerText += "Playe rs on server: ";
+							playerText += "Players on server: ";
 							ArrayList<Player> playersOnServer = Server.getLoggedOnPlayers();
 							for (Player logPlayer : playersOnServer) {
 								playerText += logPlayer.getUsername() + " ";
@@ -276,12 +276,6 @@ class ClientHandler extends Thread {
 						case "quit":
 							Server.removePlayer(savePlayer);
 							break;
-						//Not implemented yet
-						case "look":
-							playerText += "Players on server: ";
-							playerText += "\n";
-							break;
-						
 						case "command":
 							for (int i = 1; i < commandsd.length; i++) {
 								playerText += commandsd[i] + " ";

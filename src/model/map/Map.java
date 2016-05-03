@@ -205,7 +205,7 @@ public class Map implements Serializable {
 		outdoorRoomOne.setRoomDescription("A tree sets off in the distance."
 				+ " The branches appear fragile, but you know how fierce they can be. Turning away, "
 				+ " you remember that you left something behind in the common room of Hogswart."
-				+ " There are three ways to go north, west, and south.");
+				+ " There are two ways to go north and south.");
 		outdoorRoomOne.setLookDownDescription("The grassy knoll leads down into a clearing."
 				+ " The grass near the Whomping Willow is still smuldering.");
 		outdoorRoomOne.setLookUpDescription(" Bright colors flash along the horizon."
@@ -1036,7 +1036,6 @@ public class Map implements Serializable {
 		itemsToAddToMap.add(spellbookExpelliarmus);
 		// Adding the rest of the items to the arrayList
 		BassilskFang bassilskFang = new BassilskFang();
-		Broomstick broomstick = new Broomstick();
 		PhoenixTears phoenixTears = new PhoenixTears();
 		Horcrux horcrux = new Horcrux();
 		MaurdersMap maurdersMap = new MaurdersMap();
@@ -1058,7 +1057,6 @@ public class Map implements Serializable {
 		HealingPotion healingPotion = new HealingPotion();
 		DependencyInjectionSword dependencyInjectionSword = new DependencyInjectionSword();
 		itemsToAddToMap.add(bassilskFang);
-		itemsToAddToMap.add(broomstick);
 		itemsToAddToMap.add(phoenixTears);
 		itemsToAddToMap.add(horcrux);
 		itemsToAddToMap.add(neverEndingBook);
