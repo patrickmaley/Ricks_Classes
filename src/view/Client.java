@@ -21,6 +21,8 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -38,18 +40,18 @@ import model.player.Player;
 public class Client extends JFrame{
 	private static final String ADDRESS = "localhost";
 	private final Dimension STATUS_PANEL_DIMENSION = new Dimension(200, 300);
-	private final String GAME_COMMANDS = "After logging in please enter your name and house for new characters. \n\n           Command List\n"
+	private final String GAME_COMMANDS = "Command List\n"
 			+ "Movement: \nNorth, South, East, West\n"
 			+ "Interactions:\n"
-			+ "Look: Look or Look <arg>\n"
-			+ "Take: Take <item>\n"
-			+ "Take: Take <item> <playerUsername>\n"
-			+ "Give: Give <item> <playerUsername>\n"
+			+ "Look or Look <arg>\n"
+			+ "Take <item>\n"
+			+ "Take <item> <playerUsername>\n"
+			+ "Give <item> <playerUsername>\n"
 			+ "You cannot take/give from a mob. They will drop the item in the room once you have earned it\n "
 			+ "Drop <item>\n"
 			+ "Up\n"
 			+ "Down\n"
-			+ "Use <item>\n"
+			+ "Use <first word of item>\n"
 			+ "Quit\n"
 			+ "say <message>\n"
 			+ "tell <player name> <message>\n"
@@ -65,7 +67,7 @@ public class Client extends JFrame{
 	
 	private JPanel textPanel = new JPanel();
 	private JPanel signInPanel = new JPanel(new FlowLayout());
-	
+	private JPanel gameInstructionsPanel = new JPanel(new FlowLayout());
 	
 	private JTextArea signInInstructions = new JTextArea();
 	private JTextArea gameTextArea = new JTextArea();
@@ -87,10 +89,9 @@ public class Client extends JFrame{
 	Font displayFont = new Font("AngsanaUPC", 1, 16);
 	private Player newPlayer = null;
 	
-	private Image harryPotter, schools, express, hogwartsMap;
+	private Image express, hogwartsMap;
 	public static void main(String[] args) {
 		new Client().setVisible(true);
-		
 	}
 	
 	public Client(){
@@ -105,8 +106,6 @@ public class Client extends JFrame{
 		getContentPane().setBackground(new Color(8, 2, 50));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		try {
-			harryPotter = ImageIO.read(new File("images/hp.jpg"));
-			
 			express = ImageIO.read(new File("images/hogwartsExpress.jpg"));
 			hogwartsMap = ImageIO.read(new File("images/rsz_yeoldemap2.jpg"));
 		} catch (IOException e) {
@@ -163,11 +162,8 @@ public class Client extends JFrame{
         signInButton.addActionListener(new SignInListener()); 
 	}
 
-	private void frameProperties() {
-		addComponents();
-	}
 	
-	private void addComponents() {
+	private void frameProperties(){
 		//this.setPreferredSize(new Dimension(800,1000));
 		//setSize(800, 1200);
 		JLabel gameNameLabel = new JLabel("Game Name");
@@ -178,7 +174,9 @@ public class Client extends JFrame{
 		gameHouseLabel.setForeground(new Color(59, 58, 54));
 		gameHouseLabel.setLabelFor(gameHouseText);
 		gameHouseLabel.setFont(displayFont);	
-		signInPanel.removeAll();
+		//signInPanel.removeAll();
+		gameInstructionsPanel.setPreferredSize(new Dimension(200,550));
+		gameInstructionsPanel.setBackground(new Color(192, 142, 45));
 		signInPanel.setBackground(new Color(192, 142, 45));
         signInInstructions.setText(GAME_COMMANDS);
         signInInstructions.setPreferredSize(new Dimension(175, 400));
@@ -186,10 +184,10 @@ public class Client extends JFrame{
         signInInstructions.setWrapStyleWord(true);
         signInInstructions.setEditable(false);
 		signInInstructions.setLineWrap(true);
-        signInPanel.add(signInInstructions);
+		gameInstructionsPanel.add(signInInstructions);
         gameNameText.setPreferredSize(new Dimension(100, 25));
         gameNameText.setEditable(false);
-        add(signInPanel);
+        add(gameInstructionsPanel);
 		
         //Set panel for second column
         textPanel.setPreferredSize(new Dimension(550,575));
@@ -263,7 +261,7 @@ public class Client extends JFrame{
 					}
 					
 					//If the client is new, then this loads up the first player
-					if(player != null && Client.this.newPlayer == null){
+					if(player != null && player.getGameName() != null && Client.this.newPlayer == null){
 						//Changes the sign in gui to the game gui
 						Client.this.getContentPane().removeAll();
 						Client.this.frameProperties();
@@ -275,24 +273,54 @@ public class Client extends JFrame{
 						Client.this.gameTextArea.append(TEXT_BREAK);
 					}
 					
-					//Sets the player to the updated version
-					if(player != null && player.getUsername().compareTo(Client.this.newPlayer.getUsername()) ==0){
-						Client.this.newPlayer = player;
-					}else if(player!=null){
-						Client.this.newPlayer.setPlayerMap(player.getPlayerMap());
+					if(player != null && player.getGameName() == null && Client.this.newPlayer == null){
+						JTextField gameName = new JTextField();
+						JTextField houseName = new JTextField();
+						JTextArea characterDescription = new JTextArea();
+						characterDescription.setPreferredSize(new Dimension(100, 150));
+						characterDescription.setLineWrap(true);
+						characterDescription.setWrapStyleWord(true);
+						final JComponent[] inputs = new JComponent[] {
+								new JLabel("Please enter your game name:"),
+								gameName,
+								new JLabel("Please enter your house name"),
+								houseName,
+								new JLabel("Please enter your character description"),
+								characterDescription
+						};
 						
+						JOptionPane optionPane = new JOptionPane(inputs);
+						
+						JDialog dialog = optionPane.createDialog("Character Information");
+						
+						dialog.setAlwaysOnTop(true);
+						dialog.setModal(true);
+						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+						dialog.setVisible(true);
+						player.setGameName(gameName.getText());
+						player.setHouse(houseName.getText());
+						player.setDescription(characterDescription.getText());
+						String[] nullArray = {"null"};
+						sendObjects("",new char[0], player, nullArray);
 					}
-
+					
+					//Sets the player to the updated version
+					if(player != null && Client.this.newPlayer != null && player.getUsername().compareTo(Client.this.newPlayer.getUsername()) ==0){
+						Client.this.newPlayer = player;
+					}else if(player!=null && Client.this.newPlayer != null){
+						Client.this.newPlayer.setPlayerMap(player.getPlayerMap());
+					}
+					
 					if(hello != null){
 						if(hello.compareTo("") != 0 ){
 							//Global Chat
 							if(hello.contains("Global Chat:")){
-								Client.this.gameTextArea.append(hello);
+								Client.this.gameTextArea.append(hello + "\n");
 							//Tell command
 							}else if(hello.contains("Tell:")){
 								String[] username = hello.split("\\s+");
 								if(hello.contains(Client.this.newPlayer.getUsername())){
-									Client.this.gameTextArea.append(hello);
+									Client.this.gameTextArea.append(hello + "\n");
 								}
 							//Say command
 							}else if(hello.contains("Room Chat:")){
@@ -315,12 +343,10 @@ public class Client extends JFrame{
 									if(playerGettingUserName.compareTo(player2.getUsername()) == 0){
 										Client.this.gameTextArea.append("Deal was rejected ");
 										Client.this.gameTextArea.append(TEXT_BREAK);
-
 									}
 									else if(playerTakingFromUserName.compareTo(player2.getUsername()) == 0){
 										Client.this.gameTextArea.append("Deal was rejected ");
 										Client.this.gameTextArea.append(TEXT_BREAK);
-	;
 									}
 								}
 							}else if(hello.contains("YES")){
@@ -341,11 +367,6 @@ public class Client extends JFrame{
 										break;
 									}
 								}
-//								oos.writeObject("");
-//								oos.writeObject(new char [0]);
-//								oos.writeObject(sendingBack);
-//								oos.writeObject(null);
-//								oos.reset();
 								sendObjects("",new char[0], sendingBack, null);
 								
 							}else if(hello.contains("Take")){
@@ -363,31 +384,15 @@ public class Client extends JFrame{
 								if(Client.this.newPlayer.getUsername().compareTo(toTakeFromUserName)==0){
 									int reply = JOptionPane.showConfirmDialog(null, askingToTakeUserName + " would like to take " + itemName, "Take Request", JOptionPane.YES_NO_OPTION);
 									if(reply == JOptionPane.YES_OPTION){
-//									try {
-//										oos.writeObject("");
-//										oos.writeObject(new char[0]);
-//										oos.writeObject(Client.this.newPlayer);
 										String [] tradeYes = {"trade", "Accepted", take[1], askingToTakeUserName};
-//										oos.writeObject(tradeYes);
-//										oos.reset();
 										sendObjects("",new char[0], Client.this.newPlayer, tradeYes);
-//									} catch (IOException e1) {
-//										e1.printStackTrace();
-//									}
-								}
-									if(reply == JOptionPane.NO_OPTION){
-									
-//											oos.writeObject("");
-//											oos.writeObject(new char[0]);
-//											oos.writeObject(Client.this.newPlayer);
-											String [] tradeNo = {"trade", "Rejected", take[1], askingToTakeUserName};
-//											oos.writeObject(tradeNo);
-//											oos.reset();
-											sendObjects("",new char[0], Client.this.newPlayer, tradeNo);
-										
 									}
-							}}
-							else if(hello.contains("Give")){
+									if(reply == JOptionPane.NO_OPTION){
+											String [] tradeNo = {"trade", "Rejected", take[1], askingToTakeUserName};
+											sendObjects("",new char[0], Client.this.newPlayer, tradeNo);
+									}
+								}
+							}else if(hello.contains("Give")){
 								String returned = hello.toLowerCase();
 								String[] take = returned.split("\\s+");
 								ArrayList<Player> playersInRoom = player.getRoom().getPlayersInRoom();
@@ -402,32 +407,15 @@ public class Client extends JFrame{
 								if(Client.this.newPlayer.getUsername().compareTo(ToGiveToUserName)==0){
 									int reply = JOptionPane.showConfirmDialog(null, toTakeFromUserName + " would like to give " + itemName, "Take Request", JOptionPane.YES_NO_OPTION);
 									if(reply == JOptionPane.YES_OPTION){
-//									try {
-//										oos.writeObject("");
-//										oos.writeObject(new char[0]);
-//										oos.writeObject(Client.this.newPlayer);
 										String [] tradeYes = {"giving", "Accepted", take[1], toTakeFromUserName};
-//										oos.writeObject(tradeYes);
 										sendObjects("",new char[0], Client.this.newPlayer, tradeYes);
-//										oos.reset();
-//									} catch (IOException e1) {
-//										e1.printStackTrace();
-//									}
-								}
-									if(reply == JOptionPane.NO_OPTION){
-//										try {
-//											oos.writeObject("");
-//											oos.writeObject(new char[0]);
-//											oos.writeObject(Client.this.newPlayer);
-											String [] tradeNo = {"giving", "Rejected", take[1], toTakeFromUserName};
-//											oos.writeObject(tradeNo);
-											sendObjects("",new char[0], Client.this.newPlayer, tradeNo);
-//											oos.reset();
-//										} catch (IOException e1) {
-//											e1.printStackTrace();
-//										}
 									}
-							}}else{
+									if(reply == JOptionPane.NO_OPTION){
+											String [] tradeNo = {"giving", "Rejected", take[1], toTakeFromUserName};
+											sendObjects("",new char[0], Client.this.newPlayer, tradeNo);
+									}
+								}
+							}else{
 								if(player != null && player.getUsername().compareTo(Client.this.newPlayer.getUsername()) ==0){
 										Client.this.gameTextArea.append(hello + "\n");
 										Client.this.gameTextArea.append(TEXT_BREAK);
@@ -448,8 +436,6 @@ public class Client extends JFrame{
 						if(player != null && player.getUsername().compareTo(Client.this.newPlayer.getUsername()) ==0){
 							Client.this.gameTextArea.append("Nothing much happens\n");
 							Client.this.gameTextArea.append(TEXT_BREAK);
-							//Resets descriptions value
-							playerTextArea.setText("");
 						}
 					}
 					//Auto updates the scrollpane to the last description
@@ -463,8 +449,8 @@ public class Client extends JFrame{
 				Client.this.cleanUpAndQuit("Got something from the server that wasn't a MUD...");
 			}
 		}
-
 	}
+	
 	private void cleanUpAndQuit(String message) {
 		JOptionPane.showMessageDialog(this, message);
 		try {
@@ -486,6 +472,10 @@ public class Client extends JFrame{
 			if(firstWord[0].compareTo("quit")== 0){
 				sendObjects("",new char[0], Client.this.newPlayer, firstWord);
 				cleanUpAndQuit("See ya next time!");
+			}else if(firstWord[0].compareTo("commands")==0 || 
+					firstWord[0].compareTo("help")==0){
+					Client.this.playerTextArea.setText("");
+					Client.this.gameTextArea.append(GAME_COMMANDS);
 			}else if(firstWord[0].compareTo("shutdown")==0 ||
 					firstWord[0].compareTo("say")==0 ||
 					firstWord[0].compareTo("ooc")==0 ||
@@ -494,13 +484,14 @@ public class Client extends JFrame{
 					firstWord[0].compareTo("give")==0 ||
 					firstWord[0].compareTo("take")==0 && itemsIsNotOnMap(firstWord[firstWord.length-1])){
 				String[] commandArray = command.split("\\s+");
-				
+				Client.this.playerTextArea.setText("");
 				if(firstWord[0].compareTo("who") == 0 ||commandArray.length  > 1){
 					sendObjects("",new char[0], Client.this.newPlayer, commandArray);
 				}
 			}else{
 				String commandInstruction = "command " + command;
 				String[] commandArray = commandInstruction.split("\\s+");
+				Client.this.playerTextArea.setText("");
 				sendObjects("",new char[0], Client.this.newPlayer, commandArray);
 			}
 		}
