@@ -9,16 +9,22 @@ import org.junit.Test;
 
 import model.items.AvadaKedvra;
 import model.items.BassilskFang;
+import model.items.Broomstick;
+import model.items.ButterBeer;
 import model.items.DependencyInjectionSword;
+import model.items.ElderWand;
 import model.items.Expelliarumus;
 import model.items.HermoinesHandbag;
+import model.items.Horcrux;
 import model.items.MaurdersMap;
+import model.items.PhoenixTears;
 import model.items.RegularWand;
 import model.items.RessurectionStone;
 import model.items.SectumSempra;
 import model.items.Spell;
 import model.items.SwordOfGryffindor;
 import model.map.Map;
+import model.mobs.Snape;
 import model.player.Player;
 import model.player.PlayerList;
 import model.room.GenericRoom;
@@ -40,6 +46,14 @@ public class PlayerTest {
 	private RegularWand regularWand = new RegularWand();
 	private BassilskFang bassilskFang = new BassilskFang();
 	private SwordOfGryffindor swordOfGryffindor = new SwordOfGryffindor();
+	private ButterBeer beer = new ButterBeer();
+	private Broomstick broomstick = new Broomstick();
+	private PhoenixTears phoenixTears = new PhoenixTears();
+	private ElderWand elderWand = new ElderWand();
+	private Horcrux horcrux = new Horcrux();
+	
+	//A mob to test talk
+	private Snape snape = new Snape();
 	
 	@Test
 	public void testPlayerGetters() throws NoSuchAlgorithmException, NoSuchProviderException {
@@ -114,6 +128,8 @@ public class PlayerTest {
 		assertEquals(3, current.getCurrentList().size());
 		current.newPlayer(player3);
 		assertEquals(3, current.getCurrentList().size());
+		assertEquals(player1, current.getPlayer(player1.getUsername()));
+		assertEquals(null, current.getPlayer("yoyoyo"));
 		
 		//Tests HP getter, decrease, and increase
 		assertEquals(100, player3.getHP(), .0001);
@@ -219,17 +235,34 @@ public class PlayerTest {
 		p.performAction("use blahh");
 		
 		//test using items in inventory
+		p.performAction("attack");
 		p.getInventory().add(ressurectionStone);
 		p.getInventory().add(maurdersMap);
 		p.getInventory().add(depSword);
 		p.getInventory().add(hermoinesHandbag);
+		p.getRoom().additemsInRoom(swordOfGryffindor);
+		p.getRoom().additemsInRoom(bassilskFang);
+		p.performAction("take sword of gryffindor");
+		p.performAction("take bassilsk fang");
 		p.performAction("use hermoines handbag");
 		p.performAction("use ressurection stone");
 		p.performAction("use maurders map");
 		p.performAction("use dependency injection sword");
 		p.performAction("attack");
+		p.performAction("drop dependency injection sword");
+		p.performAction("take butterbeer");
+		p.getRoom().additemsInRoom(horcrux);
+		p.performAction("look horcrux");
+		p.getRoom().additemsInRoom(phoenixTears);
+		p.performAction("take horcrux");
+		p.performAction("take phoenix tears");
 		
-		//test quit and shutdown
+		//test talk, quit, and shutdown
+		p.performAction("talk yo yo yo");
+		p.getRoom().setMobsInRoom(snape);
+		p.performAction("look snape");
+		p.performAction("talk snape");
+		p.performAction("talk lupin");
 		p.performAction("quit");
 		p.performAction("shutdown");
 	}
