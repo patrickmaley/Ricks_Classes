@@ -74,9 +74,10 @@ public class Server {
 			
 			ois.close();
 			fis.close();
-			
+			System.out.println("Using an old savedServer File");
 		} catch (Exception exception) {
-			exception.printStackTrace();
+			System.out.println("Creating a new savedServer File");
+			//exception.printStackTrace();
 		}
 		
 		if(Server.serverMap == null){
@@ -424,39 +425,16 @@ class ClientHandler extends Thread {
 						}
 					//If not in hashmap, create a new player
 					}else{
-						JTextField gameName = new JTextField();
-						JTextField houseName = new JTextField();
-						JTextArea characterDescription = new JTextArea();
-						characterDescription.setPreferredSize(new Dimension(100, 150));
-						characterDescription.setLineWrap(true);
-						characterDescription.setWrapStyleWord(true);
-						final JComponent[] inputs = new JComponent[] {
-								new JLabel("Please enter your game name:"),
-								gameName,
-								new JLabel("Please enter your house name"),
-								houseName,
-								new JLabel("Please enter your character description"),
-								characterDescription
-						};
 						
-						JOptionPane optionPane = new JOptionPane(inputs);
-						
-						JDialog dialog = optionPane.createDialog("Character Information");
-						
-						dialog.setAlwaysOnTop(true);
-						dialog.setModal(true);
-						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-						dialog.setVisible(true);
 						try {
 							player = new Player(name, pass);
 						} catch (NoSuchAlgorithmException | NoSuchProviderException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						player.setGameName(gameName.getText());
+						
 						player.setPlayerMap(Server.getServerMap());
-						player.setHouse(houseName.getText());
-						player.setDescription(characterDescription.getText());
+					
 						player.setCurrentRoom(Server.getServerMap().getMapArray()[9][0]);
 						player.getRoom().setPlayerPresent(true, player);
 						Server.addPlayer(player);
@@ -492,7 +470,6 @@ class ClientHandler extends Thread {
 					client.writeObject(s);
 					client.flush();
 					client.reset();
-					
 				} catch (IOException e) {
 					/*
 					 * If we can't write to the client, their socket was closed.
